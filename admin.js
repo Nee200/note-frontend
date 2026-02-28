@@ -317,5 +317,95 @@ async function deleteProduct(id) {
     }
 }
 
+// ---- ADD NEW PRODUCT ----
+function openAddModal() {
+    // Clear all fields
+    ['add-id', 'add-name', 'add-inspired', 'add-description', 'add-image1', 'add-image2',
+        'add-note-head', 'add-note-heart', 'add-note-base',
+        'add-price-30', 'add-orig-30', 'add-price-50', 'add-orig-50'].forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) el.value = '';
+        });
+    document.getElementById('add-category').value = 'women';
+    var statusEl = document.getElementById('add-status');
+    if (statusEl) statusEl.style.display = 'none';
+    document.getElementById('addModal').classList.add('open');
+}
+
+function closeAddModal() {
+    document.getElementById('addModal').classList.remove('open');
+}
+
+async function saveNewProduct() {
+    var statusEl = document.getElementById('add-status');
+    statusEl.style.display = 'none';
+
+    var id = document.getElementById('add-id').value.trim().toUpperCase();
+    var name = document.getElementById('add-name').value.trim();
+    var price30 = document.getElementById('add-price-30').value;
+    var price50 = document.getElementById('add-price-50').value;
+
+    // Validation
+    if (!id) { showAddStatus('Produkt-ID ist Pflicht!', 'red'); return; }
+    if (!name) { showAddStatus('Name ist Pflicht!', 'red'); return; }
+    if (!price30 && !price50) { showAddStatus('Mindestens ein Preis muss angegeben werden!', 'red'); return; }
+    if (allProducts.find(function (p) { return p.id.toUpperCase() === id; })) {
+        showAddStatus('ID "' + id + '" existiert bereits! Bitte eine andere waehlen.', 'red');
+        return;
+    }
+
+    var images = [];
+    var img1 = document.getElementById('add-image1').value.trim();
+    var img2 = document.getElementById('add-image2').value.trim();
+    if (img1) images.push(img1);
+    if (img2) images.push(img2);
+
+    var body = {
+        id: id,
+        name: name,
+        category: document.getElementById('add-category').value,
+        inspiredBy: document.getElementById('add-inspired').value.trim(),
+        description: document.getElementById('add-description').value.trim(),
+        images: images,
+        notes: {
+            head: document.getElementById('add-note-head').value.trim(),
+            heart: document.getElementById('add-note-heart').value.trim(),
+            base: document.getElementById('add-note-base').value.trim()
+        },
+        variants: {
+            30: price30 ? { price: parseFloat(price30), originalPrice: parseFloat(document.getElementById('add-orig-30').value) || null } : undefined,
+            50: price50 ? { price: parseFloat(price50), originalPrice: parseFloat(document.getElementById('add-orig-50').value) || null } : undefined
+        }
+    };
+
+    showAddStatus('Wird angelegt...', '#888');
+    try {
+        var res = await fetch(API_BASE_URL + '/api/admin/products', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+        if (res.ok) {
+            var data = await res.json();
+            showAddStatus('Parfum "' + name + '" erfolgreich angelegt!', '#27ae60');
+            allProducts.unshift(data.product); // Add to top of list
+            filterAdminProducts();
+            setTimeout(function () { closeAddModal(); }, 1500);
+        } else {
+            var err = await res.json();
+            showAddStatus('Fehler: ' + (err.error || 'Unbekannt'), 'red');
+        }
+    } catch (e) {
+        showAddStatus('Verbindungsfehler!', 'red');
+    }
+}
+
+function showAddStatus(msg, color) {
+    var el = document.getElementById('add-status');
+    el.textContent = msg;
+    el.style.color = color;
+    el.style.display = 'block';
+}
+
 // Initial auth check
 checkAuth();
