@@ -90,8 +90,14 @@ function switchTab(tab) {
 }
 
 function logout() {
-    adminFetch('/api/admin/logout', { method: 'POST' }).then(() => {
-        window.location.reload();
+    // Also delete the cookie client-side as a fallback
+    document.cookie = 'api_admin_auth=; Max-Age=0; path=/; SameSite=None; Secure';
+    adminFetch('/api/admin/logout', { method: 'POST' }).finally(function () {
+        document.getElementById('dashboard').style.display = 'none';
+        document.getElementById('login-screen').style.display = 'flex';
+        document.getElementById('admin-pw').value = '';
+        var errEl = document.getElementById('login-err');
+        if (errEl) errEl.style.display = 'none';
     });
 }
 
