@@ -2759,8 +2759,7 @@ select:focus {
 
 .accordion-header {
     width: 100%;
-    padding: 1.2rem 1rem;
-    0;
+    padding: 1.2rem 1rem 0;
     background: none;
     border: none;
     display: flex;
@@ -3338,4 +3337,64 @@ select:focus {
     .cart-sidebar {
         overscroll-behavior-y: contain;
         -webkit-overflow-scrolling: touch;
+    }
+
+    /* ==== MOBILE FIXES (IPHONE/SMALL SCREENS) ==== */
+    @media (max-width: 480px) {
+
+        /* Top Banner overlapping fix */
+        .top-banner {
+            white-space: normal;
+            /* allow wrapping on mobile if needed */
+            text-align: center;
+        }
+
+        .top-banner-track {
+            gap: 1.5rem;
+        }
+
+        .top-banner-item {
+            font-size: 0.65rem;
+        }
+
+        /* Benefits List overlap fix */
+        .benefits-list {
+            flex-wrap: wrap !important;
+            justify-content: center !important;
+            gap: 1.5rem !important;
+        }
+
+        .benefits-list li {
+            width: 45%;
+            /* Two items per row to prevent squeezing */
+        }
+
+        /* Option Button Badge */
+        .option-btn .badge {
+            right: 0px;
+            top: -12px;
+            font-size: 0.55rem;
+        }
+
+        /* Nav Icons spacing */
+        .nav-icons {
+            gap: 0.8rem !important;
+        }
+
+        /* Cart Sidebar Padding for Upsell Items */
+        .cart-upsell-item {
+            padding-right: 0.5rem;
+            /* Ensure 'Hinzufügen' is not cut off */
+        }
+
+        .btn-upsell-add {
+            padding: 4px 6px;
+            font-size: 0.7rem;
+        }
+
+        /* General Container Adjustments */
+        .container {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
     }
