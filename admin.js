@@ -67,7 +67,7 @@ function renderProductTable(productsToRender = allProducts) {
     const tbody = document.getElementById('admin-product-list');
     tbody.innerHTML = productsToRender.map(p => `
         <tr>
-            <td><img src="${p.images[0]}" alt="${p.id}" style="width: 40px; height: 40px; border-radius: 4px; object-fit: cover;"></td>
+            <td><img src="${(p.images && p.images.length > 0) ? p.images[0] : 'logo.png'}" alt="${p.id}" onerror="this.src='logo.png'" style="width: 40px; height: 40px; border-radius: 4px; object-fit: cover;"></td>
             <td style="font-weight: 500;">${p.id}</td>
             <td>${p.name} <br><span style="font-size: 0.8rem; color: #888;">${p.inspiredBy || ''}</span></td>
             <td><span class="status-badge success">${p.category}</span></td>
@@ -82,9 +82,10 @@ function renderProductTable(productsToRender = allProducts) {
 function filterAdminProducts() {
     const term = document.getElementById('admin-search').value.toLowerCase();
     const filtered = allProducts.filter(p => {
-        return (p.name && p.name.toLowerCase().includes(term)) ||
-            (p.id && p.id.toLowerCase().includes(term)) ||
-            (p.inspiredBy && p.inspiredBy.toLowerCase().includes(term));
+        const nameMatch = p.name ? String(p.name).toLowerCase().includes(term) : false;
+        const idMatch = p.id ? String(p.id).toLowerCase().includes(term) : false;
+        const inspiredMatch = p.inspiredBy ? String(p.inspiredBy).toLowerCase().includes(term) : false;
+        return nameMatch || idMatch || inspiredMatch;
     });
     renderProductTable(filtered);
 }
