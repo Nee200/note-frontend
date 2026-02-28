@@ -37,15 +37,87 @@ async function checkAuth() {
     }
 }
 
+
+var ordersLoaded = false;
 function switchTab(tab) {
     document.getElementById('tab-products').style.display = tab === 'products' ? 'block' : 'none';
     document.getElementById('tab-orders').style.display = tab === 'orders' ? 'block' : 'none';
+    if (tab === 'orders' && !ordersLoaded) loadOrders();
 }
 
 function logout() {
     fetch(API_BASE_URL + '/api/admin/logout', { method: 'POST' }).then(() => {
         window.location.reload();
     });
+}
+
+async function loadOrders() {
+    var tbody = document.getElementById('admin-order-list');
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#888;padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Wird geladen...</td></tr>';
+    try {
+        var res = await fetch(API_BASE_URL + '/api/admin/orders');
+        if (res.ok) {
+            var data = await res.json();
+            ordersLoaded = true;
+            renderOrders(data.orders);
+        } else {
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:red;padding:2rem;">Fehler beim Laden</td></tr>';
+        }
+    } catch (e) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:red;padding:2rem;">Verbindungsfehler</td></tr>';
+    }
+}
+
+function renderOrders(orders) {
+    var tbody = document.getElementById('admin-order-list');
+    var countEl = document.getElementById('order-count');
+    if (countEl) countEl.textContent = orders.length + ' Bestellungen';
+
+    if (!orders.length) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#888;padding:2rem;">Noch keine Bestellungen vorhanden</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = orders.map(function (o) {
+        var date = new Date(o.date).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+        var amount = o.amount ? (o.amount / 100).toFixed(2) + ' EUR' : '-';
+
+        // Address block
+        var addr = '-';
+        if (o.address) {
+            var a = o.address;
+            var parts = [];
+            if (a.name) parts.push('<strong>' + a.name + '</strong>');
+            if (a.line1) parts.push(a.line1);
+            if (a.line2) parts.push(a.line2);
+            var cityLine = [a.postal_code, a.city].filter(Boolean).join(' ');
+            if (cityLine) parts.push(cityLine);
+            if (a.country) parts.push(a.country);
+            // Also support our own address format (street, zip, city)
+            if (!parts.length) {
+                if (a.street) parts.push(a.street);
+                if (a.zip || a.city) parts.push([a.zip, a.city].filter(Boolean).join(' '));
+                if (a.country) parts.push(a.country);
+            }
+            addr = parts.join('<br>');
+        }
+
+        // Items list
+        var items = '-';
+        if (o.items && o.items.length) {
+            items = o.items.map(function (item) {
+                return (item.quantity > 1 ? item.quantity + 'x ' : '') + (item.description || '');
+            }).join('<br>');
+        }
+
+        return '<tr>' +
+            '<td style="white-space:nowrap;font-size:0.85rem;">' + date + '</td>' +
+            '<td><strong>' + (o.name || '-') + '</strong><br><span style="font-size:0.8rem;color:#888;">' + (o.email || '') + '</span></td>' +
+            '<td style="font-size:0.82rem;line-height:1.5;">' + addr + '</td>' +
+            '<td style="font-size:0.82rem;line-height:1.6;">' + items + '</td>' +
+            '<td style="font-weight:600;white-space:nowrap;">' + amount + '</td>' +
+            '</tr>';
+    }).join('');
 }
 
 async function loadProducts() {

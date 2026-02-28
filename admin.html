@@ -382,22 +382,26 @@
             <!-- Orders Tab -->
             <div id="tab-orders" style="display: none;">
                 <div class="header">
-                    <h2>Letzte Bestellungen</h2>
+                    <h2>Bestellungen</h2>
+                    <span id="order-count" style="font-size:0.85rem;color:#888;"></span>
+                    <button class="btn" style="width:auto;" onclick="loadOrders()"><i class="fas fa-sync-alt"></i>
+                        Aktualisieren</button>
                 </div>
-                <div class="card">
-                    <table>
+                <div class="card" style="overflow-x:auto;">
+                    <table style="min-width:900px;">
                         <thead>
                             <tr>
                                 <th>Datum</th>
                                 <th>Kunde</th>
+                                <th>Lieferadresse</th>
+                                <th>Artikel</th>
                                 <th>Betrag</th>
-                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody id="admin-order-list">
-                            <!-- JS fills -->
                             <tr>
-                                <td colspan="4">Noch keine Bestellungen</td>
+                                <td colspan="5" style="text-align:center;color:#888;padding:2rem;">Bestellungen werden
+                                    geladen...</td>
                             </tr>
                         </tbody>
                     </table>
