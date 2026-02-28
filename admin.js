@@ -339,9 +339,20 @@ function suggestNextId(category) {
     return best.prefix ? best.prefix + (best.num + 1) : '';
 }
 
+// Find the default image for a category by borrowing from an existing product
+function suggestDefaultImage(category) {
+    var catProducts = allProducts.filter(function (p) {
+        return p.category === category && p.images && p.images.length > 0;
+    });
+    if (!catProducts.length) return '';
+    // Use image from a middle product so it looks like a representative default
+    var mid = Math.floor(catProducts.length / 2);
+    return catProducts[mid].images[0];
+}
+
 function openAddModal() {
     // Clear all fields
-    ['add-id', 'add-name', 'add-inspired', 'add-description', 'add-image1', 'add-image2',
+    ['add-id', 'add-name', 'add-inspired', 'add-description', 'add-image2',
         'add-note-head', 'add-note-heart', 'add-note-base',
         'add-price-30', 'add-orig-30', 'add-price-50', 'add-orig-50'].forEach(function (id) {
             var el = document.getElementById(id);
@@ -351,30 +362,41 @@ function openAddModal() {
     var statusEl = document.getElementById('add-status');
     if (statusEl) statusEl.style.display = 'none';
 
-    // Auto-suggest next ID for default category
+    // Auto-suggest next ID and default image for default category
     var suggested = suggestNextId('women');
     var idField = document.getElementById('add-id');
     if (idField && suggested) idField.value = suggested;
 
+    var img1Field = document.getElementById('add-image1');
+    if (img1Field) img1Field.value = suggestDefaultImage('women');
+
     document.getElementById('addModal').classList.add('open');
 }
 
-// Called when category dropdown changes – only updates ID if it still matches a suggestion
+// Called when category dropdown changes
 function onAddCategoryChange() {
     var category = document.getElementById('add-category').value;
     var idField = document.getElementById('add-id');
     var currentVal = idField.value.trim();
 
-    // Only overwrite if the field is empty OR still holds an auto-suggested value
-    // (i.e. it matches the pattern ^[A-Z]+\d+$ and belongs to one of the categories)
+    // Only overwrite ID if it is still an auto-suggested value
     var isAutoSuggested = /^[A-Z]+\d+$/.test(currentVal) &&
         ['men', 'women', 'unisex'].some(function (cat) {
             return suggestNextId(cat) === currentVal;
         });
-
     if (!currentVal || isAutoSuggested) {
         var suggested = suggestNextId(category);
         if (suggested) idField.value = suggested;
+    }
+
+    // Always update image1 if it still holds the previously auto-suggested image
+    var img1Field = document.getElementById('add-image1');
+    var currentImg = img1Field.value.trim();
+    var wasAutoImg = ['men', 'women', 'unisex'].some(function (cat) {
+        return suggestDefaultImage(cat) === currentImg;
+    });
+    if (!currentImg || wasAutoImg) {
+        img1Field.value = suggestDefaultImage(category);
     }
 }
 
