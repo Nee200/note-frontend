@@ -122,10 +122,32 @@ function updateBulkPanel() {
     var panel = document.getElementById('bulk-panel');
     var label = document.getElementById('bulk-count-label');
     var statusEl = document.getElementById('bulk-status');
+    var chipsEl = document.getElementById('bulk-chips');
     if (statusEl) statusEl.style.display = 'none';
+
     if (selectedIds.size > 0) {
         panel.style.display = 'block';
         label.textContent = selectedIds.size + ' ausgewaehlt';
+
+        // Show ID chips if 10 or fewer selected
+        if (chipsEl) {
+            var ids = Array.from(selectedIds);
+            if (ids.length <= 10) {
+                chipsEl.innerHTML = ids.map(function (id) {
+                    return '<span style="' +
+                        'display:inline-flex;align-items:center;gap:4px;' +
+                        'background:#f0f4ff;color:#1a73e8;border:1px solid #c5d8fb;' +
+                        'border-radius:20px;padding:2px 10px 2px 10px;font-size:0.78rem;font-weight:600;' +
+                        '">' + id +
+                        '<span onclick="deselectId(\'' + id + '\')" style="cursor:pointer;font-size:0.9rem;color:#888;margin-left:2px;" title="Entfernen">&times;</span>' +
+                        '</span>';
+                }).join(' ');
+                chipsEl.style.display = 'flex';
+            } else {
+                chipsEl.innerHTML = '';
+                chipsEl.style.display = 'none';
+            }
+        }
     } else {
         panel.style.display = 'none';
     }
@@ -133,6 +155,14 @@ function updateBulkPanel() {
 
 function getSelectedIds() {
     return Array.from(selectedIds);
+}
+
+function deselectId(id) {
+    selectedIds.delete(id);
+    // Also uncheck the visible checkbox if present
+    var cb = document.querySelector('.product-cb[data-id="' + id + '"]');
+    if (cb) cb.checked = false;
+    updateBulkPanel();
 }
 
 function selectAll(checked) {
