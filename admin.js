@@ -77,9 +77,10 @@ function renderProductTable(productsToRender) {
             '<td>' + (p.name || '') + '<br><span style="font-size:0.8rem;color:#888;">' + (p.inspiredBy || '') + '</span></td>' +
             '<td><span class="status-badge success">' + (p.category || '') + '</span></td>' +
             '<td>' + price50 + '</td>' +
-            '<td>' +
-            '<button class="btn" style="padding:0.3rem 0.8rem;font-size:0.8rem;margin-right:5px;" onclick="editProduct(\'' + p.id + '\')">Bearbeiten</button>' +
-            '<button class="btn" style="padding:0.3rem 0.8rem;font-size:0.8rem;background:#e74c3c;" onclick="deleteProduct(\'' + p.id + '\')">Loeschen</button>' +
+            '<td style="white-space:nowrap;">' +
+            '<button class="btn-edit" onclick="editProduct(\'' + p.id + '\')"><i class="fas fa-pen"></i> Bearbeiten</button>' +
+            ' ' +
+            '<button class="btn-delete" onclick="deleteProduct(\'' + p.id + '\')"><i class="fas fa-trash"></i> Loeschen</button>' +
             '</td></tr>';
     }).join('');
 }
