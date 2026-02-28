@@ -470,7 +470,7 @@ function renderProductDetail(id) {
     // Größenauswahl (Buttons in existierende Gruppe rendern)
     const optionGroup = document.querySelector('.option-group');
     if (optionGroup) {
-        const sizes = [30, 50, 100];
+        const sizes = [30, 50];
         optionGroup.innerHTML = sizes.map(size => `
             <button class="option-btn ${size === currentSelectedSize ? 'active' : ''} relative" 
                     onclick="changeSize('${product.id}', ${size})">
