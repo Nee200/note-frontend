@@ -1,5 +1,6 @@
 const API_BASE_URL = 'https://note-backend-5gy0.onrender.com';
 let allProducts = [];
+let editingProductId = null;
 
 async function login() {
     const pw = document.getElementById('admin-pw').value;
@@ -9,7 +10,6 @@ async function login() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ password: pw })
         });
-
         if (res.ok) {
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
@@ -25,19 +25,15 @@ async function login() {
 
 async function checkAuth() {
     try {
-        const res = await fetch(API_BASE_URL + '/api/admin/check', { ...getFetchConfig() });
+        const res = await fetch(API_BASE_URL + '/api/admin/check');
         if (res.ok) {
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
             loadProducts();
         }
     } catch (e) {
-        // Not authorized, show login
+        // Not authorized
     }
-}
-
-function getFetchConfig() {
-    return { credentials: 'omit' }; // To be updated if using cookies
 }
 
 function switchTab(tab) {
@@ -57,84 +53,142 @@ async function loadProducts() {
         if (res.ok) {
             allProducts = await res.json();
             renderProductTable();
+            const countEl = document.getElementById('search-count');
+            if (countEl) countEl.textContent = allProducts.length + ' Produkte';
         }
     } catch (e) {
         console.error('Fehler beim Laden', e);
     }
 }
 
-function renderProductTable(productsToRender = allProducts) {
+function renderProductTable(productsToRender) {
+    if (!productsToRender) productsToRender = allProducts;
     const tbody = document.getElementById('admin-product-list');
-    tbody.innerHTML = productsToRender.map(p => `
-        <tr>
-            <td><img src="${(p.images && p.images.length > 0) ? p.images[0] : 'logo.png'}" alt="${p.id}" onerror="this.src='logo.png'" style="width: 40px; height: 40px; border-radius: 4px; object-fit: cover;"></td>
-            <td style="font-weight: 500;">${p.id}</td>
-            <td>${p.name} <br><span style="font-size: 0.8rem; color: #888;">${p.inspiredBy || ''}</span></td>
-            <td><span class="status-badge success">${p.category}</span></td>
-            <td>
-                <button class="btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem; margin-right: 5px;">Bearbeiten</button>
-                <button class="btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem; background: #e74c3c;" onclick="deleteProduct('${p.id}')">Löschen</button>
-            </td>
-        </tr>
-    `).join('');
+    if (!productsToRender.length) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#888;padding:2rem;">Keine Treffer gefunden</td></tr>';
+        return;
+    }
+    tbody.innerHTML = productsToRender.map(function (p) {
+        var imgSrc = (p.images && p.images.length > 0) ? p.images[0] : 'logo.png';
+        var price50 = (p.variants && p.variants['50']) ? p.variants['50'].price.toFixed(2) + ' EUR' : '-';
+        return '<tr>' +
+            '<td><img src="' + imgSrc + '" onerror="this.src=\'logo.png\'" style="width:40px;height:40px;border-radius:4px;object-fit:cover;"></td>' +
+            '<td style="font-weight:500;">' + p.id + '</td>' +
+            '<td>' + (p.name || '') + '<br><span style="font-size:0.8rem;color:#888;">' + (p.inspiredBy || '') + '</span></td>' +
+            '<td><span class="status-badge success">' + (p.category || '') + '</span></td>' +
+            '<td>' + price50 + '</td>' +
+            '<td>' +
+            '<button class="btn" style="padding:0.3rem 0.8rem;font-size:0.8rem;margin-right:5px;" onclick="editProduct(\'' + p.id + '\')">Bearbeiten</button>' +
+            '<button class="btn" style="padding:0.3rem 0.8rem;font-size:0.8rem;background:#e74c3c;" onclick="deleteProduct(\'' + p.id + '\')">Loeschen</button>' +
+            '</td></tr>';
+    }).join('');
 }
 
 function filterAdminProducts() {
     const term = document.getElementById('admin-search').value.toLowerCase().trim();
-    const filtered = !term ? allProducts : allProducts.filter(p => {
-        const nameMatch = p.name ? String(p.name).toLowerCase().includes(term) : false;
-        const idMatch = p.id ? String(p.id).toLowerCase().includes(term) : false;
-        const inspiredMatch = p.inspiredBy ? String(p.inspiredBy).toLowerCase().includes(term) : false;
+    const filtered = !term ? allProducts : allProducts.filter(function (p) {
+        var nameMatch = p.name ? String(p.name).toLowerCase().includes(term) : false;
+        var idMatch = p.id ? String(p.id).toLowerCase().includes(term) : false;
+        var inspiredMatch = p.inspiredBy ? String(p.inspiredBy).toLowerCase().includes(term) : false;
         return nameMatch || idMatch || inspiredMatch;
     });
-
     renderProductTable(filtered);
-
     const countEl = document.getElementById('search-count');
     if (countEl) {
-        countEl.textContent = term ? `${filtered.length} von ${allProducts.length} Treffern` : `${allProducts.length} Produkte`;
+        countEl.textContent = term ? (filtered.length + ' von ' + allProducts.length + ' Treffern') : (allProducts.length + ' Produkte');
     }
 }
 
-function openAddModal() {
-    document.getElementById('productFormModal').style.display = 'flex';
+// ---- EDIT ----
+function editProduct(id) {
+    const p = allProducts.find(function (x) { return x.id === id; });
+    if (!p) return;
+
+    editingProductId = id;
+    document.getElementById('edit-modal-id').textContent = id;
+    document.getElementById('edit-name').value = p.name || '';
+    document.getElementById('edit-inspired').value = p.inspiredBy || '';
+    document.getElementById('edit-description').value = p.description || '';
+    document.getElementById('edit-category').value = p.category || 'women';
+    document.getElementById('edit-price-30').value = (p.variants && p.variants['30']) ? p.variants['30'].price : '';
+    document.getElementById('edit-orig-30').value = (p.variants && p.variants['30'] && p.variants['30'].originalPrice) ? p.variants['30'].originalPrice : '';
+    document.getElementById('edit-price-50').value = (p.variants && p.variants['50']) ? p.variants['50'].price : '';
+    document.getElementById('edit-orig-50').value = (p.variants && p.variants['50'] && p.variants['50'].originalPrice) ? p.variants['50'].originalPrice : '';
+
+    var statusEl = document.getElementById('edit-status');
+    if (statusEl) statusEl.style.display = 'none';
+
+    document.getElementById('editModal').classList.add('open');
 }
 
-function closeModal() {
-    document.getElementById('productFormModal').style.display = 'none';
+function closeEditModal() {
+    document.getElementById('editModal').classList.remove('open');
+    editingProductId = null;
 }
 
-function saveProduct() {
-    alert('Datenbank-Speicherung kommt im nächsten Update!');
-    closeModal();
-}
+async function saveEdit() {
+    if (!editingProductId) return;
+    const statusEl = document.getElementById('edit-status');
 
-async function deleteProduct(id) {
-    if (!confirm('Bist du sicher, dass du das Produkt ' + id + ' dauerhaft aus der Datenbank löschen möchtest?')) {
-        return;
-    }
+    const body = {
+        name: document.getElementById('edit-name').value,
+        inspiredBy: document.getElementById('edit-inspired').value,
+        description: document.getElementById('edit-description').value,
+        category: document.getElementById('edit-category').value,
+        price30: document.getElementById('edit-price-30').value,
+        originalPrice30: document.getElementById('edit-orig-30').value,
+        price50: document.getElementById('edit-price-50').value,
+        originalPrice50: document.getElementById('edit-orig-50').value,
+    };
 
     try {
-        const res = await fetch(API_BASE_URL + '/api/admin/products/' + id, {
-            method: 'DELETE',
-            ...getFetchConfig()
+        const res = await fetch(API_BASE_URL + '/api/admin/products/' + editingProductId, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
         });
 
         if (res.ok) {
-            // Remove from local array
-            allProducts = allProducts.filter(p => p.id !== id);
-            // Re-render table keeping search filter if active
-            filterAdminProducts();
-            alert('Produkt ' + id + ' wurde erfolgreich gelöscht.');
-        } else {
             const data = await res.json();
-            alert('Fehler beim Löschen: ' + (data.error || 'Unbekannter Fehler'));
+            // Update local cache
+            var idx = allProducts.findIndex(function (p) { return p.id === editingProductId; });
+            if (idx !== -1) allProducts[idx] = data.product;
+            filterAdminProducts();
+            statusEl.textContent = 'Gespeichert!';
+            statusEl.style.color = 'green';
+            statusEl.style.display = 'block';
+            setTimeout(function () { closeEditModal(); }, 1000);
+        } else {
+            const err = await res.json();
+            statusEl.textContent = 'Fehler: ' + (err.error || 'Unbekannt');
+            statusEl.style.color = 'red';
+            statusEl.style.display = 'block';
         }
     } catch (e) {
-        console.error('Lösch-Fehler:', e);
-        alert('Ein Fehler ist aufgetreten. Server erreichbar?');
+        console.error('Speicher-Fehler:', e);
+        statusEl.textContent = 'Verbindungsfehler!';
+        statusEl.style.color = 'red';
+        statusEl.style.display = 'block';
     }
 }
 
-// Initial check when page loads
+// ---- DELETE ----
+async function deleteProduct(id) {
+    if (!confirm('Bist du sicher, dass du Produkt ' + id + ' dauerhaft loeschen moechtest?')) return;
+    try {
+        const res = await fetch(API_BASE_URL + '/api/admin/products/' + id, { method: 'DELETE' });
+        if (res.ok) {
+            allProducts = allProducts.filter(function (p) { return p.id !== id; });
+            filterAdminProducts();
+            alert('Produkt ' + id + ' wurde geloescht.');
+        } else {
+            const data = await res.json();
+            alert('Fehler: ' + (data.error || 'Unbekannter Fehler'));
+        }
+    } catch (e) {
+        alert('Verbindungsfehler!');
+    }
+}
+
+// Initial auth check
 checkAuth();
