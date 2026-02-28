@@ -80,14 +80,20 @@ function renderProductTable(productsToRender = allProducts) {
 }
 
 function filterAdminProducts() {
-    const term = document.getElementById('admin-search').value.toLowerCase();
-    const filtered = allProducts.filter(p => {
+    const term = document.getElementById('admin-search').value.toLowerCase().trim();
+    const filtered = !term ? allProducts : allProducts.filter(p => {
         const nameMatch = p.name ? String(p.name).toLowerCase().includes(term) : false;
         const idMatch = p.id ? String(p.id).toLowerCase().includes(term) : false;
         const inspiredMatch = p.inspiredBy ? String(p.inspiredBy).toLowerCase().includes(term) : false;
         return nameMatch || idMatch || inspiredMatch;
     });
+
     renderProductTable(filtered);
+
+    const countEl = document.getElementById('search-count');
+    if (countEl) {
+        countEl.textContent = term ? `${filtered.length} von ${allProducts.length} Treffern` : `${allProducts.length} Produkte`;
+    }
 }
 
 function openAddModal() {
