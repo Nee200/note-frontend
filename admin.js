@@ -318,6 +318,27 @@ async function deleteProduct(id) {
 }
 
 // ---- ADD NEW PRODUCT ----
+
+// Figure out the next free ID for a given category
+// e.g. men → finds highest G-number → returns G261
+function suggestNextId(category) {
+    var catProducts = allProducts.filter(function (p) { return p.category === category; });
+    if (!catProducts.length) return '';
+
+    var best = { prefix: '', num: 0 };
+    catProducts.forEach(function (p) {
+        var match = p.id.match(/^([A-Za-z]+)(\d+)$/);
+        if (match) {
+            var num = parseInt(match[2], 10);
+            if (num > best.num) {
+                best = { prefix: match[1].toUpperCase(), num: num };
+            }
+        }
+    });
+
+    return best.prefix ? best.prefix + (best.num + 1) : '';
+}
+
 function openAddModal() {
     // Clear all fields
     ['add-id', 'add-name', 'add-inspired', 'add-description', 'add-image1', 'add-image2',
@@ -329,7 +350,32 @@ function openAddModal() {
     document.getElementById('add-category').value = 'women';
     var statusEl = document.getElementById('add-status');
     if (statusEl) statusEl.style.display = 'none';
+
+    // Auto-suggest next ID for default category
+    var suggested = suggestNextId('women');
+    var idField = document.getElementById('add-id');
+    if (idField && suggested) idField.value = suggested;
+
     document.getElementById('addModal').classList.add('open');
+}
+
+// Called when category dropdown changes – only updates ID if it still matches a suggestion
+function onAddCategoryChange() {
+    var category = document.getElementById('add-category').value;
+    var idField = document.getElementById('add-id');
+    var currentVal = idField.value.trim();
+
+    // Only overwrite if the field is empty OR still holds an auto-suggested value
+    // (i.e. it matches the pattern ^[A-Z]+\d+$ and belongs to one of the categories)
+    var isAutoSuggested = /^[A-Z]+\d+$/.test(currentVal) &&
+        ['men', 'women', 'unisex'].some(function (cat) {
+            return suggestNextId(cat) === currentVal;
+        });
+
+    if (!currentVal || isAutoSuggested) {
+        var suggested = suggestNextId(category);
+        if (suggested) idField.value = suggested;
+    }
 }
 
 function closeAddModal() {
