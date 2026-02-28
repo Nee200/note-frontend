@@ -111,6 +111,7 @@ function getProductCardHTML(product) {
         <div class="product-card" onclick="window.location.href='product.html?id=${product.id}'">
             <div class="product-image-wrapper">
                 <img src="${(product.images && product.images.length > 0) ? product.images[0] : 'logo.png'}" 
+                     loading="lazy"
                      alt="${product.name}" 
                      class="product-grid-image product-img-${product.id}"
                      onerror="this.src='logo.png'">
