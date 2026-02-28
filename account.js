@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://note-backend-5gy0.onrender.com';
+// API_BASE_URL is inherited from script.js
 document.addEventListener('DOMContentLoaded', () => {
     checkLoginStatus();
 
