@@ -65,13 +65,14 @@ function renderProductTable(productsToRender) {
     if (!productsToRender) productsToRender = allProducts;
     const tbody = document.getElementById('admin-product-list');
     if (!productsToRender.length) {
-        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#888;padding:2rem;">Keine Treffer gefunden</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#888;padding:2rem;">Keine Treffer gefunden</td></tr>';
         return;
     }
     tbody.innerHTML = productsToRender.map(function (p) {
         var imgSrc = (p.images && p.images.length > 0) ? p.images[0] : 'logo.png';
         var price50 = (p.variants && p.variants['50']) ? p.variants['50'].price.toFixed(2) + ' EUR' : '-';
         return '<tr>' +
+            '<td><input type="checkbox" class="product-cb" data-id="' + p.id + '" onchange="onCheckboxChange()"></td>' +
             '<td><img src="' + imgSrc + '" onerror="this.src=\'logo.png\'" style="width:40px;height:40px;border-radius:4px;object-fit:cover;"></td>' +
             '<td style="font-weight:500;">' + p.id + '</td>' +
             '<td>' + (p.name || '') + '<br><span style="font-size:0.8rem;color:#888;">' + (p.inspiredBy || '') + '</span></td>' +
@@ -97,6 +98,81 @@ function filterAdminProducts() {
     const countEl = document.getElementById('search-count');
     if (countEl) {
         countEl.textContent = term ? (filtered.length + ' von ' + allProducts.length + ' Treffern') : (allProducts.length + ' Produkte');
+    }
+    onCheckboxChange(); // reset bulk panel
+}
+
+// ---- BULK SELECTION ----
+function getSelectedIds() {
+    var cbs = document.querySelectorAll('.product-cb:checked');
+    return Array.from(cbs).map(function (cb) { return cb.dataset.id; });
+}
+
+function onCheckboxChange() {
+    var selected = getSelectedIds();
+    var panel = document.getElementById('bulk-panel');
+    var label = document.getElementById('bulk-count-label');
+    var statusEl = document.getElementById('bulk-status');
+    if (statusEl) statusEl.style.display = 'none';
+    if (selected.length > 0) {
+        panel.style.display = 'block';
+        label.textContent = selected.length + ' ausgewaehlt';
+    } else {
+        panel.style.display = 'none';
+    }
+}
+
+function selectAll(checked) {
+    var cbs = document.querySelectorAll('.product-cb');
+    cbs.forEach(function (cb) { cb.checked = checked; });
+    var masterCb = document.getElementById('select-all-cb');
+    if (masterCb) masterCb.checked = checked;
+    onCheckboxChange();
+}
+
+async function applyBulkUpdate() {
+    var ids = getSelectedIds();
+    if (ids.length === 0) return;
+
+    var price30 = document.getElementById('bulk-price-30').value;
+    var price50 = document.getElementById('bulk-price-50').value;
+    var orig30 = document.getElementById('bulk-orig-30').value;
+    var orig50 = document.getElementById('bulk-orig-50').value;
+
+    if (price30 === '' && price50 === '' && orig30 === '' && orig50 === '') {
+        alert('Bitte mindestens ein Preisfeld ausfullen!');
+        return;
+    }
+
+    var confirmMsg = ids.length + ' Produkte werden geaendert. Bist du sicher?';
+    if (!confirm(confirmMsg)) return;
+
+    var statusEl = document.getElementById('bulk-status');
+    statusEl.style.display = 'inline';
+    statusEl.style.color = '#888';
+    statusEl.textContent = 'Wird gespeichert...';
+
+    try {
+        var res = await fetch(API_BASE_URL + '/api/admin/products-bulk', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ids: ids, price30: price30, price50: price50, originalPrice30: orig30, originalPrice50: orig50 })
+        });
+        if (res.ok) {
+            var data = await res.json();
+            statusEl.style.color = '#27ae60';
+            statusEl.textContent = data.updated + ' Produkte erfolgreich aktualisiert!';
+            // Reload products to reflect changes
+            await loadProducts();
+            selectAll(false);
+        } else {
+            var err = await res.json();
+            statusEl.style.color = '#e74c3c';
+            statusEl.textContent = 'Fehler: ' + (err.error || 'Unbekannt');
+        }
+    } catch (e) {
+        statusEl.style.color = '#e74c3c';
+        statusEl.textContent = 'Verbindungsfehler!';
     }
 }
 
