@@ -3124,3 +3124,12 @@ select:focus {
     .product-card {
         padding: 1rem 0.5rem; /* Less padding */
     }
+
+/* ==== SCROLL LOCK ==== */
+body.no-scroll {
+    overflow: hidden;
+}
+
+.cart-sidebar {
+    overscroll-behavior-y: contain;
+}
