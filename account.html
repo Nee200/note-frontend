@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mein Konto - NØTE. fragrances</title>
+    <link rel="stylesheet" href="style.css?v=15">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .account-container {
+            max-width: 1000px;
+            margin: 120px auto 60px;
+            padding: 0 20px;
+            min-height: 60vh;
+        }
+        
+        .account-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .account-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* Login/Register Split */
+        .auth-wrapper {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .auth-box {
+            flex: 1;
+            min-width: 300px;
+            max-width: 450px;
+            background: #fff;
+            padding: 30px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+        .auth-box h2 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+        }
+
+        .btn-auth {
+            width: 100%;
+            background: #000;
+            color: #fff;
+            padding: 14px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-auth:hover {
+            background: #333;
+        }
+
+        /* Dashboard Styles */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .orders-section h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .order-card {
+            border: 1px solid #eee;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f9f9f9;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .order-items {
+            margin-bottom: 15px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .order-total {
+            text-align: right;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .error-message {
+            color: #d32f2f;
+            background: #ffebee;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .success-message {
+            color: #2e7d32;
+            background: #e8f5e9;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        /* Hide sections by default */
+        #auth-section, #dashboard-section {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-banner">
+        <div class="top-banner-track">
+            <div class="top-banner-item"><span class="top-banner-icon">⚡</span>SCHNELLER VERSAND: 1–3 WERKTAGE</div>
+            <div class="top-banner-item"><span class="top-banner-icon">📦</span>KOSTENLOSER VERSAND & RÜCKVERSAND AB 50&nbsp;€ (DE)</div>
+            <div class="top-banner-item"><span class="top-banner-icon">↩︎</span>30 TAGE RÜCKGABERECHT</div>
+             <div class="top-banner-item"><span class="top-banner-icon">⚡</span>SCHNELLER VERSAND: 1–3 WERKTAGE</div>
+            <div class="top-banner-item"><span class="top-banner-icon">📦</span>KOSTENLOSER VERSAND & RÜCKVERSAND AB 50&nbsp;€ (DE)</div>
+            <div class="top-banner-item"><span class="top-banner-icon">↩︎</span>30 TAGE RÜCKGABERECHT</div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+            <a href="index.html" class="logo-container">
+                <span class="logo-main">NØTE.</span>
+                <span class="logo-sub">fragrances</span>
+            </a>
+            <div class="nav-links">
+                <button class="close-menu-btn" onclick="toggleMobileMenu()">&times;</button>
+                <a href="index.html#kollektion-entdecken">Kollektion</a>
+                <a href="index.html#bestseller">Bestseller</a>
+                <a href="frauenduefte.html">Frauendüfte</a>
+                <a href="herrenduefte.html">Herrendüfte</a>
+                <a href="ueber-uns.html">Über uns</a>
+                <a href="kontakt.html">Kontakt</a>
+            </div>
+            <div class="nav-icons">
+                 <div class="search-wrapper">
+                    <div class="search-overlay" id="search-overlay">
+                        <button class="close-search" onclick="toggleSearch()">&times;</button>
+                        <div class="search-container">
+                            <input type="text" id="search-input" placeholder="Suche..." onkeyup="performSearch()">
+                            <div class="search-results" id="search-results"></div>
+                        </div>
+                    </div>
+                    <div class="search-icon" onclick="toggleSearch()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </div>
+                </div>
+                <a href="account.html" class="user-icon" title="Mein Konto">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </a>
+                <div class="cart-icon" onclick="toggleCart()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span id="cart-count">0</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="account-container">
+        
+        <!-- Loading State -->
+        <div id="loading-state" style="text-align: center; padding: 40px;">
+            <p>Laden...</p>
+        </div>
+
+        <!-- Auth Section (Login/Register) -->
+        <div id="auth-section">
+            <div class="account-header">
+                <h1>Mein Konto</h1>
+                <p>Melde dich an oder registriere dich, um deine Bestellungen zu sehen.</p>
+            </div>
+            
+            <div class="auth-wrapper">
+                <!-- Login -->
+                <div class="auth-box">
+                    <h2>Anmelden</h2>
+                    <form id="login-form">
+                        <div class="error-message" id="login-error"></div>
+                        <div class="form-group">
+                            <label for="login-email">E-Mail Adresse *</label>
+                            <input type="email" id="login-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Passwort *</label>
+                            <input type="password" id="login-password" required>
+                        </div>
+                        <button type="submit" class="btn-auth">ANMELDEN</button>
+                    </form>
+                </div>
+
+                <!-- Register -->
+                <div class="auth-box">
+                    <h2>Registrieren</h2>
+                    <form id="register-form">
+                        <div class="error-message" id="register-error"></div>
+                        <div class="success-message" id="register-success"></div>
+                        <div class="form-group">
+                            <label for="register-name">Name</label>
+                            <input type="text" id="register-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="register-email">E-Mail Adresse *</label>
+                            <input type="email" id="register-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-password">Passwort *</label>
+                            <input type="password" id="register-password" required minlength="6">
+                            <small style="color: #666;">Mindestens 6 Zeichen</small>
+                        </div>
+                        <button type="submit" class="btn-auth">REGISTRIEREN</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Section (Logged In) -->
+        <div id="dashboard-section">
+            <div class="dashboard-header">
+                <div>
+                    <h1>Willkommen, <span id="user-name-display">Kunde</span></h1>
+                    <p id="user-email-display"></p>
+                </div>
+                <button onclick="logout()" class="btn-logout">ABMELDEN</button>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="account-tabs-nav">
+                <button id="tab-btn-orders" class="tab-btn active" onclick="switchTab('orders')">Bestellungen</button>
+                <button id="tab-btn-profile" class="tab-btn" onclick="switchTab('profile')">Profil</button>
+            </div>
+
+            <!-- Orders Tab -->
+            <div id="tab-orders" class="tab-content active">
+                <h3>Meine Bestellungen</h3>
+                <div id="orders-list">
+                    <!-- Orders will be populated here -->
+                    <p style="color: #666;">Keine Bestellungen gefunden.</p>
+                </div>
+            </div>
+
+            <!-- Profile Tab -->
+            <div id="tab-profile" class="tab-content" style="display: none;">
+                
+                <!-- Addresses -->
+                <div class="profile-card">
+                    <div class="address-section-header">
+                        <h3>Meine Adressen</h3>
+                        <button class="add-address-btn" onclick="openAddressModal()">Adresse hinzufügen</button>
+                    </div>
+                    <div id="address-list">
+                        <!-- Addresses rendered via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Address Modal -->
+        <div id="address-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeAddressModal()">&times;</span>
+                <h3>Adresse hinzufügen</h3>
+                <form id="address-form" onsubmit="addAddress(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Vorname</label>
+                            <input type="text" id="addr-firstname" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Nachname</label>
+                            <input type="text" id="addr-lastname" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Bezeichnung (z.B. Zuhause)</label>
+                        <input type="text" id="addr-label" placeholder="Zuhause">
+                    </div>
+                    <div class="form-group">
+                        <label>Straße & Nr.</label>
+                        <input type="text" id="addr-street" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>PLZ</label>
+                            <input type="text" id="addr-zip" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Stadt</label>
+                            <input type="text" id="addr-city" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Land</label>
+                        <select id="addr-country" required>
+                            <option value="Deutschland" selected>Deutschland</option>
+                            <option value="Österreich">Österreich</option>
+                            <option value="Schweiz">Schweiz</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-auth">Hinzufügen</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Warenkorb Sidebar -->
+    <div id="cart-sidebar" class="cart-sidebar">
+        <!-- Header -->
+        <div class="cart-header">
+            <div class="cart-title-wrapper">
+                <i class="fas fa-shopping-cart"></i>
+                <h2 class="cart-title">Warenkorb <span id="cart-count-header">0</span></h2>
+            </div>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+
+        <!-- Timer Notification -->
+        <div class="cart-notification">
+            <i class="far fa-clock"></i>
+            <span>Geringe Verfügbarkeit: Reserviert für <strong id="cart-timer">10:00</strong></span>
+        </div>
+
+        <!-- Shipping Progress -->
+        <div class="shipping-progress-container">
+            <div class="shipping-text">
+                <i class="fas fa-truck"></i>
+                <span id="shipping-message">Noch €50,00 bis zu kostenlosem Versand</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div id="shipping-progress-bar" class="progress-bar-fill" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Cart Items -->
+        <div id="cart-items" class="cart-items">
+            <!-- Items will be injected here -->
+        </div>
+
+        <!-- Upsell Section -->
+        <div class="upsell-section">
+            <div class="upsell-header">
+                <span>← Die perfekte Ergänzung →</span>
+                <div class="upsell-arrows">
+                    <span>←</span><span>→</span>
+                </div>
+            </div>
+            <div class="upsell-item" id="upsell-container">
+                <!-- Dynamic Upsell Item -->
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="cart-footer">
+             <!-- Coupon Section -->
+             <div class="coupon-section">
+                <div class="coupon-input-group">
+                    <input type="text" id="coupon-code" placeholder="Gutscheincode" class="coupon-input">
+                    <button onclick="applyCoupon()" class="btn btn-small">OK</button>
+                </div>
+                <div id="coupon-message" class="coupon-message"></div>
+            </div>
+
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Zwischensumme</span>
+                    <span id="cart-subtotal">0,00 €</span>
+                </div>
+                <div class="summary-row discount-row" id="discount-row" style="display:none;">
+                    <span>Rabatt</span>
+                    <span id="cart-discount-amount">-0,00 €</span>
+                </div>
+                <div class="summary-row">
+                    <span>Versand</span>
+                    <span id="cart-shipping-cost">Kostenlos</span>
+                </div>
+                <div class="summary-row total-row">
+                    <span>Geschätzte Gesamtkosten</span>
+                    <span id="cart-total">0,00 €</span>
+                </div>
+            </div>
+
+            <button class="btn btn-checkout" onclick="checkout()">
+                <i class="fas fa-lock"></i> Sicher zur Kasse
+            </button>
+            
+            <div class="payment-icons">
+                <span class="pay-icon">PayPal</span>
+                <span class="pay-icon">Klarna.</span>
+                <span class="pay-icon">VISA</span>
+                <span class="pay-icon">Mastercard</span>
+            </div>
+        </div>
+    </div>
+    <div id="overlay" class="overlay" onclick="toggleCart()"></div>
+
+    <!-- Features Bar -->
+    <div class="features-bar">
+        <div class="container features-grid">
+            <div class="feature-item">
+                <div class="feature-icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="1" y="3" width="15" height="13"></rect>
+                        <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                        <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                        <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                    </svg>
+                </div>
+                <h3>SCHNELL UND SICHER</h3>
+                <p>Deutschlandweit kostenloser DHL Versand ab 50€.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
+                </div>
+                <h3>STRESSFREIE RETOURE</h3>
+                <p>Bei Nichtgefallen, kannst du deine Bestellung retournieren.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                </div>
+                <h3>MADE IN GERMANY</h3>
+                <p>German-Made für höchste Qualität und Stil Ansprüche.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                    </svg>
+                </div>
+                <h3>HÖCHSTER ÖLANTEIL</h3>
+                <p>Extraits de Parfum mit über 40% Duftölanteil für maximale Haltbarkeit.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-legal-links">
+                <a href="impressum.html">Impressum</a>
+                <a href="datenschutz.html">Datenschutz</a>
+                <a href="agb.html">AGB</a>
+                <a href="versand.html">Versandarten</a>
+            </div>
+            <p class="copyright">&copy; 2026 NOTE. Parfums. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="account.js"></script>
+</body>
+</html>

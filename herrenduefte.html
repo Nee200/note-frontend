@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOTE. Herrendüfte</title>
+    <link rel="stylesheet" href="style.css?v=16">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body data-default-category="men">
+    <div class="top-banner">
+        <div class="top-banner-track">
+            <div class="top-banner-item">
+                <span class="top-banner-icon">⚡</span>
+                SCHNELLER VERSAND: 1–3 WERKTAGE
+            </div>
+            <div class="top-banner-item">
+                <span class="top-banner-icon">📦</span>
+                KOSTENLOSER VERSAND & RÜCKVERSAND AB 50&nbsp;€ (DE)
+            </div>
+            <div class="top-banner-item">
+                <span class="top-banner-icon">↩︎</span>
+                30 TAGE RÜCKGABERECHT
+            </div>
+            <div class="top-banner-item">
+                <span class="top-banner-icon">⚡</span>
+                SCHNELLER VERSAND: 1–3 WERKTAGE
+            </div>
+            <div class="top-banner-item">
+                <span class="top-banner-icon">📦</span>
+                KOSTENLOSER VERSAND & RÜCKVERSAND AB 50&nbsp;€ (DE)
+            </div>
+            <div class="top-banner-item">
+                <span class="top-banner-icon">↩︎</span>
+                30 TAGE RÜCKGABERECHT
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="container nav-content">
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+            <a href="index.html" class="logo-container">
+                <span class="logo-main">NØTE.</span>
+                <span class="logo-sub">fragrances</span>
+            </a>
+            <div class="nav-links">
+                <button class="close-menu-btn" onclick="toggleMobileMenu()">&times;</button>
+                <a href="index.html#kollektion-entdecken">Kollektion</a>
+                <a href="index.html#bestseller">Bestseller</a>
+                <a href="frauenduefte.html">Frauendüfte</a>
+                <a href="herrenduefte.html" class="active">Herrendüfte</a>
+                <a href="ueber-uns.html">Über uns</a>
+                <a href="kontakt.html">Kontakt</a>
+            </div>
+            <div class="nav-icons">
+                <!-- Search removed on this page -->
+                
+                <a href="account.html" class="user-icon" title="Mein Konto">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </a>
+
+                <div class="cart-icon" onclick="toggleCart()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span id="cart-count">0</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main id="products" class="container section">
+        <h2 class="section-title">Herrendüfte</h2>
+        <p class="collection-intro" id="collection-intro-text">
+            Entdecke unsere Auswahl an markanten Herrendüften – von frischen Alltagsdüften bis hin zu intensiven Signature-Scents.
+        </p>
+
+        <div class="category-toolbar">
+            <div class="category-toolbar-left">
+                <label class="toolbar-label">
+                    Suche
+                    <input type="text" id="product-filter-input" placeholder="Name oder 'Inspired by' filtern">
+                </label>
+            </div>
+            <div class="category-toolbar-right">
+                <button class="filter-toggle-btn">
+                    Filter <i class="fas fa-filter"></i>
+                </button>
+                <label class="toolbar-label">
+                    Sortieren
+                    <select id="product-sort-select">
+                        <option value="name-asc">Name A–Z</option>
+                        <option value="price-asc">Preis aufsteigend</option>
+                        <option value="price-desc">Preis absteigend</option>
+                        <option value="bestseller-first">Bestseller zuerst</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <p id="product-count-info" class="product-count-info"></p>
+        <div id="product-grid" class="product-grid"></div>
+        <div class="product-pagination">
+            <button id="product-next-page" class="btn btn-outlined-card">Weitere Produkte</button>
+        </div>
+    </main>
+
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <div class="cart-title-wrapper">
+                <i class="fas fa-shopping-cart"></i>
+                <h2 class="cart-title">Warenkorb <span id="cart-count-header">0</span></h2>
+            </div>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+
+        <div class="cart-notification">
+            <i class="far fa-clock"></i>
+            <span>Geringe Verfügbarkeit: Reserviert für <strong id="cart-timer">10:00</strong></span>
+        </div>
+
+        <div class="shipping-progress-container">
+            <div class="shipping-text">
+                <i class="fas fa-truck"></i>
+                <span id="shipping-message">Noch €50,00 bis zu kostenlosem Versand</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div id="shipping-progress-bar" class="progress-bar-fill" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div id="cart-items" class="cart-items"></div>
+
+        <div class="upsell-section">
+            <div class="upsell-header">
+                <span>← Die perfekte Ergänzung →</span>
+                <div class="upsell-arrows">
+                    <span>←</span><span>→</span>
+                </div>
+            </div>
+            <div class="upsell-item" id="upsell-container"></div>
+        </div>
+
+        <div class="cart-footer">
+            <div class="coupon-section">
+                <div class="coupon-input-group">
+                    <input type="text" id="coupon-code" placeholder="Gutscheincode" class="coupon-input">
+                    <button onclick="applyCoupon()" class="btn btn-small">OK</button>
+                </div>
+                <div id="coupon-message" class="coupon-message"></div>
+            </div>
+
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Zwischensumme</span>
+                    <span id="cart-subtotal">0,00 €</span>
+                </div>
+                <div class="summary-row discount-row" id="discount-row" style="display:none;">
+                    <span>Rabatt</span>
+                    <span id="cart-discount-amount">-0,00 €</span>
+                </div>
+                <div class="summary-row">
+                    <span>Versand</span>
+                    <span id="cart-shipping-cost">Kostenlos</span>
+                </div>
+                <div class="summary-row total-row">
+                    <span>Geschätzte Gesamtkosten</span>
+                    <span id="cart-total">0,00 €</span>
+                </div>
+            </div>
+
+            <button class="btn btn-checkout" onclick="checkout()">
+                <i class="fas fa-lock"></i> Sicher zur Kasse
+            </button>
+            
+            <div class="payment-icons">
+                <span class="pay-icon">PayPal</span>
+                <span class="pay-icon">Klarna.</span>
+                <span class="pay-icon">VISA</span>
+                <span class="pay-icon">Mastercard</span>
+            </div>
+        </div>
+    </div>
+    <div id="overlay" class="overlay" onclick="toggleCart()"></div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-legal-links">
+                <a href="impressum.html">Impressum</a>
+                <a href="datenschutz.html">Datenschutz</a>
+                <a href="agb.html">AGB</a>
+                <a href="versand.html">Versandarten</a>
+            </div>
+            <p class="copyright">&copy; 2026 NOTE. Parfums. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+
+    <script src="script.js?v=1772291114835"></script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Versandarten - NOTE. extract de parfume</title>
+    <link rel="stylesheet" href="style.css?v=15">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+            <a href="index.html" class="logo-container">
+                <span class="logo-main">NØTE.</span>
+                <span class="logo-sub">fragrances</span>
+            </a>
+            <div class="nav-links">
+                <button class="close-menu-btn" onclick="toggleMobileMenu()">&times;</button>
+                <a href="index.html#kollektion-entdecken">Kollektion</a>
+                <a href="frauenduefte.html">Frauendüfte</a>
+                <a href="herrenduefte.html">Herrendüfte</a>
+                <a href="ueber-uns.html">Über uns</a>
+                <a href="kontakt.html">Kontakt</a>
+            </div>
+            <div class="nav-icons">
+                <div class="search-wrapper">
+                    <div class="search-overlay" id="search-overlay">
+                        <button class="close-search" onclick="toggleSearch()">&times;</button>
+                        <div class="search-container">
+                            <input type="text" id="search-input" placeholder="Suche..." onkeyup="performSearch()">
+                            <div class="search-results" id="search-results"></div>
+                        </div>
+                    </div>
+                    <div class="search-icon" onclick="toggleSearch()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </div>
+                </div>
+                <a href="account.html" class="user-icon" title="Mein Konto">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
+                    <div class="cart-icon" onclick="toggleCart()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span id="cart-count">0</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container section">
+        <h1 style="margin-bottom: 2rem; text-align: center;">Versand & Lieferung</h1>
+        <div class="content-text" style="max-width: 800px; margin: 0 auto; line-height: 1.6;">
+            <h3>Versandkosten</h3>
+            <p>Wir liefern innerhalb Deutschlands.</p>
+            <ul>
+                <li><strong>Standardversand:</strong> 3,90 €</li>
+                <li><strong>Kostenloser Versand:</strong> Ab einem Bestellwert von 60,00 €</li>
+            </ul>
+
+            <h3 style="margin-top: 2rem;">Lieferzeit</h3>
+            <p>Soweit in der Artikelbeschreibung keine andere Frist angegeben ist, erfolgt die Lieferung der Ware in Deutschland innerhalb von <strong>1 - 3 Werktagen</strong> nach Auftragsbestätigung (bei vereinbarter Vorauszahlung nach dem Zeitpunkt Ihrer Zahlungsanweisung).</p>
+            <p>Beachten Sie, dass an Sonn- und Feiertagen keine Zustellung erfolgt.</p>
+
+            <h3 style="margin-top: 2rem;">Zahlungsarten</h3>
+            <p>Sie haben folgende Zahlungsmöglichkeiten:</p>
+            <ul>
+                <li>Zahlung per Kreditkarte (Visa, Mastercard)</li>
+                <li>Zahlung per PayPal</li>
+                <li>Zahlung per Klarna Sofort</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Warenkorb Sidebar -->
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <div class="cart-title-wrapper">
+                <i class="fas fa-shopping-cart"></i>
+                <h2 class="cart-title">Warenkorb <span id="cart-count-header">0</span></h2>
+            </div>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-notification">
+            <i class="far fa-clock"></i>
+            <span>Geringe Verfügbarkeit: Reserviert für <strong id="cart-timer">10:00</strong></span>
+        </div>
+        <div class="shipping-progress-container">
+            <div class="shipping-text">
+                <i class="fas fa-truck"></i>
+                <span id="shipping-message">Noch €50,00 bis zu kostenlosem Versand</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div id="shipping-progress-bar" class="progress-bar-fill" style="width: 0%"></div>
+            </div>
+        </div>
+        <div id="cart-items" class="cart-items"></div>
+        <div class="cart-footer">
+             <div class="coupon-section">
+                <div class="coupon-input-group">
+                    <input type="text" id="coupon-code" placeholder="Gutscheincode" class="coupon-input">
+                    <button onclick="applyCoupon()" class="btn btn-small">OK</button>
+                </div>
+                <div id="coupon-message" class="coupon-message"></div>
+            </div>
+            <div class="cart-summary">
+                <div class="summary-row"><span>Zwischensumme</span><span id="cart-subtotal">0,00 €</span></div>
+                <div class="summary-row discount-row" id="discount-row" style="display:none;"><span>Rabatt</span><span id="cart-discount-amount">-0,00 €</span></div>
+                <div class="summary-row"><span>Versand</span><span id="cart-shipping-cost">Kostenlos</span></div>
+                <div class="summary-row total-row"><span>Geschätzte Gesamtkosten</span><span id="cart-total">0,00 €</span></div>
+            </div>
+            <button class="btn btn-checkout" onclick="checkout()"><i class="fas fa-lock"></i> Sicher zur Kasse</button>
+        </div>
+    </div>
+    <div id="overlay" class="overlay" onclick="toggleCart()"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-legal-links">
+                <a href="impressum.html">Impressum</a>
+                <a href="datenschutz.html">Datenschutz</a>
+                <a href="agb.html">AGB</a>
+                <a href="versand.html">Versandarten</a>
+            </div>
+            <p class="copyright">&copy; 2026 NOTE. Parfums. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+
+    <script src="script.js?v=1772291114837"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+
+/* Filter Buttons */
+.filter-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    margin-top: -1rem;
+}
+
+.filter-btn {
+    background: transparent;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: var(--text-color);
+    cursor: pointer;
+    padding-bottom: 0.25rem;
+    position: relative;
+    transition: color 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 300;
+}
+
+.filter-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 1px;
+    background-color: var(--text-color);
+    transition: width 0.3s ease;
+}
+
+.filter-btn:hover::after,
+.filter-btn.active::after {
+    width: 100%;
+}
+
+.filter-btn.active {
+    font-weight: 500;
+}
+
+/* Mobile Optimierung für Filter */
+@media (max-width: 768px) {
+    .filter-container {
+        gap: 1rem;
+    }
+}

@@ -1,0 +1,76 @@
+
+/* Accordion Styling */
+.product-accordions {
+    margin: 2rem 0;
+    border-top: 1px solid #e0e0e0;
+}
+
+.accordion-item {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.accordion-header {
+    width: 100%;
+    padding: 1.2rem 0;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--text);
+    transition: color 0.2s;
+}
+
+.accordion-header:hover {
+    color: var(--primary);
+}
+
+.accordion-header i {
+    transition: transform 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.accordion-item.active .accordion-header i {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding: 0;
+}
+
+.accordion-item.active .accordion-content {
+    max-height: 500px; /* Arbitrary large height */
+    padding-bottom: 1.5rem;
+    transition: max-height 0.3s ease-in;
+}
+
+.accordion-content p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+    margin: 0;
+}
+
+.note-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.note-list li {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.note-list strong {
+    font-weight: 600;
+    color: var(--text);
+}
