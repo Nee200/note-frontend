@@ -259,6 +259,9 @@
             <div id="tab-products">
                 <div class="header">
                     <h2>Katalog & Parfüms</h2>
+                    <input type="text" id="admin-search" placeholder="Suchen nach ID, Name, Inspired by..."
+                        style="padding: 0.6rem; width: 100%; max-width: 300px; border: 1px solid var(--border); border-radius: 4px; border: 1px solid #ccc;"
+                        onkeyup="filterAdminProducts()">
                     <button class="btn" style="width: auto;" onclick="openAddModal()"><i class="fas fa-plus"></i> Neues
                         Parfum</button>
                 </div>

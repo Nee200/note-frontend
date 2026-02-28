@@ -63,9 +63,9 @@ async function loadProducts() {
     }
 }
 
-function renderProductTable() {
+function renderProductTable(productsToRender = allProducts) {
     const tbody = document.getElementById('admin-product-list');
-    tbody.innerHTML = allProducts.map(p => `
+    tbody.innerHTML = productsToRender.map(p => `
         <tr>
             <td><img src="${p.images[0]}" alt="${p.id}" style="width: 40px; height: 40px; border-radius: 4px; object-fit: cover;"></td>
             <td style="font-weight: 500;">${p.id}</td>
@@ -77,6 +77,16 @@ function renderProductTable() {
             </td>
         </tr>
     `).join('');
+}
+
+function filterAdminProducts() {
+    const term = document.getElementById('admin-search').value.toLowerCase();
+    const filtered = allProducts.filter(p => {
+        return (p.name && p.name.toLowerCase().includes(term)) ||
+            (p.id && p.id.toLowerCase().includes(term)) ||
+            (p.inspiredBy && p.inspiredBy.toLowerCase().includes(term));
+    });
+    renderProductTable(filtered);
 }
 
 function openAddModal() {
