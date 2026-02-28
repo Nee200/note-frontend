@@ -853,11 +853,14 @@ function toggleCart() {
         cartSidebar.classList.remove('open');
         cartOverlay.classList.remove('open');
         document.body.classList.remove('no-scroll');
+        document.documentElement.classList.remove('no-scroll');
         document.body.style.overflow = ''; // Zur Sicherheit Inline-Style entfernen
+        document.documentElement.style.overflow = '';
     } else {
         if (cartSidebar) cartSidebar.classList.add('open');
         if (cartOverlay) cartOverlay.classList.add('open');
         document.body.classList.add('no-scroll');
+        document.documentElement.classList.add('no-scroll');
     }
 }
 
