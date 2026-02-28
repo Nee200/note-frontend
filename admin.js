@@ -55,16 +55,20 @@ async function loadOrders() {
     var tbody = document.getElementById('admin-order-list');
     tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#888;padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Wird geladen...</td></tr>';
     try {
-        var res = await fetch(API_BASE_URL + '/api/admin/orders');
+        var res = await fetch(API_BASE_URL + '/api/admin/orders', { credentials: 'include' });
         if (res.ok) {
             var data = await res.json();
             ordersLoaded = true;
             renderOrders(data.orders);
+        } else if (res.status === 401) {
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:orange;padding:2rem;"><i class="fas fa-lock"></i> Nicht autorisiert &ndash; bitte neu einloggen</td></tr>';
         } else {
-            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:red;padding:2rem;">Fehler beim Laden</td></tr>';
+            var errText = 'HTTP ' + res.status;
+            try { var d = await res.json(); errText = d.error || errText; } catch (ex) { }
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:red;padding:2rem;">Fehler: ' + errText + '</td></tr>';
         }
     } catch (e) {
-        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:red;padding:2rem;">Verbindungsfehler</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#e67e22;padding:2rem;"><i class="fas fa-exclamation-triangle"></i> Server noch nicht bereit &ndash; kurz warten und Aktualisieren klicken</td></tr>';
     }
 }
 
