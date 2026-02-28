@@ -1,7 +1,14 @@
-const API_BASE_URL = 'https://note-backend-5gy0.onrender.com';
+﻿const API_BASE_URL = 'https://note-backend-5gy0.onrender.com';
 let allProducts = [];
 let editingProductId = null;
 let selectedIds = new Set(); // Persists selections across search re-renders
+
+// Central fetch wrapper â€“ always sends cookies cross-origin
+function adminFetch(path, options) {
+    options = options || {};
+    options.credentials = 'include';
+    return fetch(API_BASE_URL + path, options);
+}
 
 async function login() {
     const pw = document.getElementById('admin-pw').value;
@@ -9,7 +16,7 @@ async function login() {
     errEl.style.display = 'none';
 
     try {
-        const res = await fetch(API_BASE_URL + '/api/admin/login', {
+        const res = await adminFetch('/api/admin/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ password: pw }),
@@ -55,7 +62,7 @@ function startLockoutCountdown(minutes) {
         } else {
             var m = Math.floor(secsLeft / 60);
             var s = secsLeft % 60;
-            errEl.textContent = 'Gesperrt – noch ' + m + ':' + String(s).padStart(2, '0') + ' Minuten';
+            errEl.textContent = 'Gesperrt â€“ noch ' + m + ':' + String(s).padStart(2, '0') + ' Minuten';
             errEl.style.color = '#e74c3c';
         }
     }, 1000);
@@ -63,7 +70,7 @@ function startLockoutCountdown(minutes) {
 
 async function checkAuth() {
     try {
-        const res = await fetch(API_BASE_URL + '/api/admin/check');
+        const res = await adminFetch('/api/admin/check');
         if (res.ok) {
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
@@ -83,7 +90,7 @@ function switchTab(tab) {
 }
 
 function logout() {
-    fetch(API_BASE_URL + '/api/admin/logout', { method: 'POST' }).then(() => {
+    adminFetch('/api/admin/logout', { method: 'POST' }).then(() => {
         window.location.reload();
     });
 }
@@ -92,7 +99,7 @@ async function loadOrders() {
     var tbody = document.getElementById('admin-order-list');
     tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#888;padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Wird geladen...</td></tr>';
     try {
-        var res = await fetch(API_BASE_URL + '/api/admin/orders', { credentials: 'include' });
+        var res = await adminFetch('/api/admin/orders', { credentials: 'include' });
         if (res.ok) {
             var data = await res.json();
             ordersLoaded = true;
@@ -163,7 +170,7 @@ function renderOrders(orders) {
 
 async function loadProducts() {
     try {
-        const res = await fetch(API_BASE_URL + '/api/products');
+        const res = await adminFetch('/api/products');
         if (res.ok) {
             allProducts = await res.json();
             renderProductTable();
@@ -317,7 +324,7 @@ async function applyBulkUpdate() {
     statusEl.textContent = 'Wird gespeichert...';
 
     try {
-        var res = await fetch(API_BASE_URL + '/api/admin/products-bulk', {
+        var res = await adminFetch('/api/admin/products-bulk', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ ids: ids, price30: price30, price50: price50, originalPrice30: orig30, originalPrice50: orig50 })
@@ -382,7 +389,7 @@ async function saveEdit() {
     };
 
     try {
-        const res = await fetch(API_BASE_URL + '/api/admin/products/' + editingProductId, {
+        const res = await adminFetch('/api/admin/products/' + editingProductId, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)
@@ -416,7 +423,7 @@ async function saveEdit() {
 async function deleteProduct(id) {
     if (!confirm('Bist du sicher, dass du Produkt ' + id + ' dauerhaft loeschen moechtest?')) return;
     try {
-        const res = await fetch(API_BASE_URL + '/api/admin/products/' + id, { method: 'DELETE' });
+        const res = await adminFetch('/api/admin/products/' + id, { method: 'DELETE' });
         if (res.ok) {
             allProducts = allProducts.filter(function (p) { return p.id !== id; });
             filterAdminProducts();
@@ -433,7 +440,7 @@ async function deleteProduct(id) {
 // ---- ADD NEW PRODUCT ----
 
 // Figure out the next free ID for a given category
-// e.g. men → finds highest G-number → returns G261
+// e.g. men â†’ finds highest G-number â†’ returns G261
 function suggestNextId(category) {
     var catProducts = allProducts.filter(function (p) { return p.category === category; });
     if (!catProducts.length) return '';
@@ -561,7 +568,7 @@ async function saveNewProduct() {
 
     showAddStatus('Wird angelegt...', '#888');
     try {
-        var res = await fetch(API_BASE_URL + '/api/admin/products', {
+        var res = await adminFetch('/api/admin/products', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)
@@ -590,3 +597,4 @@ function showAddStatus(msg, color) {
 
 // Initial auth check
 checkAuth();
+
