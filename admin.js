@@ -73,7 +73,7 @@ function renderProductTable(productsToRender = allProducts) {
             <td><span class="status-badge success">${p.category}</span></td>
             <td>
                 <button class="btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem; margin-right: 5px;">Bearbeiten</button>
-                <button class="btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem; background: #e74c3c;">Löschen</button>
+                <button class="btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem; background: #e74c3c;" onclick="deleteProduct('${p.id}')">Löschen</button>
             </td>
         </tr>
     `).join('');
@@ -100,6 +100,33 @@ function closeModal() {
 function saveProduct() {
     alert('Datenbank-Speicherung kommt im nächsten Update!');
     closeModal();
+}
+
+async function deleteProduct(id) {
+    if (!confirm('Bist du sicher, dass du das Produkt ' + id + ' dauerhaft aus der Datenbank löschen möchtest?')) {
+        return;
+    }
+
+    try {
+        const res = await fetch(API_BASE_URL + '/api/admin/products/' + id, {
+            method: 'DELETE',
+            ...getFetchConfig()
+        });
+
+        if (res.ok) {
+            // Remove from local array
+            allProducts = allProducts.filter(p => p.id !== id);
+            // Re-render table keeping search filter if active
+            filterAdminProducts();
+            alert('Produkt ' + id + ' wurde erfolgreich gelöscht.');
+        } else {
+            const data = await res.json();
+            alert('Fehler beim Löschen: ' + (data.error || 'Unbekannter Fehler'));
+        }
+    } catch (e) {
+        console.error('Lösch-Fehler:', e);
+        alert('Ein Fehler ist aufgetreten. Server erreichbar?');
+    }
 }
 
 // Initial check when page loads
