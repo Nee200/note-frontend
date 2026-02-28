@@ -5,23 +5,60 @@ let selectedIds = new Set(); // Persists selections across search re-renders
 
 async function login() {
     const pw = document.getElementById('admin-pw').value;
+    const errEl = document.getElementById('login-err');
+    errEl.style.display = 'none';
+
     try {
         const res = await fetch(API_BASE_URL + '/api/admin/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ password: pw })
+            body: JSON.stringify({ password: pw }),
+            credentials: 'include'
         });
         if (res.ok) {
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
             loadProducts();
         } else {
-            document.getElementById('login-err').style.display = 'block';
+            const data = await res.json();
+            errEl.textContent = data.error || 'Falsches Passwort';
+            errEl.style.display = 'block';
+
+            // If locked out, show countdown and disable button
+            if (res.status === 429 && data.lockedMinutes) {
+                startLockoutCountdown(data.lockedMinutes);
+            }
         }
     } catch (e) {
         console.error('Login error', e);
-        alert('Server Fehler beim Login!');
+        errEl.textContent = 'Server nicht erreichbar. Bitte warten.';
+        errEl.style.display = 'block';
     }
+}
+
+function startLockoutCountdown(minutes) {
+    var btn = document.querySelector('#login-screen button');
+    var errEl = document.getElementById('login-err');
+    var pwField = document.getElementById('admin-pw');
+    if (btn) { btn.disabled = true; btn.style.opacity = '0.5'; }
+    if (pwField) pwField.disabled = true;
+
+    var endTime = Date.now() + minutes * 60 * 1000;
+    var interval = setInterval(function () {
+        var secsLeft = Math.ceil((endTime - Date.now()) / 1000);
+        if (secsLeft <= 0) {
+            clearInterval(interval);
+            errEl.textContent = 'Sperre aufgehoben. Du kannst es wieder versuchen.';
+            errEl.style.color = '#27ae60';
+            if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
+            if (pwField) { pwField.disabled = false; pwField.value = ''; pwField.focus(); }
+        } else {
+            var m = Math.floor(secsLeft / 60);
+            var s = secsLeft % 60;
+            errEl.textContent = 'Gesperrt – noch ' + m + ':' + String(s).padStart(2, '0') + ' Minuten';
+            errEl.style.color = '#e74c3c';
+        }
+    }, 1000);
 }
 
 async function checkAuth() {
