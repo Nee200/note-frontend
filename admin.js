@@ -1,6 +1,7 @@
 const API_BASE_URL = 'https://note-backend-5gy0.onrender.com';
 let allProducts = [];
 let editingProductId = null;
+let selectedIds = new Set(); // Persists selections across search re-renders
 
 async function login() {
     const pw = document.getElementById('admin-pw').value;
@@ -71,8 +72,9 @@ function renderProductTable(productsToRender) {
     tbody.innerHTML = productsToRender.map(function (p) {
         var imgSrc = (p.images && p.images.length > 0) ? p.images[0] : 'logo.png';
         var price50 = (p.variants && p.variants['50']) ? p.variants['50'].price.toFixed(2) + ' EUR' : '-';
+        var isChecked = selectedIds.has(p.id) ? ' checked' : '';
         return '<tr>' +
-            '<td><input type="checkbox" class="product-cb" data-id="' + p.id + '" onchange="onCheckboxChange()"></td>' +
+            '<td><input type="checkbox" class="product-cb" data-id="' + p.id + '"' + isChecked + ' onchange="onCheckboxChange(this)"></td>' +
             '<td><img src="' + imgSrc + '" onerror="this.src=\'logo.png\'" style="width:40px;height:40px;border-radius:4px;object-fit:cover;"></td>' +
             '<td style="font-weight:500;">' + p.id + '</td>' +
             '<td>' + (p.name || '') + '<br><span style="font-size:0.8rem;color:#888;">' + (p.inspiredBy || '') + '</span></td>' +
@@ -84,6 +86,7 @@ function renderProductTable(productsToRender) {
             '<button class="btn-delete" title="Loeschen" onclick="deleteProduct(\'' + p.id + '\')"><i class="fas fa-trash"></i></button>' +
             '</td></tr>';
     }).join('');
+    updateBulkPanel();
 }
 
 function filterAdminProducts() {
@@ -99,35 +102,53 @@ function filterAdminProducts() {
     if (countEl) {
         countEl.textContent = term ? (filtered.length + ' von ' + allProducts.length + ' Treffern') : (allProducts.length + ' Produkte');
     }
-    onCheckboxChange(); // reset bulk panel
+    // Do NOT reset selections when searching - user may be building a cross-search selection
 }
 
 // ---- BULK SELECTION ----
-function getSelectedIds() {
-    var cbs = document.querySelectorAll('.product-cb:checked');
-    return Array.from(cbs).map(function (cb) { return cb.dataset.id; });
+function onCheckboxChange(cb) {
+    // Sync individual checkbox change into the persistent Set
+    if (cb) {
+        if (cb.checked) {
+            selectedIds.add(cb.dataset.id);
+        } else {
+            selectedIds.delete(cb.dataset.id);
+        }
+    }
+    updateBulkPanel();
 }
 
-function onCheckboxChange() {
-    var selected = getSelectedIds();
+function updateBulkPanel() {
     var panel = document.getElementById('bulk-panel');
     var label = document.getElementById('bulk-count-label');
     var statusEl = document.getElementById('bulk-status');
     if (statusEl) statusEl.style.display = 'none';
-    if (selected.length > 0) {
+    if (selectedIds.size > 0) {
         panel.style.display = 'block';
-        label.textContent = selected.length + ' ausgewaehlt';
+        label.textContent = selectedIds.size + ' ausgewaehlt';
     } else {
         panel.style.display = 'none';
     }
 }
 
+function getSelectedIds() {
+    return Array.from(selectedIds);
+}
+
 function selectAll(checked) {
-    var cbs = document.querySelectorAll('.product-cb');
-    cbs.forEach(function (cb) { cb.checked = checked; });
+    if (checked) {
+        // Add all CURRENTLY VISIBLE products to selection
+        var cbs = document.querySelectorAll('.product-cb');
+        cbs.forEach(function (cb) { selectedIds.add(cb.dataset.id); cb.checked = true; });
+    } else {
+        // Clear everything
+        selectedIds.clear();
+        var cbs = document.querySelectorAll('.product-cb');
+        cbs.forEach(function (cb) { cb.checked = false; });
+    }
     var masterCb = document.getElementById('select-all-cb');
     if (masterCb) masterCb.checked = checked;
-    onCheckboxChange();
+    updateBulkPanel();
 }
 
 async function applyBulkUpdate() {
@@ -162,9 +183,8 @@ async function applyBulkUpdate() {
             var data = await res.json();
             statusEl.style.color = '#27ae60';
             statusEl.textContent = data.updated + ' Produkte erfolgreich aktualisiert!';
-            // Reload products to reflect changes
+            selectedIds.clear();
             await loadProducts();
-            selectAll(false);
         } else {
             var err = await res.json();
             statusEl.style.color = '#e74c3c';
