@@ -10,6 +10,7 @@ let currentSelectedSize = 50;
 let currentListCategory = 'all';
 let currentPageIndex = 0;
 let currentProductsPerPage = 25;
+let currentNoteFilter = 'all';
 
 const productGrid = document.getElementById('product-grid');
 const bestsellerWomenGrid = document.getElementById('bestseller-women-grid');
