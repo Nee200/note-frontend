@@ -678,7 +678,7 @@ function updateCartUI() {
     // 3. Berechnungen (Subtotal, Discount, Shipping, Total)
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const discountAmount = subtotal * currentDiscount;
-    const shippingThreshold = 50.00;
+    const shippingThreshold = 60.00;
     let shippingCost = 0;
 
     // Kostenloser Versand Logik
