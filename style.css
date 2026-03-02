@@ -2919,10 +2919,35 @@ select:focus {
 }
 
 .accordion-content p {
-    font-size: 0.95rem;
-    line-height: 1.6;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.93rem;
+    line-height: 1.7;
     color: #555;
-    margin: 0;
+    margin: 0 0 0.5rem 0;
+}
+
+/* Small legal / hint text below main content in tabs */
+.accordion-legal-note {
+    font-size: 0.78rem !important;
+    color: #999 !important;
+    font-style: italic;
+    line-height: 1.5 !important;
+    margin-top: 0.75rem !important;
+}
+
+/* Ingredient list in Inhaltsstoffe tab */
+.accordion-content ul,
+.accordion-content .note-list {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.93rem;
+    line-height: 1.7;
+    color: #555;
+}
+
+.accordion-content strong {
+    font-size: 0.93rem;
+    color: #333;
+    font-weight: 600;
 }
 
 .note-list {
