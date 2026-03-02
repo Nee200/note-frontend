@@ -61,7 +61,10 @@ async function init() {
         }
 
         if (bestsellerWomenGrid || bestsellerMenGrid) {
+            console.log('[Bestseller] calling renderBestsellers(), grids:', !!bestsellerWomenGrid, !!bestsellerMenGrid);
             renderBestsellers();
+        } else {
+            console.log('[Bestseller] grids NOT found in DOM. bestsellerWomenGrid=', bestsellerWomenGrid, 'bestsellerMenGrid=', bestsellerMenGrid);
         }
     }
 
