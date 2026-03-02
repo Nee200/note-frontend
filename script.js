@@ -885,14 +885,20 @@ document.addEventListener('click', (e) => {
 });
 
 // Close mobile menu when clicking a link inside it
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        const navLinks = document.querySelector('.nav-links');
-        if (navLinks && navLinks.classList.contains('mobile-active')) {
-            navLinks.classList.remove('mobile-active');
+// Using event delegation for reliability on all mobile browsers / iOS
+const _navLinksContainer = document.querySelector('.nav-links');
+if (_navLinksContainer) {
+    const _closeMobileMenu = (e) => {
+        // Check if the tap/click landed on or inside an <a> tag
+        const link = e.target.closest('a');
+        if (link && _navLinksContainer.classList.contains('mobile-active')) {
+            _navLinksContainer.classList.remove('mobile-active');
         }
-    });
-});
+    };
+    _navLinksContainer.addEventListener('click', _closeMobileMenu);
+    // Also handle touchend for faster response on iOS
+    _navLinksContainer.addEventListener('touchend', _closeMobileMenu, { passive: true });
+}
 
 // Suche
 
