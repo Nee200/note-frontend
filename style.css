@@ -1136,8 +1136,8 @@ h3,
     }
 
     .nav-links {
-        display: block;
-        /* Ensure it's not flex by default */
+        display: flex;
+        /* Ensure layout is stable during slide-out animation */
         position: fixed;
         top: 0;
         left: -100%;
