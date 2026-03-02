@@ -2096,7 +2096,8 @@ select:focus {
 .delivery-steps::before {
     content: "";
     position: absolute;
-    top: 32px;
+    top: 28px;
+    /* Half of 56px icon circle = vertically centered */
     left: 0;
     right: 0;
     height: 2px;
@@ -2134,7 +2135,8 @@ select:focus {
 .delivery-step::before {
     content: "";
     position: absolute;
-    top: 32px;
+    top: 28px;
+    /* Half of 56px icon circle = vertically centered */
     height: 3px;
     background: var(--background);
     z-index: 1;
@@ -3507,6 +3509,15 @@ select:focus {
             width: 36px;
             height: 36px;
             font-size: 0.85rem;
+        }
+
+        /* Fix dashed line centering when circles are 36px (center = 18px) */
+        .delivery-steps::before {
+            top: 18px;
+        }
+
+        .delivery-step::before {
+            top: 18px;
         }
 
         /* Accordion */
