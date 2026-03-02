@@ -2343,10 +2343,10 @@ select:focus {
 
 /* --- Coupon Styles --- */
 .coupon-section {
-    margin-top: 3rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--border);
+    padding: 0.8rem 1.5rem;
+    background: #fff;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
 }
 
 .coupon-input-group {
@@ -2733,33 +2733,7 @@ select:focus {
     flex-direction: column;
 }
 
-/* Visual order: coupon → summary → checkout → payment */
-.coupon-section {
-    order: 1;
-}
-
-.cart-summary {
-    order: 2;
-}
-
-.btn-checkout {
-    order: 3;
-}
-
-.btn.btn-checkout {
-    order: 3;
-}
-
-.payment-icons {
-    order: 4;
-}
-
-/* product.html has summary-rows as direct cart-footer children — give them order 2 too */
-.cart-footer>.summary-row,
-.cart-footer>#discount-row {
-    order: 2;
-}
-
+/* coupon-section is now placed outside .cart-footer in the HTML — no order hacks needed */
 
 .summary-row {
     display: flex;
