@@ -2728,7 +2728,31 @@ select:focus {
     padding: 1.5rem;
     background: #fff;
     border-top: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
 }
+
+/* Visual order: coupon → summary → checkout → payment */
+.coupon-section {
+    order: 1;
+}
+
+.cart-summary {
+    order: 2;
+}
+
+.btn-checkout {
+    order: 3;
+}
+
+.btn.btn-checkout {
+    order: 3;
+}
+
+.payment-icons {
+    order: 4;
+}
+
 
 .summary-row {
     display: flex;
