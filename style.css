@@ -353,6 +353,9 @@ h3,
 }
 
 .cart-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
     cursor: pointer;
     padding: 0;
@@ -2949,6 +2952,9 @@ select:focus {
 }
 
 .search-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     padding: 0;
     transition: opacity 0.3s;
@@ -2962,13 +2968,14 @@ select:focus {
 }
 
 .user-icon {
-    cursor: pointer;
-    padding: 0;
-    color: var(--text);
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    color: var(--text);
     transition: opacity 0.3s;
+    text-decoration: none;
 }
 
 .user-icon:hover {
