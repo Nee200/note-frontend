@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NOTE. extract de parfume - Details</title>
-    <link rel="stylesheet" href="style.css?v=1772445509477">
+    <link rel="stylesheet" href="style.css?v=1772445727075">
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;900&display=swap"
         rel="stylesheet">
@@ -338,13 +338,7 @@
         </div>
 
         <div class="cart-footer">
-            <div class="coupon-section">
-                <div class="coupon-input-group">
-                    <input type="text" id="coupon-code" class="coupon-input" placeholder="Gutscheincode">
-                    <button class="btn-small" onclick="applyCoupon()">OK</button>
-                </div>
-                <div id="coupon-message" class="coupon-message"></div>
-            </div>
+
 
             <div class="summary-row">
                 <span>Zwischensumme</span>
@@ -366,8 +360,14 @@
             <button class="btn-checkout" onclick="checkout()">
                 Zur Kasse <i class="fas fa-arrow-right" style="font-size: 0.8em;"></i>
             </button>
-
-            <div class="payment-icons">
+            <div class="coupon-section">
+                <div class="coupon-input-group">
+                    <input type="text" id="coupon-code" placeholder="Gutscheincode" class="coupon-input">
+                    <button onclick="applyCoupon()" class="btn btn-small">OK</button>
+                </div>
+                <div id="coupon-message" class="coupon-message"></div>
+            </div>
+                        <div class="payment-icons">
                 <span class="pay-icon">PAYPAL</span>
                 <span class="pay-icon">VISA</span>
                 <span class="pay-icon">KLARNA</span>
@@ -388,7 +388,7 @@
         </div>
     </footer>
 
-    <script src="script.js?v=1772445509477"></script>
+    <script src="script.js?v=1772445727075"></script>
 </body>
 
 </html>
