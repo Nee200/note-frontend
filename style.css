@@ -3522,9 +3522,11 @@ select:focus {
             font-size: 0.8rem;
         }
 
-        /* Delivery timeline: shrink gap */
+        /* Delivery timeline: full width, evenly distributed */
         .delivery-steps {
-            gap: 1.5rem !important;
+            gap: 0 !important;
+            justify-content: space-between !important;
+            width: 100%;
         }
 
         .delivery-step-title {
