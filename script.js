@@ -61,10 +61,7 @@ async function init() {
         }
 
         if (bestsellerWomenGrid || bestsellerMenGrid) {
-            console.log('[Bestseller] calling renderBestsellers(), grids:', !!bestsellerWomenGrid, !!bestsellerMenGrid);
             renderBestsellers();
-        } else {
-            console.log('[Bestseller] grids NOT found in DOM. bestsellerWomenGrid=', bestsellerWomenGrid, 'bestsellerMenGrid=', bestsellerMenGrid);
         }
     }
 
@@ -303,7 +300,6 @@ function initProductControls() {
 
 function getBestsellerProductsForCategory(category) {
     const pool = products.filter(p => p.bestseller === true && p.category === category);
-    console.log(`[Bestseller] category=${category} pool=${pool.length}`, pool.map(p => p.id));
     const shuffled = [...pool].sort(() => 0.5 - Math.random());
     const maxItems = 6;
     return shuffled.slice(0, Math.min(maxItems, shuffled.length));
