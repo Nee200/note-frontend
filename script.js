@@ -884,6 +884,16 @@ document.addEventListener('click', (e) => {
     }
 });
 
+// Close mobile menu when clicking a link inside it
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        const navLinks = document.querySelector('.nav-links');
+        if (navLinks && navLinks.classList.contains('mobile-active')) {
+            navLinks.classList.remove('mobile-active');
+        }
+    });
+});
+
 // Suche
 
 // Checkout (Dummy)
