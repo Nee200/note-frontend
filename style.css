@@ -2058,6 +2058,7 @@ select:focus {
     text-align: center;
     font-size: 0.85rem;
     color: var(--text-light);
+    width: 100%;
 }
 
 .stock-status {
@@ -2071,6 +2072,7 @@ select:focus {
     margin-top: 1.5rem;
     padding-top: 1rem;
     width: 100%;
+    display: block;
     opacity: 0;
     transform: translateY(4px);
     transition: opacity 0.25s ease, transform 0.25s ease;
