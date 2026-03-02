@@ -657,8 +657,14 @@ function updateCartUI() {
     } else {
         cartItemsContainer.innerHTML = cart.map(item => {
             const totalPrice = item.price * item.quantity;
-            const hasOriginal = item.originalPrice && item.originalPrice > item.price;
-            const totalOriginal = hasOriginal ? item.originalPrice * item.quantity : null;
+
+            // Look up originalPrice from products array (covers items added before this feature)
+            const product = products.find(p => p.id === item.productId);
+            const variantData = product && product.variants && product.variants[item.size];
+            const origPrice = item.originalPrice || (variantData && variantData.originalPrice) || null;
+
+            const hasOriginal = origPrice && origPrice > item.price;
+            const totalOriginal = hasOriginal ? origPrice * item.quantity : null;
             const savings = hasOriginal ? totalOriginal - totalPrice : 0;
 
             const priceHTML = hasOriginal
