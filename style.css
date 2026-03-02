@@ -3402,4 +3402,121 @@ select:focus {
             padding-left: 10px;
             padding-right: 10px;
         }
+
+        /* ==== PRODUCT DETAIL PAGE ===== */
+        .product-detail-page {
+            padding-top: 1rem;
+        }
+
+        .detail-container {
+            flex-direction: column !important;
+            gap: 1rem !important;
+            padding: 0 !important;
+        }
+
+        .detail-gallery {
+            max-width: 100%;
+            width: 100%;
+        }
+
+        .detail-main-image-wrapper {
+            max-height: 280px;
+            overflow: hidden;
+        }
+
+        #detail-main-image {
+            max-height: 280px;
+            object-fit: contain;
+        }
+
+        .detail-thumbnails {
+            flex-direction: row;
+            overflow-x: auto;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .detail-thumbnail {
+            width: 50px;
+            height: 50px;
+        }
+
+        .detail-info {
+            padding-top: 0.5rem;
+            width: 100%;
+        }
+
+        #detail-title {
+            font-size: 1.6rem !important;
+            margin-bottom: 0.3rem;
+        }
+
+        .detail-price,
+        .product-price-wrapper {
+            font-size: 1.4rem !important;
+        }
+
+        /* Benefits row: wrap evenly */
+        .benefits-list {
+            gap: 0.4rem !important;
+        }
+
+        .benefits-list li {
+            width: 30% !important;
+            font-size: 0.68rem !important;
+        }
+
+        /* Size option buttons */
+        .option-group {
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .option-btn {
+            min-width: 70px;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        /* "In den Warenkorb" button */
+        #detail-add-btn {
+            width: 100%;
+            padding: 0.9rem;
+            font-size: 1rem;
+        }
+
+        /* Trust badges & shipping info */
+        .trust-badges {
+            font-size: 0.8rem;
+        }
+
+        /* Delivery timeline: shrink gap */
+        .delivery-steps {
+            gap: 1.5rem !important;
+        }
+
+        .delivery-step-title {
+            font-size: 0.7rem;
+        }
+
+        .delivery-step-date {
+            font-size: 0.65rem;
+        }
+
+        .delivery-icon-circle {
+            width: 36px;
+            height: 36px;
+            font-size: 0.85rem;
+        }
+
+        /* Accordion */
+        .accordion-header {
+            font-size: 0.9rem;
+            padding: 0.75rem 0;
+        }
+
+        .accordion-content {
+            font-size: 0.85rem;
+        }
     }
+}
