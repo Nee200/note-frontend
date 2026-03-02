@@ -761,7 +761,7 @@ h3,
 .product-title {
     font-family: 'Playfair Display', serif;
     font-size: 1.5rem;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.1rem;
     font-weight: 500;
     letter-spacing: 0.05em;
     color: #1a1a1a;
@@ -770,6 +770,10 @@ h3,
     align-items: center;
     gap: 0;
     text-align: center;
+}
+
+.product-title.has-badge {
+    margin-bottom: 0.4rem;
 }
 
 .product-badge-bestseller {

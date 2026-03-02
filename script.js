@@ -118,7 +118,7 @@ function getProductCardHTML(product) {
                      onerror="this.src='logo.png'">
             </div>
             <div class="product-info">
-                <h3 class="product-title">
+                <h3 class="product-title${bestsellerFlag ? ' has-badge' : ''}">
                     ${product.name}
                     ${bestsellerFlag ? '<span class="product-badge-bestseller">Bestseller</span>' : ''}
                 </h3>
