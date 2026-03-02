@@ -21,11 +21,9 @@ const cartCountElement = document.getElementById('cart-count');
 const cartSidebar = document.getElementById('cart-sidebar');
 const overlay = document.getElementById('overlay');
 
-const bestsellerIds = ['G11', 'G21', 'G28', 'G32', 'L1', 'L5', 'L10', 'L20'];
-const bestsellerIdSet = new Set(bestsellerIds);
-
+// Bestseller wird jetzt direkt aus dem Datenbankfeld product.bestseller gelesen
 function isBestseller(product) {
-    return bestsellerIdSet.has(product.id);
+    return product.bestseller === true;
 }
 
 async function init() {
