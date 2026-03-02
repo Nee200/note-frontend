@@ -871,6 +871,19 @@ function toggleMobileMenu() {
     navLinks.classList.toggle('mobile-active');
 }
 
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    const navLinks = document.querySelector('.nav-links');
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+
+    // If menu is open and click was outside both the menu and the hamburger button
+    if (navLinks && navLinks.classList.contains('mobile-active')) {
+        if (!navLinks.contains(e.target) && hamburgerMenu && !hamburgerMenu.contains(e.target)) {
+            navLinks.classList.remove('mobile-active');
+        }
+    }
+});
+
 // Suche
 
 // Checkout (Dummy)
