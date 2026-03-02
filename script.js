@@ -611,11 +611,12 @@ function addToCart(productId, size = 50) {
         const cartImage = (product.images && product.images.length > 0) ? product.images[0] : 'logo.png';
 
         cart.push({
-            cartId: cartItemId, // Interne ID für Warenkorb
-            id: product.id + (variant.idSuffix || `-${size}`), // ID für Server/Stripe (z.B. "1-50" oder "G1-50")
-            productId: product.id, // Referenz zum Hauptprodukt
+            cartId: cartItemId,
+            id: product.id + (variant.idSuffix || `-${size}`),
+            productId: product.id,
             name: `${product.name} (${size}ml)`,
             price: variant.price,
+            originalPrice: variant.originalPrice || null,
             size: size,
             quantity: 1,
             image: cartImage
@@ -654,7 +655,19 @@ function updateCartUI() {
     if (cart.length === 0) {
         cartItemsContainer.innerHTML = '<p class="empty-msg" style="padding: 1.5rem; text-align: center; color: #666;">Ihr Warenkorb ist leer.</p>';
     } else {
-        cartItemsContainer.innerHTML = cart.map(item => `
+        cartItemsContainer.innerHTML = cart.map(item => {
+            const totalPrice = item.price * item.quantity;
+            const hasOriginal = item.originalPrice && item.originalPrice > item.price;
+            const totalOriginal = hasOriginal ? item.originalPrice * item.quantity : null;
+            const savings = hasOriginal ? totalOriginal - totalPrice : 0;
+
+            const priceHTML = hasOriginal
+                ? `<div class="item-price-original">${totalOriginal.toFixed(2)} €</div>
+                   <div class="item-price">${totalPrice.toFixed(2)} €</div>
+                   <div class="item-savings">(${savings.toFixed(2)} € gespart)</div>`
+                : `<div class="item-price">${totalPrice.toFixed(2)} €</div>`;
+
+            return `
             <div class="cart-item">
                 <img src="${item.image || 'logo.png'}" alt="${item.name}" onerror="this.src='logo.png'">
                 <div class="cart-item-info">
@@ -670,10 +683,12 @@ function updateCartUI() {
                     <button class="delete-btn" onclick="removeFromCart('${item.cartId}')">
                         <i class="far fa-trash-alt"></i>
                     </button>
-                    <div class="item-price">${(item.price * item.quantity).toFixed(2)} €</div>
+                    <div class="cart-item-price-block">
+                        ${priceHTML}
+                    </div>
                 </div>
-            </div>
-        `).join('');
+            </div>`;
+        }).join('');
     }
 
     // 3. Berechnungen (Subtotal, Discount, Shipping, Total)

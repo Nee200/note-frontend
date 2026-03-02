@@ -2626,9 +2626,30 @@ select:focus {
     color: #c0392b;
 }
 
+.cart-item-price-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.1rem;
+}
+
 .item-price {
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    color: #1a1a1a;
+}
+
+.item-price-original {
+    font-size: 0.78rem;
+    color: #aaa;
+    text-decoration: line-through;
+    font-weight: 400;
+}
+
+.item-savings {
+    font-size: 0.72rem;
+    color: #2e7d32;
+    font-weight: 600;
 }
 
 /* Upsell Section */
