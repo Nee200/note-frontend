@@ -757,37 +757,58 @@ function changeQuantity(cartId, delta) {
     }
 }
 
-// Upsell Logik (Zeige ein Produkt, das nicht im Warenkorb ist)
+// Upsell Logik – zeigt ein Produkt passend zur Warenkorb-Kategorie
 function updateUpsell() {
     const container = document.getElementById('upsell-container');
     if (!container) return;
 
-    // Finde ein Produkt, das nicht im Warenkorb ist (check based on productId to avoid showing same perfume different size)
-    const availableUpsells = products.filter(p => !cart.find(c => c.productId === p.id));
+    // Finde Produktids die bereits im Warenkorb sind
+    const cartProductIds = new Set(cart.map(c => c.productId));
 
-    if (availableUpsells.length > 0) {
-        // Nimm das erste verfügbare oder zufällig
-        const upsellProduct = availableUpsells[0];
-        // Standardmäßig 50ml Preis anzeigen für Upsell
-        const upsellPrice = upsellProduct.variants[50].price;
+    // Bestimme welche Kategorie überwiegt im Warenkorb
+    const categoryCounts = {};
+    cart.forEach(c => {
+        const p = products.find(x => x.id === c.productId);
+        if (p && p.category) {
+            categoryCounts[p.category] = (categoryCounts[p.category] || 0) + 1;
+        }
+    });
+    const dominantCategory = Object.entries(categoryCounts).sort((a, b) => b[1] - a[1])[0]?.[0];
 
-        container.innerHTML = `
-            <div class="upsell-card">
-                <img src="${(upsellProduct.images && upsellProduct.images.length > 0) ? upsellProduct.images[0] : 'logo.png'}" 
-                     class="upsell-img" 
-                     alt="${upsellProduct.name}"
-                     onerror="this.src='logo.png'">
-                <div class="upsell-info">
-                    <div class="upsell-title">${upsellProduct.name}</div>
-                    <div class="upsell-price">${upsellPrice.toFixed(2)} €</div>
-                </div>
-                <button class="upsell-add-btn" onclick="addToCart('${upsellProduct.id}', 50)">Hinzufügen</button>
-            </div>
-        `;
-    } else {
-        // Fallback, wenn alle Produkte im Warenkorb sind (z.B. Zubehör anzeigen oder ausblenden)
-        container.innerHTML = '<p style="font-size:0.9rem; color:#666;">Alle Düfte im Warenkorb!</p>';
+    // Filtere: nicht im Warenkorb, bevorzuge gleiche Kategorie
+    let pool = products.filter(p => !cartProductIds.has(p.id) && p.variants?.[50]?.price);
+
+    // Zuerst gleiche Kategorie, dann Bestseller bevorzugen
+    let sameCat = dominantCategory ? pool.filter(p => p.category === dominantCategory) : pool;
+    if (sameCat.length === 0) sameCat = pool;
+
+    // Bestseller zuerst, dann zufällig aus dem Rest
+    const bestsellers = sameCat.filter(p => p.bestseller);
+    const others = sameCat.filter(p => !p.bestseller);
+    const sortedPool = [...bestsellers, ...others];
+
+    if (sortedPool.length === 0) {
+        container.innerHTML = '<p style="font-size:0.8rem;color:#999;text-align:center;">Alle Düfte im Warenkorb!</p>';
+        return;
     }
+
+    // Zufällig aus den Top-10 des sortierten Pools wählen (für Abwechslung)
+    const pick = sortedPool[Math.floor(Math.random() * Math.min(10, sortedPool.length))];
+    const price = pick.variants[30]?.price ?? pick.variants[50]?.price;
+
+    container.innerHTML = `
+        <div class="upsell-card">
+            <img src="${(pick.images && pick.images.length > 0) ? pick.images[0] : 'logo.png'}"
+                 class="upsell-img"
+                 alt="${pick.name}"
+                 onerror="this.src='logo.png'">
+            <div class="upsell-info">
+                <div class="upsell-title">${pick.name}${pick.bestseller ? ' <span class="upsell-bs-badge">Bestseller</span>' : ''}</div>
+                <div class="upsell-price">ab ${price.toFixed(2)} €</div>
+            </div>
+            <button class="upsell-add-btn" onclick="window.location.href='product.html?id=${pick.id}'">Ansehen</button>
+        </div>
+    `;
 }
 
 // Timer Logik
