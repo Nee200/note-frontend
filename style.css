@@ -2078,13 +2078,13 @@ select:focus {
 
 .delivery-steps {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: flex-start;
     position: relative;
     width: 100%;
     max-width: none;
     margin: 0 auto;
-    gap: 6rem;
+    gap: 0;
 }
 
 @media (min-width: 1200px) {
