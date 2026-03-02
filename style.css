@@ -2753,6 +2753,12 @@ select:focus {
     order: 4;
 }
 
+/* product.html has summary-rows as direct cart-footer children — give them order 2 too */
+.cart-footer>.summary-row,
+.cart-footer>#discount-row {
+    order: 2;
+}
+
 
 .summary-row {
     display: flex;
