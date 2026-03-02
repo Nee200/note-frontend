@@ -355,13 +355,13 @@ h3,
 .cart-icon {
     position: relative;
     cursor: pointer;
-    padding: 8px;
+    padding: 0;
 }
 
 #cart-count {
     position: absolute;
-    top: -5px;
-    right: -5px;
+    top: -8px;
+    right: -10px;
     background: var(--primary);
     color: white;
     font-size: 0.7rem;
@@ -1131,7 +1131,7 @@ h3,
 
     .nav-icons {
         margin-left: 0;
-        gap: 0.4rem;
+        gap: 1rem;
         /* Closer search and cart icons */
     }
 
@@ -2936,7 +2936,7 @@ select:focus {
 .nav-icons {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 1.2rem;
     /* Reduced from 1.5rem */
     position: relative;
     /* Anchor for search dropdown */
@@ -2950,7 +2950,7 @@ select:focus {
 
 .search-icon {
     cursor: pointer;
-    padding: 8px;
+    padding: 0;
     transition: opacity 0.3s;
     color: var(--text);
     z-index: 2001;
@@ -2963,7 +2963,7 @@ select:focus {
 
 .user-icon {
     cursor: pointer;
-    padding: 8px;
+    padding: 0;
     color: var(--text);
     display: flex;
     align-items: center;
@@ -3372,7 +3372,7 @@ select:focus {
 
         /* Nav Icons spacing */
         .nav-icons {
-            gap: 0.4rem !important;
+            gap: 0.8rem !important;
         }
 
         /* Cart Sidebar Padding for Upsell Items */
