@@ -241,7 +241,11 @@ function renderOrders() {
             actions = `<button class="btn btn-small" style="padding:0.4em 0.8em; font-size:0.8rem; border-radius:4px; margin-bottom:4px; background:#27ae60;" onclick="setOrderStatus('${o._id}', 'abgeschlossen')"><i class="fas fa-check"></i> Abschließen</button><br>`;
 
             if (isPickup) {
-                actions += `<button class="btn btn-small" style="padding:0.4em 0.8em; font-size:0.8rem; border-radius:4px; margin-bottom:4px; background:#f39c12; color:#fff;" onclick="sendPickupEmail(this, '${o._id}')"><i class="fas fa-envelope"></i> Abhol-Mail senden</button><br>`;
+                if (o.pickupEmailSent) {
+                    actions += `<button class="btn btn-small" style="padding:0.4em 0.8em; font-size:0.8rem; border-radius:4px; margin-bottom:4px; background:#95a5a6; color:#fff; cursor:not-allowed;" disabled><i class="fas fa-check-circle"></i> Mail gesendet</button><br>`;
+                } else {
+                    actions += `<button class="btn btn-small" style="padding:0.4em 0.8em; font-size:0.8rem; border-radius:4px; margin-bottom:4px; background:#f39c12; color:#fff;" onclick="sendPickupEmail(this, '${o._id}')"><i class="fas fa-envelope"></i> Abhol-Mail senden</button><br>`;
+                }
             }
 
             actions += `<button class="btn btn-small" style="padding:0.4em 0.8em; font-size:0.8rem; border-radius:4px; margin-top:4px; background:#888;" onclick="setOrderStatus('${o._id}', 'neu')"><i class="fas fa-undo"></i> Zurück auf Neu</button>`;
@@ -275,8 +279,10 @@ async function sendPickupEmail(btnElement, orderId) {
             method: 'POST'
         });
         if (res.ok) {
-            btnElement.innerHTML = '<i class="fas fa-check"></i> Gesendet!';
-            btnElement.style.background = '#27ae60';
+            btnElement.innerHTML = '<i class="fas fa-check-circle"></i> Mail gesendet';
+            btnElement.style.background = '#95a5a6';
+            btnElement.style.cursor = 'not-allowed';
+            btnElement.onclick = null; // optional, prevent clicking again
         } else {
             const err = await res.json();
             alert('Fehler: ' + (err.error || 'Mail konnte nicht gesendet werden'));
