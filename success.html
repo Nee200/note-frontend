@@ -1,11 +1,14 @@
 ﻿<!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bestellung erfolgreich - NOTE. extract de parfume</title>
-    <link rel="stylesheet" href="style.css?v=1772545466071">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=1772545953739">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;900&display=swap"
+        rel="stylesheet">
     <style>
         .success-container {
             min-height: 60vh;
@@ -16,15 +19,19 @@
             text-align: center;
             padding: 2rem;
         }
+
         .success-icon {
             font-size: 4rem;
-            color: #2c5a45; /* Green */
+            color: #2c5a45;
+            /* Green */
             margin-bottom: 1.5rem;
         }
+
         h1 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
         }
+
         p {
             color: var(--text-light);
             max-width: 600px;
@@ -32,6 +39,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Navigation (Simplified) -->
     <nav class="navbar">
@@ -45,18 +53,26 @@
 
     <div class="container success-container">
         <div class="success-icon">✓</div>
-        <h1>Vielen Dank für deine Bestellung</h1>
-        <p>Deine Zahlung war erfolgreich. Wir haben dir eine Bestätigungs-E-Mail gesendet und bereiten deine Bestellung für den Versand vor.</p>
+        <h1 id="success-title">Vielen Dank für deine Bestellung</h1>
+        <p id="success-message">Deine Zahlung war erfolgreich. Wir haben dir eine Bestätigungs-E-Mail gesendet und
+            bereiten deine Bestellung für den Versand vor.</p>
         <a href="index.html" class="btn btn-primary">Zurück zum Shop</a>
     </div>
 
     <script>
-        // Warenkorb leeren
         document.addEventListener('DOMContentLoaded', () => {
+            // Warenkorb leeren
             localStorage.removeItem('cart');
             localStorage.removeItem('discount');
-            // Optional: Event dispatch, falls andere Tabs offen sind, aber hier reicht das Leeren.
+
+            // Pickup Text anpassen
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('pickup') === 'true') {
+                document.getElementById('success-title').innerText = 'Reservierung erfolgreich!';
+                document.getElementById('success-message').innerText = 'Vielen Dank für deine Reservierung. Wir bereiten deine Bestellung vor und benachrichtigen dich per E-Mail, sobald sie in unserem Store zur Abholung und Barzahlung bereitliegt.';
+            }
         });
     </script>
 </body>
+
 </html>
