@@ -3696,3 +3696,151 @@ select:focus {
 .delivery-btn.active i {
     color: #000000;
 }
+
+/* ============================================================
+   WARENKORB – MOBILE COMPACT (iPhone / kleine Bildschirme)
+   Ziel: Produkte sichtbar halten trotz URL-Leiste + Buttons
+   ============================================================ */
+@media (max-width: 430px) {
+
+    /* Header */
+    .cart-header {
+        padding: 0.55rem 1rem !important;
+    }
+
+    .cart-title-wrapper {
+        font-size: 0.9rem !important;
+    }
+
+    /* Timer-Bar */
+    .cart-notification {
+        padding: 0.35rem 0.75rem !important;
+        font-size: 0.73rem !important;
+    }
+
+    /* Versandfortschritt */
+    .shipping-progress-container {
+        padding: 0.4rem 1rem !important;
+    }
+
+    .shipping-text {
+        font-size: 0.75rem !important;
+        margin-bottom: 0.25rem !important;
+    }
+
+    /* Produkte */
+    .cart-items {
+        padding: 0 0.75rem !important;
+    }
+
+    .cart-item {
+        grid-template-columns: 56px 1fr auto !important;
+        gap: 0.55rem !important;
+        padding: 0.65rem 0 !important;
+    }
+
+    .cart-item img {
+        width: 56px !important;
+        height: 56px !important;
+    }
+
+    .cart-item-title {
+        font-size: 0.8rem !important;
+    }
+
+    .cart-item-variant {
+        font-size: 0.72rem !important;
+    }
+
+    .quantity-control {
+        margin-top: 0.25rem !important;
+    }
+
+    .qty-btn {
+        width: 20px !important;
+        height: 20px !important;
+        font-size: 0.82rem !important;
+    }
+
+    .qty-display {
+        font-size: 0.78rem !important;
+        padding: 0 0.3rem !important;
+    }
+
+    .item-price {
+        font-size: 0.8rem !important;
+    }
+
+    /* Footer */
+    .cart-footer {
+        padding: 0.5rem 0.9rem 0.6rem !important;
+    }
+
+    .summary-row {
+        font-size: 0.8rem !important;
+        margin-bottom: 0.3rem !important;
+    }
+
+    .total-row {
+        font-size: 0.95rem !important;
+        margin-top: 0.35rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    /* Delivery-Toggle */
+    .delivery-toggle-container {
+        padding: 3px !important;
+        gap: 4px !important;
+        margin-bottom: 7px !important;
+    }
+
+    .delivery-btn {
+        padding: 6px 5px !important;
+        font-size: 0.76rem !important;
+        gap: 4px !important;
+    }
+
+    .delivery-btn i {
+        font-size: 0.85rem !important;
+    }
+
+    /* Pickup-Formular komprimieren */
+    #pickup-form {
+        margin-bottom: 6px !important;
+    }
+
+    #pickup-name,
+    #pickup-email {
+        padding: 6px 8px !important;
+        font-size: 0.78rem !important;
+        margin-bottom: 5px !important;
+    }
+
+    #pickup-form p {
+        font-size: 0.66rem !important;
+        margin: 0 !important;
+        line-height: 1.3 !important;
+    }
+
+    /* Checkout-Button */
+    .btn-checkout {
+        padding: 0.6rem !important;
+        font-size: 0.78rem !important;
+        letter-spacing: 0.05em !important;
+    }
+
+    /* Zahlungsicons ausblenden – zu viel Platz verbraucht */
+    .payment-icons {
+        display: none !important;
+    }
+
+    /* Coupon-Feld */
+    .coupon-section {
+        margin: 0.25rem 0 !important;
+    }
+
+    .coupon-input {
+        padding: 0.35rem 0.5rem !important;
+        font-size: 0.78rem !important;
+    }
+}

@@ -1,4 +1,3 @@
-
 /* Updated Cart Styles to match screenshot */
 
 /* Cart Header */
@@ -33,7 +32,8 @@
 
 /* Notification Bar */
 .cart-notification {
-    background-color: #f8f9fa; /* Light grey for elegance */
+    background-color: #f8f9fa;
+    /* Light grey for elegance */
     color: #333;
     padding: 0.75rem 1rem;
     font-size: 0.85rem;
@@ -46,14 +46,16 @@
 }
 
 .cart-notification i {
-    color: #d4af37; /* Gold icon */
+    color: #d4af37;
+    /* Gold icon */
 }
 
 /* Shipping Progress */
 .shipping-progress-container {
     padding: 1rem 1.5rem;
     background: #fff;
-    border-bottom: 1px solid #eee; /* Separator for structure */
+    border-bottom: 1px solid #eee;
+    /* Separator for structure */
 }
 
 .shipping-text {
@@ -68,7 +70,8 @@
 
 .progress-bar-bg {
     width: 100%;
-    height: 4px; /* Sleeker bar */
+    height: 4px;
+    /* Sleeker bar */
     background-color: #eee;
     border-radius: 2px;
     overflow: hidden;
@@ -76,7 +79,8 @@
 
 .progress-bar-fill {
     height: 100%;
-    background-color: #1a1a1a; /* Black for modern look */
+    background-color: #1a1a1a;
+    /* Black for modern look */
     width: 0%;
     transition: width 0.3s ease;
 }
@@ -90,7 +94,8 @@
 
 .cart-item {
     display: grid;
-    grid-template-columns: 80px 1fr auto; /* Image, Info, Price/Delete */
+    grid-template-columns: 80px 1fr auto;
+    /* Image, Info, Price/Delete */
     gap: 1rem;
     padding: 1.5rem 0;
     border-bottom: 1px solid #f5f5f5;
@@ -258,16 +263,19 @@
     font-size: 1.2rem;
     font-weight: 700;
     color: #000;
-    border-top: none; /* Removed previous border */
+    border-top: none;
+    /* Removed previous border */
 }
 
 .btn-checkout {
     width: 100%;
     padding: 1rem;
-    background-color: #1a1a1a; /* Black for modern elegance */
+    background-color: #1a1a1a;
+    /* Black for modern elegance */
     color: white;
     border: none;
-    border-radius: 2px; /* Less rounded for more elegance */
+    border-radius: 2px;
+    /* Less rounded for more elegance */
     font-size: 0.9rem;
     font-weight: 500;
     letter-spacing: 0.1em;
@@ -299,4 +307,160 @@
     padding: 2px 5px;
     border-radius: 3px;
     background: #f9f9f9;
+}
+
+/* ============================================
+   MOBILE COMPACT MODE – iPhone & small screens
+   Ziel: mehr Platz für Produkte im Warenkorb
+   ============================================ */
+@media (max-width: 430px),
+(max-height: 750px) {
+
+    /* --- Header kompakter --- */
+    .cart-header {
+        padding: 0.6rem 1rem;
+    }
+
+    .cart-title-wrapper {
+        font-size: 0.95rem;
+    }
+
+    .close-cart {
+        font-size: 1.2rem;
+    }
+
+    /* --- Timer-Leiste kleiner --- */
+    .cart-notification {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.75rem;
+    }
+
+    /* --- Versandfortschritt kompakter --- */
+    .shipping-progress-container {
+        padding: 0.5rem 1rem;
+    }
+
+    .shipping-text {
+        font-size: 0.78rem;
+        margin-bottom: 0.3rem;
+    }
+
+    /* --- Produkt-Items: kleineres Bild, weniger Abstand --- */
+    .cart-items {
+        padding: 0 0.75rem;
+    }
+
+    .cart-item {
+        grid-template-columns: 58px 1fr auto;
+        gap: 0.6rem;
+        padding: 0.75rem 0;
+    }
+
+    .cart-item img {
+        width: 58px;
+        height: 58px;
+        border-radius: 6px;
+    }
+
+    .cart-item-title {
+        font-size: 0.82rem;
+    }
+
+    .cart-item-variant {
+        font-size: 0.74rem;
+    }
+
+    .quantity-control {
+        margin-top: 0.3rem;
+        padding: 0.1rem;
+    }
+
+    .qty-btn {
+        width: 20px;
+        height: 20px;
+        font-size: 0.85rem;
+    }
+
+    .qty-display {
+        font-size: 0.8rem;
+        padding: 0 0.35rem;
+    }
+
+    .item-price {
+        font-size: 0.82rem;
+    }
+
+    /* --- Footer kompressor --- */
+    .cart-footer {
+        padding: 0.6rem 0.9rem 0.75rem;
+    }
+
+    .summary-row {
+        font-size: 0.82rem;
+        margin-bottom: 0.35rem;
+    }
+
+    .total-row {
+        font-size: 1rem;
+        margin-top: 0.4rem;
+        margin-bottom: 0.6rem;
+    }
+
+    /* --- Delivery-Toggle kleiner --- */
+    .delivery-toggle-container {
+        padding: 4px;
+        gap: 5px;
+        margin-bottom: 8px;
+        border-radius: 9px;
+    }
+
+    .delivery-btn {
+        padding: 7px 6px;
+        font-size: 0.78rem;
+        gap: 5px;
+    }
+
+    .delivery-btn i {
+        font-size: 0.9rem;
+    }
+
+    /* --- Pickup-Form: kompakte Inputs --- */
+    #pickup-form {
+        margin-bottom: 8px !important;
+    }
+
+    #pickup-name,
+    #pickup-email {
+        padding: 7px 8px !important;
+        font-size: 0.8rem !important;
+        margin-bottom: 6px !important;
+        border-radius: 4px !important;
+    }
+
+    #pickup-form p {
+        font-size: 0.68rem !important;
+        margin: 0 !important;
+    }
+
+    /* --- Checkout-Button kleiner --- */
+    .btn-checkout {
+        padding: 0.65rem;
+        font-size: 0.8rem;
+        letter-spacing: 0.06em;
+    }
+
+    /* --- Zahlungsicons verstecken um Platz zu sparen --- */
+    .payment-icons {
+        display: none;
+    }
+
+    /* --- Coupon-Bereich kompakter --- */
+    .coupon-section {
+        margin: 0.3rem 0;
+    }
+
+    .coupon-input {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.8rem;
+    }
 }
