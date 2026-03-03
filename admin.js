@@ -287,10 +287,14 @@ async function sendPickupEmail(btnElement, orderId) {
             method: 'POST'
         });
         if (res.ok) {
-            btnElement.innerHTML = '<i class="fas fa-check-circle"></i> Mail gesendet';
-            btnElement.style.background = '#95a5a6';
-            btnElement.style.cursor = 'not-allowed';
-            btnElement.onclick = null; // optional, prevent clicking again
+            // Lokalen Order-Datensatz sofort aktualisieren,
+            // damit beim Tab-Wechsel der Button grau bleibt
+            const idx = allOrders.findIndex(o => o._id === orderId);
+            if (idx !== -1) {
+                allOrders[idx].pickupEmailSent = true;
+            }
+            // Tabelle neu rendern – Button erscheint nun direkt im grauen Zustand
+            renderOrders();
         } else {
             const err = await res.json();
             alert('Fehler: ' + (err.error || 'Mail konnte nicht gesendet werden'));
