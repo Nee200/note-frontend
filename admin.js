@@ -3,10 +3,18 @@ let allProducts = [];
 let editingProductId = null;
 let selectedIds = new Set(); // Persists selections across search re-renders
 
-// Central fetch wrapper â€“ always sends cookies cross-origin
+let allOrders = [];
+let currentOrderFilter = 'neu';
+
+// Central fetch wrapper – always sends cookies cross-origin & fallback token
 function adminFetch(path, options) {
     options = options || {};
     options.credentials = 'include';
+    options.headers = options.headers || {};
+    const token = localStorage.getItem('api_admin_auth');
+    if (token) {
+        options.headers['Authorization'] = 'Bearer ' + token;
+    }
     return fetch(API_BASE_URL + path, options);
 }
 
@@ -23,6 +31,10 @@ async function login() {
             credentials: 'include'
         });
         if (res.ok) {
+            const data = await res.json();
+            if (data.token) {
+                localStorage.setItem('api_admin_auth', data.token);
+            }
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
             loadProducts();
@@ -92,6 +104,7 @@ function switchTab(tab) {
 function logout() {
     // Also delete the cookie client-side as a fallback
     document.cookie = 'api_admin_auth=; Max-Age=0; path=/; SameSite=None; Secure';
+    localStorage.removeItem('api_admin_auth');
     adminFetch('/api/admin/logout', { method: 'POST' }).finally(function () {
         document.getElementById('dashboard').style.display = 'none';
         document.getElementById('login-screen').style.display = 'flex';
@@ -109,7 +122,8 @@ async function loadOrders() {
         if (res.ok) {
             var data = await res.json();
             ordersLoaded = true;
-            renderOrders(data.orders);
+            allOrders = data.orders;
+            renderOrders();
         } else if (res.status === 401) {
             tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:orange;padding:2rem;"><i class="fas fa-lock"></i> Nicht autorisiert &ndash; bitte neu einloggen</td></tr>';
         } else {
@@ -122,38 +136,93 @@ async function loadOrders() {
     }
 }
 
-function renderOrders(orders) {
+function filterOrders(status) {
+    currentOrderFilter = status;
+    document.querySelectorAll('.order-tab').forEach(btn => btn.classList.remove('active'));
+    // Find the right tab by its onclick attribute logic
+    document.querySelectorAll('.order-tab').forEach(btn => {
+        if (btn.getAttribute('onclick').includes(status)) {
+            btn.classList.add('active');
+        }
+    });
+    renderOrders();
+}
+
+async function setOrderStatus(orderId, newStatus) {
+    var confirmMsg = '';
+    if (newStatus === 'in_bearbeitung') confirmMsg = 'Bestellung auf "In Bearbeitung" setzen?';
+    if (newStatus === 'abgeschlossen') confirmMsg = 'Bestellung auf "Versendet / Abgeschlossen" setzen?';
+    if (newStatus === 'archiv') confirmMsg = 'Bestellung archivieren?';
+    if (newStatus === 'neu') confirmMsg = 'Bestellung auf "Neu" zurücksetzen?';
+
+    if (!confirm(confirmMsg)) return;
+
+    try {
+        const res = await adminFetch(`/api/admin/orders/${orderId}/status`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status: newStatus })
+        });
+        if (res.ok) {
+            const data = await res.json();
+            // Update local order
+            const idx = allOrders.findIndex(o => o._id === orderId);
+            if (idx !== -1) {
+                allOrders[idx] = data.order;
+            }
+            renderOrders();
+        } else {
+            alert('Fehler beim Ändern des Status');
+        }
+    } catch (e) {
+        alert('Verbindungsfehler');
+    }
+}
+
+function renderOrders() {
     var tbody = document.getElementById('admin-order-list');
     var countEl = document.getElementById('order-count');
-    if (countEl) countEl.textContent = orders.length + ' Bestellungen';
 
-    if (!orders.length) {
-        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#888;padding:2rem;">Noch keine Bestellungen vorhanden</td></tr>';
+    var filteredOrders = allOrders.filter(o => (o.status || 'neu') === currentOrderFilter);
+
+    if (countEl) countEl.textContent = filteredOrders.length + ' Bestellungen (' + currentOrderFilter.replace('_', ' ') + ')';
+
+    if (!filteredOrders.length) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#888;padding:2rem;">Keine Bestellungen in dieser Kategorie</td></tr>';
         return;
     }
 
-    tbody.innerHTML = orders.map(function (o) {
+    tbody.innerHTML = filteredOrders.map(function (o) {
         var date = new Date(o.date).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
         var amount = o.amount ? (o.amount / 100).toFixed(2) + ' EUR' : '-';
 
         // Address block
         var addr = '-';
+        var isPickup = false;
         if (o.address) {
             var a = o.address;
             var parts = [];
             if (a.name) parts.push('<strong>' + a.name + '</strong>');
-            if (a.line1) parts.push(a.line1);
+            if (a.line1) {
+                parts.push(a.line1);
+                if (a.line1.toLowerCase().includes('selbstabholung')) {
+                    isPickup = true;
+                }
+            }
             if (a.line2) parts.push(a.line2);
             var cityLine = [a.postal_code, a.city].filter(Boolean).join(' ');
             if (cityLine) parts.push(cityLine);
             if (a.country) parts.push(a.country);
-            // Also support our own address format (street, zip, city)
             if (!parts.length) {
                 if (a.street) parts.push(a.street);
                 if (a.zip || a.city) parts.push([a.zip, a.city].filter(Boolean).join(' '));
                 if (a.country) parts.push(a.country);
             }
             addr = parts.join('<br>');
+        }
+
+        if (isPickup) {
+            addr += '<br><span style="display:inline-block;margin-top:4px;padding:2px 6px;background:#f39c12;color:#fff;border-radius:4px;font-size:0.75rem;font-weight:bold;"><i class="fas fa-store"></i> BARZAHLUNG / ABHOLUNG</span>';
         }
 
         // Items list
@@ -164,14 +233,61 @@ function renderOrders(orders) {
             }).join('<br>');
         }
 
+        // Actions
+        let actions = '';
+        if (currentOrderFilter === 'neu') {
+            actions = `<button class="btn btn-small" style="padding:0.4em 0.8em; font-size:0.8rem; border-radius:4px; margin-bottom:4px;" onclick="setOrderStatus('${o._id}', 'in_bearbeitung')"><i class="fas fa-box-open"></i> Bearbeiten</button>`;
+        } else if (currentOrderFilter === 'in_bearbeitung') {
+            actions = `<button class="btn btn-small" style="padding:0.4em 0.8em; font-size:0.8rem; border-radius:4px; margin-bottom:4px; background:#27ae60;" onclick="setOrderStatus('${o._id}', 'abgeschlossen')"><i class="fas fa-check"></i> Abschließen</button><br>`;
+
+            if (isPickup) {
+                actions += `<button class="btn btn-small" style="padding:0.4em 0.8em; font-size:0.8rem; border-radius:4px; margin-bottom:4px; background:#f39c12; color:#fff;" onclick="sendPickupEmail(this, '${o._id}')"><i class="fas fa-envelope"></i> Abhol-Mail senden</button><br>`;
+            }
+
+            actions += `<button class="btn btn-small" style="padding:0.4em 0.8em; font-size:0.8rem; border-radius:4px; margin-top:4px; background:#888;" onclick="setOrderStatus('${o._id}', 'neu')"><i class="fas fa-undo"></i> Zurück auf Neu</button>`;
+        } else if (currentOrderFilter === 'abgeschlossen') {
+            actions = `<button class="btn btn-small" style="padding:0.4em 0.8em; font-size:0.8rem; border-radius:4px; margin-bottom:4px; background:#888;" onclick="setOrderStatus('${o._id}', 'in_bearbeitung')"><i class="fas fa-undo"></i> Bearbeiten</button><br>
+                       <button class="btn btn-small" style="padding:0.4em 0.8em; font-size:0.8rem; border-radius:4px; margin-top:4px; background:#34495e;" onclick="setOrderStatus('${o._id}', 'archiv')"><i class="fas fa-archive"></i> Archivieren</button>`;
+        } else {
+            actions = `<span class="status-badge" style="background:#ddd;color:#555;"><i class="fas fa-archive"></i> Im Archiv</span>`;
+        }
+
         return '<tr>' +
             '<td style="white-space:nowrap;font-size:0.85rem;">' + date + '</td>' +
             '<td><strong>' + (o.name || '-') + '</strong><br><span style="font-size:0.8rem;color:#888;">' + (o.email || '') + '</span></td>' +
             '<td style="font-size:0.82rem;line-height:1.5;">' + addr + '</td>' +
             '<td style="font-size:0.82rem;line-height:1.6;">' + items + '</td>' +
             '<td style="font-weight:600;white-space:nowrap;">' + amount + '</td>' +
+            '<td style="white-space:nowrap;">' + actions + '</td>' +
             '</tr>';
     }).join('');
+}
+
+async function sendPickupEmail(btnElement, orderId) {
+    if (!confirm('Möchtest du dem Kunden eine E-Mail senden, dass seine Bestellung zur Abholung bereitliegt?')) return;
+
+    var originalHtml = btnElement.innerHTML;
+    btnElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sende...';
+    btnElement.disabled = true;
+
+    try {
+        const res = await adminFetch(`/api/admin/orders/${orderId}/notify-pickup`, {
+            method: 'POST'
+        });
+        if (res.ok) {
+            btnElement.innerHTML = '<i class="fas fa-check"></i> Gesendet!';
+            btnElement.style.background = '#27ae60';
+        } else {
+            const err = await res.json();
+            alert('Fehler: ' + (err.error || 'Mail konnte nicht gesendet werden'));
+            btnElement.innerHTML = originalHtml;
+            btnElement.disabled = false;
+        }
+    } catch (e) {
+        alert('Verbindungsfehler');
+        btnElement.innerHTML = originalHtml;
+        btnElement.disabled = false;
+    }
 }
 
 async function loadProducts() {

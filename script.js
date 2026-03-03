@@ -4,8 +4,35 @@ const API_BASE_URL = 'https://note-backend-5gy0.onrender.com';
 // Schema: 'p1_1.png', 'p1_2.png' etc. oder wie du sie nennst.
 let products = [];
 
+// Helper function to remove manufacturer names from the inspiredBy field
+function stripBrandName(name) {
+    if (!name) return '';
+    const brands = [
+        "Louis Vuitton", "Maison Francis Kurkdjian", "Maison Crivelli", "Maison Margiela", "Maison Alhambra",
+        "Tiziana Terenzi", "Tom Ford", "Yves Saint Laurent", "YSL", "Paco Rabanne", "Giorgio Armani", "Armani",
+        "Abdul Samad Al Qurashi", "Victoria Secret", "Xerjoff", "Casamorati", "Zadig & Voltaire", "Narciso Rodriguez",
+        "Carolina Herrera", "Mugler", "Givenchy", "Lancome", "Gucci", "Hermes", "Hugo Boss", "Boss", "Dolce & Gabbana",
+        "D&G", "Chanel", "Dior", "Creed", "Bvlgari", "Versace", "Amouage", "Acqua di Parma", "Baccarat", "Bond No 9",
+        "Burberry", "Byredo", "Calvin Klein", "Chloe", "Clive Christian", "Davidoff", "DKNY", "Diptyque", "Eisenberg",
+        "Elie Saab", "Escada", "Estee Lauder", "Gisada", "Guerlain", "Initio", "Jean Paul Gaultier", "Jimmy Choo",
+        "Jo Malone", "Kilian", "Kenzo", "Lattafa", "Le Labo", "Mancera", "Marc Jacobs", "Montale", "Nasomatto",
+        "Nina Ricci", "Nishane", "Prada", "Penhaligon", "Roja", "Sospiro", "Terenzi", "Valentino", "Viktor & Rolf",
+        "Yves Rocher", "Yves", "Parfums de Marly", "Arabian Oud", "Bottega Veneta", "Cartier", "Chopard", "Diesel",
+        "Escentric Molecules", "Ex Nihilo", "Issey Miyake", "Joop", "Juliette Has A Gun", "Montblanc", "Narciso",
+        "Rasasi", "Van Cleef", "Van Cleef & Arpels", "Ajmal", "Memo Paris", "Nikos", "Trussardi", "Atkinson"
+    ];
+    let cleaned = name.split(' - ').slice(-1)[0].trim(); // Get part after hyphen if any
+    for (const b of brands) {
+        if (cleaned.toLowerCase().startsWith(b.toLowerCase() + ' ')) {
+            return cleaned.substring(b.length + 1).trim();
+        }
+    }
+    return cleaned;
+}
+
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let currentDiscount = parseFloat(localStorage.getItem('discount')) || 0;
+let currentDeliveryMethod = 'shipping';
 let currentSelectedSize = 50;
 let currentListCategory = 'all';
 let currentPageIndex = 0;
@@ -28,15 +55,26 @@ function isBestseller(product) {
 
 async function init() {
     try {
-        const res = await fetch(API_BASE_URL + '/api/products');
-        if (res.ok) {
-            products = await res.json();
-            console.log('Products loaded:', products.length);
+        const cachedProducts = sessionStorage.getItem('note_products');
+        if (cachedProducts) {
+            products = JSON.parse(cachedProducts);
+            // In the background, fetch fresh products for the next page load
+            fetch(API_BASE_URL + '/api/products').then(res => {
+                if (res.ok) return res.json();
+            }).then(data => {
+                if (data) sessionStorage.setItem('note_products', JSON.stringify(data));
+            }).catch(e => console.error('Background fetch failed:', e));
         } else {
-            console.error('Failed to load products');
+            const res = await fetch(API_BASE_URL + '/api/products');
+            if (res.ok) {
+                products = await res.json();
+                sessionStorage.setItem('note_products', JSON.stringify(products));
+            } else {
+                console.error('Failed to load products');
+            }
         }
     } catch (e) {
-        console.error('Error fetching products:', e);
+        console.error('Error in init logic:', e);
     }
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -110,17 +148,16 @@ function getProductCardHTML(product) {
         <div class="product-card" onclick="window.location.href='product.html?id=${product.id}'">
             <div class="product-image-wrapper">
                 <img src="${(product.images && product.images.length > 0) ? product.images[0] : 'logo.png'}" 
-                     loading="lazy"
                      alt="${product.name}" 
                      class="product-grid-image product-img-${product.id}"
                      onerror="this.src='logo.png'">
             </div>
             <div class="product-info">
+                <p class="product-code">${product.name.replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, '')}</p>
                 <h3 class="product-title${bestsellerFlag ? ' has-badge' : ''}">
-                    ${product.name}
+                    ${product.inspiredBy ? '...' + stripBrandName(product.inspiredBy) + '&reg;' : product.name}
                     ${bestsellerFlag ? '<span class="product-badge-bestseller">Bestseller</span>' : ''}
                 </h3>
-                ${product.inspiredBy ? `<p class="product-inspired">Inspired by: ${product.inspiredBy.split(' - ')[0]}</p>` : ''}
                 <p class="product-short-desc">${product.description}</p>
                 <div class="product-actions">
                     <div class="product-price">
@@ -331,7 +368,7 @@ function renderProductDetail(id) {
         return;
     }
 
-    document.getElementById('detail-title').innerText = product.name;
+    document.getElementById('detail-title').innerText = product.name.replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, '');
     const detailBestsellerFlag = document.getElementById('detail-bestseller-flag');
     if (detailBestsellerFlag) {
         if (isBestseller(product)) {
@@ -438,15 +475,14 @@ function renderProductDetail(id) {
         `;
     }
 
-    // Inspired By
+    // Duftname (ohne "Inspired by" Referenz)
     const inspiredByContainer = document.querySelector('.inspired-by');
     if (inspiredByContainer && product.inspiredBy) {
-        const parts = product.inspiredBy.split(' - ');
-        if (parts.length === 2) {
-            inspiredByContainer.innerHTML = `"...${parts[0]}..." <span class="original-price">Originalpreis: ${parts[1]}</span>`;
-        } else {
-            inspiredByContainer.innerText = product.inspiredBy;
-        }
+        const fragName = stripBrandName(product.inspiredBy);
+        // Nur den Duftnamen anzeigen, ohne Hersteller-Referenz
+        inspiredByContainer.innerHTML = `<span class="inspired-value">...${fragName}&reg;</span>`;
+    } else if (inspiredByContainer) {
+        inspiredByContainer.style.display = 'none';
     }
 
     // Hauptbild
@@ -671,11 +707,14 @@ function updateCartUI() {
                    <div class="item-savings">(${savings.toFixed(2)} € gespart)</div>`
                 : `<div class="item-price">${totalPrice.toFixed(2)} €</div>`;
 
+            const cleanName = item.name.replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, '');
+            const inspiredText = product && product.inspiredBy ? '<br><span style="font-family: \'Playfair Display\', serif; font-size: 1.3em; color: #1a1a1a; font-weight: normal; font-style: normal;">...' + stripBrandName(product.inspiredBy) + '&reg;</span>' : '';
+
             return `
             <div class="cart-item">
                 <img src="${item.image || 'logo.png'}" alt="${item.name}" onerror="this.src='logo.png'">
                 <div class="cart-item-info">
-                    <div class="cart-item-title">${item.name}</div>
+                    <div class="cart-item-title" style="line-height: 1.3;">${cleanName}${inspiredText}</div>
                     <div class="cart-item-variant">${item.size}ml</div>
                     <div class="quantity-control">
                         <button class="qty-btn" onclick="changeQuantity('${item.cartId}', -1)">−</button>
@@ -706,20 +745,25 @@ function updateCartUI() {
     const shippingMessage = document.getElementById('shipping-message');
     const shippingBar = document.getElementById('shipping-progress-bar');
 
-    if (shippingMessage && shippingBar) {
-        if (remainingForFreeShipping <= 0) {
-            shippingMessage.innerHTML = '<strong>Kostenloser Versand!</strong>';
-            shippingBar.style.width = '100%';
-            shippingCost = 0;
-        } else {
-            shippingMessage.innerText = `Noch ${remainingForFreeShipping.toFixed(2)} € bis zu kostenlosem Versand`;
-            const percentage = Math.min(100, (subtotal / shippingThreshold) * 100);
-            shippingBar.style.width = `${percentage}%`;
-            shippingCost = 4.90; // Standard shipping cost
+    if (currentDeliveryMethod === 'shipping') {
+        if (shippingMessage && shippingBar) {
+            if (remainingForFreeShipping <= 0) {
+                shippingMessage.innerHTML = '<strong>Kostenloser Versand!</strong>';
+                shippingBar.style.width = '100%';
+                shippingCost = 0;
+            } else {
+                shippingMessage.innerText = `Noch ${remainingForFreeShipping.toFixed(2)} € bis zu kostenlosem Versand`;
+                const percentage = Math.min(100, (subtotal / shippingThreshold) * 100);
+                shippingBar.style.width = `${percentage}%`;
+                shippingCost = 4.90; // Standard shipping cost
+            }
         }
+    } else {
+        // Pickup
+        shippingCost = 0;
     }
 
-    const total = subtotal - discountAmount + (remainingForFreeShipping <= 0 ? 0 : shippingCost);
+    const total = subtotal - discountAmount + shippingCost;
 
     // 4. Footer Values Update
     const subtotalEl = document.getElementById('cart-subtotal');
@@ -740,7 +784,11 @@ function updateCartUI() {
     }
 
     if (shippingEl) {
-        shippingEl.innerText = remainingForFreeShipping <= 0 ? 'Kostenlos' : shippingCost.toFixed(2) + ' €';
+        if (currentDeliveryMethod === 'pickup') {
+            shippingEl.innerText = 'Abholung (0,00 €)';
+        } else {
+            shippingEl.innerText = remainingForFreeShipping <= 0 ? 'Kostenlos' : shippingCost.toFixed(2) + ' €';
+        }
     }
 
     if (totalEl) totalEl.innerText = total.toFixed(2) + ' €';
@@ -946,7 +994,42 @@ if (_navLinksContainer) {
 async function checkout() {
     // 1. Prüfe, ob der Warenkorb leer ist
     if (cart.length === 0) {
-        alert('Ihr Warenkorb ist leer!');
+        alert("Ihr Warenkorb ist leer.");
+        return;
+    }
+
+    if (currentDeliveryMethod === 'pickup') {
+        const name = document.getElementById('pickup-name').value.trim();
+        const email = document.getElementById('pickup-email').value.trim();
+        if (!name || !email) {
+            alert("Bitte gib deinen Namen und deine E-Mail-Adresse für die Reservierung ein.");
+            return;
+        }
+
+        const pickupCartItems = cart.map(item => ({
+            id: item.id,
+            quantity: item.quantity,
+            size: item.size
+        }));
+
+        try {
+            const response = await fetch(API_BASE_URL + '/create-pickup-order', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ items: pickupCartItems, customerName: name, customerEmail: email, discount: currentDiscount })
+            });
+            if (response.ok) {
+                cart = [];
+                updateCartUI();
+                toggleCart();
+                window.location.href = 'success.html?pickup=true';
+            } else {
+                alert('Fehler bei der Reservierung. Bitte versuche es noch einmal.');
+            }
+        } catch (e) {
+            console.error(e);
+            alert('Netzwerk-Fehler bei der Reservierung.');
+        }
         return;
     }
 
@@ -1071,8 +1154,8 @@ function performSearch() {
                      onerror="this.style.display='none'">
             </div>
             <div class="product-info">
-                <h3 class="product-title">${product.name}</h3>
-                ${inspiredByShort ? `<p class="product-inspired-search">Inspired by: ${inspiredByShort}</p>` : ''}
+                <p class="product-code">${product.name.replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, '')}</p>
+                <h3 class="product-title">${inspiredByShort ? '...' + stripBrandName(inspiredByShort) + '&reg;' : product.name}</h3>
                 <div class="product-price">ab ${price.toFixed(2)} €</div>
             </div>
         </div>
@@ -1177,3 +1260,23 @@ window.toggleSearch = toggleSearch;
 window.performSearch = performSearch;
 window.expandIntroText = expandIntroText;
 window.closeProductModal = closeProductModal;
+
+function setDeliveryMethod(method) {
+    currentDeliveryMethod = method;
+    document.querySelectorAll('.delivery-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById('btn-' + method).classList.add('active');
+
+    const checkoutBtn = document.querySelector('.btn-checkout');
+
+    if (method === 'pickup') {
+        document.getElementById('pickup-form').style.display = 'block';
+        document.querySelector('.shipping-progress-container').style.display = 'none';
+        if (checkoutBtn) checkoutBtn.innerHTML = '<i class="fas fa-store"></i> Reservieren & Barzahlung';
+    } else {
+        document.getElementById('pickup-form').style.display = 'none';
+        document.querySelector('.shipping-progress-container').style.display = 'block';
+        if (checkoutBtn) checkoutBtn.innerHTML = '<i class="fas fa-lock"></i> Sicher zur Kasse';
+    }
+    updateCartUI();
+}
+window.setDeliveryMethod = setDeliveryMethod;

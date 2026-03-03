@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Versandarten - NOTE. extract de parfume</title>
-    <link rel="stylesheet" href="style.css?v=1772450416325">
+    <link rel="stylesheet" href="style.css?v=1772545466071">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://js.stripe.com/v3/"></script>
@@ -64,27 +64,67 @@
 
     <!-- Main Content -->
     <div class="container section">
-        <h1 style="margin-bottom: 2rem; text-align: center;">Versand & Lieferung</h1>
+        <h1 style="margin-bottom: 2rem; text-align: center;">Versand &amp; Zahlung</h1>
         <div class="content-text" style="max-width: 800px; margin: 0 auto; line-height: 1.6;">
-            <h3>Versandkosten</h3>
-            <p>Wir liefern innerhalb Deutschlands.</p>
-            <ul>
-                <li><strong>Standardversand:</strong> 3,90 €</li>
-                <li><strong>Kostenloser Versand:</strong> Ab einem Bestellwert von 60,00 €</li>
-            </ul>
 
-            <h3 style="margin-top: 2rem;">Lieferzeit</h3>
-            <p>Soweit in der Artikelbeschreibung keine andere Frist angegeben ist, erfolgt die Lieferung der Ware in Deutschland innerhalb von <strong>1 - 3 Werktagen</strong> nach Auftragsbestätigung (bei vereinbarter Vorauszahlung nach dem Zeitpunkt Ihrer Zahlungsanweisung).</p>
-            <p>Beachten Sie, dass an Sonn- und Feiertagen keine Zustellung erfolgt.</p>
+            <p><strong>Versandkosten</strong></p>
 
-            <h3 style="margin-top: 2rem;">Zahlungsarten</h3>
-            <p>Sie haben folgende Zahlungsmöglichkeiten:</p>
-            <ul>
-                <li>Zahlung per Kreditkarte (Visa, Mastercard)</li>
-                <li>Zahlung per PayPal</li>
-                <li>Zahlung per Klarna Sofort</li>
-            </ul>
+            <p>Die Versandkosten innerhalb Deutschlands betragen 6,99 € pro Bestellung.</p>
+
+            <p><strong>Bearbeitungszeit</strong></p>
+
+            <p>Alle Bestellungen werden innerhalb von 1–2 Werktagen (Montag bis Freitag, ausgenommen gesetzliche Feiertage) bearbeitet.</p>
+
+            <p>
+            Bestellungen, die bis 17:00 Uhr eingehen, werden – vorbehaltlich erfolgreicher Zahlungsabwicklung – am selben Werktag bearbeitet.
+            Bestellungen nach 17:00 Uhr werden am folgenden Werktag bearbeitet.
+            </p>
+
+            <p><strong>Lieferzeit</strong></p>
+
+            <p>
+            Soweit im jeweiligen Angebot keine andere Frist angegeben ist, erfolgt die Lieferung innerhalb Deutschlands in der Regel innerhalb von 3–5 Werktagen
+            (Montag bis Freitag) nach Versand der Ware.
+            </p>
+
+            <p>Bitte beachten Sie, dass an Sonn- und Feiertagen keine Zustellung erfolgt.</p>
+
+            <p>
+            Haben Sie Artikel mit unterschiedlichen Lieferzeiten bestellt, versenden wir die Ware in einer gemeinsamen Sendung,
+            sofern keine abweichenden Vereinbarungen getroffen wurden. Die Lieferzeit bestimmt sich in diesem Fall nach dem Artikel mit der längsten Lieferzeit.
+            </p>
+
+            <p><strong>Zahlungsbedingungen</strong></p>
+
+            <p>
+            Die im Online-Shop verfügbaren Zahlungsarten werden im Bestellprozess angezeigt.
+            Soweit nicht anders angegeben, sind die Zahlungsansprüche sofort zur Zahlung fällig.
+            </p>
+
+            <p><strong>Hinweis bei fehlerhafter Lieferadresse</strong></p>
+
+            <p>
+            Sollte eine Sendung aufgrund einer vom Kunden falsch angegebenen Lieferadresse nicht zugestellt werden können
+            oder an uns zurückgesendet werden, behalten wir uns vor, die Kosten eines erneuten Versands dem Kunden in Rechnung zu stellen.
+            </p>
+
+            <p><strong>Stornierungen</strong></p>
+
+            <p>
+            Sollten Sie Ihre Bestellung stornieren wollen, kontaktieren Sie uns bitte schnellstmöglich per E-Mail unter
+            <a href="mailto:info@note-fragrances.de">info@note-fragrances.de</a>.
+            </p>
+
+            <p>
+            Eine Stornierung ist nur möglich, solange die Bestellung noch nicht versendet wurde.
+            Bereits versendete Bestellungen können im Rahmen des gesetzlichen Widerrufsrechts zurückgegeben werden.
+            </p>
+
+            <p>Für weitere Fragen oder Unterstützung steht Ihnen unser Team jederzeit gerne zur Verfügung.</p>
+
         </div>
+    </div>
+
     </div>
 
     <!-- Warenkorb Sidebar -->
@@ -113,6 +153,23 @@
         <div class="cart-footer">
 
             <div class="cart-summary">
+
+                <div class="delivery-toggle-container">
+                    <button class="delivery-btn active" id="btn-shipping" onclick="setDeliveryMethod('shipping')">
+                        <i class="fas fa-truck"></i>
+                        <span>Postversand</span>
+                    </button>
+                    <button class="delivery-btn" id="btn-pickup" onclick="setDeliveryMethod('pickup')">
+                        <i class="fas fa-store"></i>
+                        <span>Abholung (Bar)</span>
+                    </button>
+                </div>
+                <div id="pickup-form" style="display: none; margin-bottom: 15px;">
+                    <input type="text" id="pickup-name" placeholder="Dein Vor- und Nachname" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    <input type="email" id="pickup-email" placeholder="Deine E-Mail-Adresse" style="width: 100%; padding: 10px; margin-bottom: 5px; border: 1px solid #ddd; border-radius: 4px;">
+                    <p style="font-size: 0.75rem; color: #666; margin: 0;">Du bezahlst bar bei uns im Store bei Abholung.</p>
+                </div>
+
                 <div class="summary-row"><span>Zwischensumme</span><span id="cart-subtotal">0,00 €</span></div>
                 <div class="summary-row discount-row" id="discount-row" style="display:none;"><span>Rabatt</span><span id="cart-discount-amount">-0,00 €</span></div>
                 <div class="summary-row"><span>Versand</span><span id="cart-shipping-cost">Kostenlos</span></div>
@@ -137,12 +194,13 @@
                 <a href="impressum.html">Impressum</a>
                 <a href="datenschutz.html">Datenschutz</a>
                 <a href="agb.html">AGB</a>
-                <a href="versand.html">Versandarten</a>
+                <a href="widerrufsrecht.html">Widerruf</a>
+                <a href="versand.html">Versand &amp; Zahlung</a>
             </div>
             <p class="copyright">&copy; 2026 NOTE. Parfums. Alle Rechte vorbehalten.</p>
         </div>
     </footer>
 
-    <script src="script.js?v=1772450416325"></script>
+    <script src="script.js?v=1772545466071"></script>
 </body>
 </html>

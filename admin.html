@@ -381,12 +381,34 @@
 
             <!-- Orders Tab -->
             <div id="tab-orders" style="display: none;">
-                <div class="header">
+                <div class="header" style="margin-bottom: 1rem;">
                     <h2>Bestellungen</h2>
                     <span id="order-count" style="font-size:0.85rem;color:#888;"></span>
                     <button class="btn" style="width:auto;" onclick="loadOrders()"><i class="fas fa-sync-alt"></i>
                         Aktualisieren</button>
                 </div>
+
+                <div
+                    style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; overflow-x: auto; padding-bottom: 0.5rem;">
+                    <button class="order-tab btn-outlined-card active" onclick="filterOrders('neu')"
+                        style="padding: 0.5rem 1rem; border-radius: 20px; border: 1px solid #ccc; background: #fff; cursor: pointer; transition: 0.2s;">Neu</button>
+                    <button class="order-tab btn-outlined-card" onclick="filterOrders('in_bearbeitung')"
+                        style="padding: 0.5rem 1rem; border-radius: 20px; border: 1px solid #ccc; background: #fff; cursor: pointer; transition: 0.2s;">In
+                        Bearbeitung</button>
+                    <button class="order-tab btn-outlined-card" onclick="filterOrders('abgeschlossen')"
+                        style="padding: 0.5rem 1rem; border-radius: 20px; border: 1px solid #ccc; background: #fff; cursor: pointer; transition: 0.2s;">Abgeschlossen</button>
+                    <button class="order-tab btn-outlined-card" onclick="filterOrders('archiv')"
+                        style="padding: 0.5rem 1rem; border-radius: 20px; border: 1px solid #ccc; background: #fff; cursor: pointer; transition: 0.2s;">Archiv</button>
+                </div>
+
+                <style>
+                    .order-tab.active {
+                        background: #000;
+                        color: #fff;
+                        border-color: #000;
+                    }
+                </style>
+
                 <div class="card" style="overflow-x:auto;">
                     <table style="min-width:900px;">
                         <thead>
@@ -396,6 +418,7 @@
                                 <th>Lieferadresse</th>
                                 <th>Artikel</th>
                                 <th>Betrag</th>
+                                <th>Aktionen</th>
                             </tr>
                         </thead>
                         <tbody id="admin-order-list">
