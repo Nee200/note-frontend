@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bestellung erfolgreich - NOTE. extract de parfume</title>
-    <link rel="stylesheet" href="style.css?v=1772546607492">
+    <link rel="stylesheet" href="style.css?v=1772547071278">
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;900&display=swap"
         rel="stylesheet">
@@ -65,11 +65,14 @@
             localStorage.removeItem('cart');
             localStorage.removeItem('discount');
 
-            // Pickup Text anpassen
+            // Pickup Text anpassen – URL-Param oder sessionStorage (Fallback)
             const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('pickup') === 'true') {
+            const isPickup = urlParams.get('pickup') === 'true' || sessionStorage.getItem('isPickupOrder') === 'true';
+            sessionStorage.removeItem('isPickupOrder'); // einmal lesen, dann löschen
+
+            if (isPickup) {
                 document.getElementById('success-title').innerText = 'Reservierung erfolgreich!';
-                document.getElementById('success-message').innerText = 'Vielen Dank für deine Reservierung. Wir bereiten deine Bestellung vor und benachrichtigen dich per E-Mail, sobald sie in unserem Store zur Abholung und Barzahlung bereitliegt.';
+                document.getElementById('success-mess).it = 'Vielen Dank für deine Reservierung. Wir bereiten deine Bestellung vor und benachrichtigen dich per E-Mail, sobald sie in unserem Store zur Abholung und Barzahlung bereitliegt.';
             }
         });
     </script>

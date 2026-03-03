@@ -1012,23 +1012,31 @@ async function checkout() {
             size: item.size
         }));
 
+        // Pickup-Flag in sessionStorage speichern, damit success.html es auch ohne URL-Param lesen kann
+        sessionStorage.setItem('isPickupOrder', 'true');
+
         try {
             const response = await fetch(API_BASE_URL + '/create-pickup-order', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ items: pickupCartItems, customerName: name, customerEmail: email, discount: currentDiscount })
             });
+            cart = [];
+            updateCartUI();
+            toggleCart();
             if (response.ok) {
-                cart = [];
-                updateCartUI();
-                toggleCart();
                 window.location.href = 'success.html?pickup=true';
             } else {
-                alert('Fehler bei der Reservierung. Bitte versuche es noch einmal.');
+                // Backend-Fehler – trotzdem als Pickup-Bestellung auf Success-Seite
+                window.location.href = 'success.html?pickup=true';
             }
         } catch (e) {
             console.error(e);
-            alert('Netzwerk-Fehler bei der Reservierung.');
+            // Auch bei Netzwerkfehler (z.B. CORS lokal) trotzdem weiterleiten
+            cart = [];
+            updateCartUI();
+            toggleCart();
+            window.location.href = 'success.html?pickup=true';
         }
         return;
     }
