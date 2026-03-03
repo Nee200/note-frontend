@@ -887,6 +887,9 @@ function startCartTimer() {
     const timerEl = document.getElementById('cart-timer');
     if (!timerEl) return;
 
+    // Alte sessionStorage-Version bereinigen (Migration von alter Implementierung)
+    sessionStorage.removeItem(TIMER_KEY);
+
     // Ablaufzeit aus localStorage lesen oder neu starten
     let endTime = parseInt(localStorage.getItem(TIMER_KEY), 10);
     if (!endTime || endTime <= Date.now()) {
