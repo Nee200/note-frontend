@@ -878,7 +878,7 @@ function updateUpsell() {
     `;
 }
 
-// Timer Logik – persistiert via sessionStorage seitenübergreifend
+// Timer Logik – persistiert via localStorage seitenübergreifend
 let timerInterval;
 const TIMER_KEY = 'cartTimerEnd';
 const TIMER_DURATION_MS = 10 * 60 * 1000; // 10 Minuten
@@ -887,13 +887,19 @@ function startCartTimer() {
     const timerEl = document.getElementById('cart-timer');
     if (!timerEl) return;
 
-    // Ablaufzeit aus sessionStorage lesen oder neu starten
-    let endTime = parseInt(sessionStorage.getItem(TIMER_KEY), 10);
+    // Ablaufzeit aus localStorage lesen oder neu starten
+    let endTime = parseInt(localStorage.getItem(TIMER_KEY), 10);
     if (!endTime || endTime <= Date.now()) {
         // Kein gültiger Timer vorhanden → neu starten
         endTime = Date.now() + TIMER_DURATION_MS;
-        sessionStorage.setItem(TIMER_KEY, endTime);
+        localStorage.setItem(TIMER_KEY, endTime);
     }
+
+    // Sofort die richtige Zeit anzeigen (kein "10:00" Flash)
+    const initRemaining = Math.max(0, endTime - Date.now());
+    const initMin = Math.floor(initRemaining / 60000);
+    const initSec = Math.floor((initRemaining % 60000) / 1000);
+    timerEl.innerText = `${initMin.toString().padStart(2, '0')}:${initSec.toString().padStart(2, '0')}`;
 
     clearInterval(timerInterval);
     timerInterval = setInterval(() => {
@@ -906,9 +912,9 @@ function startCartTimer() {
         if (remaining <= 0) {
             clearInterval(timerInterval);
             timerEl.innerText = '00:00';
-            sessionStorage.removeItem(TIMER_KEY);
+            localStorage.removeItem(TIMER_KEY);
         }
-    }, 500); // 500ms für flüssigere Anzeige
+    }, 500);
 }
 
 // Start Timer beim Laden
