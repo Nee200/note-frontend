@@ -99,6 +99,13 @@ function switchTab(tab) {
     document.getElementById('tab-products').style.display = tab === 'products' ? 'block' : 'none';
     document.getElementById('tab-orders').style.display = tab === 'orders' ? 'block' : 'none';
     if (tab === 'orders' && !ordersLoaded) loadOrders();
+
+    // Sidebar aktiven Punkt markieren
+    document.querySelectorAll('.sidebar-menu li').forEach(li => li.classList.remove('active'));
+    document.querySelectorAll('.sidebar-menu li').forEach(li => {
+        const onclick = li.getAttribute('onclick') || '';
+        if (onclick.includes(tab)) li.classList.add('active');
+    });
 }
 
 function logout() {
@@ -234,27 +241,28 @@ function renderOrders() {
         }
 
         // Actions
-        let actions = '';
+        let actions = '<div class="order-actions">';
         if (currentOrderFilter === 'neu') {
-            actions = `<button class="btn btn-small" style="padding:0.4em 0.8em; font-size:0.8rem; border-radius:4px; margin-bottom:4px;" onclick="setOrderStatus('${o._id}', 'in_bearbeitung')"><i class="fas fa-box-open"></i> Bearbeiten</button>`;
+            actions += `<button class="order-action-btn btn-start" onclick="setOrderStatus('${o._id}', 'in_bearbeitung')"><i class="fas fa-box-open"></i> In Bearbeitung</button>`;
         } else if (currentOrderFilter === 'in_bearbeitung') {
-            actions = `<button class="btn btn-small" style="padding:0.4em 0.8em; font-size:0.8rem; border-radius:4px; margin-bottom:4px; background:#27ae60;" onclick="setOrderStatus('${o._id}', 'abgeschlossen')"><i class="fas fa-check"></i> Abschließen</button><br>`;
+            actions += `<button class="order-action-btn btn-done" onclick="setOrderStatus('${o._id}', 'abgeschlossen')"><i class="fas fa-check"></i> Abschlie&szlig;en</button>`;
 
             if (isPickup) {
                 if (o.pickupEmailSent) {
-                    actions += `<button class="btn btn-small" style="padding:0.4em 0.8em; font-size:0.8rem; border-radius:4px; margin-bottom:4px; background:#95a5a6; color:#fff; cursor:not-allowed;" disabled><i class="fas fa-check-circle"></i> Mail gesendet</button><br>`;
+                    actions += `<button class="order-action-btn btn-pickup sent" disabled><i class="fas fa-check-circle"></i> Mail gesendet</button>`;
                 } else {
-                    actions += `<button class="btn btn-small" style="padding:0.4em 0.8em; font-size:0.8rem; border-radius:4px; margin-bottom:4px; background:#f39c12; color:#fff;" onclick="sendPickupEmail(this, '${o._id}')"><i class="fas fa-envelope"></i> Abhol-Mail senden</button><br>`;
+                    actions += `<button class="order-action-btn btn-pickup" onclick="sendPickupEmail(this, '${o._id}')"><i class="fas fa-envelope"></i> Abhol-Mail</button>`;
                 }
             }
 
-            actions += `<button class="btn btn-small" style="padding:0.4em 0.8em; font-size:0.8rem; border-radius:4px; margin-top:4px; background:#888;" onclick="setOrderStatus('${o._id}', 'neu')"><i class="fas fa-undo"></i> Zurück auf Neu</button>`;
+            actions += `<button class="order-action-btn btn-back" onclick="setOrderStatus('${o._id}', 'neu')"><i class="fas fa-undo"></i> Zur&uuml;ck auf Neu</button>`;
         } else if (currentOrderFilter === 'abgeschlossen') {
-            actions = `<button class="btn btn-small" style="padding:0.4em 0.8em; font-size:0.8rem; border-radius:4px; margin-bottom:4px; background:#888;" onclick="setOrderStatus('${o._id}', 'in_bearbeitung')"><i class="fas fa-undo"></i> Bearbeiten</button><br>
-                       <button class="btn btn-small" style="padding:0.4em 0.8em; font-size:0.8rem; border-radius:4px; margin-top:4px; background:#34495e;" onclick="setOrderStatus('${o._id}', 'archiv')"><i class="fas fa-archive"></i> Archivieren</button>`;
+            actions += `<button class="order-action-btn btn-back" onclick="setOrderStatus('${o._id}', 'in_bearbeitung')"><i class="fas fa-undo"></i> Bearbeiten</button>`;
+            actions += `<button class="order-action-btn btn-archive" onclick="setOrderStatus('${o._id}', 'archiv')"><i class="fas fa-archive"></i> Archivieren</button>`;
         } else {
-            actions = `<span class="status-badge" style="background:#ddd;color:#555;"><i class="fas fa-archive"></i> Im Archiv</span>`;
+            actions += `<span class="status-badge" style="background:#ddd;color:#555;"><i class="fas fa-archive"></i> Im Archiv</span>`;
         }
+        actions += '</div>';
 
         return '<tr>' +
             '<td style="white-space:nowrap;font-size:0.85rem;">' + date + '</td>' +
