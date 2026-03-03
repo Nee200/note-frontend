@@ -194,6 +194,18 @@ function renderOrders() {
 
     if (countEl) countEl.textContent = filteredOrders.length + ' Bestellungen (' + currentOrderFilter.replace('_', ' ') + ')';
 
+    // Anzahl-Badges in den Tabs aktualisieren
+    const statusMap = { 'neu': 'neu', 'in_bearbeitung': 'bearbeitung', 'abgeschlossen': 'abgeschlossen', 'archiv': 'archiv' };
+    for (const [status, cls] of Object.entries(statusMap)) {
+        const count = allOrders.filter(o => (o.status || 'neu') === status).length;
+        const tab = document.querySelector('.order-tab-' + cls);
+        if (tab) {
+            // Label-Text neu setzen ohne den Badge zu verlieren
+            const labels = { 'neu': '🚨 Neu', 'bearbeitung': '⚙️ In Bearbeitung', 'abgeschlossen': '✓ Abgeschlossen', 'archiv': '💾 Archiv' };
+            tab.innerHTML = labels[cls] + (count > 0 ? ` <span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.18);color:inherit;font-size:0.75rem;font-weight:700;min-width:20px;height:20px;padding:0 5px;border-radius:10px;margin-left:4px;">${count}</span>` : '');
+        }
+    }
+
     if (!filteredOrders.length) {
         tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#888;padding:2rem;">Keine Bestellungen in dieser Kategorie</td></tr>';
         return;
