@@ -1280,3 +1280,17 @@ function setDeliveryMethod(method) {
     updateCartUI();
 }
 window.setDeliveryMethod = setDeliveryMethod;
+
+// Sync top banner animation across page loads
+function syncBannerAnimation() {
+    const bannerTrack = document.querySelector('.top-banner-track');
+    if (bannerTrack) {
+        // Die Animation dauert 50s. Wir berechnen den negativen Delay basierend auf der aktuellen Zeit.
+        // Dadurch sind alle Banner (auch auf verschiedenen Geräten/Tabs) völlig synchron.
+        const seconds = Math.floor(Date.now() / 1000);
+        const delay = -(seconds % 50);
+        bannerTrack.style.animationDelay = delay + 's';
+    }
+}
+document.addEventListener('DOMContentLoaded', syncBannerAnimation);
+syncBannerAnimation(); // also run immediately if possible
