@@ -881,7 +881,9 @@ h3,
     top: 0;
     right: -450px;
     width: 450px;
+    /* dvh = dynamic viewport height – respects Safari bottom bar */
     height: 100vh;
+    height: 100dvh;
     background: var(--surface);
     box-shadow: -10px 0 30px rgba(0, 0, 0, 0.05);
     z-index: 200;
@@ -2705,10 +2707,14 @@ select:focus {
 /* Cart Footer */
 .cart-footer {
     padding: 1.5rem;
+    /* Extra bottom padding for iOS Safari safe area */
+    padding-bottom: max(1.5rem, calc(1.5rem + env(safe-area-inset-bottom)));
     background: #fff;
     border-top: 1px solid #eee;
     display: flex;
     flex-direction: column;
+    /* Shrink-proof – does not get squeezed */
+    flex-shrink: 0;
 }
 
 /* coupon-section is now placed outside .cart-footer in the HTML — no order hacks needed */

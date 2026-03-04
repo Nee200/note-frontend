@@ -393,7 +393,16 @@
 
     /* --- Footer kompressor --- */
     .cart-footer {
-        padding: 0.6rem 0.9rem calc(0.75rem + env(safe-area-inset-bottom));
+        padding: 0.6rem 0.9rem;
+        /* iOS Safari: push checkout button above home indicator */
+        padding-bottom: max(0.75rem, calc(0.75rem + env(safe-area-inset-bottom)));
+    }
+
+    /* iOS Safari sidebar height fix */
+    .cart-sidebar {
+        height: 100vh;
+        height: -webkit-fill-available;
+        height: 100dvh;
     }
 
     .summary-row {
