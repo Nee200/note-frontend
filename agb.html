@@ -1,14 +1,20 @@
 ﻿<!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>AGB - NOTE. fragrances</title>
     <link rel="stylesheet" href="style.css?v=1772548916338">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://js.stripe.com/v3/"></script>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar">
@@ -22,7 +28,7 @@
             </a>
             <div class="nav-links">
                 <button class="close-menu-btn" onclick="toggleMobileMenu()">&times;</button>
-                <a href="index.html#kollektion-entdecken">Kollektion</a>
+                <a href="suche">Kollektion</a>
                 <a href="frauenduefte.html">Frauendüfte</a>
                 <a href="herrenduefte.html">Herrendüfte</a>
                 <a href="ueber-uns.html">Über uns</a>
@@ -38,20 +44,23 @@
                         </div>
                     </div>
                     <div class="search-icon" onclick="toggleSearch()">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="11" cy="11" r="8"></circle>
                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                         </svg>
                     </div>
                 </div>
                 <a href="account.html" class="user-icon" title="Mein Konto">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                    </a>
-                    <div class="cart-icon" onclick="toggleCart()">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </a>
+                <div class="cart-icon" onclick="toggleCart()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
                         <line x1="3" y1="6" x2="21" y2="6"></line>
                         <path d="M16 10a4 4 0 0 1-8 0"></path>
@@ -69,66 +78,89 @@
 
             <p><strong>§ 1 Grundlegende Bestimmungen</strong><br><br>
 
-            <strong>(1)</strong> Die nachstehenden Geschäftsbedingungen gelten für alle Verträge, die Sie mit uns als Anbieter über unseren Online-Shop schließen.<br><br>
+                <strong>(1)</strong> Die nachstehenden Geschäftsbedingungen gelten für alle Verträge, die Sie mit uns
+                als Anbieter über unseren Online-Shop schließen.<br><br>
 
-            <strong>Anbieter:</strong><br>
-            Note Fragrances<br>
-            Deniz Löbel<br>
-            Warnitzer Str. 20<br>
-            13057 Berlin<br>
-            Deutschland<br>
-            E-Mail: <a href="mailto:info@note-fragrances.de">info@note-fragrances.de</a><br>
-            USt-IdNr.: DE315774154<br><br>
+                <strong>Anbieter:</strong><br>
+                Note Fragrances<br>
+                Deniz Löbel<br>
+                Warnitzer Str. 20<br>
+                13057 Berlin<br>
+                Deutschland<br>
+                E-Mail: <a href="mailto:info@note-fragrances.de">info@note-fragrances.de</a><br>
+                USt-IdNr.: DE315774154<br><br>
 
-            <strong>(2)</strong> Verbraucher im Sinne dieser Bedingungen ist jede natürliche Person, die ein Rechtsgeschäft zu Zwecken abschließt, die überwiegend weder ihrer gewerblichen noch ihrer selbständigen beruflichen Tätigkeit zugerechnet werden können (§ 13 BGB).<br><br>
+                <strong>(2)</strong> Verbraucher im Sinne dieser Bedingungen ist jede natürliche Person, die ein
+                Rechtsgeschäft zu Zwecken abschließt, die überwiegend weder ihrer gewerblichen noch ihrer selbständigen
+                beruflichen Tätigkeit zugerechnet werden können (§ 13 BGB).<br><br>
 
-            Unternehmer ist jede natürliche oder juristische Person oder eine rechtsfähige Personengesellschaft, die bei Abschluss eines Rechtsgeschäfts in Ausübung ihrer gewerblichen oder selbständigen beruflichen Tätigkeit handelt (§ 14 BGB).<br><br>
+                Unternehmer ist jede natürliche oder juristische Person oder eine rechtsfähige Personengesellschaft, die
+                bei Abschluss eines Rechtsgeschäfts in Ausübung ihrer gewerblichen oder selbständigen beruflichen
+                Tätigkeit handelt (§ 14 BGB).<br><br>
 
-            <strong>§ 2 Zustandekommen des Vertrages</strong><br><br>
+                <strong>§ 2 Zustandekommen des Vertrages</strong><br><br>
 
-            <strong>(1)</strong> Gegenstand des Vertrages ist der Verkauf von Waren.<br><br>
+                <strong>(1)</strong> Gegenstand des Vertrages ist der Verkauf von Waren.<br><br>
 
-            <strong>(2)</strong> Bereits mit dem Einstellen eines Produkts in unserem Online-Shop geben wir ein verbindliches Angebot zum Abschluss eines Kaufvertrages zu den in der Artikelbeschreibung angegebenen Bedingungen ab.<br><br>
+                <strong>(2)</strong> Bereits mit dem Einstellen eines Produkts in unserem Online-Shop geben wir ein
+                verbindliches Angebot zum Abschluss eines Kaufvertrages zu den in der Artikelbeschreibung angegebenen
+                Bedingungen ab.<br><br>
 
-            <strong>(3)</strong> Der Vertrag kommt über das Online-Warenkorbsystem wie folgt zustande:<br><br>
+                <strong>(3)</strong> Der Vertrag kommt über das Online-Warenkorbsystem wie folgt zustande:<br><br>
 
-            Die zum Kauf beabsichtigten Waren werden im Warenkorb abgelegt. Über die entsprechende Schaltfläche können Sie den Warenkorb jederzeit aufrufen und Änderungen vornehmen.<br><br>
+                Die zum Kauf beabsichtigten Waren werden im Warenkorb abgelegt. Über die entsprechende Schaltfläche
+                können Sie den Warenkorb jederzeit aufrufen und Änderungen vornehmen.<br><br>
 
-            Nach Aufrufen der Kassenseite und Eingabe der persönlichen Daten sowie der Auswahl von Versand- und Zahlungsart werden Ihnen die Bestelldaten als Bestellübersicht angezeigt.<br><br>
+                Nach Aufrufen der Kassenseite und Eingabe der persönlichen Daten sowie der Auswahl von Versand- und
+                Zahlungsart werden Ihnen die Bestelldaten als Bestellübersicht angezeigt.<br><br>
 
-            Vor Absenden der Bestellung haben Sie die Möglichkeit, sämtliche Angaben nochmals zu überprüfen, zu ändern (auch über die „Zurück"-Funktion des Browsers) oder die Bestellung abzubrechen.<br><br>
+                Vor Absenden der Bestellung haben Sie die Möglichkeit, sämtliche Angaben nochmals zu überprüfen, zu
+                ändern (auch über die „Zurück"-Funktion des Browsers) oder die Bestellung abzubrechen.<br><br>
 
-            Mit dem Anklicken der Schaltfläche „zahlungspflichtig bestellen", „kaufen" oder einer entsprechend eindeutigen Bezeichnung erklären Sie rechtsverbindlich die Annahme des Angebots. Der Vertrag kommt damit zustande.<br><br>
+                Mit dem Anklicken der Schaltfläche „zahlungspflichtig bestellen", „kaufen" oder einer entsprechend
+                eindeutigen Bezeichnung erklären Sie rechtsverbindlich die Annahme des Angebots. Der Vertrag kommt damit
+                zustande.<br><br>
 
-            <strong>(4)</strong> Die Abwicklung der Bestellung sowie die Übermittlung aller im Zusammenhang mit dem Vertragsschluss erforderlichen Informationen erfolgen per E-Mail teilweise automatisiert. Sie haben sicherzustellen, dass die von Ihnen angegebene E-Mail-Adresse korrekt ist und der Empfang technisch sichergestellt ist.<br><br>
+                <strong>(4)</strong> Die Abwicklung der Bestellung sowie die Übermittlung aller im Zusammenhang mit dem
+                Vertragsschluss erforderlichen Informationen erfolgen per E-Mail teilweise automatisiert. Sie haben
+                sicherzustellen, dass die von Ihnen angegebene E-Mail-Adresse korrekt ist und der Empfang technisch
+                sichergestellt ist.<br><br>
 
-            <strong>§ 3 Preise und Zahlungsbedingungen</strong><br><br>
+                <strong>§ 3 Preise und Zahlungsbedingungen</strong><br><br>
 
-            <strong>(1)</strong> Die in den jeweiligen Angeboten angegebenen Preise stellen Gesamtpreise dar. Sie enthalten alle Preisbestandteile einschließlich der gesetzlichen Umsatzsteuer.<br><br>
+                <strong>(1)</strong> Die in den jeweiligen Angeboten angegebenen Preise stellen Gesamtpreise dar. Sie
+                enthalten alle Preisbestandteile einschließlich der gesetzlichen Umsatzsteuer.<br><br>
 
-            <strong>(2)</strong> Zusätzlich anfallende Versandkosten sind im jeweiligen Angebot ausgewiesen und werden im Bestellprozess gesondert dargestellt.<br><br>
+                <strong>(2)</strong> Zusätzlich anfallende Versandkosten sind im jeweiligen Angebot ausgewiesen und
+                werden im Bestellprozess gesondert dargestellt.<br><br>
 
-            <strong>(3)</strong> Die zur Verfügung stehenden Zahlungsarten werden im Online-Shop ausgewiesen.<br><br>
+                <strong>(3)</strong> Die zur Verfügung stehenden Zahlungsarten werden im Online-Shop
+                ausgewiesen.<br><br>
 
-            <strong>(4)</strong> Soweit bei den einzelnen Zahlungsarten nicht anders angegeben, sind die Zahlungsansprüche sofort zur Zahlung fällig.<br><br>
+                <strong>(4)</strong> Soweit bei den einzelnen Zahlungsarten nicht anders angegeben, sind die
+                Zahlungsansprüche sofort zur Zahlung fällig.<br><br>
 
-            <strong>§ 4 Lieferung</strong><br><br>
+                <strong>§ 4 Lieferung</strong><br><br>
 
-            <strong>(1)</strong> Die Lieferbedingungen, Lieferzeiten sowie gegebenenfalls bestehende Lieferbeschränkungen finden sich im jeweiligen Angebot oder unter einer entsprechend bezeichneten Schaltfläche im Online-Shop.<br><br>
+                <strong>(1)</strong> Die Lieferbedingungen, Lieferzeiten sowie gegebenenfalls bestehende
+                Lieferbeschränkungen finden sich im jeweiligen Angebot oder unter einer entsprechend bezeichneten
+                Schaltfläche im Online-Shop.<br><br>
 
-            <strong>(2)</strong> Soweit Sie Verbraucher sind, geht die Gefahr des zufälligen Untergangs und der zufälligen Verschlechterung der Ware erst mit Übergabe der Ware an Sie über.<br><br>
+                <strong>(2)</strong> Soweit Sie Verbraucher sind, geht die Gefahr des zufälligen Untergangs und der
+                zufälligen Verschlechterung der Ware erst mit Übergabe der Ware an Sie über.<br><br>
 
-            <strong>§ 5 Eigentumsvorbehalt</strong><br><br>
+                <strong>§ 5 Eigentumsvorbehalt</strong><br><br>
 
-            Die Ware bleibt bis zur vollständigen Zahlung des Kaufpreises unser Eigentum.<br><br>
+                Die Ware bleibt bis zur vollständigen Zahlung des Kaufpreises unser Eigentum.<br><br>
 
-            <strong>§ 6 Gewährleistung</strong><br><br>
+                <strong>§ 6 Gewährleistung</strong><br><br>
 
-            Es gelten die gesetzlichen Mängelhaftungsrechte.<br><br>
+                Es gelten die gesetzlichen Mängelhaftungsrechte.<br><br>
 
-            <strong>§ 7 Vertragssprache</strong><br><br>
+                <strong>§ 7 Vertragssprache</strong><br><br>
 
-            Als Vertragssprache steht ausschließlich Deutsch zur Verfügung.</p>
+                Als Vertragssprache steht ausschließlich Deutsch zur Verfügung.
+            </p>
 
             <hr>
 
@@ -140,31 +172,40 @@
 
             <p><strong>Widerrufsrecht</strong><br><br>
 
-            Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.<br><br>
+                Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.<br><br>
 
-            Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag, an dem Sie oder ein von Ihnen benannter Dritter, der nicht der Beförderer ist, die Waren in Besitz genommen haben bzw. hat.<br><br>
+                Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag, an dem Sie oder ein von Ihnen benannter Dritter,
+                der nicht der Beförderer ist, die Waren in Besitz genommen haben bzw. hat.<br><br>
 
-            Um Ihr Widerrufsrecht auszuüben, müssen Sie uns<br><br>
+                Um Ihr Widerrufsrecht auszuüben, müssen Sie uns<br><br>
 
-            Note Fragrances<br>
-            Deniz Löbel<br>
-            Warnitzer Str. 20<br>
-            13057 Berlin<br>
-            E-Mail: <a href="mailto:info@note-fragrances.de">info@note-fragrances.de</a><br><br>
+                Note Fragrances<br>
+                Deniz Löbel<br>
+                Warnitzer Str. 20<br>
+                13057 Berlin<br>
+                E-Mail: <a href="mailto:info@note-fragrances.de">info@note-fragrances.de</a><br><br>
 
-            mittels einer eindeutigen Erklärung (z. B. per E-Mail oder Brief) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren.</p>
+                mittels einer eindeutigen Erklärung (z. B. per E-Mail oder Brief) über Ihren Entschluss, diesen Vertrag
+                zu widerrufen, informieren.</p>
 
             <p><strong>Widerrufsfolgen</strong><br><br>
 
-            Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhalten haben, einschließlich der Lieferkosten (mit Ausnahme zusätzlicher Kosten, die sich daraus ergeben, dass Sie eine andere Art der Lieferung als die von uns angebotene günstigste Standardlieferung gewählt haben), unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf bei uns eingegangen ist.<br><br>
+                Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhalten haben,
+                einschließlich der Lieferkosten (mit Ausnahme zusätzlicher Kosten, die sich daraus ergeben, dass Sie
+                eine andere Art der Lieferung als die von uns angebotene günstigste Standardlieferung gewählt haben),
+                unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über
+                Ihren Widerruf bei uns eingegangen ist.<br><br>
 
-            Für diese Rückzahlung verwenden wir dasselbe Zahlungsmittel, das Sie bei der ursprünglichen Transaktion eingesetzt haben, es sei denn, mit Ihnen wurde ausdrücklich etwas anderes vereinbart.<br><br>
+                Für diese Rückzahlung verwenden wir dasselbe Zahlungsmittel, das Sie bei der ursprünglichen Transaktion
+                eingesetzt haben, es sei denn, mit Ihnen wurde ausdrücklich etwas anderes vereinbart.<br><br>
 
-            Wir können die Rückzahlung verweigern, bis wir die Waren zurückerhalten haben oder bis Sie den Nachweis erbracht haben, dass Sie die Waren zurückgesandt haben.<br><br>
+                Wir können die Rückzahlung verweigern, bis wir die Waren zurückerhalten haben oder bis Sie den Nachweis
+                erbracht haben, dass Sie die Waren zurückgesandt haben.<br><br>
 
-            Sie haben die Waren unverzüglich und in jedem Fall spätestens binnen vierzehn Tagen ab dem Tag, an dem Sie uns über den Widerruf unterrichten, an uns zurückzusenden oder zu übergeben.<br><br>
+                Sie haben die Waren unverzüglich und in jedem Fall spätestens binnen vierzehn Tagen ab dem Tag, an dem
+                Sie uns über den Widerruf unterrichten, an uns zurückzusenden oder zu übergeben.<br><br>
 
-            Sie tragen die unmittelbaren Kosten der Rücksendung der Waren.</p>
+                Sie tragen die unmittelbaren Kosten der Rücksendung der Waren.</p>
 
             <p><strong>Ende der Widerrufsbelehrung</strong></p>
 
@@ -172,40 +213,42 @@
 
             <p><strong>Muster-Widerrufsformular</strong><br><br>
 
-            (Wenn Sie den Vertrag widerrufen wollen, dann füllen Sie bitte dieses Formular aus und senden Sie es zurück.)<br><br>
+                (Wenn Sie den Vertrag widerrufen wollen, dann füllen Sie bitte dieses Formular aus und senden Sie es
+                zurück.)<br><br>
 
-            An:<br>
-            Note Fragrances<br>
-            Deniz Löbel<br>
-            Warnitzer Str. 20<br>
-            13057 Berlin<br>
-            E-Mail: <a href="mailto:info@note-fragrances.de">info@note-fragrances.de</a><br><br>
+                An:<br>
+                Note Fragrances<br>
+                Deniz Löbel<br>
+                Warnitzer Str. 20<br>
+                13057 Berlin<br>
+                E-Mail: <a href="mailto:info@note-fragrances.de">info@note-fragrances.de</a><br><br>
 
-            Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über den Kauf der folgenden Waren (*)<br><br>
+                Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über den Kauf der folgenden
+                Waren (*)<br><br>
 
-            _____________________________________________________<br><br>
+                _____________________________________________________<br><br>
 
-            Bestellt am (*) / erhalten am (*)<br><br>
+                Bestellt am (*) / erhalten am (*)<br><br>
 
-            __________________<br><br>
+                __________________<br><br>
 
-            Name des/der Verbraucher(s)<br><br>
+                Name des/der Verbraucher(s)<br><br>
 
-            _____________________________________________________<br><br>
+                _____________________________________________________<br><br>
 
-            Anschrift des/der Verbraucher(s)<br><br>
+                Anschrift des/der Verbraucher(s)<br><br>
 
-            _____________________________________________________<br><br>
+                _____________________________________________________<br><br>
 
-            Unterschrift des/der Verbraucher(s) (nur bei Mitteilung auf Papier)<br><br>
+                Unterschrift des/der Verbraucher(s) (nur bei Mitteilung auf Papier)<br><br>
 
-            __________________<br><br>
+                __________________<br><br>
 
-            Datum<br><br>
+                Datum<br><br>
 
-            __________________<br><br>
+                __________________<br><br>
 
-            (*) Unzutreffendes streichen.</p>
+                (*) Unzutreffendes streichen.</p>
 
         </div>
     </div>
@@ -250,13 +293,17 @@
                     </button>
                 </div>
                 <div id="pickup-form" style="display: none; margin-bottom: 15px;">
-                    <input type="text" id="pickup-name" placeholder="Dein Vor- und Nachname" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px;">
-                    <input type="email" id="pickup-email" placeholder="Deine E-Mail-Adresse" style="width: 100%; padding: 10px; margin-bottom: 5px; border: 1px solid #ddd; border-radius: 4px;">
-                    <p style="font-size: 0.75rem; color: #666; margin: 0;">Du bezahlst bar bei uns im Store bei Abholung.</p>
+                    <input type="text" id="pickup-name" placeholder="Dein Vor- und Nachname"
+                        style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    <input type="email" id="pickup-email" placeholder="Deine E-Mail-Adresse"
+                        style="width: 100%; padding: 10px; margin-bottom: 5px; border: 1px solid #ddd; border-radius: 4px;">
+                    <p style="font-size: 0.75rem; color: #666; margin: 0;">Du bezahlst bar bei uns im Store bei
+                        Abholung.</p>
                 </div>
 
                 <div class="summary-row"><span>Zwischensumme</span><span id="cart-subtotal">0,00 €</span></div>
-                <div class="summary-row discount-row" id="discount-row" style="display:none;"><span>Rabatt</span><span id="cart-discount-amount">-0,00 €</span></div>
+                <div class="summary-row discount-row" id="discount-row" style="display:none;"><span>Rabatt</span><span
+                        id="cart-discount-amount">-0,00 €</span></div>
                 <div class="summary-row"><span>Versand</span><span id="cart-shipping-cost">Kostenlos</span></div>
                 <div class="coupon-section">
                     <div class="coupon-input-group">
@@ -265,7 +312,8 @@
                     </div>
                     <div id="coupon-message" class="coupon-message"></div>
                 </div>
-                <div class="summary-row total-row"><span>Geschätzte Gesamtkosten</span><span id="cart-total">0,00 €</span></div>
+                <div class="summary-row total-row"><span>Geschätzte Gesamtkosten</span><span id="cart-total">0,00
+                        €</span></div>
             </div>
             <button class="btn btn-checkout" onclick="checkout()"><i class="fas fa-lock"></i> Sicher zur Kasse</button>
         </div>
@@ -287,5 +335,7 @@
     </footer>
 
     <script src="script.js?v=1772548916338"></script>
+    <script src="banner-sync.js"></script>
 </body>
+
 </html>

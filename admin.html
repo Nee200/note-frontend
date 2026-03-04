@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>NØTE - Admin Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -733,6 +733,42 @@
                     style="flex:1; padding:0.8rem; border:1px solid #ccc; background:none; border-radius:4px; cursor:pointer;">Abbrechen</button>
             </div>
             <p id="add-status" style="margin-top:1rem; font-size:0.9rem; text-align:center; display:none;"></p>
+        </div>
+    </div>
+
+    <!-- Tracking Link Modal -->
+    <div class="modal" id="trackingModal">
+        <div class="modal-content" style="max-width:480px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-shipping-fast" style="color:#27ae60;margin-right:8px;"></i>Bestellung
+                    abschlie&szlig;en</h3>
+                <button class="close-btn" onclick="closeTrackingModal()">&times;</button>
+            </div>
+            <p style="margin:0 0 1.2rem;color:#636e72;font-size:0.92rem;line-height:1.6;">
+                Die Bestellung wird auf <strong style="color:#27ae60;">Abgeschlossen&nbsp;/ Versendet</strong> gesetzt
+                und der Kunde erh&auml;lt automatisch eine Versand-E-Mail.
+            </p>
+            <div class="input-group" style="margin-bottom:0.25rem;">
+                <label style="font-weight:600;font-size:0.9rem;">Sendungsverfolgungslink
+                    <span style="font-weight:400;color:#888;">(optional)</span>
+                </label>
+                <input type="url" id="tracking-link-input"
+                    placeholder="z.B. https://www.dhl.de/de/privatkunden/pakete-empfangen/verfolgen.html?piececode=123456789"
+                    style="width:100%;padding:0.7rem;border:1px solid #ccc;border-radius:6px;box-sizing:border-box;font-size:0.83rem;margin-top:0.4rem;">
+                <small style="color:#888;font-size:0.78rem;display:block;margin-top:0.3rem;">
+                    Wenn ausgef&uuml;llt, erh&auml;lt der Kunde in der E-Mail zus&auml;tzlich einen
+                    <strong>&#8222;Sendung verfolgen&#8220;</strong>-Button.
+                </small>
+            </div>
+            <div style="margin-top:1.5rem;display:flex;gap:1rem;">
+                <button class="btn" onclick="confirmAbschliessen()" style="flex:1;background:#27ae60;">
+                    <i class="fas fa-check"></i>&nbsp;Abschlie&szlig;en &amp; E-Mail senden
+                </button>
+                <button onclick="closeTrackingModal()"
+                    style="flex:1;padding:0.8rem;border:1px solid #ccc;background:none;border-radius:4px;cursor:pointer;font-family:inherit;">
+                    Abbrechen
+                </button>
+            </div>
         </div>
     </div>
 

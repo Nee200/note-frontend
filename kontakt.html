@@ -1,12 +1,17 @@
 ﻿<!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kontakt - NOTE. extract de parfume</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Kontakt - NOTE. Extraits de Parfum</title>
     <link rel="stylesheet" href="style.css?v=1772548916338">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://js.stripe.com/v3/"></script>
     <style>
         .contact-form {
@@ -15,15 +20,18 @@
             gap: 1.5rem;
             margin-top: 2rem;
         }
+
         .form-group {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
         }
+
         .form-group label {
             font-weight: 500;
             font-size: 0.9rem;
         }
+
         .form-group input,
         .form-group textarea {
             padding: 12px;
@@ -32,10 +40,12 @@
             font-family: 'Inter', sans-serif;
             font-size: 1rem;
         }
+
         .form-group textarea {
             min-height: 150px;
             resize: vertical;
         }
+
         .contact-info {
             margin-top: 3rem;
             padding-top: 2rem;
@@ -43,6 +53,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar">
@@ -56,7 +67,7 @@
             </a>
             <div class="nav-links">
                 <button class="close-menu-btn" onclick="toggleMobileMenu()">&times;</button>
-                <a href="index.html#kollektion-entdecken">Kollektion</a>
+                <a href="suche">Kollektion</a>
                 <a href="frauenduefte.html">Frauendüfte</a>
                 <a href="herrenduefte.html">Herrendüfte</a>
                 <a href="ueber-uns.html">Über uns</a>
@@ -72,20 +83,23 @@
                         </div>
                     </div>
                     <div class="search-icon" onclick="toggleSearch()">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="11" cy="11" r="8"></circle>
                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                         </svg>
                     </div>
                 </div>
                 <a href="account.html" class="user-icon" title="Mein Konto">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                         <circle cx="12" cy="7" r="4"></circle>
                     </svg>
                 </a>
                 <div class="cart-icon" onclick="toggleCart()">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
                         <line x1="3" y1="6" x2="21" y2="6"></line>
                         <path d="M16 10a4 4 0 0 1-8 0"></path>
@@ -100,9 +114,11 @@
     <div class="container section">
         <h1 style="margin-bottom: 2rem; text-align: center;">Kontaktieren Sie uns</h1>
         <div class="content-text" style="max-width: 600px; margin: 0 auto;">
-            <p style="text-align: center; margin-bottom: 2rem;">Haben Sie Fragen zu Ihrer Bestellung oder unseren Düften? Wir helfen Ihnen gerne weiter.</p>
-            
-            <form class="contact-form" onsubmit="event.preventDefault(); alert('Vielen Dank für Ihre Nachricht! Wir werden uns in Kürze bei Ihnen melden.');">
+            <p style="text-align: center; margin-bottom: 2rem;">Haben Sie Fragen zu Ihrer Bestellung oder unseren
+                Düften? Wir helfen Ihnen gerne weiter.</p>
+
+            <form class="contact-form"
+                onsubmit="event.preventDefault(); alert('Vielen Dank für Ihre Nachricht! Wir werden uns in Kürze bei Ihnen melden.');">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" required placeholder="Ihr Name">
@@ -176,13 +192,17 @@
                     </button>
                 </div>
                 <div id="pickup-form" style="display: none; margin-bottom: 15px;">
-                    <input type="text" id="pickup-name" placeholder="Dein Vor- und Nachname" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px;">
-                    <input type="email" id="pickup-email" placeholder="Deine E-Mail-Adresse" style="width: 100%; padding: 10px; margin-bottom: 5px; border: 1px solid #ddd; border-radius: 4px;">
-                    <p style="font-size: 0.75rem; color: #666; margin: 0;">Du bezahlst bar bei uns im Store bei Abholung.</p>
+                    <input type="text" id="pickup-name" placeholder="Dein Vor- und Nachname"
+                        style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    <input type="email" id="pickup-email" placeholder="Deine E-Mail-Adresse"
+                        style="width: 100%; padding: 10px; margin-bottom: 5px; border: 1px solid #ddd; border-radius: 4px;">
+                    <p style="font-size: 0.75rem; color: #666; margin: 0;">Du bezahlst bar bei uns im Store bei
+                        Abholung.</p>
                 </div>
 
                 <div class="summary-row"><span>Zwischensumme</span><span id="cart-subtotal">0,00 €</span></div>
-                <div class="summary-row discount-row" id="discount-row" style="display:none;"><span>Rabatt</span><span id="cart-discount-amount">-0,00 €</span></div>
+                <div class="summary-row discount-row" id="discount-row" style="display:none;"><span>Rabatt</span><span
+                        id="cart-discount-amount">-0,00 €</span></div>
                 <div class="summary-row"><span>Versand</span><span id="cart-shipping-cost">Kostenlos</span></div>
                 <div class="coupon-section">
                     <div class="coupon-input-group">
@@ -191,7 +211,8 @@
                     </div>
                     <div id="coupon-message" class="coupon-message"></div>
                 </div>
-                <div class="summary-row total-row"><span>Geschätzte Gesamtkosten</span><span id="cart-total">0,00 €</span></div>
+                <div class="summary-row total-row"><span>Geschätzte Gesamtkosten</span><span id="cart-total">0,00
+                        €</span></div>
             </div>
             <button class="btn btn-checkout" onclick="checkout()"><i class="fas fa-lock"></i> Sicher zur Kasse</button>
         </div>
@@ -213,5 +234,7 @@
     </footer>
 
     <script src="script.js?v=1772548916338"></script>
+    <script src="banner-sync.js"></script>
 </body>
+
 </html>

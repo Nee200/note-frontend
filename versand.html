@@ -1,14 +1,20 @@
 ﻿<!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Versandarten - NOTE. extract de parfume</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Versandarten - NOTE. Extraits de Parfum</title>
     <link rel="stylesheet" href="style.css?v=1772548916338">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://js.stripe.com/v3/"></script>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar">
@@ -22,7 +28,7 @@
             </a>
             <div class="nav-links">
                 <button class="close-menu-btn" onclick="toggleMobileMenu()">&times;</button>
-                <a href="index.html#kollektion-entdecken">Kollektion</a>
+                <a href="suche">Kollektion</a>
                 <a href="frauenduefte.html">Frauendüfte</a>
                 <a href="herrenduefte.html">Herrendüfte</a>
                 <a href="ueber-uns.html">Über uns</a>
@@ -38,20 +44,23 @@
                         </div>
                     </div>
                     <div class="search-icon" onclick="toggleSearch()">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="11" cy="11" r="8"></circle>
                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                         </svg>
                     </div>
                 </div>
                 <a href="account.html" class="user-icon" title="Mein Konto">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                    </a>
-                    <div class="cart-icon" onclick="toggleCart()">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </a>
+                <div class="cart-icon" onclick="toggleCart()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
                         <line x1="3" y1="6" x2="21" y2="6"></line>
                         <path d="M16 10a4 4 0 0 1-8 0"></path>
@@ -73,51 +82,59 @@
 
             <p><strong>Bearbeitungszeit</strong></p>
 
-            <p>Alle Bestellungen werden innerhalb von 1–2 Werktagen (Montag bis Freitag, ausgenommen gesetzliche Feiertage) bearbeitet.</p>
+            <p>Alle Bestellungen werden innerhalb von 1–2 Werktagen (Montag bis Freitag, ausgenommen gesetzliche
+                Feiertage) bearbeitet.</p>
 
             <p>
-            Bestellungen, die bis 17:00 Uhr eingehen, werden – vorbehaltlich erfolgreicher Zahlungsabwicklung – am selben Werktag bearbeitet.
-            Bestellungen nach 17:00 Uhr werden am folgenden Werktag bearbeitet.
+                Bestellungen, die bis 17:00 Uhr eingehen, werden – vorbehaltlich erfolgreicher Zahlungsabwicklung – am
+                selben Werktag bearbeitet.
+                Bestellungen nach 17:00 Uhr werden am folgenden Werktag bearbeitet.
             </p>
 
             <p><strong>Lieferzeit</strong></p>
 
             <p>
-            Soweit im jeweiligen Angebot keine andere Frist angegeben ist, erfolgt die Lieferung innerhalb Deutschlands in der Regel innerhalb von 3–5 Werktagen
-            (Montag bis Freitag) nach Versand der Ware.
+                Soweit im jeweiligen Angebot keine andere Frist angegeben ist, erfolgt die Lieferung innerhalb
+                Deutschlands in der Regel innerhalb von 3–5 Werktagen
+                (Montag bis Freitag) nach Versand der Ware.
             </p>
 
             <p>Bitte beachten Sie, dass an Sonn- und Feiertagen keine Zustellung erfolgt.</p>
 
             <p>
-            Haben Sie Artikel mit unterschiedlichen Lieferzeiten bestellt, versenden wir die Ware in einer gemeinsamen Sendung,
-            sofern keine abweichenden Vereinbarungen getroffen wurden. Die Lieferzeit bestimmt sich in diesem Fall nach dem Artikel mit der längsten Lieferzeit.
+                Haben Sie Artikel mit unterschiedlichen Lieferzeiten bestellt, versenden wir die Ware in einer
+                gemeinsamen Sendung,
+                sofern keine abweichenden Vereinbarungen getroffen wurden. Die Lieferzeit bestimmt sich in diesem Fall
+                nach dem Artikel mit der längsten Lieferzeit.
             </p>
 
             <p><strong>Zahlungsbedingungen</strong></p>
 
             <p>
-            Die im Online-Shop verfügbaren Zahlungsarten werden im Bestellprozess angezeigt.
-            Soweit nicht anders angegeben, sind die Zahlungsansprüche sofort zur Zahlung fällig.
+                Die im Online-Shop verfügbaren Zahlungsarten werden im Bestellprozess angezeigt.
+                Soweit nicht anders angegeben, sind die Zahlungsansprüche sofort zur Zahlung fällig.
             </p>
 
             <p><strong>Hinweis bei fehlerhafter Lieferadresse</strong></p>
 
             <p>
-            Sollte eine Sendung aufgrund einer vom Kunden falsch angegebenen Lieferadresse nicht zugestellt werden können
-            oder an uns zurückgesendet werden, behalten wir uns vor, die Kosten eines erneuten Versands dem Kunden in Rechnung zu stellen.
+                Sollte eine Sendung aufgrund einer vom Kunden falsch angegebenen Lieferadresse nicht zugestellt werden
+                können
+                oder an uns zurückgesendet werden, behalten wir uns vor, die Kosten eines erneuten Versands dem Kunden
+                in Rechnung zu stellen.
             </p>
 
             <p><strong>Stornierungen</strong></p>
 
             <p>
-            Sollten Sie Ihre Bestellung stornieren wollen, kontaktieren Sie uns bitte schnellstmöglich per E-Mail unter
-            <a href="mailto:info@note-fragrances.de">info@note-fragrances.de</a>.
+                Sollten Sie Ihre Bestellung stornieren wollen, kontaktieren Sie uns bitte schnellstmöglich per E-Mail
+                unter
+                <a href="mailto:info@note-fragrances.de">info@note-fragrances.de</a>.
             </p>
 
             <p>
-            Eine Stornierung ist nur möglich, solange die Bestellung noch nicht versendet wurde.
-            Bereits versendete Bestellungen können im Rahmen des gesetzlichen Widerrufsrechts zurückgegeben werden.
+                Eine Stornierung ist nur möglich, solange die Bestellung noch nicht versendet wurde.
+                Bereits versendete Bestellungen können im Rahmen des gesetzlichen Widerrufsrechts zurückgegeben werden.
             </p>
 
             <p>Für weitere Fragen oder Unterstützung steht Ihnen unser Team jederzeit gerne zur Verfügung.</p>
@@ -165,13 +182,17 @@
                     </button>
                 </div>
                 <div id="pickup-form" style="display: none; margin-bottom: 15px;">
-                    <input type="text" id="pickup-name" placeholder="Dein Vor- und Nachname" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px;">
-                    <input type="email" id="pickup-email" placeholder="Deine E-Mail-Adresse" style="width: 100%; padding: 10px; margin-bottom: 5px; border: 1px solid #ddd; border-radius: 4px;">
-                    <p style="font-size: 0.75rem; color: #666; margin: 0;">Du bezahlst bar bei uns im Store bei Abholung.</p>
+                    <input type="text" id="pickup-name" placeholder="Dein Vor- und Nachname"
+                        style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    <input type="email" id="pickup-email" placeholder="Deine E-Mail-Adresse"
+                        style="width: 100%; padding: 10px; margin-bottom: 5px; border: 1px solid #ddd; border-radius: 4px;">
+                    <p style="font-size: 0.75rem; color: #666; margin: 0;">Du bezahlst bar bei uns im Store bei
+                        Abholung.</p>
                 </div>
 
                 <div class="summary-row"><span>Zwischensumme</span><span id="cart-subtotal">0,00 €</span></div>
-                <div class="summary-row discount-row" id="discount-row" style="display:none;"><span>Rabatt</span><span id="cart-discount-amount">-0,00 €</span></div>
+                <div class="summary-row discount-row" id="discount-row" style="display:none;"><span>Rabatt</span><span
+                        id="cart-discount-amount">-0,00 €</span></div>
                 <div class="summary-row"><span>Versand</span><span id="cart-shipping-cost">Kostenlos</span></div>
                 <div class="coupon-section">
                     <div class="coupon-input-group">
@@ -180,7 +201,8 @@
                     </div>
                     <div id="coupon-message" class="coupon-message"></div>
                 </div>
-                <div class="summary-row total-row"><span>Geschätzte Gesamtkosten</span><span id="cart-total">0,00 €</span></div>
+                <div class="summary-row total-row"><span>Geschätzte Gesamtkosten</span><span id="cart-total">0,00
+                        €</span></div>
             </div>
             <button class="btn btn-checkout" onclick="checkout()"><i class="fas fa-lock"></i> Sicher zur Kasse</button>
         </div>
@@ -202,5 +224,7 @@
     </footer>
 
     <script src="script.js?v=1772548916338"></script>
+    <script src="banner-sync.js"></script>
 </body>
+
 </html>

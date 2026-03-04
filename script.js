@@ -87,7 +87,8 @@ async function init() {
         // ID als String behandeln, damit "G1" etc. funktioniert
         renderProductDetail(productId);
     } else {
-        if (hasProductGrid) {
+        const isSearchPage = document.body && document.body.dataset.page === 'search';
+        if (hasProductGrid && !isSearchPage) {
             if (categoryParam) {
                 renderProducts(categoryParam);
             } else if (defaultCategory) {
@@ -153,7 +154,7 @@ function getProductCardHTML(product) {
                      onerror="this.src='logo.png'">
             </div>
             <div class="product-info">
-                <p class="product-code">${product.name.replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, '')}</p>
+                <p class="product-code">NØTE. ${product.name.replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, '')}</p>
                 <h3 class="product-title${bestsellerFlag ? ' has-badge' : ''}">
                     ${product.inspiredBy ? '...' + stripBrandName(product.inspiredBy) + '&reg;' : product.name}
                     ${bestsellerFlag ? '<span class="product-badge-bestseller">Bestseller</span>' : ''}
@@ -223,6 +224,14 @@ function getFilteredAndSortedProducts(category) {
                 const bBest = isBestseller(b) ? 1 : 0;
                 return bBest - aBest;
             });
+        } else if (value === 'women-first') {
+            list = list.slice().sort((a, b) =>
+                (a.category === 'women' ? -1 : 1) - (b.category === 'women' ? -1 : 1)
+            );
+        } else if (value === 'men-first') {
+            list = list.slice().sort((a, b) =>
+                (a.category === 'men' ? -1 : 1) - (b.category === 'men' ? -1 : 1)
+            );
         }
     }
 
@@ -337,27 +346,46 @@ function initProductControls() {
 
 function getBestsellerProductsForCategory(category) {
     const pool = products.filter(p => p.bestseller === true && p.category === category);
-    const shuffled = [...pool].sort(() => 0.5 - Math.random());
-    const maxItems = 6;
-    return shuffled.slice(0, Math.min(maxItems, shuffled.length));
+    return [...pool].sort(() => 0.5 - Math.random());
 }
 
 function renderBestsellers() {
     if (!bestsellerWomenGrid && !bestsellerMenGrid) return;
+    const INITIAL_COUNT = 3;
 
-    if (bestsellerWomenGrid) {
-        const womenBestsellers = getBestsellerProductsForCategory('women');
-        bestsellerWomenGrid.innerHTML = womenBestsellers.length
-            ? womenBestsellers.map(getProductCardHTML).join('')
-            : '';
+    function buildGrid(grid, items) {
+        if (!grid || !items.length) return;
+        const visible = items.slice(0, INITIAL_COUNT);
+        const hidden = items.slice(INITIAL_COUNT);
+
+        grid.innerHTML = visible.map(getProductCardHTML).join('');
+
+        // Remove existing "Weitere" button directly after this grid (if any)
+        const existingBtn = grid.nextElementSibling;
+        if (existingBtn && existingBtn.classList.contains('product-pagination')) {
+            existingBtn.remove();
+        }
+
+        // Only add button if there are more items
+        if (hidden.length > 0) {
+            const btn = document.createElement('div');
+            btn.className = 'bestseller-more-wrap';
+            btn.innerHTML = `
+                <button class="bestseller-more-btn">
+                    <span>Alle Bestseller anzeigen</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>`;
+            grid.after(btn);
+
+            btn.querySelector('button').addEventListener('click', () => {
+                grid.insertAdjacentHTML('beforeend', hidden.map(getProductCardHTML).join(''));
+                btn.remove();
+            });
+        }
     }
 
-    if (bestsellerMenGrid) {
-        const menBestsellers = getBestsellerProductsForCategory('men');
-        bestsellerMenGrid.innerHTML = menBestsellers.length
-            ? menBestsellers.map(getProductCardHTML).join('')
-            : '';
-    }
+    if (bestsellerWomenGrid) buildGrid(bestsellerWomenGrid, getBestsellerProductsForCategory('women'));
+    if (bestsellerMenGrid) buildGrid(bestsellerMenGrid, getBestsellerProductsForCategory('men'));
 }
 
 // Detailansicht rendern (für product.html)
@@ -368,13 +396,15 @@ function renderProductDetail(id) {
         return;
     }
 
-    document.getElementById('detail-title').innerText = product.name.replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, '');
+    document.getElementById('detail-title').innerText = 'NØTE. ' + product.name.replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, '');
     const detailBestsellerFlag = document.getElementById('detail-bestseller-flag');
     if (detailBestsellerFlag) {
         if (isBestseller(product)) {
             detailBestsellerFlag.textContent = 'Bestseller';
+            detailBestsellerFlag.style.display = 'inline-block';
         } else {
             detailBestsellerFlag.textContent = '';
+            detailBestsellerFlag.style.display = 'none';
         }
     }
 
@@ -462,8 +492,17 @@ function renderProductDetail(id) {
     // Initial Rendern mit Default Größe (50ml)
     updateDetailPrice(product, currentSelectedSize);
 
-    document.getElementById('detail-desc').innerText = product.description;
-    document.getElementById('detail-long-desc').innerText = product.longDescription;
+    // Strip any "Inspiriert von ..." or "Inspired by ..." sentences before displaying
+    function removeBrandSentences(text) {
+        if (!text) return '';
+        return text
+            .replace(/Inspiriert\s+von\s+[^.]+\./gi, '')
+            .replace(/Inspired\s+by\s+[^.]+\./gi, '')
+            .replace(/^\s*[\r\n]+/, '')
+            .trim();
+    }
+    document.getElementById('detail-desc').innerText = removeBrandSentences(product.description);
+    document.getElementById('detail-long-desc').innerText = removeBrandSentences(product.longDescription);
 
     // Duftnoten
     const notesList = document.getElementById('detail-notes');
@@ -475,13 +514,9 @@ function renderProductDetail(id) {
         `;
     }
 
-    // Duftname (ohne "Inspired by" Referenz)
+    // "Inspired by" Bereich komplett ausblenden – keine Marken anzeigen
     const inspiredByContainer = document.querySelector('.inspired-by');
-    if (inspiredByContainer && product.inspiredBy) {
-        const fragName = stripBrandName(product.inspiredBy);
-        // Nur den Duftnamen anzeigen, ohne Hersteller-Referenz
-        inspiredByContainer.innerHTML = `<span class="inspired-value">...${fragName}&reg;</span>`;
-    } else if (inspiredByContainer) {
+    if (inspiredByContainer) {
         inspiredByContainer.style.display = 'none';
     }
 
@@ -510,7 +545,7 @@ function renderProductDetail(id) {
             <button class="option-btn ${size === currentSelectedSize ? 'active' : ''} relative" 
                     onclick="changeSize('${product.id}', ${size})">
                 ${size}ml
-                ${size === 50 ? '<span class="badge">Bestseller</span>' : ''}
+                ${(size === 50 && isBestseller(product)) ? '<span class="badge">Bestseller</span>' : ''}
             </button>
         `).join('');
     }
@@ -755,7 +790,7 @@ function updateCartUI() {
                 shippingMessage.innerText = `Noch ${remainingForFreeShipping.toFixed(2)} € bis zu kostenlosem Versand`;
                 const percentage = Math.min(100, (subtotal / shippingThreshold) * 100);
                 shippingBar.style.width = `${percentage}%`;
-                shippingCost = 4.90; // Standard shipping cost
+                shippingCost = 6.99; // Standard shipping cost
             }
         }
     } else {
@@ -1117,13 +1152,24 @@ async function checkout() {
 // Search Functionality
 function toggleSearch() {
     const searchOverlay = document.getElementById('search-overlay');
-    if (!searchOverlay) return; // Safety check
+    if (!searchOverlay) return;
 
     searchOverlay.classList.toggle('open');
     if (searchOverlay.classList.contains('open')) {
         setTimeout(() => {
             const input = document.getElementById('search-input');
-            if (input) input.focus();
+            if (input) {
+                input.focus();
+                // Enter key → go to search results page
+                input.onkeydown = function (e) {
+                    if (e.key === 'Enter') {
+                        const q = input.value.trim();
+                        if (q.length >= 1) {
+                            window.location.href = `suche?q=${encodeURIComponent(q)}`;
+                        }
+                    }
+                };
+            }
         }, 100);
     }
 }
@@ -1162,11 +1208,11 @@ function performSearch() {
     );
 
     if (filteredProducts.length === 0) {
-        resultsContainer.innerHTML = '<p class="no-results" style="grid-column: 1/-1; text-align: center; color: #666;">Keine Düfte gefunden.</p>';
+        resultsContainer.innerHTML = '<p class="no-results" style="grid-column: 1/-1; text-align: center; color: #666; padding: 1rem;">Keine Düfte gefunden.</p>';
         return;
     }
 
-    resultsContainer.innerHTML = filteredProducts.map(product => {
+    resultsContainer.innerHTML = filteredProducts.slice(0, 6).map(product => {
         const defaultVariant = product.variants[30] || product.variants[50];
         const price = defaultVariant ? defaultVariant.price : 0;
         const inspiredByShort = product.inspiredBy ? product.inspiredBy.split(' - ')[0] : '';
@@ -1180,14 +1226,20 @@ function performSearch() {
                      onerror="this.style.display='none'">
             </div>
             <div class="product-info">
-                <p class="product-code">${product.name.replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, '')}</p>
+                <p class="product-code">NØTE. ${product.name.replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, '')}</p>
                 <h3 class="product-title">${inspiredByShort ? '...' + stripBrandName(inspiredByShort) + '&reg;' : product.name}</h3>
                 <div class="product-price">ab ${price.toFixed(2)} €</div>
             </div>
         </div>
     `}).join('');
-}
 
+    // "Alle Ergebnisse" link at the bottom
+    const showAllLink = document.createElement('a');
+    showAllLink.href = `suche?q=${encodeURIComponent(query)}`;
+    showAllLink.style.cssText = 'display:block; text-align:center; padding: 12px 16px; font-size:0.83rem; font-weight:600; color:#000; text-decoration:none; border-top:1px solid #f0f0f0; background:#fafafa; border-radius: 0 0 14px 14px; letter-spacing:0.03em;';
+    showAllLink.textContent = `Alle ${filteredProducts.length} Ergebnisse anzeigen →`;
+    resultsContainer.appendChild(showAllLink);
+}
 
 // Intro Text Functionality (Inline Expansion)
 let originalIntroText = '';

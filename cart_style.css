@@ -245,6 +245,7 @@
 /* Cart Footer */
 .cart-footer {
     padding: 1.5rem;
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
     background: #fff;
     border-top: 1px solid #eee;
 }
@@ -392,7 +393,7 @@
 
     /* --- Footer kompressor --- */
     .cart-footer {
-        padding: 0.6rem 0.9rem 0.75rem;
+        padding: 0.6rem 0.9rem calc(0.75rem + env(safe-area-inset-bottom));
     }
 
     .summary-row {
@@ -449,10 +450,6 @@
         letter-spacing: 0.06em;
     }
 
-    /* --- Zahlungsicons verstecken um Platz zu sparen --- */
-    .payment-icons {
-        display: none;
-    }
 
     /* --- Coupon-Bereich kompakter --- */
     .coupon-section {

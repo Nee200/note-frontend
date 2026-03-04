@@ -155,10 +155,19 @@ function filterOrders(status) {
     renderOrders();
 }
 
+let _pendingAbschliessenOrderId = null;
+
 async function setOrderStatus(orderId, newStatus) {
+    // For 'abgeschlossen': open the tracking-link modal instead of a plain confirm
+    if (newStatus === 'abgeschlossen') {
+        _pendingAbschliessenOrderId = orderId;
+        document.getElementById('tracking-link-input').value = '';
+        document.getElementById('trackingModal').classList.add('open');
+        return;
+    }
+
     var confirmMsg = '';
     if (newStatus === 'in_bearbeitung') confirmMsg = 'Bestellung auf "In Bearbeitung" setzen?';
-    if (newStatus === 'abgeschlossen') confirmMsg = 'Bestellung auf "Versendet / Abgeschlossen" setzen?';
     if (newStatus === 'archiv') confirmMsg = 'Bestellung archivieren?';
     if (newStatus === 'neu') confirmMsg = 'Bestellung auf "Neu" zurücksetzen?';
 
@@ -172,7 +181,43 @@ async function setOrderStatus(orderId, newStatus) {
         });
         if (res.ok) {
             const data = await res.json();
-            // Update local order
+            const idx = allOrders.findIndex(o => o._id === orderId);
+            if (idx !== -1) {
+                allOrders[idx] = data.order;
+            }
+            renderOrders();
+        } else {
+            alert('Fehler beim Ändern des Status');
+        }
+    } catch (e) {
+        alert('Verbindungsfehler');
+    }
+}
+
+function closeTrackingModal() {
+    document.getElementById('trackingModal').classList.remove('open');
+    _pendingAbschliessenOrderId = null;
+}
+
+async function confirmAbschliessen() {
+    const orderId = _pendingAbschliessenOrderId;
+    if (!orderId) return;
+
+    const trackingUrl = document.getElementById('tracking-link-input').value.trim();
+
+    closeTrackingModal();
+
+    try {
+        const body = { status: 'abgeschlossen' };
+        if (trackingUrl) body.trackingUrl = trackingUrl;
+
+        const res = await adminFetch(`/api/admin/orders/${orderId}/status`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+        if (res.ok) {
+            const data = await res.json();
             const idx = allOrders.findIndex(o => o._id === orderId);
             if (idx !== -1) {
                 allOrders[idx] = data.order;
