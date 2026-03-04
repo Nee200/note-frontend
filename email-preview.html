@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Mail Vorschauen – NØTE. fragrances</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0ece4;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #1a1a1a;
+            color: #fff;
+            padding: 24px 40px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+        }
+
+        .header-sub {
+            font-size: 0.75rem;
+            color: #888;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .header-logo {
+            font-family: Georgia, serif;
+            font-size: 1.6rem;
+            letter-spacing: 0.1em;
+            color: #d4af37;
+        }
+
+        .layout {
+            display: flex;
+            height: calc(100vh - 80px);
+        }
+
+        /* Sidebar tabs */
+        .sidebar {
+            width: 280px;
+            background: #fff;
+            border-right: 1px solid #e5e5e5;
+            padding: 20px 0;
+            flex-shrink: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-title {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #aaa;
+            padding: 0 20px 12px;
+        }
+
+        .tab {
+            display: flex;
+            flex-direction: column;
+            padding: 14px 20px;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: all 0.15s;
+            gap: 3px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .tab:hover {
+            background: #faf9f7;
+        }
+
+        .tab.active {
+            border-left-color: #1a1a1a;
+            background: #faf9f7;
+        }
+
+        .tab-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #1a1a1a;
+        }
+
+        .tab-desc {
+            font-size: 0.72rem;
+            color: #999;
+        }
+
+        .tab-badge {
+            display: inline-block;
+            font-size: 0.62rem;
+            padding: 2px 7px;
+            border-radius: 10px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-top: 4px;
+            width: fit-content;
+        }
+
+        .badge-customer {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .badge-internal {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .badge-newsletter {
+            background: #ede7f6;
+            color: #4527a0;
+        }
+
+        .badge-transaction {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        /* Preview area */
+        .preview {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px;
+            background: #e8e4db;
+        }
+
+        .preview-header {
+            background: #fff;
+            border-radius: 8px 8px 0 0;
+            padding: 16px 24px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .preview-subject {
+            font-size: 0.8rem;
+            color: #333;
+        }
+
+        .preview-subject strong {
+            display: block;
+            font-size: 0.95rem;
+            color: #1a1a1a;
+            margin-bottom: 2px;
+        }
+
+        .preview-meta {
+            font-size: 0.72rem;
+            color: #aaa;
+        }
+
+        .preview-frame-wrap {
+            background: #fff;
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100%;
+            border: none;
+            min-height: 600px;
+            display: block;
+        }
+
+        .info-box {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin-bottom: 16px;
+            font-size: 0.82rem;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .info-box strong {
+            color: #1a1a1a;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="header-logo">NØTE.</div>
+        <div>
+            <h1>E-Mail Vorschauen</h1>
+            <div class="header-sub">5 Templates · Alle automatisch versendet</div>
+        </div>
+    </div>
+
+    <div class="layout">
+        <div class="sidebar">
+            <div class="sidebar-title">E-Mail Templates</div>
+
+            <div class="tab active" onclick="show('order')">
+                <span class="tab-name">📦 Bestellbestätigung</span>
+                <span class="tab-desc">Nach erfolgreicher Zahlung via Stripe</span>
+                <span class="tab-badge badge-customer">An Kunde</span>
+            </div>
+
+            <div class="tab" onclick="show('shipping')">
+                <span class="tab-name">🚀 Versandbenachrichtigung</span>
+                <span class="tab-desc">Wenn Admin „Versendet" markiert</span>
+                <span class="tab-badge badge-transaction">An Kunde</span>
+            </div>
+
+            <div class="tab" onclick="show('pickup')">
+                <span class="tab-name">🏪 Abholbereit</span>
+                <span class="tab-desc">Bei Abholung – Admin versendet manuell</span>
+                <span class="tab-badge badge-customer">An Kunde</span>
+            </div>
+
+            <div class="tab" onclick="show('newsletter')">
+                <span class="tab-name">💌 Newsletter Willkommen</span>
+                <span class="tab-desc">Nach Newsletter-Anmeldung mit Code</span>
+                <span class="tab-badge badge-newsletter">An Abonnent</span>
+            </div>
+
+            <div class="tab" onclick="show('contact-confirm')">
+                <span class="tab-name">✉️ Kontakt Bestätigung</span>
+                <span class="tab-desc">Eingangsbestätigung an den Absender</span>
+                <span class="tab-badge badge-customer">An Absender</span>
+            </div>
+
+            <div class="tab" onclick="show('contact-internal')">
+                <span class="tab-name">📋 Kontakt Intern</span>
+                <span class="tab-desc">Kontaktanfrage an info@</span>
+                <span class="tab-badge badge-internal">An info@</span>
+            </div>
+        </div>
+
+        <div class="preview" id="preview-area">
+            <!-- Injected dynamically -->
+        </div>
+    </div>
+
+    <!-- Hidden iframes -->
+    <div style="display:none">
+        <iframe id="frame-order" srcdoc=""></iframe>
+        <iframe id="frame-shipping" srcdoc=""></iframe>
+        <iframe id="frame-pickup" srcdoc=""></iframe>
+        <iframe id="frame-newsletter" srcdoc=""></iframe>
+        <iframe id="frame-contact-confirm" srcdoc=""></iframe>
+        <iframe id="frame-contact-internal" srcdoc=""></iframe>
+    </div>
+
+    <script>
+        const emails = {
+            order: {
+                subject: 'Deine Bestellung bei NOTE. fragrances ✓',
+                from: 'NOTE. fragrances <info@note-fragrances.de>',
+                to: 'max@beispiel.de',
+                desc: 'Wird automatisch nach erfolgreicher Stripe-Zahlung gesendet.',
+                html: `<!DOCTYPE html>
+<html lang="de">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:#e2dfd8;font-family:Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#e2dfd8;padding:40px 0;">
+  <tr><td align="center">
+    <table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;">
+      <tr><td style="height:8px;background:#000000;"></td></tr>
+      <tr><td style="background:#f5f3ee;padding:26px 48px 18px;text-align:center;">
+        <p style="margin:0 0 5px;font-family:Georgia,serif;color:#000000;font-size:30px;letter-spacing:0.12em;font-weight:400;">NØTE.</p>
+        <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;border-collapse:collapse;">
+          <tr>
+            <td style="width:32px;font-size:0;line-height:0;overflow:hidden;border-top:1px solid #333333;">&nbsp;</td>
+            <td style="font-family:Arial,sans-serif;font-size:9px;color:#333333;letter-spacing:0.28em;text-transform:uppercase;padding:0 8px;">fragrances</td>
+            <td style="width:32px;font-size:0;line-height:0;overflow:hidden;border-top:1px solid #333333;">&nbsp;</td>
+          </tr>
+        </table>
+      </td></tr>
+      <tr><td style="height:2px;background:#d4af37;"></td></tr>
+      <tr><td style="background:#f5f3ee;padding:48px 48px 40px;text-align:center;">
+        <div style="display:inline-block;width:62px;height:62px;border-radius:50%;border:1.5px solid #d4af37;line-height:60px;font-size:22px;color:#d4af37;margin-bottom:22px;">✓</div>
+        <p style="margin:0 0 8px;font-size:10px;text-transform:uppercase;letter-spacing:0.2em;color:#d4af37;font-weight:700;">Bestellbestätigung</p>
+        <h1 style="margin:0 0 18px;font-family:Georgia,serif;font-size:28px;color:#1a1a1a;font-weight:400;">Vielen Dank, Max!</h1>
+        <p style="margin:0 auto;font-size:13px;color:#666;line-height:1.8;max-width:380px;">Deine Bestellung ist bei uns eingegangen und wird schnellstmöglich bearbeitet. Wir melden uns, sobald dein Paket auf dem Weg ist.</p>
+      </td></tr>
+      <tr><td style="background:#f5f3ee;padding:0 40px;"><div style="border-top:1px solid #dedad3;"></div></td></tr>
+      <tr><td style="background:#f5f3ee;padding:28px 40px 0;">
+        <p style="margin:0 0 18px;font-size:10px;text-transform:uppercase;letter-spacing:0.18em;color:#aaaaaa;font-weight:600;">Deine Bestellung</p>
+        <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:8px;">
+          <tr>
+            <td style="font-size:13px;color:#1a1a1a;padding:10px 0;">NØTE. L190 · 50ml</td>
+            <td style="text-align:right;font-size:13px;color:#1a1a1a;">89,90 €</td>
+          </tr>
+          <tr>
+            <td style="font-size:13px;color:#1a1a1a;padding:10px 0;border-top:1px solid #f0ece4;">NØTE. G299 · 30ml</td>
+            <td style="text-align:right;font-size:13px;color:#1a1a1a;border-top:1px solid #f0ece4;">69,90 €</td>
+          </tr>
+        </table>
+      </td></tr>
+      <tr><td style="background:#f5f3ee;padding:0 40px 40px;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="margin:14px 0 16px;">
+          <tr>
+            <td style="font-size:13px;color:#999;">Versand</td>
+            <td style="text-align:right;font-size:13px;color:#999;">Kostenlos</td>
+          </tr>
+        </table>
+        <table width="100%" cellpadding="0" cellspacing="0" style="border-top:2px solid #d4af37;padding-top:14px;margin-top:4px;">
+          <tr>
+            <td style="font-size:11px;color:#999;text-transform:uppercase;letter-spacing:0.15em;vertical-align:bottom;">Gesamtbetrag</td>
+            <td style="text-align:right;font-family:Georgia,serif;font-size:26px;color:#1a1a1a;font-weight:400;vertical-align:bottom;">159,80 €</td>
+          </tr>
+        </table>
+      </td></tr>
+      <tr><td style="background:#f5f3ee;padding:0 40px;"><div style="border-top:1px solid #dedad3;"></div></td></tr>
+      <tr><td style="background:#f5f3ee;padding:32px 48px 40px;text-align:center;">
+        <p style="margin:0 0 6px;font-size:13px;color:#888;">Fragen zu deiner Bestellung?</p>
+        <a href="mailto:info@note-fragrances.de" style="font-size:14px;color:#000;font-weight:700;text-decoration:none;">info@note-fragrances.de</a>
+      </td></tr>
+      <tr><td style="height:2px;background:#d4af37;"></td></tr>
+      <tr><td style="background:#000;padding:28px 48px 24px;text-align:center;">
+        <p style="margin:0 0 6px;font-family:Georgia,serif;color:#fff;font-size:17px;letter-spacing:0.22em;">NØTE. fragrances</p>
+        <p style="margin:0 0 16px;font-size:11px;color:#555;">Warnitzer Str. 20 · 13057 Berlin · Deutschland</p>
+        <p style="margin:0;font-size:11px;">
+          <a href="#" style="color:#555;text-decoration:none;">Datenschutz</a>
+          <span style="color:#333;">&nbsp;·&nbsp;</span>
+          <a href="#" style="color:#555;text-decoration:none;">Impressum</a>
+          <span style="color:#333;">&nbsp;·&nbsp;</span>
+          <a href="#" style="color:#555;text-decoration:none;">Widerruf</a>
+        </p>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>
+</body></html>`
+            },
+
+            shipping: {
+                subject: 'Deine Bestellung ist unterwegs! 🚀',
+                from: 'NOTE. fragrances <info@note-fragrances.de>',
+                to: 'max@beispiel.de',
+                desc: 'Wird versendet wenn Admin den Status auf „Versendet" setzt.',
+                html: `<iframe src="preview_shipping_email.html" style="width:100%;height:700px;border:none;"></iframe>`
+            },
+
+            pickup: {
+                subject: 'Dein Parfum ist abholbereit! ✓',
+                from: 'NOTE. fragrances <info@note-fragrances.de>',
+                to: 'max@beispiel.de',
+                desc: 'Wird versendet wenn Admin bei einer Abholbestellung auf „Abholbereit" klickt.',
+                html: `<!DOCTYPE html>
+<html lang="de">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:#e2dfd8;font-family:Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#e2dfd8;padding:40px 0;">
+  <tr><td align="center">
+    <table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;">
+      <tr><td style="height:8px;background:#000000;"></td></tr>
+      <tr><td style="background:#f5f3ee;padding:26px 48px 18px;text-align:center;">
+        <p style="margin:0 0 5px;font-family:Georgia,serif;color:#000000;font-size:30px;letter-spacing:0.12em;font-weight:400;">NØTE.</p>
+        <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;border-collapse:collapse;">
+          <tr>
+            <td style="width:32px;font-size:0;line-height:0;overflow:hidden;border-top:1px solid #333333;">&nbsp;</td>
+            <td style="font-family:Arial,sans-serif;font-size:9px;color:#333333;letter-spacing:0.28em;text-transform:uppercase;padding:0 8px;">fragrances</td>
+            <td style="width:32px;font-size:0;line-height:0;overflow:hidden;border-top:1px solid #333333;">&nbsp;</td>
+          </tr>
+        </table>
+      </td></tr>
+      <tr><td style="height:2px;background:#d4af37;"></td></tr>
+      <tr><td style="background:#f5f3ee;padding:48px 48px 40px;text-align:center;">
+        <div style="display:inline-block;width:62px;height:62px;border-radius:50%;border:1.5px solid #d4af37;line-height:60px;font-size:22px;color:#d4af37;margin-bottom:22px;">✓</div>
+        <p style="margin:0 0 8px;font-size:10px;text-transform:uppercase;letter-spacing:0.2em;color:#d4af37;font-weight:700;">Abholbereit</p>
+        <h1 style="margin:0 0 18px;font-family:Georgia,serif;font-size:28px;color:#1a1a1a;font-weight:400;">Hallo Max!</h1>
+        <p style="margin:0 auto;font-size:14px;color:#666;line-height:1.8;max-width:380px;">
+          Deine Bestellung ist nun fertig gepackt und liegt zur Abholung für dich bereit. Hier findest du uns:<br>
+          <span style="color:#333;">Warnitzer Str. 20, 13057 Berlin</span><br><br>
+          Bitte bringe den Zahlbetrag von <strong style="color:#000;font-weight:700;">89,90 €</strong> möglichst passend in Bar mit. Wir freuen uns auf deinen Besuch!
+        </p>
+      </td></tr>
+      <tr><td style="height:2px;background:#d4af37;"></td></tr>
+      <tr><td style="background:#000;padding:28px 48px 24px;text-align:center;">
+        <p style="margin:0 0 6px;font-family:Georgia,serif;color:#fff;font-size:17px;letter-spacing:0.22em;">NØTE. fragrances</p>
+        <p style="margin:0 0 16px;font-size:11px;color:#555;">Warnitzer Str. 20 · 13057 Berlin · Deutschland</p>
+        <p style="margin:0;font-size:11px;">
+          <a href="#" style="color:#555;text-decoration:none;">Datenschutz</a>
+          <span style="color:#333;">&nbsp;·&nbsp;</span>
+          <a href="#" style="color:#555;text-decoration:none;">Impressum</a>
+          <span style="color:#333;">&nbsp;·&nbsp;</span>
+          <a href="#" style="color:#555;text-decoration:none;">Widerruf</a>
+        </p>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>
+</body></html>`
+            },
+
+            newsletter: {
+                subject: 'Dein persönlicher Rabattcode – 5% auf deine erste Bestellung',
+                from: 'NØTE. Fragrances <noreply@note-fragrances.de>',
+                to: 'neukunde@beispiel.de',
+                desc: 'Wird nach der Newsletter-Anmeldung automatisch gesendet. Enthält den persönlichen Rabattcode (NOTE-XXXXX).',
+                html: `<!DOCTYPE html>
+<html lang="de">
+<head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:40px 0;background:#e2dfd8;font-family:Arial,sans-serif;">
+<div style="font-family:Inter,Arial,sans-serif;max-width:560px;margin:auto;background:#f5f3ee;">
+  <div style="background:#1a1a1a;padding:32px;text-align:center;">
+    <p style="margin:0;font-size:11px;letter-spacing:0.25em;color:#d4af37;text-transform:uppercase;">NØTE. Fragrances</p>
+    <h1 style="margin:8px 0 0;font-family:Georgia,serif;font-size:28px;color:#fff;font-weight:400;">Willkommen</h1>
+  </div>
+  <div style="padding:40px 48px;text-align:center;">
+    <p style="font-size:15px;color:#444;line-height:1.8;margin-bottom:28px;">
+      Danke für deine Anmeldung! Als Dankeschön erhältst du exklusiv <strong>5% Rabatt</strong> auf deine erste Bestellung.
+    </p>
+    <div style="background:#1a1a1a;display:inline-block;padding:18px 36px;border-radius:4px;margin-bottom:28px;">
+      <p style="margin:0 0 4px;font-size:10px;letter-spacing:0.2em;color:#d4af37;text-transform:uppercase;">Dein persönlicher Code</p>
+      <p style="margin:0;font-family:Georgia,serif;font-size:26px;color:#fff;letter-spacing:0.15em;">NOTE-M7K2X</p>
+    </div>
+    <p style="font-size:13px;color:#888;">
+      Gib diesen Code im Warenkorb unter „Gutscheincode" ein.<br>
+      Gültig für eine Bestellung. Nicht kombinierbar mit anderen Aktionen.
+    </p>
+  </div>
+  <div style="background:#1a1a1a;padding:20px;text-align:center;">
+    <a href="https://note-fragrances.de/suche" style="color:#d4af37;font-size:12px;text-decoration:none;letter-spacing:0.15em;">ZUR KOLLEKTION →</a>
+  </div>
+</div>
+</body></html>`
+            },
+
+            'contact-confirm': {
+                subject: 'Wir haben Ihre Nachricht erhalten',
+                from: 'NØTE. Fragrances <noreply@note-fragrances.de>',
+                to: 'kunde@beispiel.de',
+                desc: 'Wird nach dem Absenden des Kontaktformulars an den Absender geschickt.',
+                html: `<!DOCTYPE html>
+<html lang="de">
+<head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:40px 20px;background:#f0f0f0;font-family:Arial,sans-serif;">
+<div style="font-family:Inter,Arial,sans-serif;max-width:560px;margin:auto;padding:32px;background:#f9f9f9;border-radius:8px;">
+  <h2 style="font-size:20px;color:#1a1a1a;margin-bottom:8px;">Danke, Maria!</h2>
+  <p style="color:#555;font-size:14px;line-height:1.7;">
+    Wir haben Ihre Nachricht zum Thema <strong>Frage zur Bestellung</strong> erhalten und melden uns schnellstmöglich bei Ihnen.
+  </p>
+  <p style="color:#999;font-size:12px;margin-top:32px;border-top:1px solid #eee;padding-top:16px;">
+    NØTE. Fragrances · info@note-fragrances.de
+  </p>
+</div>
+</body></html>`
+            },
+
+            'contact-internal': {
+                subject: 'Kontaktanfrage: Frage zur Bestellung',
+                from: 'NØTE. Kontakt <noreply@note-fragrances.de>',
+                to: 'info@note-fragrances.de',
+                desc: 'Wird intern an info@note-fragrances.de gesendet wenn jemand das Kontaktformular abschickt.',
+                html: `<!DOCTYPE html>
+<html lang="de">
+<head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:40px 20px;background:#f0f0f0;font-family:Arial,sans-serif;">
+<div style="font-family:Inter,Arial,sans-serif;max-width:560px;margin:auto;padding:32px;background:#f9f9f9;border-radius:8px;">
+  <h2 style="font-size:20px;margin-bottom:8px;color:#1a1a1a;">Neue Kontaktanfrage</h2>
+  <p style="color:#666;font-size:13px;margin-bottom:24px;border-bottom:1px solid #eee;padding-bottom:16px;">
+    Eingegangen am 04.03.2026, 18:25 Uhr
+  </p>
+  <table style="width:100%;font-size:14px;color:#333;">
+    <tr><td style="padding:6px 0;font-weight:600;width:100px;">Name</td><td>Maria Müller</td></tr>
+    <tr><td style="padding:6px 0;font-weight:600;">E-Mail</td><td><a href="mailto:maria@beispiel.de">maria@beispiel.de</a></td></tr>
+    <tr><td style="padding:6px 0;font-weight:600;">Betreff</td><td>Frage zur Bestellung</td></tr>
+  </table>
+  <div style="margin-top:20px;padding:16px;background:#fff;border-radius:6px;border:1px solid #eee;">
+    <p style="margin:0;font-size:14px;line-height:1.7;color:#444;">Hallo, ich würde gerne wissen wann meine Bestellung ankommt. Die Bestellnummer ist #12345. Vielen Dank!</p>
+  </div>
+</div>
+</body></html>`
+            }
+        };
+
+        let currentKey = 'order';
+
+        function show(key) {
+            currentKey = key;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            render(key);
+        }
+
+        function render(key) {
+            const e = emails[key];
+            const area = document.getElementById('preview-area');
+
+            area.innerHTML = `
+    <div class="info-box">
+      <strong>Auslöser:</strong> ${e.desc}
+    </div>
+    <div class="preview-header">
+      <div class="preview-subject">
+        <strong>${e.subject}</strong>
+        Von: ${e.from}<br>
+        An: ${e.to}
+      </div>
+      <div class="preview-meta">E-Mail Template</div>
+    </div>
+    <div class="preview-frame-wrap">
+      <iframe id="live-frame" style="width:100%;border:none;min-height:640px;"></iframe>
+    </div>
+  `;
+
+            // Special case for shipping: use existing preview file
+            const frame = document.getElementById('live-frame');
+            if (key === 'shipping') {
+                frame.src = 'preview_shipping_email.html';
+                frame.style.minHeight = '700px';
+            } else {
+                frame.srcdoc = e.html;
+            }
+
+            // Auto-resize frame
+            frame.onload = () => {
+                try {
+                    const height = frame.contentDocument.body.scrollHeight;
+                    if (height > 400) frame.style.height = height + 'px';
+                } catch (e) { }
+            };
+        }
+
+        // Initial render
+        render('order');
+    </script>
+
+</body>
+
+</html>

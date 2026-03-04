@@ -98,7 +98,9 @@ var ordersLoaded = false;
 function switchTab(tab) {
     document.getElementById('tab-products').style.display = tab === 'products' ? 'block' : 'none';
     document.getElementById('tab-orders').style.display = tab === 'orders' ? 'block' : 'none';
+    document.getElementById('tab-emails').style.display = tab === 'emails' ? 'block' : 'none';
     if (tab === 'orders' && !ordersLoaded) loadOrders();
+    if (tab === 'emails') initEmailTab();
 
     // Sidebar aktiven Punkt markieren
     document.querySelectorAll('.sidebar-menu li').forEach(li => li.classList.remove('active'));
@@ -795,3 +797,231 @@ function showAddStatus(msg, color) {
 // Initial auth check
 checkAuth();
 
+// ---- EMAIL TEMPLATES PREVIEW ----
+let emailTabInited = false;
+function initEmailTab() {
+    if (emailTabInited) return;
+    emailTabInited = true;
+    showEmailPreview('order', document.querySelector('.email-tab-item.active'));
+}
+
+const EMAIL_TEMPLATES = {
+    order: {
+        subject: 'Deine Bestellung bei NOTE. fragrances \u2713',
+        from: 'Von: NOTE. fragrances <info@note-fragrances.de>  \u2022  An: Kunde',
+        html: `<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#e2dfd8;font-family:Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#e2dfd8;padding:40px 0;"><tr><td align="center">
+<table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;">
+<tr><td style="height:8px;background:#000;"></td></tr>
+<tr><td style="background:#f5f3ee;padding:26px 48px 18px;text-align:center;">
+  <p style="margin:0 0 5px;font-family:Georgia,serif;font-size:30px;letter-spacing:0.12em;">N\u00d8TE.</p>
+  <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;border-collapse:collapse;"><tr>
+    <td style="width:32px;border-top:1px solid #333;font-size:0;">&nbsp;</td>
+    <td style="font-size:9px;color:#333;letter-spacing:0.28em;text-transform:uppercase;padding:0 8px;">fragrances</td>
+    <td style="width:32px;border-top:1px solid #333;font-size:0;">&nbsp;</td>
+  </tr></table>
+</td></tr>
+<tr><td style="height:2px;background:#d4af37;"></td></tr>
+<tr><td style="background:#f5f3ee;padding:48px;text-align:center;">
+  <div style="display:inline-block;width:62px;height:62px;border-radius:50%;border:1.5px solid #d4af37;line-height:60px;font-size:22px;color:#d4af37;margin-bottom:22px;">\u2713</div>
+  <p style="margin:0 0 8px;font-size:10px;text-transform:uppercase;letter-spacing:0.2em;color:#d4af37;font-weight:700;">Bestellbest\u00e4tigung</p>
+  <h1 style="margin:0 0 18px;font-family:Georgia,serif;font-size:28px;color:#1a1a1a;font-weight:400;">Vielen Dank, Max!</h1>
+  <p style="margin:0 auto;font-size:13px;color:#666;line-height:1.8;max-width:380px;">Deine Bestellung ist bei uns eingegangen und wird schnellstm\u00f6glich bearbeitet.</p>
+</td></tr>
+<tr><td style="background:#f5f3ee;padding:0 40px;"><div style="border-top:1px solid #dedad3;"></div></td></tr>
+<tr><td style="background:#f5f3ee;padding:28px 40px 0;">
+  <p style="margin:0 0 18px;font-size:10px;text-transform:uppercase;letter-spacing:0.18em;color:#aaa;font-weight:600;">Deine Bestellung</p>
+  <table width="100%"><tr><td style="font-size:13px;padding:10px 0;">N\u00d8TE. L190 &middot; 50ml</td><td style="text-align:right;font-size:13px;">89,90 &euro;</td></tr>
+  <tr><td style="font-size:13px;padding:10px 0;border-top:1px solid #f0ece4;">N\u00d8TE. G299 &middot; 30ml</td><td style="text-align:right;font-size:13px;border-top:1px solid #f0ece4;">69,90 &euro;</td></tr></table>
+</td></tr>
+<tr><td style="background:#f5f3ee;padding:16px 40px 40px;">
+  <table width="100%" style="border-top:2px solid #d4af37;padding-top:12px;margin-top:12px;"><tr>
+    <td style="font-size:11px;color:#999;text-transform:uppercase;letter-spacing:0.15em;">Gesamtbetrag</td>
+    <td style="text-align:right;font-family:Georgia,serif;font-size:26px;color:#1a1a1a;">159,80 &euro;</td>
+  </tr></table>
+</td></tr>
+<tr><td style="height:2px;background:#d4af37;"></td></tr>
+<tr><td style="background:#000;padding:28px 48px 24px;text-align:center;">
+  <p style="margin:0 0 6px;font-family:Georgia,serif;color:#fff;font-size:17px;letter-spacing:0.22em;">N\u00d8TE. fragrances</p>
+  <p style="margin:0 0 12px;font-size:11px;color:#555;">Warnitzer Str. 20 &middot; 13057 Berlin &middot; Deutschland</p>
+  <p style="margin:0;font-size:11px;">
+    <a href="https://note-fragrances.de/datenschutz.html" style="color:#555;text-decoration:none;">Datenschutz</a>
+    <span style="color:#444;">&nbsp;&middot;&nbsp;</span>
+    <a href="https://note-fragrances.de/impressum.html" style="color:#555;text-decoration:none;">Impressum</a>
+    <span style="color:#444;">&nbsp;&middot;&nbsp;</span>
+    <a href="https://note-fragrances.de/widerrufsrecht.html" style="color:#555;text-decoration:none;">Widerruf</a>
+  </p>
+</td></tr>
+</table></td></tr></table></body></html>`
+    },
+    shipping: {
+        subject: 'Deine Bestellung ist unterwegs!',
+        from: 'Von: NOTE. fragrances <info@note-fragrances.de>  \u2022  An: Kunde',
+        html: `<iframe src="preview_shipping_email.html" style="width:100%;height:700px;border:none;"></iframe>`
+    },
+    pickup: {
+        subject: 'Dein Parfum ist abholbereit! \u2713',
+        from: 'Von: NOTE. fragrances <info@note-fragrances.de>  \u2022  An: Kunde (Abholung)',
+        html: `<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#e2dfd8;font-family:Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#e2dfd8;padding:40px 0;"><tr><td align="center">
+<table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;">
+<tr><td style="height:8px;background:#000;"></td></tr>
+<tr><td style="background:#f5f3ee;padding:26px 48px 18px;text-align:center;">
+  <p style="margin:0 0 5px;font-family:Georgia,serif;font-size:30px;letter-spacing:0.12em;">N\u00d8TE.</p>
+  <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;border-collapse:collapse;"><tr>
+    <td style="width:32px;border-top:1px solid #333;font-size:0;">&nbsp;</td>
+    <td style="font-size:9px;color:#333;letter-spacing:0.28em;text-transform:uppercase;padding:0 8px;">fragrances</td>
+    <td style="width:32px;border-top:1px solid #333;font-size:0;">&nbsp;</td>
+  </tr></table>
+</td></tr>
+<tr><td style="height:2px;background:#d4af37;"></td></tr>
+<tr><td style="background:#f5f3ee;padding:48px;text-align:center;">
+  <div style="display:inline-block;width:62px;height:62px;border-radius:50%;border:1.5px solid #d4af37;line-height:60px;font-size:22px;color:#d4af37;margin-bottom:22px;">\u2713</div>
+  <p style="margin:0 0 8px;font-size:10px;text-transform:uppercase;letter-spacing:0.2em;color:#d4af37;font-weight:700;">Abholbereit</p>
+  <h1 style="margin:0 0 18px;font-family:Georgia,serif;font-size:28px;color:#1a1a1a;font-weight:400;">Hallo Max!</h1>
+  <p style="margin:0 auto;font-size:14px;color:#666;line-height:1.8;max-width:380px;">Deine Bestellung liegt zur Abholung bereit.<br><span style="color:#333;">Warnitzer Str. 20, 13057 Berlin</span><br><br>Bitte bringe <strong>89,90 &euro;</strong> in Bar mit.</p>
+</td></tr>
+<tr><td style="height:2px;background:#d4af37;"></td></tr>
+<tr><td style="background:#000;padding:28px 48px 24px;text-align:center;">
+  <p style="margin:0 0 6px;font-family:Georgia,serif;color:#fff;font-size:17px;letter-spacing:0.22em;">N\u00d8TE. fragrances</p>
+  <p style="margin:0 0 12px;font-size:11px;color:#555;">Warnitzer Str. 20 &middot; 13057 Berlin &middot; Deutschland</p>
+  <p style="margin:0;font-size:11px;">
+    <a href="https://note-fragrances.de/datenschutz.html" style="color:#555;text-decoration:none;">Datenschutz</a>
+    <span style="color:#444;">&nbsp;&middot;&nbsp;</span>
+    <a href="https://note-fragrances.de/impressum.html" style="color:#555;text-decoration:none;">Impressum</a>
+    <span style="color:#444;">&nbsp;&middot;&nbsp;</span>
+    <a href="https://note-fragrances.de/widerrufsrecht.html" style="color:#555;text-decoration:none;">Widerruf</a>
+  </p>
+</td></tr>
+</table></td></tr></table></body></html>`
+    },
+    newsletter: {
+        subject: 'Dein pers\u00f6nlicher Rabattcode \u2013 5% auf deine erste Bestellung',
+        from: 'Von: NOTE. fragrances <info@note-fragrances.de>  \u2022  An: Abonnent',
+        html: `<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#e2dfd8;font-family:Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#e2dfd8;padding:40px 0;"><tr><td align="center">
+<table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;">
+<tr><td style="height:8px;background:#000;"></td></tr>
+<tr><td style="background:#f5f3ee;padding:26px 48px 18px;text-align:center;">
+  <p style="margin:0 0 5px;font-family:Georgia,serif;font-size:30px;letter-spacing:0.12em;">N\u00d8TE.</p>
+  <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;border-collapse:collapse;"><tr>
+    <td style="width:32px;border-top:1px solid #333;font-size:0;">&nbsp;</td>
+    <td style="font-size:9px;color:#333;letter-spacing:0.28em;text-transform:uppercase;padding:0 8px;">fragrances</td>
+    <td style="width:32px;border-top:1px solid #333;font-size:0;">&nbsp;</td>
+  </tr></table>
+</td></tr>
+<tr><td style="height:2px;background:#d4af37;"></td></tr>
+<tr><td style="background:#f5f3ee;padding:48px;text-align:center;">
+  <p style="margin:0 0 8px;font-size:10px;text-transform:uppercase;letter-spacing:0.2em;color:#d4af37;font-weight:700;">Willkommen</p>
+  <h1 style="margin:0 0 18px;font-family:Georgia,serif;font-size:28px;color:#1a1a1a;font-weight:400;">Sch\u00f6n, dass du dabei bist!</h1>
+  <p style="margin:0 auto 28px;font-size:13px;color:#666;line-height:1.8;max-width:380px;">Als Dankesch\u00f6n erh\u00e4ltst du exklusiv <strong>5&nbsp;% Rabatt</strong> auf deine erste Bestellung.</p>
+  <table cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 24px;"><tr>
+    <td style="background:#1a1a1a;padding:20px 40px;text-align:center;">
+      <p style="margin:0 0 6px;font-size:10px;letter-spacing:0.2em;color:#d4af37;text-transform:uppercase;">Dein pers\u00f6nlicher Code</p>
+      <p style="margin:0;font-family:Georgia,serif;font-size:28px;color:#fff;letter-spacing:0.2em;">NOTE-M7K2X</p>
+    </td>
+  </tr></table>
+  <p style="margin:0 auto;font-size:12px;color:#999;line-height:1.7;">G\u00fcltig f\u00fcr eine Bestellung &middot; Nicht kombinierbar</p>
+</td></tr>
+<tr><td style="background:#f5f3ee;padding:0 40px;"><div style="border-top:1px solid #dedad3;"></div></td></tr>
+<tr><td style="background:#f5f3ee;padding:24px 48px;text-align:center;">
+  <table cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;"><tr>
+    <td style="background:#1a1a1a;padding:14px 36px;">
+      <a href="https://note-fragrances.de/suche" style="font-size:11px;color:#d4af37;text-decoration:none;letter-spacing:0.18em;text-transform:uppercase;">Zur Kollektion &rarr;</a>
+    </td>
+  </tr></table>
+</td></tr>
+<tr><td style="height:2px;background:#d4af37;"></td></tr>
+<tr><td style="background:#000;padding:28px 48px 24px;text-align:center;">
+  <p style="margin:0 0 6px;font-family:Georgia,serif;color:#fff;font-size:17px;letter-spacing:0.22em;">N\u00d8TE. fragrances</p>
+  <p style="margin:0 0 12px;font-size:11px;color:#555;">Warnitzer Str. 20 &middot; 13057 Berlin &middot; Deutschland</p>
+  <p style="margin:0;font-size:11px;">
+    <a href="https://note-fragrances.de/datenschutz.html" style="color:#555;text-decoration:none;">Datenschutz</a>
+    <span style="color:#444;">&nbsp;&middot;&nbsp;</span>
+    <a href="https://note-fragrances.de/impressum.html" style="color:#555;text-decoration:none;">Impressum</a>
+    <span style="color:#444;">&nbsp;&middot;&nbsp;</span>
+    <a href="https://note-fragrances.de/widerrufsrecht.html" style="color:#555;text-decoration:none;">Widerruf</a>
+  </p>
+</td></tr>
+</table></td></tr></table></body></html>`
+    },
+    'contact-confirm': {
+        subject: 'Wir haben Ihre Nachricht erhalten \u2713',
+        from: 'Von: NOTE. fragrances <info@note-fragrances.de>  \u2022  An: Absender',
+        html: `<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#e2dfd8;font-family:Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#e2dfd8;padding:40px 0;"><tr><td align="center">
+<table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;">
+<tr><td style="height:8px;background:#000;"></td></tr>
+<tr><td style="background:#f5f3ee;padding:26px 48px 18px;text-align:center;">
+  <p style="margin:0 0 5px;font-family:Georgia,serif;font-size:30px;letter-spacing:0.12em;">N\u00d8TE.</p>
+  <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;border-collapse:collapse;"><tr>
+    <td style="width:32px;border-top:1px solid #333;font-size:0;">&nbsp;</td>
+    <td style="font-size:9px;color:#333;letter-spacing:0.28em;text-transform:uppercase;padding:0 8px;">fragrances</td>
+    <td style="width:32px;border-top:1px solid #333;font-size:0;">&nbsp;</td>
+  </tr></table>
+</td></tr>
+<tr><td style="height:2px;background:#d4af37;"></td></tr>
+<tr><td style="background:#f5f3ee;padding:48px;text-align:center;">
+  <div style="display:inline-block;width:62px;height:62px;border-radius:50%;border:1.5px solid #d4af37;line-height:60px;font-size:22px;color:#d4af37;margin-bottom:22px;">\u2709</div>
+  <p style="margin:0 0 8px;font-size:10px;text-transform:uppercase;letter-spacing:0.2em;color:#d4af37;font-weight:700;">Nachricht erhalten</p>
+  <h1 style="margin:0 0 18px;font-family:Georgia,serif;font-size:28px;color:#1a1a1a;font-weight:400;">Danke, Maria!</h1>
+  <p style="margin:0 auto;font-size:13px;color:#666;line-height:1.8;max-width:400px;">Wir haben Ihre Nachricht zum Thema <strong style="color:#1a1a1a;">Frage zur Bestellung</strong> erhalten und melden uns schnellstm\u00f6glich zur\u00fcck.</p>
+</td></tr>
+<tr><td style="height:2px;background:#d4af37;"></td></tr>
+<tr><td style="background:#000;padding:28px 48px 24px;text-align:center;">
+  <p style="margin:0 0 6px;font-family:Georgia,serif;color:#fff;font-size:17px;letter-spacing:0.22em;">N\u00d8TE. fragrances</p>
+  <p style="margin:0 0 12px;font-size:11px;color:#555;">Warnitzer Str. 20 &middot; 13057 Berlin &middot; Deutschland</p>
+  <p style="margin:0;font-size:11px;">
+    <a href="https://note-fragrances.de/datenschutz.html" style="color:#555;text-decoration:none;">Datenschutz</a>
+    <span style="color:#444;">&nbsp;&middot;&nbsp;</span>
+    <a href="https://note-fragrances.de/impressum.html" style="color:#555;text-decoration:none;">Impressum</a>
+    <span style="color:#444;">&nbsp;&middot;&nbsp;</span>
+    <a href="https://note-fragrances.de/widerrufsrecht.html" style="color:#555;text-decoration:none;">Widerruf</a>
+  </p>
+</td></tr>
+</table></td></tr></table></body></html>`
+    },
+    'contact-internal': {
+        subject: 'Kontaktanfrage: Frage zur Bestellung',
+        from: 'Von: NØTE. Kontakt <noreply@note-fragrances.de>  \u2022  An: info@note-fragrances.de',
+        html: `<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:40px 20px;background:#f0f0f0;font-family:Arial,sans-serif;">
+<div style="max-width:560px;margin:auto;padding:32px;background:#f9f9f9;border-radius:8px;">
+  <h2 style="font-size:20px;margin-bottom:8px;color:#1a1a1a;">Neue Kontaktanfrage</h2>
+  <p style="color:#666;font-size:13px;margin-bottom:24px;border-bottom:1px solid #eee;padding-bottom:16px;">Eingegangen am 04.03.2026, 18:25 Uhr</p>
+  <table style="width:100%;font-size:14px;color:#333;">
+    <tr><td style="padding:6px 0;font-weight:600;width:100px;">Name</td><td>Maria M\u00fcller</td></tr>
+    <tr><td style="padding:6px 0;font-weight:600;">E-Mail</td><td><a href="mailto:maria@beispiel.de">maria@beispiel.de</a></td></tr>
+    <tr><td style="padding:6px 0;font-weight:600;">Betreff</td><td>Frage zur Bestellung</td></tr>
+  </table>
+  <div style="margin-top:20px;padding:16px;background:#fff;border-radius:6px;border:1px solid #eee;">
+    <p style="margin:0;font-size:14px;line-height:1.7;color:#444;">Hallo, ich w\u00fcrde gerne wissen wann meine Bestellung ankommt. Vielen Dank!</p>
+  </div>
+</div></body></html>`
+    }
+};
+
+function showEmailPreview(key, clickedEl) {
+    const tpl = EMAIL_TEMPLATES[key];
+    if (!tpl) return;
+
+    // Update active state
+    document.querySelectorAll('.email-tab-item').forEach(el => el.classList.remove('active'));
+    if (clickedEl) clickedEl.classList.add('active');
+
+    document.getElementById('email-preview-subject').textContent = tpl.subject;
+    document.getElementById('email-preview-from').textContent = tpl.from;
+
+    const frame = document.getElementById('email-preview-frame');
+    if (key === 'shipping') {
+        frame.removeAttribute('srcdoc');
+        frame.src = 'preview_shipping_email.html';
+    } else {
+        frame.removeAttribute('src');
+        frame.srcdoc = tpl.html;
+    }
+}
