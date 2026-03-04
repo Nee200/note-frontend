@@ -31,22 +31,100 @@
             margin-bottom: 10px;
         }
 
-        /* Login/Register Split */
+        /* Login centered */
         .auth-wrapper {
             display: flex;
-            gap: 40px;
             justify-content: center;
-            flex-wrap: wrap;
         }
 
         .auth-box {
-            flex: 1;
-            min-width: 300px;
-            max-width: 450px;
+            width: 100%;
+            max-width: 420px;
             background: #fff;
-            padding: 30px;
+            padding: 36px;
             border: 1px solid #eee;
             border-radius: 4px;
+        }
+
+        .register-link-wrap {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .register-link-wrap a {
+            color: #1a1a1a;
+            font-weight: 600;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        /* Register Modal */
+        .reg-modal-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(3px);
+            z-index: 9000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .reg-modal-backdrop.open {
+            display: flex;
+        }
+
+        .reg-modal {
+            background: #fff;
+            border-radius: 6px;
+            padding: 36px;
+            width: 90%;
+            max-width: 420px;
+            position: relative;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+            animation: reg-modal-in 0.3s ease;
+        }
+
+        @keyframes reg-modal-in {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reg-modal h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+        }
+
+        .reg-modal-sub {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 24px;
+        }
+
+        .reg-modal-close {
+            position: absolute;
+            top: 14px;
+            right: 18px;
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            color: #aaa;
+            line-height: 1;
+        }
+
+        .reg-modal-close:hover {
+            color: #333;
         }
 
         .auth-box h2 {
@@ -366,7 +444,7 @@
             </div>
 
             <div class="auth-wrapper">
-                <!-- Login -->
+                <!-- Login only -->
                 <div class="auth-box">
                     <h2>Anmelden</h2>
                     <form id="login-form">
@@ -381,11 +459,18 @@
                         </div>
                         <button type="submit" class="btn-auth">ANMELDEN</button>
                     </form>
+                    <div class="register-link-wrap">
+                        Noch nicht registriert? <a onclick="openRegisterModal()">Hier registrieren →</a>
+                    </div>
                 </div>
+            </div>
 
-                <!-- Register -->
-                <div class="auth-box">
+            <!-- Register Modal -->
+            <div class="reg-modal-backdrop" id="reg-modal-backdrop" onclick="closeRegisterModal(event)">
+                <div class="reg-modal">
+                    <button class="reg-modal-close" onclick="closeRegisterModal()">&times;</button>
                     <h2>Registrieren</h2>
+                    <p class="reg-modal-sub">Erstelle ein kostenloses Konto und verwalte deine Bestellungen.</p>
                     <form id="register-form">
                         <div class="error-message" id="register-error"></div>
                         <div class="success-message" id="register-success"></div>
@@ -644,7 +729,7 @@
                     </svg>
                 </div>
                 <h3>HÖCHSTER ÖLANTEIL</h3>
-                <p>Extraits de Parfum mit über 40% Duftölanteil für maximale Haltbarkeit.</p>
+                <p>Extrait de Parfum mit über 40% Duftölanteil für maximale Haltbarkeit.</p>
             </div>
         </div>
     </div>
@@ -666,6 +751,17 @@
     <script src="script.js?v=1772548916338"></script>
     <script src="banner-sync.js"></script>
     <script src="account.js"></script>
+    <script>
+        function openRegisterModal() {
+            document.getElementById('reg-modal-backdrop').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeRegisterModal(e) {
+            if (e && e.target !== document.getElementById('reg-modal-backdrop')) return;
+            document.getElementById('reg-modal-backdrop').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+    </script>
 </body>
 
 </html>

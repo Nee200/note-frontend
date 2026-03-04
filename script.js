@@ -514,10 +514,16 @@ function renderProductDetail(id) {
         `;
     }
 
-    // "Inspired by" Bereich komplett ausblenden – keine Marken anzeigen
+    // "Inspired by" – zeige "...Duftname®" (Markenname wird entfernt via stripBrandName)
     const inspiredByContainer = document.querySelector('.inspired-by');
     if (inspiredByContainer) {
-        inspiredByContainer.style.display = 'none';
+        if (product.inspiredBy) {
+            const cleanName = stripBrandName(product.inspiredBy);
+            inspiredByContainer.innerHTML = `<span class="inspired-by-text">...${cleanName}&reg;</span>`;
+            inspiredByContainer.style.display = '';
+        } else {
+            inspiredByContainer.style.display = 'none';
+        }
     }
 
     // Hauptbild
@@ -960,7 +966,7 @@ startCartTimer();
 
 
 // Gutschein anwenden
-function applyCoupon() {
+async function applyCoupon() {
     const input = document.getElementById('coupon-code');
     const message = document.getElementById('coupon-message');
     const btn = document.querySelector('.coupon-input-group button');
@@ -968,19 +974,38 @@ function applyCoupon() {
     if (!input || !message) return;
 
     const code = input.value.trim();
+    if (!code) return;
 
-    if (code.toLowerCase() === 'deniz10') {
-        currentDiscount = 0.10;
-        message.textContent = 'Gutschein erfolgreich aktiviert (-10%)';
-        message.className = 'coupon-message success';
+    btn.disabled = true;
+    btn.innerText = '…';
 
-        input.disabled = true;
-        btn.disabled = true;
-        btn.innerText = '✓';
-    } else {
-        currentDiscount = 0;
-        message.textContent = 'Der Gutscheincode ist ungültig.';
+    try {
+        const res = await fetch(API_BASE_URL + '/api/validate-coupon', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code })
+        });
+        const data = await res.json();
+
+        if (data.valid) {
+            currentDiscount = data.discount / 100;
+            message.textContent = `Gutschein erfolgreich aktiviert (${data.label})`;
+            message.className = 'coupon-message success';
+            input.disabled = true;
+            btn.disabled = true;
+            btn.innerText = '✓';
+        } else {
+            currentDiscount = 0;
+            message.textContent = 'Der Gutscheincode ist ungültig.';
+            message.className = 'coupon-message error';
+            btn.disabled = false;
+            btn.innerText = 'OK';
+        }
+    } catch (e) {
+        message.textContent = 'Fehler bei der Überprüfung. Bitte erneut versuchen.';
         message.className = 'coupon-message error';
+        btn.disabled = false;
+        btn.innerText = 'OK';
     }
 
     updateCartUI();

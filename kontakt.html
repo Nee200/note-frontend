@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Kontakt - NOTE. Extraits de Parfum</title>
+    <title>Kontakt - NOTE. Extrait de Parfum</title>
     <link rel="stylesheet" href="style.css?v=1772548916338">
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;900&display=swap"
@@ -117,8 +117,7 @@
             <p style="text-align: center; margin-bottom: 2rem;">Haben Sie Fragen zu Ihrer Bestellung oder unseren
                 Düften? Wir helfen Ihnen gerne weiter.</p>
 
-            <form class="contact-form"
-                onsubmit="event.preventDefault(); alert('Vielen Dank für Ihre Nachricht! Wir werden uns in Kürze bei Ihnen melden.');">
+            <form class="contact-form" id="contact-form" onsubmit="submitContactForm(event)">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" required placeholder="Ihr Name">
@@ -135,8 +134,60 @@
                     <label for="message">Nachricht</label>
                     <textarea id="message" required placeholder="Ihre Nachricht an uns..."></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Nachricht senden</button>
+                <button type="submit" class="btn btn-primary btn-block" id="contact-submit-btn">Nachricht
+                    senden</button>
+                <div id="contact-feedback"
+                    style="display:none;margin-top:1rem;padding:12px 16px;border-radius:6px;font-size:0.9rem;text-align:center;">
+                </div>
             </form>
+
+            <script>
+                async function submitContactForm(e) {
+                    e.preventDefault();
+                    const btn = document.getElementById('contact-submit-btn');
+                    const feedback = document.getElementById('contact-feedback');
+                    const originalText = btn.textContent;
+
+                    btn.disabled = true;
+                    btn.textContent = 'Wird gesendet...';
+                    feedback.style.display = 'none';
+
+                    const payload = {
+                        name: document.getElementById('name').value.trim(),
+                        email: document.getElementById('email').value.trim(),
+                        subject: document.getElementById('subject').value.trim(),
+                        message: document.getElementById('message').value.trim()
+                    };
+
+                    try {
+                        const res = await fetch('https://note-backend-5gy0.onrender.com/api/contact', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        const data = await res.json();
+
+                        if (res.ok && data.success) {
+                            feedback.style.background = '#f0faf4';
+                            feedback.style.color = '#1a7a45';
+                            feedback.style.border = '1px solid #b6e8c8';
+                            feedback.textContent = '✓ Vielen Dank! Ihre Nachricht wurde gesendet. Wir melden uns in Kürze.';
+                            document.getElementById('contact-form').reset();
+                        } else {
+                            throw new Error(data.error || 'Unbekannter Fehler');
+                        }
+                    } catch (err) {
+                        feedback.style.background = '#fff5f5';
+                        feedback.style.color = '#b91c1c';
+                        feedback.style.border = '1px solid #fca5a5';
+                        feedback.textContent = '✗ Fehler: ' + (err.message || 'Nachricht konnte nicht gesendet werden.');
+                    }
+
+                    feedback.style.display = 'block';
+                    btn.disabled = false;
+                    btn.textContent = originalText;
+                }
+            </script>
 
             <div class="contact-info">
                 <p><strong>Kontakt</strong></p>

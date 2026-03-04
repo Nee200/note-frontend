@@ -14,6 +14,40 @@
         integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        .category-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .cat-tab {
+            padding: 8px 20px;
+            border: 1px solid #ddd;
+            border-radius: 2px;
+            background: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            color: #666;
+        }
+
+        .cat-tab:hover {
+            border-color: #999;
+            color: #1a1a1a;
+        }
+
+        .cat-tab.active {
+            background: #1a1a1a;
+            border-color: #1a1a1a;
+            color: #fff;
+        }
+    </style>
 </head>
 
 <body data-page="search">
@@ -205,6 +239,7 @@
         <p class="collection-intro" id="search-page-subtitle">Deine Suchergebnisse werden geladen...</p>
 
 
+
         <div class="category-toolbar">
             <div class="category-toolbar-left">
                 <label class="toolbar-label">
@@ -372,6 +407,16 @@
             renderSearchResults(products, query);
         }
 
+        // Active category filter
+        let currentCategory = 'all';
+
+        function filterByCategory(cat, btn) {
+            currentCategory = cat;
+            document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            refineSearch();
+        }
+
         function renderSearchResults(allProducts, query) {
             const grid = document.getElementById('product-grid');
             const countInfo = document.getElementById('product-count-info');
@@ -384,16 +429,22 @@
                 return;
             }
 
+            // 0. Category filter
+            let filtered = currentCategory === 'all' ? [...allProducts]
+                : currentCategory === 'female' ? allProducts.filter(p => p.category === 'women' || p.category === 'female')
+                    : currentCategory === 'male' ? allProducts.filter(p => p.category === 'men' || p.category === 'male')
+                        : allProducts.filter(p => p.category === 'unisex');
+
             // 1. Text filter
-            let filtered = query
-                ? allProducts.filter(p =>
+            if (query) {
+                filtered = filtered.filter(p =>
                     p.name.toLowerCase().includes(query.toLowerCase()) ||
                     (p.description && p.description.toLowerCase().includes(query.toLowerCase())) ||
                     (p.longDescription && p.longDescription.toLowerCase().includes(query.toLowerCase())) ||
                     (p.inspiredBy && p.inspiredBy.toLowerCase().includes(query.toLowerCase())) ||
                     (p.notes && Object.values(p.notes).some(n => n.toLowerCase().includes(query.toLowerCase())))
-                )
-                : [...allProducts];
+                );
+            }
 
             // Sort
             const sort = sortSelect ? sortSelect.value : 'name-asc';
@@ -431,11 +482,15 @@
                     <div class="product-info">
                         <p class="product-code">NØTE. ${product.name.replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, '')}</p>
                         <h3 class="product-title">${inspiredByShort ? '...' + (typeof stripBrandName === 'function' ? stripBrandName(inspiredByShort) : inspiredByShort) + '&reg;' : product.name}</h3>
-                        <div class="product-price">
-                            ab ${price.toFixed(2)} €
-                            ${origPrice ? `<span class="original-price">${origPrice.toFixed(2)} €</span>` : ''}
+                        <div class="product-actions">
+                            <div class="product-price">
+                                ${origPrice ? `<span class="original-price-strike">${origPrice.toFixed(2)} €</span>` : ''}
+                                ab ${price.toFixed(2)} €
+                            </div>
+                            <button class="btn btn-outlined-card" onclick="event.stopPropagation(); window.location.href='product.html?id=${product.id}'">
+                                ZUR AUSWAHL
+                            </button>
                         </div>
-                        <p style="font-size:0.72rem;color:#aaa;margin-top:2px;">${catLabel}</p>
                     </div>
                 </div>`;
             }).join('');
