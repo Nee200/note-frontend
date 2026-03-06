@@ -1184,6 +1184,10 @@ h3,
         gap: 1.75rem;
     }
 
+    .brand-video-copy {
+        text-align: center;
+    }
+
     .modal-body {
         flex-direction: column;
         padding: 1.5rem;
