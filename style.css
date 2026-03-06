@@ -383,7 +383,6 @@ h3,
     height: 45vh;
     min-height: 350px;
     background-color: #1a1a1a;
-    background-image: url('images_website/image_startseite.png');
     background-size: cover;
     background-position: center;
     display: flex;

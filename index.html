@@ -204,7 +204,12 @@
 
 
     <!-- Hero Section -->
-    <header class="hero">
+    <header class="hero" id="hero-section">
+        <picture style="display:none" id="hero-picture">
+            <source srcset="images_website/image_startseite.webp" type="image/webp">
+            <img src="images_website/image_startseite.jpg" alt="" id="hero-img"
+                onload="document.getElementById('hero-section').style.backgroundImage='url('+this.currentSrc+')'">
+        </picture>
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <span class="hero-subtitle">NØTE.</span>
@@ -224,7 +229,8 @@
                 </p>
             </div>
             <div class="brand-video-wrapper">
-                <video class="brand-video" src="images_website/test.mp4" autoplay muted loop playsinline></video>
+                <video class="brand-video" src="images_website/test.mp4" autoplay muted loop playsinline preload="none"
+                    poster="images_website/image_startseite.webp"></video>
             </div>
         </div>
     </section>
