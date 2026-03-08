@@ -1,7 +1,7 @@
 const API_BASE_URL = 'https://note-backend-5gy0.onrender.com';
 // Parfüm Produkte
 // Hinweis: Bilder-Dateinamen müssen später angepasst werden, wenn die Dateien im Ordner liegen.
-// Schema: 'p1_1.png', 'p1_2.png' etc. oder wie du sie nennst.
+// Schema: 'p1_1.webp', 'p1_2.webp' etc. oder wie du sie nennst.
 let products = [];
 
 // Helper function to remove manufacturer names from the inspiredBy field
@@ -148,10 +148,10 @@ function getProductCardHTML(product) {
     return `
         <div class="product-card" onclick="window.location.href='product.html?id=${product.id}'">
             <div class="product-image-wrapper">
-                <img src="${(product.images && product.images.length > 0) ? product.images[0] : 'logo.png'}" 
+                <img src="${(product.images && product.images.length > 0) ? product.images[0] : 'logo.webp'}" 
                      alt="${product.name}" 
                      class="product-grid-image product-img-${product.id}"
-                     onerror="this.src='logo.png'">
+                     onerror="this.src='logo.webp'">
             </div>
             <div class="product-info">
                 <p class="product-code">NØTE. ${product.name.replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, '')}</p>
@@ -528,7 +528,7 @@ function renderProductDetail(id) {
 
     // Hauptbild
     const mainImg = document.getElementById('detail-main-image');
-    const mainImgSrc = (product.images && product.images.length > 0) ? product.images[0] : 'logo.png';
+    const mainImgSrc = (product.images && product.images.length > 0) ? product.images[0] : 'logo.webp';
     mainImg.src = mainImgSrc;
 
     // Thumbnails
@@ -683,7 +683,7 @@ function addToCart(productId, size = 50) {
         existingItem.quantity++;
     } else {
         // Nutze das erste Bild als Vorschaubild im Warenkorb, oder Fallback
-        const cartImage = (product.images && product.images.length > 0) ? product.images[0] : 'logo.png';
+        const cartImage = (product.images && product.images.length > 0) ? product.images[0] : 'logo.webp';
 
         cart.push({
             cartId: cartItemId,
@@ -753,7 +753,7 @@ function updateCartUI() {
 
             return `
             <div class="cart-item">
-                <img src="${item.image || 'logo.png'}" alt="${item.name}" onerror="this.src='logo.png'">
+                <img src="${item.image || 'logo.webp'}" alt="${item.name}" onerror="this.src='logo.webp'">
                 <div class="cart-item-info">
                     <div class="cart-item-title" style="line-height: 1.3;">${cleanName}${inspiredText}</div>
                     <div class="cart-item-variant">${item.size}ml</div>
@@ -906,10 +906,10 @@ function updateUpsell() {
 
     container.innerHTML = `
         <div class="upsell-card">
-            <img src="${(pick.images && pick.images.length > 0) ? pick.images[0] : 'logo.png'}"
+            <img src="${(pick.images && pick.images.length > 0) ? pick.images[0] : 'logo.webp'}"
                  class="upsell-img"
                  alt="${pick.name}"
-                 onerror="this.src='logo.png'">
+                 onerror="this.src='logo.webp'">
             <div class="upsell-info">
                 <div class="upsell-title">${pick.name}${pick.bestseller ? ' <span class="upsell-bs-badge">Bestseller</span>' : ''}</div>
                 <div class="upsell-price">ab ${price.toFixed(2)} €</div>
@@ -1245,7 +1245,7 @@ function performSearch() {
         return `
         <div class="product-card" onclick="window.location.href='product.html?id=${product.id}'" style="cursor: pointer;">
             <div class="product-image-wrapper">
-                <img src="${(product.images && product.images.length > 0) ? product.images[0] : 'logo.png'}" 
+                <img src="${(product.images && product.images.length > 0) ? product.images[0] : 'logo.webp'}" 
                      alt="${product.name}" 
                      class="product-grid-image"
                      onerror="this.style.display='none'">

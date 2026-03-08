@@ -7,7 +7,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Abdul Samad Al Qurashi Rannat Khilkhal.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -18,7 +18,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Acqua Di Parma Fico di Amalfi.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -29,7 +29,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Acqua Di Parma Mandarino Di Sicilia.",
         notes: { head: "Johannisbeernektar", heart: "Mairose, Freesie", base: "Vanille, Patschuli, holzige Noten, Ambroxan" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -40,7 +40,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Acqua Di Parma Mandorlo di Sicilia.",
         notes: { head: "Johannisbeernektar", heart: "Mairose, Freesie", base: "Vanille, Patschuli, holzige Noten, Ambroxan" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -51,7 +51,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Ajmal Wisal.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -62,7 +62,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Al Jaezeera Magic.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -73,7 +73,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Al Wisam Rasai.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -84,7 +84,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Amir Al Oud.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -95,7 +95,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Amouage Bracken.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -106,7 +106,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Amouage Imitation.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -117,7 +117,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Amouage Interlude.",
         notes: { head: "Oregano, Pfeffer, Bergamotte", heart: "Weihrauch, Opoponax, Amber, Labdanum", base: "Leder, Agarholz (Oud), Sandelholz, Patschuli" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -128,7 +128,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Amouage Reflection.",
         notes: { head: "Rosmarin, roter Pfeffer, Bitterorangenblatt", heart: "Neroli, Iriswurzel, Jasmin, Ylang-Ylang", base: "Vetiver, Patschuli, Sandelholz, Zeder" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -139,7 +139,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Arabian Oud Madawi.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -150,7 +150,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Aramis.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -161,7 +161,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Aramis 900.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -172,7 +172,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Ard Al Khaleej Ghalah Zayed.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -183,7 +183,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Ard Al Zaafaran Dirham.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -194,7 +194,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Ard Al Zaafaran Oud Romance.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -205,7 +205,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Armani Acqua Dio Gio Absolu.",
         notes: { head: "Limette, Zitrone, Bergamotte, Jasmin, Orange, Mandarine, Neroli", heart: "maritime Noten, Jasmin, Calone, Pfirsich, Freesie, Alpenveilchen, Hyazinthe, Rosmarin, Veilchen, Koriander, Muskatnuss, Rose, Reseda", base: "weißer Moschus, Zeder, Eichenmoos, Patschuli, Amber" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -216,7 +216,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Armani Acqua Dio Gio Essenza.",
         notes: { head: "Limette, Zitrone, Bergamotte, Jasmin, Orange, Mandarine, Neroli", heart: "maritime Noten, Jasmin, Calone, Pfirsich, Freesie, Alpenveilchen, Hyazinthe, Rosmarin, Veilchen, Koriander, Muskatnuss, Rose, Reseda", base: "weißer Moschus, Zeder, Eichenmoos, Patschuli, Amber" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -227,7 +227,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Armani Acqua di Gio.",
         notes: { head: "Limette, Zitrone, Bergamotte, Jasmin, Orange, Mandarine, Neroli", heart: "maritime Noten, Jasmin, Calone, Pfirsich, Freesie, Alpenveilchen, Hyazinthe, Rosmarin, Veilchen, Koriander, Muskatnuss, Rose, Reseda", base: "weißer Moschus, Zeder, Eichenmoos, Patschuli, Amber" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -238,7 +238,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Armani Acqua di Gio Profumo.",
         notes: { head: "Limette, Zitrone, Bergamotte, Jasmin, Orange, Mandarine, Neroli", heart: "maritime Noten, Jasmin, Calone, Pfirsich, Freesie, Alpenveilchen, Hyazinthe, Rosmarin, Veilchen, Koriander, Muskatnuss, Rose, Reseda", base: "weißer Moschus, Zeder, Eichenmoos, Patschuli, Amber" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -249,7 +249,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Armani Code.",
         notes: { head: "Zitrone, Bergamotte", heart: "Sternanis, Olivenblüte, Guajakholz", base: "Leder, Tonkabohne, Tabak" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -260,7 +260,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Armani Code Parfum.",
         notes: { head: "Zitrone, Bergamotte", heart: "Sternanis, Olivenblüte, Guajakholz", base: "Leder, Tonkabohne, Tabak" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -271,7 +271,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Armani Code Profumo.",
         notes: { head: "Zitrone, Bergamotte", heart: "Sternanis, Olivenblüte, Guajakholz", base: "Leder, Tonkabohne, Tabak" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -282,7 +282,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Armani He.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -293,7 +293,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Armani Prive Royal Oud.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -304,7 +304,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Armani Stronger with You.",
         notes: { head: "Kardamom, rosa Pfeffer, Veilchenblatt, Minze", heart: "Ananas, Zimt, Melone, Salbei, Lavendel", base: "Vanille, Kastanie, Amberwood, Zeder, Guajakholz" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -315,7 +315,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Armani Stronger with You Absolutely.",
         notes: { head: "Kardamom, rosa Pfeffer, Veilchenblatt, Minze", heart: "Ananas, Zimt, Melone, Salbei, Lavendel", base: "Vanille, Kastanie, Amberwood, Zeder, Guajakholz" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -326,7 +326,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Armani Stronger with You Only.",
         notes: { head: "Kardamom, rosa Pfeffer, Veilchenblatt, Minze", heart: "Ananas, Zimt, Melone, Salbei, Lavendel", base: "Vanille, Kastanie, Amberwood, Zeder, Guajakholz" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -337,7 +337,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Armani Stronger with You Oud.",
         notes: { head: "Kardamom, rosa Pfeffer, Veilchenblatt, Minze", heart: "Ananas, Zimt, Melone, Salbei, Lavendel", base: "Vanille, Kastanie, Amberwood, Zeder, Guajakholz" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -348,7 +348,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Armani You Intensly.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -359,7 +359,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Atkinson Oud Save the King.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -370,7 +370,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Azzaro Chrome.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -381,7 +381,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Azzaro Pour Homme.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -392,7 +392,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Azzaro Wanted.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -403,7 +403,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Azzaro the Most Wanted.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -414,7 +414,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von BLV Aqua.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -425,7 +425,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von BLV Man in Black.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -436,7 +436,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Baccarat Rouge 540 Extrait de Parfum.",
         notes: { head: "Jasmin, Safran", heart: "Amberwood, Ambergris", base: "Tannenharz, Zedernholz" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -447,7 +447,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Black Afghano.",
         notes: { head: "Cannabis, grüne Noten", heart: "Harze, holzige Noten, Kaffee, Tabak", base: "Weihrauch, Oud" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -458,7 +458,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Bois 1920 Canabis.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -469,7 +469,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Boss Bottled.",
         notes: { head: "Apfel, Pflaume, Bergamotte, Zitrone, Eichenmoos, Geranie", heart: "Zimt, Mahagoni, Gartennelke", base: "Vanille, Sandelholz, Zeder, Vetiver, Olivenbaum" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -480,7 +480,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Boss Bottled Elixier.",
         notes: { head: "Apfel, Pflaume, Bergamotte, Zitrone, Eichenmoos, Geranie", heart: "Zimt, Mahagoni, Gartennelke", base: "Vanille, Sandelholz, Zeder, Vetiver, Olivenbaum" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -491,7 +491,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Boss Bottled Night.",
         notes: { head: "Apfel, Pflaume, Bergamotte, Zitrone, Eichenmoos, Geranie", heart: "Zimt, Mahagoni, Gartennelke", base: "Vanille, Sandelholz, Zeder, Vetiver, Olivenbaum" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -502,7 +502,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Boss Bottled Oud.",
         notes: { head: "Apfel, Pflaume, Bergamotte, Zitrone, Eichenmoos, Geranie", heart: "Zimt, Mahagoni, Gartennelke", base: "Vanille, Sandelholz, Zeder, Vetiver, Olivenbaum" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -513,7 +513,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Boss Orange.",
         notes: { head: "Roter Apfel, Koriander", heart: "Weihrauch, Szechuanpfeffer", base: "Vanille, holzige Noten" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -524,7 +524,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Boss Scent.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -535,7 +535,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Boss The Collection Magnetic Musk.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -546,7 +546,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Burberry Hero.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -557,7 +557,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Burberry London.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -568,7 +568,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Byredo Oud Immortel.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -579,7 +579,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von CH 212.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -590,7 +590,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von CH 212 Sexy Men.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -601,7 +601,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von CH 212 VIP.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -612,7 +612,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Calvin Klein Eternity Men.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -623,7 +623,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Caronlina Herrera Bad Boy.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -634,7 +634,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Cartier Decleration.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -645,7 +645,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Cartier Pasha.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -656,7 +656,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Chanel Allure Sport.",
         notes: { head: "Orange, maritime Noten, Aldehyde, Blutorange", heart: "Pfeffer, Neroli, Zeder", base: "Tonkabohne, Vanille, weißer Moschus, Ambra, Vetiver, Elemiharz" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -667,7 +667,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Chanel Bleu.",
         notes: { head: "Grapefruit, Zitrone, Minze, rosa Pfeffer", heart: "Ingwer, Muskatnuss, Jasmin, Iso E Super", base: "Weihrauch, Vetiver, Zeder, Sandelholz, Patschuli, Labdanum, weißer Moschus" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -678,7 +678,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Chanel Egoist Platinum.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -689,7 +689,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Chopard Black Incense Malaki.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -700,7 +700,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Chopard Oud Malaki.",
         notes: { head: "Grapefruit, Lavendel, Beifuß", heart: "Tabak, Leder, Gewürze", base: "Agarholz (Oud), dunkle Hölzer, Ambergris" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -711,7 +711,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Christian Clive No.1.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -722,7 +722,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Clive Christian Blonde Amber.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -733,7 +733,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Clive Christian Magnolia Rococo VIII.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -744,7 +744,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Collection Prestige Sultan No. 9.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -755,7 +755,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Creed Aventus.",
         notes: { head: "Ananas, Bergamotte, Apfel", heart: "Birke, Patschuli, marokkanischer Jasmin, Rose", base: "Moschus, Eichenmoos, Ambra, Vanille" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -766,7 +766,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Creed Aventus Absolu.",
         notes: { head: "Ananas, Bergamotte, Apfel", heart: "Birke, Patschuli, marokkanischer Jasmin, Rose", base: "Moschus, Eichenmoos, Ambra, Vanille" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -777,7 +777,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Creed Green Irish Tweed.",
         notes: { head: "Iris, Zitronenverbene", heart: "Veilchenblatt", base: "Sandelholz, Ambra" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -788,7 +788,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Creed Silver Mountain Water.",
         notes: { head: "Bergamotte, Mandarine", heart: "Grüner Tee, schwarze Johannisbeere", base: "Galbanum, Moschus, Sandelholz, Pomeranze" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -799,7 +799,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Creed Viking.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -810,7 +810,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Davidoff Coolwater.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -821,7 +821,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Diesel Bad.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -832,7 +832,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Diesel Fuel for Life.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -843,7 +843,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Diesel Fuel for Life Spirit.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -854,7 +854,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Diesel Only The Brave.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -865,7 +865,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Diesel Spirit of the Brave.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -876,7 +876,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dior Bois a´Argent.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -887,7 +887,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dior Fahrenheit.",
         notes: { head: "Muskatblüte, Lavendel, Zeder, Kamille, Mandarine, Hagedorn, Bergamotte, Zitrone", heart: "Veilchenblatt, Muskatnuss, Zeder, Sandelholz, Gartennelke, Geißblatt, Jasmin, Maiglöckchen", base: "Leder, Vetiver, Moschus, Amber, Patschuli, Tonkabohne" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -898,7 +898,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dior Fahrenheit 32.",
         notes: { head: "Muskatblüte, Lavendel, Zeder, Kamille, Mandarine, Hagedorn, Bergamotte, Zitrone", heart: "Veilchenblatt, Muskatnuss, Zeder, Sandelholz, Gartennelke, Geißblatt, Jasmin, Maiglöckchen", base: "Leder, Vetiver, Moschus, Amber, Patschuli, Tonkabohne" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -909,7 +909,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dior Homme.",
         notes: { head: "Lavendel, Bergamotte, Salbei", heart: "Iris, Kakao, Amber", base: "Leder, Vetiver, Patschuli" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -920,7 +920,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dior Homme Cologne.",
         notes: { head: "Lavendel, Bergamotte, Salbei", heart: "Iris, Kakao, Amber", base: "Leder, Vetiver, Patschuli" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -931,7 +931,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dior Homme Intense.",
         notes: { head: "Lavendel, Bergamotte, Salbei", heart: "Iris, Kakao, Amber", base: "Leder, Vetiver, Patschuli" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -942,7 +942,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dior Homme Sport.",
         notes: { head: "Lavendel, Bergamotte, Salbei", heart: "Iris, Kakao, Amber", base: "Leder, Vetiver, Patschuli" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -953,7 +953,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dior Oud Ispahan.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -964,7 +964,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dior Prive Ambre Nuit.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -975,7 +975,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dior Rouge Trafalgar.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -986,7 +986,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dior Sauvage.",
         notes: { head: "Pfeffer, kalabrische Bergamotte", heart: "Geranie, Lavendel, Szechuanpfeffer, Elemi, Rosa Pfeffer, Vetiver, Patschuli", base: "Zeder, Labdanum, Ambroxan" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -997,7 +997,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dior Sauvage Elixir.",
         notes: { head: "Pfeffer, kalabrische Bergamotte", heart: "Geranie, Lavendel, Szechuanpfeffer, Elemi, Rosa Pfeffer, Vetiver, Patschuli", base: "Zeder, Labdanum, Ambroxan" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1008,7 +1008,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dior Vanilla Diorama.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1019,7 +1019,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dolce & Gabbana.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1030,7 +1030,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dolce & Gabbana Light Blue.",
         notes: { head: "Sizilianische Zitrone, Apfel, Zeder, Glockenblume", heart: "Bambus, Jasmin, weiße Rose", base: "Zeder, Moschus, Amber" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1041,7 +1041,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Drakkar Noir.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1052,7 +1052,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dunhill Desire Red.",
         notes: { head: "Johannisbeernektar", heart: "Mairose, Freesie", base: "Vanille, Patschuli, holzige Noten, Ambroxan" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1063,7 +1063,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dunhill Fresh (Blue).",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1074,7 +1074,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Ex Nihilo Blue Talisman.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1085,7 +1085,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Fendi Life Esseeence.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1096,7 +1096,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Franck Olivier Oud Touch.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1107,7 +1107,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Franco Ferre.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1118,7 +1118,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Frederic Malle Musc Ravageur.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1129,7 +1129,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Giorgo Armani Cuir Noir.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1140,7 +1140,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Giorgo Armani Myrrhe Imperial.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1151,7 +1151,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Gisada Ambassador.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1162,7 +1162,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Gisah Hudson Valley.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1173,7 +1173,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Givenchy Gentleman.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1184,7 +1184,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Givenchy Pi.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1195,7 +1195,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Golden Dust.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1206,7 +1206,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Gucci Envy.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1217,7 +1217,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Gucci Guilty.",
         notes: { head: "Rosa Pfeffer, Mandarine, Bergamotte", heart: "Flieder, Pfirsich, Geranie, Jasmin, schwarze Johannisbeere", base: "Patschuli, Amber, weißer Moschus, Vanille" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1228,7 +1228,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Gucci II.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1239,7 +1239,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Gucci Intense Oud.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1250,7 +1250,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Gucci by Gucci.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1261,7 +1261,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Guerlain Ideal L´Homme EDP.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1272,7 +1272,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Guerlain Spiritieuse Double Vanille.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1283,7 +1283,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Hugo Boss Energise.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1294,7 +1294,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Hugo Boss Extreme.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1305,7 +1305,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Hugo Boss Hugo.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1316,7 +1316,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Hummer.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1327,7 +1327,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Initio Musk Therapy.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1338,7 +1338,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Initio Oud 4 Greatness.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1349,7 +1349,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Initio Paragon.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1360,7 +1360,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Initio Side Effect.",
         notes: { head: "Johannisbeernektar", heart: "Mairose, Freesie", base: "Vanille, Patschuli, holzige Noten, Ambroxan" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1371,7 +1371,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Issey Miake.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1382,7 +1382,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von JPG Le Male.",
         notes: { head: "Lavendel, Minze, Kardamom, Bergamotte, Artemisia", heart: "Zimt, Orangenblüte, Kümmel", base: "Vanille, Tonkabohne, Amber, Sandelholz, Zeder" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1393,7 +1393,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von JPG Le Male Le Parfum.",
         notes: { head: "Lavendel, Minze, Kardamom, Bergamotte, Artemisia", heart: "Zimt, Orangenblüte, Kümmel", base: "Vanille, Tonkabohne, Amber, Sandelholz, Zeder" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1404,7 +1404,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von JPG Scandal.",
         notes: { head: "Blutorange, Mandarine", heart: "Honig, Gardenie, Orangenblüte, Jasmin, Pfirsich", base: "Bienenwachs, Karamell, Patschuli, Lakritze" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1415,7 +1415,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Jacques Bogart One Man Show.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1426,7 +1426,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Jacques Bogart Silver Scent.",
         notes: { head: "Johannisbeernektar", heart: "Mairose, Freesie", base: "Vanille, Patschuli, holzige Noten, Ambroxan" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1437,7 +1437,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Jean Paul Gaultier 2.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1448,7 +1448,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Jean Paul Gaultier Le Beau.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1459,7 +1459,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Jean Paul Gaultier Le Male Elixier.",
         notes: { head: "Lavendel, Minze, Kardamom, Bergamotte, Artemisia", heart: "Zimt, Orangenblüte, Kümmel", base: "Vanille, Tonkabohne, Amber, Sandelholz, Zeder" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1470,7 +1470,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Jean Paul Gaultier Paradise Garden.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1481,7 +1481,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Jil Sander Sun Men.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1492,7 +1492,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Jo Malone London Myyrh & Tonka.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1503,7 +1503,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Joop Homme Wild.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1514,7 +1514,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Joop Wow.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1525,7 +1525,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Joop! Homme.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1536,7 +1536,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Jpg Ultra Male.",
         notes: { head: "Birne, Lavendel, Minze, Bergamotte, Zitrone", heart: "Zimt, Muskatellersalbei, Kümmel", base: "schwarze Vanilleschote, Amber, Patschuli, Zeder" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1547,7 +1547,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Kajal Almaz.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1558,7 +1558,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von KayAli Vanilla 28.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1569,7 +1569,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von KayAli Yum Pistachio Gelato 33.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1580,7 +1580,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Kenzo.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1591,7 +1591,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Kilian Angels Share.",
         notes: { head: "Cognac", heart: "Zimt, Tonkabohne, Eiche", base: "Praline, Vanille, Sandelholz" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1602,7 +1602,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Kilian Apple Brandy on the Rocks.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1613,7 +1613,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Kilian Bambo Harmony.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1624,7 +1624,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Kilian Black Phantom.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1635,7 +1635,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Kilian Don't be Shy Extreme.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1646,7 +1646,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Kilian Don´t be Shy.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1657,7 +1657,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Killian Good Girl Gone Bad.",
         notes: { head: "Mandel, Kaffee, Bergamotte, Zitrone", heart: "Tuberose, Jasmin, Orangenblüte, Iris, bulgarische Rose", base: "Tonkabohne, Kakao, Vanille, Praline, Sandelholz, Moschus, Amber, Kaschmirholz, Zimt, Patschuli, Zeder" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1668,7 +1668,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von LB Roma.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1679,7 +1679,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Lacoste Eau de Lacoste L.12.12 Blanc.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1690,7 +1690,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Lacoste Red.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1701,7 +1701,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Lattafa Sheik Al Shuyukh.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1712,7 +1712,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Lattfa Ana Abiyedh.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1723,7 +1723,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Le Labo Santal 33.",
         notes: { head: "Kardamom, Iris, Veilchen", heart: "australisches Sandelholz, Zedernholz, Papyrus", base: "Leder, Amber, Iriswurzel" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1734,7 +1734,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Louis Vuitton Afternoon Swim.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1745,7 +1745,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Louis Vuitton Cactus Garden.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1756,7 +1756,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Louis Vuitton California Dream.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1767,7 +1767,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Louis Vuitton City of Stars.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1778,7 +1778,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Louis Vuitton Fleur du Desert.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1789,7 +1789,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Louis Vuitton Imagination.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1800,7 +1800,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Louis Vuitton L`Immensite.",
         notes: { head: "Johannisbeernektar", heart: "Mairose, Freesie", base: "Vanille, Patschuli, holzige Noten, Ambroxan" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1811,7 +1811,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Louis Vuitton Les Sables Rose.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1822,7 +1822,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Louis Vuitton Lovers.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1833,7 +1833,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Louis Vuitton Meteore.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1844,7 +1844,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Louis Vuitton Nuit de Feu.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1855,7 +1855,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Louis Vuitton Ombre Nomade.",
         notes: { head: "Oud, Weihrauch", heart: "Himbeere, Rose", base: "Benzoe, Geranie, Safran" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1866,7 +1866,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Louis Vuitton Orage.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1877,7 +1877,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Louis Vuitton Pacific Chill.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1888,7 +1888,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Louis Vuitton Pure Oud.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1899,7 +1899,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Louis Vuitton Spell on You.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1910,7 +1910,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Louis Vuitton Sun Song.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1921,7 +1921,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Louis Vuitton Symphony.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1932,7 +1932,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von MFK 724.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1943,7 +1943,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von MFK Baccarat Rouge 540.",
         notes: { head: "Jasmin, Safran", heart: "Amberwood, Ambergris", base: "Tannenharz, Zedernholz" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1954,7 +1954,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von MFK Gentle Fuluidity Silver.",
         notes: { head: "Johannisbeernektar", heart: "Mairose, Freesie", base: "Vanille, Patschuli, holzige Noten, Ambroxan" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1965,7 +1965,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von MFK Grand Soir.",
         notes: { head: "Spanisches Labdanum", heart: "Siam-Benzoe", base: "Tonkabohne, Vanille, Amber" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1976,7 +1976,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von MFK L´Homme a La Rose.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1987,7 +1987,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von MFK Oud Satin Mood.",
         notes: { head: "Veilchen", heart: "Laotisches Oud, bulgarische Rose, türkische Rose", base: "Vanille, Amber" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -1998,7 +1998,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Maison Crivelli Hibiscus Mahajad.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2009,7 +2009,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Maison Crivelli Oud Maracuja.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2020,7 +2020,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Malizia Uomo Vetyver Green.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2031,7 +2031,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Mancera Coco Vanille.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2042,7 +2042,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Mancera Instant Crush.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2053,7 +2053,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Mancera Roses Vanille.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2064,7 +2064,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Mancera Tonka Cola.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2075,7 +2075,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Marc-Antonie Barrois Ganymende.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2086,7 +2086,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Memo Paris Marfa.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2097,7 +2097,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Molecules Escentric 01.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2108,7 +2108,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Molecules Escentric 02.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2119,7 +2119,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Montale Arabians Tonka.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2130,7 +2130,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Montale Black Oud.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2141,7 +2141,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Montale Choclate Greedy.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2152,7 +2152,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Montale Infinity.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2163,7 +2163,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Montale Intense Cafe.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2174,7 +2174,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Montale Intense Cherry.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2185,7 +2185,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Montale Kabul Aoud.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2196,7 +2196,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Montale Mukhallat.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2207,7 +2207,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Montale Ristretto Intense Cafe.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2218,7 +2218,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Montale Sensual Instinct.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2229,7 +2229,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Montale Vanille Absolu.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2240,7 +2240,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Montblanc Explorer.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2251,7 +2251,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Nautica Voyage.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2262,7 +2262,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Nikos Sculpture.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2273,7 +2273,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Nishane Ani.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2284,7 +2284,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Nishane Hacivat.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2295,7 +2295,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Orlane Derreck.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2306,7 +2306,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Orto Parisi Megamre.",
         notes: { head: "Johannisbeernektar", heart: "Mairose, Freesie", base: "Vanille, Patschuli, holzige Noten, Ambroxan" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2317,7 +2317,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von PR One Million Elexier.",
         notes: { head: "Blutorange, Grapefruit, Minze", heart: "Zimt, würzige Noten, Rose", base: "Amber, Leder, holzige Noten, indisches Patschuli" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2328,7 +2328,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Paco Rabanne Black XS.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2339,7 +2339,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Paco Rabanne Black XS L'exces.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2350,7 +2350,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Paco Rabanne Invictus.",
         notes: { head: "Maritime Noten, Grapefruit, Mandarine", heart: "Lorbeerblatt, Jasmin", base: "Ambra, Guajakholz, Eichenmoos, Patschuli" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2361,7 +2361,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Paco Rabanne Invictus Platinum.",
         notes: { head: "Maritime Noten, Grapefruit, Mandarine", heart: "Lorbeerblatt, Jasmin", base: "Ambra, Guajakholz, Eichenmoos, Patschuli" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2372,7 +2372,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Paco Rabanne Invictus Victory.",
         notes: { head: "Maritime Noten, Grapefruit, Mandarine", heart: "Lorbeerblatt, Jasmin", base: "Ambra, Guajakholz, Eichenmoos, Patschuli" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2383,7 +2383,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Paco Rabanne One Million.",
         notes: { head: "Blutorange, Grapefruit, Minze", heart: "Zimt, würzige Noten, Rose", base: "Amber, Leder, holzige Noten, indisches Patschuli" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2394,7 +2394,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Paco Rabanne One Million Lucky.",
         notes: { head: "Blutorange, Grapefruit, Minze", heart: "Zimt, würzige Noten, Rose", base: "Amber, Leder, holzige Noten, indisches Patschuli" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2405,7 +2405,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Paco Rabanne One Million Prive.",
         notes: { head: "Blutorange, Grapefruit, Minze", heart: "Zimt, würzige Noten, Rose", base: "Amber, Leder, holzige Noten, indisches Patschuli" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2416,7 +2416,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Paco Rabanne One Million Royale.",
         notes: { head: "Blutorange, Grapefruit, Minze", heart: "Zimt, würzige Noten, Rose", base: "Amber, Leder, holzige Noten, indisches Patschuli" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2427,7 +2427,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Paco Rabanne Phantom.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2438,7 +2438,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Paco Rabanne Ultraviolette.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2449,7 +2449,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Parfum De Marly Althair.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2460,7 +2460,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Parfum De Marly Castley.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2471,7 +2471,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Parfum De Marly Greenly.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2482,7 +2482,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Parfum De Marly Haltana.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2493,7 +2493,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Parfum De Marly Herod.",
         notes: { head: "Zimt, Pfefferholz", heart: "Tabakblatt, Weihrauch, Osmanthus, Labdanum", base: "Vanille, Iso E Super, Zeder, Moschus, Cypriol" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2504,7 +2504,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Parfum de Marly Leyton.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2515,7 +2515,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Parfum de Marly Pegasus.",
         notes: { head: "Heliotrop, Kümmel, Bergamotte", heart: "Bittermandel, Lavendel, Jasmin", base: "Vanille, Sandelholz, Amber" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2526,7 +2526,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Parfums De Marly Oajan.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2537,7 +2537,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Prada Luna Rossa.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2548,7 +2548,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Prada Luna Rossa Black.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2559,7 +2559,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Prada Luna Rossa Extreme.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2570,7 +2570,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Prada Luna Rossa Ocean.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2581,7 +2581,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Prada Luna Rossa Sport.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2592,7 +2592,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Prada Milano L´Homme.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2603,7 +2603,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Rasasi Junoon Satin.",
         notes: { head: "Johannisbeernektar", heart: "Mairose, Freesie", base: "Vanille, Patschuli, holzige Noten, Ambroxan" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2614,7 +2614,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Rochas.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2625,7 +2625,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Roja Amber Aoud.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2636,7 +2636,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Roja Dove Oligarch.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2647,7 +2647,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Salvatore Ferragamo Intense Leather.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2658,7 +2658,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Shay Oud.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2669,7 +2669,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Silver Dust.",
         notes: { head: "Johannisbeernektar", heart: "Mairose, Freesie", base: "Vanille, Patschuli, holzige Noten, Ambroxan" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2680,7 +2680,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Sospiro Contralto.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2691,7 +2691,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Sospiro Vibrato.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2702,7 +2702,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Stephane Humbert Lucas God Of Fire.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2713,7 +2713,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von T.F. Tobacco Vanille.",
         notes: { head: "Tabakblatt, würzige Noten", heart: "Tonkabohne, Tabakblüte, Vanille, Kakao", base: "Getrocknete Früchte, holzige Noten" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2724,7 +2724,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Ted Lapidus.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2735,7 +2735,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Terre D´Hermés.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2746,7 +2746,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Thameen Patiala.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2757,7 +2757,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Thierry Mugler Alien Men.",
         notes: { head: "Jasmin", heart: "Holzige Noten", base: "Amber" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2768,7 +2768,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Thierry Mugler Alien Mirage.",
         notes: { head: "Jasmin", heart: "Holzige Noten", base: "Amber" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2779,7 +2779,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tiziana Terenzi Kirke.",
         notes: { head: "Passionsfrucht, Pfirsich, Himbeere, Cassis, Birne", heart: "Maiglöckchen", base: "Heliotrop, Sandelholz, Vanille, Patschuli, Moschus" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2790,7 +2790,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tiziana Terenzi Orza.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2801,7 +2801,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tiziana Terenzi Spirito Fiorentino.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2812,7 +2812,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Beau de Jour.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2823,7 +2823,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Bitter Peach.",
         notes: { head: "Pfirsich, Blutorange, Kardamom, Heliotrop", heart: "Rum, Cognac, Davana, Jasmin", base: "indonesisches Patschuliblatt, Vanille, Sandelholz, Tonkabohne, Cashmeran, Benzoeharz, Styrax, Labdanum, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2834,7 +2834,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Cafe Rose.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2845,7 +2845,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Costa Azzurra.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2856,7 +2856,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Electric Cherry.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2867,7 +2867,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Extreme Noir.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2878,7 +2878,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Fucking Fabulous.",
         notes: { head: "Muskatellersalbei, Lavendel", heart: "Bittermandel, Vanille, Leder, Iris", base: "Tonkabohne, Leder, Cashmeran, Amber, helle Hölzer" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2889,7 +2889,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Lost Cherry.",
         notes: { head: "Schwarze Kirsche, Kirschlikör, Bittermandel", heart: "Sauerkirsche, türkische Rose, arabischer Jasmin", base: "Perubalsam, geröstete Tonkabohne, Sandelholz, Vetiver, Zeder" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2900,7 +2900,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Mandarino di Amalfi.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2911,7 +2911,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Myrrhe Mystere.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2922,7 +2922,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Neroli Portofino.",
         notes: { head: "Bergamotte, Mandarine, Zitrone, Lavendel, Myrte, Rosmarin, Bitterorange", heart: "Afrikanische Orangenblüte, Jasmin, Neroli, Klebsame", base: "Amber, Ambrette, Engelwurz" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2933,7 +2933,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Noir de Noir.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2944,7 +2944,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Ombre Leather.",
         notes: { head: "Kardamom", heart: "Leder, arabischer Jasmin", base: "Amber, Moos, Patschuli" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2955,7 +2955,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Oud Minerale.",
         notes: { head: "Rosenholz, Kardamom", heart: "Oud, Sandelholz", base: "Tonkabohne, Amber" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2966,7 +2966,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Oud Wood.",
         notes: { head: "Rosenholz, Kardamom, chinesischer Pfeffer", heart: "Oud, Sandelholz, Vetiver", base: "Tonkabohne, Vanille, Amber" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2977,7 +2977,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Patchouli Absolu.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2988,7 +2988,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Smoke Cherry.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -2999,7 +2999,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Soleil Blanc.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3010,7 +3010,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Tuscan Leather.",
         notes: { head: "Safran, Himbeere, Thymian", heart: "Olibanum, Jasmin", base: "Leder, Wildleder, Amber, holzige Noten" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3021,7 +3021,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Vanilla Sex.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3032,7 +3032,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Valentino Born in Roma.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3043,7 +3043,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Valentino Uomo.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3054,7 +3054,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Valentino Uomo Intense.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3065,7 +3065,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Versace Eros.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3076,7 +3076,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Versace Oud Noir.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3087,7 +3087,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Vertus Sole Patchouli.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3098,7 +3098,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Viktor Rolf Spicebomb Extreme.",
         notes: { head: "Rosa Pfeffer, Elemi, Bergamotte, Grapefruit", heart: "Zimt, Safran, Paprika", base: "Tabak, Leder, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3109,7 +3109,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von White Sandal.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3120,7 +3120,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Widian Black II.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3131,7 +3131,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Widian Black IV.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3142,7 +3142,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Widian Black V.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3153,7 +3153,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Widian Limited 71 Intense.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3164,7 +3164,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Widian Liwa.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3175,7 +3175,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Widian London.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3186,7 +3186,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff 1861 Renaissance.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3197,7 +3197,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Acento.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3208,7 +3208,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Alexandria 2.",
         notes: { head: "Apfel, Zimt, Rosenholz, Lavendel", heart: "Zeder, Maiglöckchen, bulgarische Rose", base: "Amber, Sandelholz, Moschus, Vanille, Oud" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3219,7 +3219,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Alexandria 3.",
         notes: { head: "Apfel, Zimt, Rosenholz, Lavendel", heart: "Zeder, Maiglöckchen, bulgarische Rose", base: "Amber, Sandelholz, Moschus, Vanille, Oud" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3230,7 +3230,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Casamorati 1888 Italica.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3241,7 +3241,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Casamorati Bouquet Ideale.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3252,7 +3252,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Casamorati Lira.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3263,7 +3263,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Coro.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3274,7 +3274,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Erba Gold.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3285,7 +3285,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Erba Pura.",
         notes: { head: "Sizilianische Orange, kalabrische Bergamotte, sizilianische Zitrone", heart: "Früchte", base: "weißer Moschus, Madagaskar-Vanille, Amber" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3296,7 +3296,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Gran Ballo.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3307,7 +3307,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Join The Club 40 Knots.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3318,7 +3318,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Laylati.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3329,7 +3329,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Luxor.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3340,7 +3340,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Mefisto.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3351,7 +3351,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff More Than Words.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3362,7 +3362,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Muse.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3373,7 +3373,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Naxos.",
         notes: { head: "Lavendel, Bergamotte, Zitrone", heart: "Honig, Zimt, Cashmeran, arabischer Jasmin", base: "Tabakblatt, Tonkabohne, Vanille" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3384,7 +3384,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Nio.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3395,7 +3395,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Richwood.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3406,7 +3406,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Tony Lommi Monkey Special.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3417,7 +3417,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Torino 21.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3428,7 +3428,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Torino 22.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3439,7 +3439,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von YSL Kuros.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3450,7 +3450,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von YSL La Nuit Intense.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3461,7 +3461,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von YSL La Nuit Le Parfum.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3472,7 +3472,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von YSL La´Nuit.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3483,7 +3483,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von YSL Myslf.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3494,7 +3494,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von YSL Supreme Bouqeut.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3505,7 +3505,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von YSL Tuxedo.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3516,7 +3516,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von YSL Y.",
         notes: { head: "Apfel, Ingwer, Bergamotte", heart: "Salbei, Wacholderbeere, Geranie", base: "Amberwood, Tonkabohne, Zeder, Vetiver, Olibanum" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3527,7 +3527,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Zadig & Voltaire This is Him.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3538,7 +3538,7 @@ const products = [
         description: "Ein exklusiver Herrenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Zarko Perfume The Muse.",
         notes: { head: "Bergamotte, Zitronen, rosa Pfeffer", heart: "Lavendel, würzige Noten", base: "Zedernholz, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_men.png"],
+        images: ["images_parfume/parfume_men.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3549,7 +3549,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Afnan Zahrat Al Khaleej.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3560,7 +3560,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Ajmal 1001 Nights.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3571,7 +3571,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Ana Wel Shook.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3582,7 +3582,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Armani Acqua di Gioia.",
         notes: { head: "Limette, Zitrone, Bergamotte, Jasmin, Orange, Mandarine, Neroli", heart: "maritime Noten, Jasmin, Calone, Pfirsich, Freesie, Alpenveilchen, Hyazinthe, Rosmarin, Veilchen, Koriander, Muskatnuss, Rose, Reseda", base: "weißer Moschus, Zeder, Eichenmoos, Patschuli, Amber" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3593,7 +3593,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Armani Because its You.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3604,7 +3604,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Armani Code.",
         notes: { head: "Zitrone, Bergamotte", heart: "Sternanis, Olivenblüte, Guajakholz", base: "Leder, Tonkabohne, Tabak" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3615,7 +3615,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Armani Code Cashmere.",
         notes: { head: "Zitrone, Bergamotte", heart: "Sternanis, Olivenblüte, Guajakholz", base: "Leder, Tonkabohne, Tabak" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3626,7 +3626,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Armani Emporio She.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3637,7 +3637,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Armani My Way.",
         notes: { head: "Orangenblüte, Bergamotte", heart: "Tuberose, indischer Jasmin", base: "Madagaskar-Vanille, weißer Moschus, Zeder" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3648,7 +3648,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Armani My Way Floral.",
         notes: { head: "Orangenblüte, Bergamotte", heart: "Tuberose, indischer Jasmin", base: "Madagaskar-Vanille, weißer Moschus, Zeder" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3659,7 +3659,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Armani Si.",
         notes: { head: "Johannisbeernektar", heart: "Mairose, Freesie", base: "Vanille, Patschuli, holzige Noten, Ambroxan" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3670,7 +3670,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Armani Si Passion.",
         notes: { head: "Johannisbeernektar", heart: "Mairose, Freesie", base: "Vanille, Patschuli, holzige Noten, Ambroxan" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3681,7 +3681,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Baccarat Rouge 540 Eau de Parfum.",
         notes: { head: "Jasmin, Safran", heart: "Amberwood, Ambergris", base: "Tannenharz, Zedernholz" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3692,7 +3692,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Baccarat Rouge 540 Extrait de Parfum.",
         notes: { head: "Jasmin, Safran", heart: "Amberwood, Ambergris", base: "Tannenharz, Zedernholz" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3703,7 +3703,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Bon Bon Vanille.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3714,7 +3714,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Boss Alive.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3725,7 +3725,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Boss Mavie.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3736,7 +3736,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Boss Orange.",
         notes: { head: "Roter Apfel, Koriander", heart: "Weihrauch, Szechuanpfeffer", base: "Vanille, holzige Noten" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3747,7 +3747,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Boss The Scent.",
         notes: { head: "Ingwer, Bergamotte, Mandarine", heart: "Maninka, Lavendel", base: "Leder, holzige Noten" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3758,7 +3758,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Bottega Veneta Femme.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3769,7 +3769,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Britney Spears Fantasy.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3780,7 +3780,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Bubble Gum.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3791,7 +3791,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Bulgari Bvlgari Le Gemme Tygar.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3802,7 +3802,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Bulgari Omnia Crystalline.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3813,7 +3813,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Burberry Goddes.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3824,7 +3824,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Burberry Her.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3835,7 +3835,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Burberry London.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3846,7 +3846,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Cacharel Amor Amor.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3857,7 +3857,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Calvin Klein Eternity.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3868,7 +3868,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Calvin Klein Euphoria.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3879,7 +3879,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Carolina Herrera 212 Sexy.",
         notes: { head: "Mandel, Kaffee, Bergamotte, Zitrone", heart: "Tuberose, Jasmin, Orangenblüte, Iris, bulgarische Rose", base: "Tonkabohne, Kakao, Vanille, Praline, Sandelholz, Moschus, Amber, Kaschmirholz, Zimt, Patschuli, Zeder" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3890,7 +3890,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Carolina Herrera 212 VIP.",
         notes: { head: "Mandel, Kaffee, Bergamotte, Zitrone", heart: "Tuberose, Jasmin, Orangenblüte, Iris, bulgarische Rose", base: "Tonkabohne, Kakao, Vanille, Praline, Sandelholz, Moschus, Amber, Kaschmirholz, Zimt, Patschuli, Zeder" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3901,7 +3901,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Carolina Herrera Good Girl.",
         notes: { head: "Mandel, Kaffee, Bergamotte, Zitrone", heart: "Tuberose, Jasmin, Orangenblüte, Iris, bulgarische Rose", base: "Tonkabohne, Kakao, Vanille, Praline, Sandelholz, Moschus, Amber, Kaschmirholz, Zimt, Patschuli, Zeder" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3912,7 +3912,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Carolina Herrera La Bomba.",
         notes: { head: "Mandel, Kaffee, Bergamotte, Zitrone", heart: "Tuberose, Jasmin, Orangenblüte, Iris, bulgarische Rose", base: "Tonkabohne, Kakao, Vanille, Praline, Sandelholz, Moschus, Amber, Kaschmirholz, Zimt, Patschuli, Zeder" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3923,7 +3923,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Carolina Herrera Very Good Girl Glam.",
         notes: { head: "Mandel, Kaffee, Bergamotte, Zitrone", heart: "Tuberose, Jasmin, Orangenblüte, Iris, bulgarische Rose", base: "Tonkabohne, Kakao, Vanille, Praline, Sandelholz, Moschus, Amber, Kaschmirholz, Zimt, Patschuli, Zeder" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3934,7 +3934,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Chanel Chance Eau Fraiche.",
         notes: { head: "Rosa Pfeffer", heart: "Jasmin, Iris", base: "Patschuli, Moschus, Vanille" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3945,7 +3945,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Chanel Chance Eau Tendre.",
         notes: { head: "Quitte, Grapefruit", heart: "Hyazinthe, Jasmin", base: "Moschus, Iris, Zeder, Amber" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3956,7 +3956,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Chanel Chance Eau de Parfum.",
         notes: { head: "Rosa Pfeffer", heart: "Jasmin, Iris", base: "Patschuli, Moschus, Vanille" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3967,7 +3967,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Chanel Coco Madmoiselle.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3978,7 +3978,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Chanel Coco Madmoiselle intense.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -3989,7 +3989,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Chanel Coco eau de Parfum.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4000,7 +4000,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Chanel Gabrielle.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4011,7 +4011,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Chanel Madmoiselle L'eau Prive.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4022,7 +4022,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Chanel No. 5.",
         notes: { head: "Aldehyde, Ylang-Ylang, Neroli, Bergamotte, Pfirsich", heart: "Iris, Jasmin, Rose, Maiglöckchen", base: "Sandelholz, Vanille, Eichenmoos, Vetiver, Patschuli" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4033,7 +4033,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Chloe.",
         notes: { head: "Pfingstrose, Litschi, Freesie", heart: "Rose, Maiglöckchen, Magnolie", base: "Virginia Zeder, Amber" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4044,7 +4044,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Chloe Love.",
         notes: { head: "Pfingstrose, Litschi, Freesie", heart: "Rose, Maiglöckchen, Magnolie", base: "Virginia Zeder, Amber" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4055,7 +4055,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Chloe Nomade.",
         notes: { head: "Pfingstrose, Litschi, Freesie", heart: "Rose, Maiglöckchen, Magnolie", base: "Virginia Zeder, Amber" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4066,7 +4066,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Creed Aventus For Her.",
         notes: { head: "Ananas, Bergamotte, Apfel", heart: "Birke, Patschuli, marokkanischer Jasmin, Rose", base: "Moschus, Eichenmoos, Ambra, Vanille" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4077,7 +4077,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Creed Wind Flowers Floral.",
         notes: { head: "Pfingstrose, Zitrusfrüchte, Mandarine", heart: "Osmanthus, Rose", base: "Sandelholz, Patschuli, rosa Pfeffer" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4088,7 +4088,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von DKNY Be Delicious (Green).",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4099,7 +4099,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Davidoff Cool Water.",
         notes: { head: "Maritime Noten, Minze, grüne Noten, Lavendel, Koriander, Rosmarin", heart: "Sandelholz, Jasmin, Neroli, Geranie", base: "Moschus, Eichenmoos, Zeder, Tabak, Amber" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4110,7 +4110,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Diesel Fuel for Life.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4121,7 +4121,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dior Addict.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4132,7 +4132,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dior Hypnotic Poison.",
         notes: { head: "Pflaume, Waldbeeren, Koriander, Anis, brasilianisches Rosenholz", heart: "Tuberose, Weihrauch, weißer Honig, Zimt, Opoponax, Gartennelke, Jasmin, afrikanische Orangenblüte, Rose", base: "Vanille, Amber, Sandelholz, Moschus, Heliotrop, Vetiver, Zeder" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4143,7 +4143,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dior Jadore.",
         notes: { head: "Birne, Melone, Magnolie, Pfirsich, Mandarine, Bergamotte", heart: "Jasmin, Maiglöckchen, Tuberose, Freesie, Rose, Orchidee, Pflaume, Veilchen", base: "Moschus, Vanille, Brombeere, Zeder" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4154,7 +4154,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dior Miss Dior.",
         notes: { head: "Rosa Pfeffer, Blutorange, süße Orange, Mandarine, kalabrische Bergamotte, Zitrone", heart: "Grasse-Rose, Damaszenerrose, Jasminblatt", base: "Patschuli, Palisanderholz" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4165,7 +4165,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dior Miss Dior Rose.",
         notes: { head: "Rosa Pfeffer, Blutorange, süße Orange, Mandarine, kalabrische Bergamotte, Zitrone", heart: "Grasse-Rose, Damaszenerrose, Jasminblatt", base: "Patschuli, Palisanderholz" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4176,7 +4176,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dior Poison (Cobra).",
         notes: { head: "Pflaume, Waldbeeren, Koriander, Anis, brasilianisches Rosenholz", heart: "Tuberose, Weihrauch, weißer Honig, Zimt, Opoponax, Gartennelke, Jasmin, afrikanische Orangenblüte, Rose", base: "Vanille, Amber, Sandelholz, Moschus, Heliotrop, Vetiver, Zeder" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4187,7 +4187,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dior Poison Girl.",
         notes: { head: "Pflaume, Waldbeeren, Koriander, Anis, brasilianisches Rosenholz", heart: "Tuberose, Weihrauch, weißer Honig, Zimt, Opoponax, Gartennelke, Jasmin, afrikanische Orangenblüte, Rose", base: "Vanille, Amber, Sandelholz, Moschus, Heliotrop, Vetiver, Zeder" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4198,7 +4198,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dior Rouge Trafalgar.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4209,7 +4209,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dior Vanill Diorama.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4220,7 +4220,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dolce & Gabbana Devotion.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4231,7 +4231,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dolce & Gabbana Garden.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4242,7 +4242,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dolce & Gabbana Light Blue.",
         notes: { head: "Sizilianische Zitrone, Apfel, Zeder, Glockenblume", heart: "Bambus, Jasmin, weiße Rose", base: "Zeder, Moschus, Amber" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4253,7 +4253,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dolce & Gabbana No 3.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4264,7 +4264,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Dolce & Gabbana The One.",
         notes: { head: "Pfirsich, Litschi, Mandarine, Bergamotte", heart: "Lilie, Pflaume, Jasmin, Maiglöckchen", base: "Vanille, Amber, Moschus, Vetiver" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4275,7 +4275,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Elie Saab Le Parfume.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4286,7 +4286,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Escada Especially.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4297,7 +4297,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Escada Magnetisim.",
         notes: { head: "Johannisbeernektar", heart: "Mairose, Freesie", base: "Vanille, Patschuli, holzige Noten, Ambroxan" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4308,7 +4308,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Escada Sexy Graffiti.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4319,7 +4319,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Giorgio Armani Cuir Noir.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4330,7 +4330,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Giorgio Armani Myrrhe Imperiale.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4341,7 +4341,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Gisada Ambassadora.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4352,7 +4352,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Givenchy Amarige.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4363,7 +4363,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Givenchy L'interdit.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4374,7 +4374,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Givenchy L'interdit Angelique Rouge.",
         notes: { head: "Zuckerwatte, Kokosnuss, Cassis, Melone, Jasmin", heart: "Honig, rote Beeren, Brombeere, Pflaume, Aprikose", base: "Patschuli, Schokolade, Karamell, Vanille, Tonkabohne" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4385,7 +4385,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Gucci Bamboo.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4396,7 +4396,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Gucci Bloom.",
         notes: { head: "Jasmin", heart: "Tuberose", base: "Rangunschlinger" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4407,7 +4407,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Gucci Flora Gardenia.",
         notes: { head: "Pfingstrose, Zitrusfrüchte, Mandarine", heart: "Osmanthus, Rose", base: "Sandelholz, Patschuli, rosa Pfeffer" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4418,7 +4418,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Gucci Flora Gorgeous Gardenia.",
         notes: { head: "Pfingstrose, Zitrusfrüchte, Mandarine", heart: "Osmanthus, Rose", base: "Sandelholz, Patschuli, rosa Pfeffer" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4429,7 +4429,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Gucci Guilty Absolute.",
         notes: { head: "Rosa Pfeffer, Mandarine, Bergamotte", heart: "Flieder, Pfirsich, Geranie, Jasmin, schwarze Johannisbeere", base: "Patschuli, Amber, weißer Moschus, Vanille" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4440,7 +4440,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Gucci Guilty Intense pour Femme.",
         notes: { head: "Rosa Pfeffer, Mandarine, Bergamotte", heart: "Flieder, Pfirsich, Geranie, Jasmin, schwarze Johannisbeere", base: "Patschuli, Amber, weißer Moschus, Vanille" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4451,7 +4451,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Gucci Rush.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4462,7 +4462,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Gucci by Gucci.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4473,7 +4473,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Guerlain L'instant Magic.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4484,7 +4484,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Hareem Al Sultan Gold Khadlaj.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4495,7 +4495,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Hugo Boss pour Femme.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4506,7 +4506,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Initio Side Effect.",
         notes: { head: "Johannisbeernektar", heart: "Mairose, Freesie", base: "Vanille, Patschuli, holzige Noten, Ambroxan" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4517,7 +4517,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Issey Miyake L eau d Issey.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4528,7 +4528,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Jean Paul Gaulter So Scandal.",
         notes: { head: "Blutorange, Mandarine", heart: "Honig, Gardenie, Orangenblüte, Jasmin, Pfirsich", base: "Bienenwachs, Karamell, Patschuli, Lakritze" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4539,7 +4539,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Jean Paul Gaultier Classique.",
         notes: { head: "Johannisbeernektar", heart: "Mairose, Freesie", base: "Vanille, Patschuli, holzige Noten, Ambroxan" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4550,7 +4550,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Jean Paul Gaultier Divine.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4561,7 +4561,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Jean Paul Gaultier La Belle.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4572,7 +4572,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Jean Paul Gaultier Scandal.",
         notes: { head: "Blutorange, Mandarine", heart: "Honig, Gardenie, Orangenblüte, Jasmin, Pfirsich", base: "Bienenwachs, Karamell, Patschuli, Lakritze" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4583,7 +4583,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Jean Paul Gaultier Scandal Le Parfum.",
         notes: { head: "Blutorange, Mandarine", heart: "Honig, Gardenie, Orangenblüte, Jasmin, Pfirsich", base: "Bienenwachs, Karamell, Patschuli, Lakritze" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4594,7 +4594,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Jil Sander Sun.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4605,7 +4605,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Joop Le Bain.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4616,7 +4616,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Kalemat Arabian Oud.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4627,7 +4627,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von KayAli Pistachio Gelato 33.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4638,7 +4638,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von KayAli Vanilla 28.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4649,7 +4649,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Kenzo Flower.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4660,7 +4660,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Kilian Angels Share.",
         notes: { head: "Cognac", heart: "Zimt, Tonkabohne, Eiche", base: "Praline, Vanille, Sandelholz" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4671,7 +4671,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Kilian Bamboo Harmony.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4682,7 +4682,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Kilian Black to Black.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4693,7 +4693,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Kilian Dont be Shy.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4704,7 +4704,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Kilian Good Girl Gone Bad.",
         notes: { head: "Mandel, Kaffee, Bergamotte, Zitrone", heart: "Tuberose, Jasmin, Orangenblüte, Iris, bulgarische Rose", base: "Tonkabohne, Kakao, Vanille, Praline, Sandelholz, Moschus, Amber, Kaschmirholz, Zimt, Patschuli, Zeder" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4715,7 +4715,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Lacoste pour Femme.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4726,7 +4726,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Lancome Hypnose.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4737,7 +4737,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Lancome Idole.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4748,7 +4748,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Lancome La Nuit Tresor Intense.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4759,7 +4759,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Lancome La vie este Belle.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4770,7 +4770,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Lancome Midnight Rose.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4781,7 +4781,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Lancome Miracle.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4792,7 +4792,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Lancome Tresor.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4803,7 +4803,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Lancome Tresor La Nuit.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4814,7 +4814,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Lattafa Ser Al Shulod Dubai.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4825,7 +4825,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Louis Vuitton City of Stars.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4836,7 +4836,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Louis Vuitton Fleur du Desert.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4847,7 +4847,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Louis Vuitton Rose des Vents.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4858,7 +4858,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Louis Vuitton Spell on You.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4869,7 +4869,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Louis Vuitton Symohony.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4880,7 +4880,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Lv Coeuer Battant.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4891,7 +4891,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Mancera Coco Vanille.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4902,7 +4902,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Mancera Instant Crush.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4913,7 +4913,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Mancera Roses Vanille.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4924,7 +4924,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Marc Jacobs Daisy.",
         notes: { head: "Veilchenblatt, Blutgrapefruit, Erdbeere", heart: "Veilchen, Gardenie, Jasmin", base: "Moschus, weiße Hölzer, Vanille" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4935,7 +4935,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Marc Jacobs Decadence.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4946,7 +4946,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Michael Kors Sexy Amber.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4957,7 +4957,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Milton Llyod Hawaii.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4968,7 +4968,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Molecules 01.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4979,7 +4979,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Mon Guerlain.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -4990,7 +4990,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Montale Infinity.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5001,7 +5001,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Montale Intense Tiare.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5012,7 +5012,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Montale Rose Musk.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5023,7 +5023,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Montale Sensual Instinct.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5034,7 +5034,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Montale Sweet Vanilla.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5045,7 +5045,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Montale Vanilla Absolu.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5056,7 +5056,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Montale White Musk.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5067,7 +5067,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Narciso Rodriguez For Her.",
         notes: { head: "Afrikanische Orangenblüte, Osmanthus, Bergamotte", heart: "Moschus, Amber", base: "Vetiver, Vanille, Patschuli" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5078,7 +5078,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Narciso Rodriguez For Her Black.",
         notes: { head: "Afrikanische Orangenblüte, Osmanthus, Bergamotte", heart: "Moschus, Amber", base: "Vetiver, Vanille, Patschuli" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5089,7 +5089,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Paco Rabbane Black XS Pure.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5100,7 +5100,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Paco Rabbane Fame.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5111,7 +5111,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Paco Rabbane Lady Million.",
         notes: { head: "Himbeere, Neroli, Amalfizitronen", heart: "Jasmin, afrikanische Orangenblüte, Gardenie", base: "weißer Honig, Patschuli, Amber" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5122,7 +5122,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Paco Rabbane Lady Million Lucky.",
         notes: { head: "Himbeere, Neroli, Amalfizitronen", heart: "Jasmin, afrikanische Orangenblüte, Gardenie", base: "weißer Honig, Patschuli, Amber" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5133,7 +5133,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Paco Rabbane Olympea.",
         notes: { head: "Grüne Mandarine, Wasserjasmin, Ingwerblüte", heart: "Vanille, Salz", base: "Ambergris, Kaschmirholz, Sandelholz" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5144,7 +5144,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Parfum De Marly Delina.",
         notes: { head: "Litschi, Rhabarber, Bergamotte, Muskat", heart: "türkische Rose, Pfingstrose, Moschus, Petalia, Vanille", base: "Cashmeran, Zeder, haitianisches Vetiver, Weihrauch" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5155,7 +5155,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Parfum De Marly Valaya.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5166,7 +5166,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Parfums De Marly Palatine.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5177,7 +5177,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Parfums De Marly Valaya Exclusif.",
         notes: { head: "Johannisbeernektar", heart: "Mairose, Freesie", base: "Vanille, Patschuli, holzige Noten, Ambroxan" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5188,7 +5188,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Paris Hilton.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5199,7 +5199,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Prada Candy.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5210,7 +5210,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Prada Infusion D'iris.",
         notes: { head: "Johannisbeernektar", heart: "Mairose, Freesie", base: "Vanille, Patschuli, holzige Noten, Ambroxan" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5221,7 +5221,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Prada Milano Femme.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5232,7 +5232,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Prada Paradox.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5243,7 +5243,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Prada Paradox Intense.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5254,7 +5254,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Priscilla Presley Indian Summer.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5265,7 +5265,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Rasasi Junoon Satin.",
         notes: { head: "Johannisbeernektar", heart: "Mairose, Freesie", base: "Vanille, Patschuli, holzige Noten, Ambroxan" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5276,7 +5276,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Roberto Cavalli EDP.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5287,7 +5287,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Roberto Cavalli Just Cavalli.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5298,7 +5298,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Thierry Mugler Alien.",
         notes: { head: "Jasmin", heart: "Holzige Noten", base: "Amber" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5309,7 +5309,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Thierry Mugler Angel.",
         notes: { head: "Zuckerwatte, Kokosnuss, Cassis, Melone, Jasmin", heart: "Honig, rote Beeren, Brombeere, Pflaume, Aprikose", base: "Patschuli, Schokolade, Karamell, Vanille, Tonkabohne" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5320,7 +5320,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Thierry Mugler Aura.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5331,7 +5331,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Black Orchid.",
         notes: { head: "Trüffel, Gardenie, schwarze Johannisbeere, Ylang-Ylang, Jasmin, Bergamotte, Mandarine, Zitrone", heart: "Orchidee, Gewürze, Gardenie, fruchtige Noten, Ylang-Ylang, Jasmin, Lotus", base: "mexikanische Schokolade, Patschuli, Vanille, Weihrauch, Amber, Sandelholz, Vetiver, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5342,7 +5342,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Cafe Rose.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5353,7 +5353,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Cost Azzurra.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5364,7 +5364,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Soleil Blanc.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5375,7 +5375,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Vanilla Sex.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5386,7 +5386,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tom Ford Velvet Orchid.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5397,7 +5397,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Tulip.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5408,7 +5408,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Valentino Born in Roma.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5419,7 +5419,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Valentino Donna.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5430,7 +5430,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Versace Bright Crystal.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5441,7 +5441,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Versace Cristall Noir.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5452,7 +5452,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Victor Rolf Flowerbomb La vie en Rose.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5463,7 +5463,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Victoria Secret Bombshell.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5474,7 +5474,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Viktor Rolf Bonbon.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5485,7 +5485,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Viktor Rolf Flowerbomb.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5496,7 +5496,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von W10.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5507,7 +5507,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Widian Black II.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5518,7 +5518,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Widian Black IV.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5529,7 +5529,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Widian Black Limited 71 Intense.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5540,7 +5540,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Widian Black V.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5551,7 +5551,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Acento.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5562,7 +5562,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Casamorati Dama Bianca.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5573,7 +5573,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Coro.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5584,7 +5584,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Erba Pura.",
         notes: { head: "Sizilianische Orange, kalabrische Bergamotte, sizilianische Zitrone", heart: "Früchte", base: "weißer Moschus, Madagaskar-Vanille, Amber" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5595,7 +5595,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff More Than Words.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5606,7 +5606,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Xerjoff Opera.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5617,7 +5617,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von YSL Cinema.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5628,7 +5628,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von YSL Libre.",
         notes: { head: "Lavendel, Mandarine, schwarze Johannisbeere, Petitgrain", heart: "Lavendel, Orangenblüte, Jasmin", base: "Madagaskar-Vanille, Moschus, Zeder, Ambergris" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5639,7 +5639,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von YSL Libre Intense.",
         notes: { head: "Lavendel, Mandarine, schwarze Johannisbeere, Petitgrain", heart: "Lavendel, Orangenblüte, Jasmin", base: "Madagaskar-Vanille, Moschus, Zeder, Ambergris" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5650,7 +5650,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von YSL Libre Le Parfum.",
         notes: { head: "Lavendel, Mandarine, schwarze Johannisbeere, Petitgrain", heart: "Lavendel, Orangenblüte, Jasmin", base: "Madagaskar-Vanille, Moschus, Zeder, Ambergris" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5661,7 +5661,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von YSL Libre Vanille Couture.",
         notes: { head: "Lavendel, Mandarine, schwarze Johannisbeere, Petitgrain", heart: "Lavendel, Orangenblüte, Jasmin", base: "Madagaskar-Vanille, Moschus, Zeder, Ambergris" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5672,7 +5672,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von YSL Manifesto.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5683,7 +5683,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von YSL Mon Paris.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5694,7 +5694,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von YSL Opium.",
         notes: { head: "Koriander, Pflaume, Zitrusfrüchte, Mandarine, Pfeffer, Jasmin, Nelke, indischer Lorbeer, Bergamotte", heart: "Gartennelke, Sandelholz, Patschuli, Zimt, Iriswurzel, Pfirsich, Maiglöckchen, Rose", base: "Labdanum, Tolubalsam, Sandelholz, Opoponax, Moschus, Kokosnuss, Vanille, Benzoeharz, Vetiver, Weihrauch, Zeder, Myrrhe, Castoreum, Amber" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5705,7 +5705,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von YSL Supreme Bouquet.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5716,7 +5716,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Yasmin.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5727,7 +5727,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Yves Magnolia.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5738,7 +5738,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Zadig & Voltaire This is Her.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     },
     {
@@ -5749,7 +5749,7 @@ const products = [
         description: "Ein exklusiver Damenduft.",
         longDescription: "Erleben Sie die faszinierende Welt dieses Duftes. Inspiriert von Zuckerwatte.",
         notes: { head: "Fruchtige Noten, Zitrone, Pfirsich", heart: "Jasmin, Rose, blumige Noten", base: "Vanille, Patschuli, weißer Moschus" },
-        images: ["images_parfume/parfume_women.png"],
+        images: ["images_parfume/parfume_women.webp"],
         variants: { 30: { price: 17.99, originalPrice: 34.99 }, 50: { price: 24.99, originalPrice: 44.99 }, 100: { price: 44.99, originalPrice: 65.99 } }
     }
 ];
