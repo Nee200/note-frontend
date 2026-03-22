@@ -662,6 +662,88 @@
         </div>
     </footer>
 
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <div class="cart-title-wrapper">
+                <i class="fas fa-shopping-cart"></i>
+                <h2 class="cart-title">Warenkorb <span id="cart-count-header">0</span></h2>
+            </div>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+
+        <div class="cart-notification">
+            <i class="far fa-clock"></i>
+            <span>Geringe Verfügbarkeit: Reserviert für <strong id="cart-timer">10:00</strong></span>
+        </div>
+
+        <div class="shipping-progress-container">
+            <div class="shipping-text">
+                <i class="fas fa-truck"></i>
+                <span id="shipping-message">Noch 60,00 € bis zu kostenlosem Versand</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div id="shipping-progress-bar" class="progress-bar-fill" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div id="cart-items" class="cart-items"></div>
+
+        <div class="cart-footer">
+            <div class="cart-summary">
+                <div class="delivery-toggle-container">
+                    <button class="delivery-btn active" id="btn-shipping" onclick="setDeliveryMethod('shipping')">
+                        <i class="fas fa-truck"></i>
+                        <span>Postversand</span>
+                    </button>
+                    <button class="delivery-btn" id="btn-pickup" onclick="setDeliveryMethod('pickup')">
+                        <i class="fas fa-store"></i>
+                        <span>Abholung (Bar)</span>
+                    </button>
+                </div>
+                <div id="pickup-form" style="display: none; margin-bottom: 15px;">
+                    <input type="text" id="pickup-name" placeholder="Dein Vor- und Nachname"
+                        style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    <input type="email" id="pickup-email" placeholder="Deine E-Mail-Adresse"
+                        style="width: 100%; padding: 10px; margin-bottom: 5px; border: 1px solid #ddd; border-radius: 4px;">
+                    <p style="font-size: 0.75rem; color: #666; margin: 0;">Du bezahlst bar bei uns im Store bei Abholung.</p>
+                </div>
+                <div class="summary-row">
+                    <span>Zwischensumme</span>
+                    <span id="cart-subtotal">0,00 €</span>
+                </div>
+                <div class="summary-row discount-row" id="discount-row" style="display:none;">
+                    <span>Rabatt</span>
+                    <span id="cart-discount-amount">-0,00 €</span>
+                </div>
+                <div class="summary-row">
+                    <span>Versand</span>
+                    <span id="cart-shipping-cost">Kostenlos</span>
+                </div>
+                <div class="coupon-section">
+                    <div class="coupon-input-group">
+                        <input type="text" id="coupon-code" placeholder="Gutscheincode" class="coupon-input">
+                        <button onclick="applyCoupon()" class="btn btn-small">OK</button>
+                    </div>
+                    <div id="coupon-message" class="coupon-message"></div>
+                </div>
+                <div class="summary-row total-row">
+                    <span>Geschätzte Gesamtkosten</span>
+                    <span id="cart-total">0,00 €</span>
+                </div>
+            </div>
+            <button class="btn btn-checkout" onclick="checkout()">
+                <i class="fas fa-lock"></i> Sicher zur Kasse
+            </button>
+            <div class="payment-icons">
+                <span class="pay-icon">PayPal</span>
+                <span class="pay-icon">Klarna.</span>
+                <span class="pay-icon">VISA</span>
+                <span class="pay-icon">Mastercard</span>
+            </div>
+        </div>
+    </div>
+    <div id="overlay" class="overlay" onclick="toggleCart()"></div>
+
     <script src="script.js?v=1772548916338"></script>
     <script src="banner-sync.js"></script>
 
