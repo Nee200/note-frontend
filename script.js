@@ -55,20 +55,20 @@ function isBestseller(product) {
 
 async function init() {
     try {
-        const cachedProducts = sessionStorage.getItem('note_products');
+        const cachedProducts = sessionStorage.getItem('note_products_v2');
         if (cachedProducts) {
             products = JSON.parse(cachedProducts);
             // In the background, fetch fresh products for the next page load
             fetch(API_BASE_URL + '/api/products').then(res => {
                 if (res.ok) return res.json();
             }).then(data => {
-                if (data) sessionStorage.setItem('note_products', JSON.stringify(data));
+                if (data) sessionStorage.setItem('note_products_v2', JSON.stringify(data));
             }).catch(e => console.error('Background fetch failed:', e));
         } else {
             const res = await fetch(API_BASE_URL + '/api/products');
             if (res.ok) {
                 products = await res.json();
-                sessionStorage.setItem('note_products', JSON.stringify(products));
+                sessionStorage.setItem('note_products_v2', JSON.stringify(products));
             } else {
                 console.error('Failed to load products');
             }
@@ -88,7 +88,18 @@ async function init() {
         renderProductDetail(productId);
     } else {
         const isSearchPage = document.body && document.body.dataset.page === 'search';
-        if (hasProductGrid && !isSearchPage) {
+        if (hasProductGrid) {
+            if (isSearchPage) {
+                const q = new URLSearchParams(window.location.search).get('q');
+                const filterInput = document.getElementById('product-filter-input');
+                if (q && filterInput) {
+                    filterInput.value = q;
+                    const searchTitle = document.getElementById('search-page-title');
+                    if(searchTitle) searchTitle.innerText = `Ergebnisse für "${q}"`;
+                }
+                const searchSubtitle = document.getElementById('search-page-subtitle');
+                if(searchSubtitle) searchSubtitle.style.display = 'none';
+            }
             if (categoryParam) {
                 renderProducts(categoryParam);
             } else if (defaultCategory) {
