@@ -734,7 +734,7 @@ function removeFromCart(cartItemId) {
 function updateCartUI() {
     // 1. Counter Update
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartCountElement.innerText = totalItems;
+    if (cartCountElement) cartCountElement.innerText = totalItems;
 
     // Header Count Update
     const headerCount = document.getElementById('cart-count-header');
@@ -745,6 +745,8 @@ function updateCartUI() {
     localStorage.setItem('discount', currentDiscount);
 
     // 2. Items rendern
+    if (!cartItemsContainer) return;
+
     if (cart.length === 0) {
         cartItemsContainer.innerHTML = '<p class="empty-msg" style="padding: 1.5rem; text-align: center; color: #666;">Ihr Warenkorb ist leer.</p>';
     } else {
