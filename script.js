@@ -565,8 +565,15 @@ function renderProductDetail(id) {
         addToCart(product.id, currentSelectedSize);
     };
 
-    // Remove old event listeners logic as we now generate onclick inline or above
-    // (The previous block looping over option-btn is now redundant/conflicting if we replace innerHTML)
+    // Load recommendations
+    const recommendedGrid = document.getElementById('recommended-products-grid');
+    if (recommendedGrid) {
+        let similar = products.filter(p => p.id !== product.id && p.category === product.category);
+        if (similar.length < 4) similar = products.filter(p => p.id !== product.id);
+        similar.sort(() => 0.5 - Math.random());
+        const bestFour = similar.slice(0, 4);
+        recommendedGrid.innerHTML = bestFour.map(p => getProductCardHTML(p)).join('');
+    }
 }
 
 // Größe ändern

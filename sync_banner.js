@@ -1,26 +1,22 @@
 const fs = require('fs');
 const path = require('path');
 
-const dir = __dirname;
-const indexContent = fs.readFileSync(path.join(dir, 'index.html'), 'utf8');
+const srcFile = path.join(__dirname, 'frauenduefte.html');
+const destFile = path.join(__dirname, 'kontakt.html');
 
-const bannerRegex = /<div class="top-banner">([\s\S]*?)<\/div>\s*<\/div>/;
-const match = indexContent.match(bannerRegex);
+const srcContent = fs.readFileSync(srcFile, 'utf8');
+let destContent = fs.readFileSync(destFile, 'utf8');
 
-if (!match) {
-    console.error("Banner not found in index.html");
-    process.exit(1);
+// Extract the top-banner block from frauenduefte
+const bannerMatch = srcContent.match(/<div class="top-banner">[\s\S]*?<\/div>[\s\n]*<\/div>/);
+
+if (bannerMatch && !destContent.includes('<div class="top-banner">')) {
+    // Inject it into kontakt.html right after <body>
+    destContent = destContent.replace(/<body[^>]*>/i, `$&
+    ${bannerMatch[0]}
+`);
+    fs.writeFileSync(destFile, destContent, 'utf8');
+    console.log('Top banner successfully injected into Kontakt page!');
+} else {
+    console.log('Failed to find banner or it already exists.');
 }
-
-const fullBannerHtml = `<div class="top-banner">${match[1]}</div>\n</div>`;
-
-const htmlFiles = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
-
-htmlFiles.forEach(file => {
-    let content = fs.readFileSync(path.join(dir, file), 'utf8');
-    const replacedContent = content.replace(/<div class="top-banner">[\s\S]*?<\/div>\s*<\/div>/, fullBannerHtml);
-    if (content !== replacedContent) {
-        fs.writeFileSync(path.join(dir, file), replacedContent);
-        console.log(`Updated banner in ${file}`);
-    }
-});
