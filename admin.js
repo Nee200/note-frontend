@@ -1121,10 +1121,50 @@ checkAuth();
 
 // ---- EMAIL TEMPLATES PREVIEW ----
 let emailTabInited = false;
-function initEmailTab() {
+let emailTemplatesLoadedFromApi = false;
+let emailTemplatesLoadingPromise = null;
+
+async function loadEmailTemplatesFromBackend(force) {
+    const shouldForce = force === true;
+    if (emailTemplatesLoadedFromApi && !shouldForce) return;
+    if (emailTemplatesLoadingPromise && !shouldForce) {
+        await emailTemplatesLoadingPromise;
+        return;
+    }
+
+    emailTemplatesLoadingPromise = (async function () {
+        const res = await adminFetch('/api/admin/email-templates');
+        if (!res.ok) {
+            throw new Error('HTTP ' + res.status);
+        }
+
+        const data = await res.json();
+        const templates = data && typeof data.templates === 'object' ? data.templates : null;
+        if (!templates) return;
+
+        Object.keys(templates).forEach(function (key) {
+            const remote = templates[key];
+            if (!remote || typeof remote.html !== 'string') return;
+            EMAIL_TEMPLATES[key] = Object.assign({}, EMAIL_TEMPLATES[key] || {}, remote);
+        });
+
+        emailTemplatesLoadedFromApi = true;
+    })();
+
+    try {
+        await emailTemplatesLoadingPromise;
+    } catch (err) {
+        console.warn('E-Mail-Templates konnten nicht vom Backend geladen werden:', err);
+    } finally {
+        emailTemplatesLoadingPromise = null;
+    }
+}
+
+async function initEmailTab() {
     if (emailTabInited) return;
     emailTabInited = true;
-    showEmailPreview('order', document.querySelector('.email-tab-item.active'));
+    await loadEmailTemplatesFromBackend(true);
+    await showEmailPreview('order', document.querySelector('.email-tab-item.active'));
 }
 
 const EMAIL_TEMPLATES = {
@@ -1546,7 +1586,8 @@ Object.assign(EMAIL_TEMPLATES, {
     }
 });
 
-function showEmailPreview(key, clickedEl) {
+async function showEmailPreview(key, clickedEl) {
+    await loadEmailTemplatesFromBackend(true);
     const tpl = EMAIL_TEMPLATES[key];
     if (!tpl) return;
 
