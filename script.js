@@ -90,15 +90,18 @@ function persistCouponState() {
     localStorage.setItem('discount', String(currentDiscount || 0));
     localStorage.setItem('couponCode', currentCouponCode);
     localStorage.setItem('couponLabel', currentCouponLabel);
+    localStorage.setItem('couponFreeShipping', currentCouponFreeShipping ? '1' : '0');
 }
 
 function clearCouponState() {
     currentDiscount = 0;
     currentCouponCode = '';
     currentCouponLabel = '';
+    currentCouponFreeShipping = false;
     localStorage.removeItem('discount');
     localStorage.removeItem('couponCode');
     localStorage.removeItem('couponLabel');
+    localStorage.removeItem('couponFreeShipping');
 }
 
 async function syncUserLoginIndicator() {
@@ -234,6 +237,7 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let currentDiscount = parseFloat(localStorage.getItem('discount')) || 0;
 let currentCouponCode = localStorage.getItem('couponCode') || '';
 let currentCouponLabel = localStorage.getItem('couponLabel') || '';
+let currentCouponFreeShipping = localStorage.getItem('couponFreeShipping') === '1';
 const STRIPE_PENDING_CHECKOUT_KEY = 'stripe_checkout_pending';
 let currentDeliveryMethod = 'shipping';
 let currentSelectedSize = 50;
@@ -246,9 +250,11 @@ let cartScrollLockY = 0;
 if (currentDiscount > 0 && !currentCouponCode) {
     currentDiscount = 0;
     currentCouponLabel = '';
+    currentCouponFreeShipping = false;
     localStorage.removeItem('discount');
     localStorage.removeItem('couponCode');
     localStorage.removeItem('couponLabel');
+    localStorage.removeItem('couponFreeShipping');
 }
 
 function clearCartState() {
@@ -1423,7 +1429,7 @@ function updateCartUI() {
 
     // Save state
     localStorage.setItem('cart', JSON.stringify(cart));
-    localStorage.setItem('discount', currentDiscount);
+    persistCouponState();
 
     // 2. Items rendern
     if (!cartItemsContainer) return;
@@ -1493,12 +1499,17 @@ function updateCartUI() {
 
     // Kostenloser Versand Logik
     const remainingForFreeShipping = shippingThreshold - subtotal;
+    const hasCouponFreeShipping = currentCouponFreeShipping === true;
     const shippingMessage = document.getElementById('shipping-message');
     const shippingBar = document.getElementById('shipping-progress-bar');
 
     if (currentDeliveryMethod === 'shipping') {
         if (shippingMessage && shippingBar) {
-            if (remainingForFreeShipping <= 0) {
+            if (hasCouponFreeShipping) {
+                shippingMessage.innerHTML = '<strong>Kostenloser Versand durch Gutschein!</strong>';
+                shippingBar.style.width = '100%';
+                shippingCost = 0;
+            } else if (remainingForFreeShipping <= 0) {
                 shippingMessage.innerHTML = '<strong>Kostenloser Versand!</strong>';
                 shippingBar.style.width = '100%';
                 shippingCost = 0;
@@ -1543,6 +1554,10 @@ function updateCartUI() {
     }
 
     if (totalEl) totalEl.innerText = total.toFixed(2) + ' €';
+
+    if (shippingEl && currentDeliveryMethod !== 'pickup' && hasCouponFreeShipping) {
+        shippingEl.innerText = 'Kostenlos';
+    }
 
     // 5. Sync Coupon UI State
     const input = document.getElementById('coupon-code');
@@ -1705,7 +1720,8 @@ async function applyCoupon() {
             currentDiscount = data.discount / 100;
             currentCouponCode = data.code || code.toUpperCase();
             currentCouponLabel = data.label || `${data.discount}% Rabatt`;
-            message.textContent = `Gutschein erfolgreich aktiviert (${data.label})`;
+            currentCouponFreeShipping = data.freeShipping === true;
+            message.textContent = `Gutschein erfolgreich aktiviert (${currentCouponLabel})`;
             message.className = 'coupon-message success';
             input.disabled = true;
             btn.disabled = true;
