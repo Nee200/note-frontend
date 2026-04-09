@@ -9,6 +9,7 @@ const API_BASE_URL = (() => {
 const CSRF_COOKIE_NAME = 'csrf_token';
 const nativeFetch = window.fetch.bind(window);
 let csrfBootstrapPromise = null;
+let csrfTokenMemory = '';
 
 function getCookieValue(name) {
     const prefix = `${name}=`;
@@ -16,25 +17,40 @@ function getCookieValue(name) {
     return entry ? decodeURIComponent(entry.slice(prefix.length)) : '';
 }
 
+function getReadableCsrfToken() {
+    return getCookieValue(CSRF_COOKIE_NAME) || csrfTokenMemory;
+}
+
 function isApiRequestUrl(url) {
     return typeof url === 'string' && (url.startsWith(API_BASE_URL) || url.startsWith('/'));
 }
 
 async function ensureCsrfTokenCookie() {
-    let token = getCookieValue(CSRF_COOKIE_NAME);
+    let token = getReadableCsrfToken();
     if (token) return token;
 
     if (!csrfBootstrapPromise) {
         csrfBootstrapPromise = nativeFetch(API_BASE_URL + '/api/csrf-token', {
             method: 'GET',
             credentials: 'include'
-        }).finally(() => {
-            csrfBootstrapPromise = null;
-        });
+        })
+            .then(async (response) => {
+                if (!response.ok) return;
+                const payload = await response.json().catch(() => null);
+                if (payload && typeof payload.csrfToken === 'string' && payload.csrfToken.trim()) {
+                    csrfTokenMemory = payload.csrfToken.trim();
+                }
+            })
+            .catch(() => {
+                // handled by caller
+            })
+            .finally(() => {
+                csrfBootstrapPromise = null;
+            });
     }
 
     await csrfBootstrapPromise;
-    return getCookieValue(CSRF_COOKIE_NAME);
+    return getReadableCsrfToken();
 }
 
 window.fetch = async function patchedFetch(resource, options = {}) {
@@ -42,8 +58,16 @@ window.fetch = async function patchedFetch(resource, options = {}) {
     const requestMethod = String(
         options.method || (resource && resource.method) || 'GET'
     ).toUpperCase();
+    const apiRequest = isApiRequestUrl(requestUrl);
 
-    if (!['GET', 'HEAD', 'OPTIONS'].includes(requestMethod) && isApiRequestUrl(requestUrl)) {
+    if (apiRequest && !options.credentials) {
+        options = {
+            ...options,
+            credentials: 'include'
+        };
+    }
+
+    if (!['GET', 'HEAD', 'OPTIONS'].includes(requestMethod) && apiRequest) {
         const csrfToken = await ensureCsrfTokenCookie();
         if (csrfToken) {
             const headers = new Headers(resource && resource.headers ? resource.headers : undefined);

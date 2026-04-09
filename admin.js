@@ -8,6 +8,7 @@ const API_BASE_URL = (() => {
 const CSRF_COOKIE_NAME = 'csrf_token';
 const nativeFetch = window.fetch.bind(window);
 let csrfBootstrapPromise = null;
+let csrfTokenMemory = '';
 let allProducts = [];
 let editingProductId = null;
 let selectedIds = new Set(); // Persists selections across search re-renders
@@ -23,21 +24,36 @@ function getCookieValue(name) {
     return entry ? decodeURIComponent(entry.slice(prefix.length)) : '';
 }
 
+function getReadableCsrfToken() {
+    return getCookieValue(CSRF_COOKIE_NAME) || csrfTokenMemory;
+}
+
 async function ensureCsrfTokenCookie() {
-    let token = getCookieValue(CSRF_COOKIE_NAME);
+    let token = getReadableCsrfToken();
     if (token) return token;
 
     if (!csrfBootstrapPromise) {
         csrfBootstrapPromise = nativeFetch(API_BASE_URL + '/api/csrf-token', {
             method: 'GET',
             credentials: 'include'
-        }).finally(() => {
-            csrfBootstrapPromise = null;
-        });
+        })
+            .then(async (response) => {
+                if (!response.ok) return;
+                const payload = await response.json().catch(() => null);
+                if (payload && typeof payload.csrfToken === 'string' && payload.csrfToken.trim()) {
+                    csrfTokenMemory = payload.csrfToken.trim();
+                }
+            })
+            .catch(() => {
+                // handled by caller
+            })
+            .finally(() => {
+                csrfBootstrapPromise = null;
+            });
     }
 
     await csrfBootstrapPromise;
-    return getCookieValue(CSRF_COOKIE_NAME);
+    return getReadableCsrfToken();
 }
 
 async function adminFetch(path, options) {
