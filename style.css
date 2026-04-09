@@ -954,8 +954,8 @@ h3,
 .cart-sidebar {
     position: fixed;
     top: 0;
-    right: -450px;
-    width: 450px;
+    right: -520px;
+    width: 520px;
     /* dvh = dynamic viewport height – respects Safari bottom bar */
     height: 100vh;
     height: 100dvh;
@@ -3027,22 +3027,35 @@ select:focus {
 
 .cart-item {
     display: grid;
-    grid-template-columns: 64px 1fr auto;
+    grid-template-columns: 72px 1fr auto;
     gap: 0.75rem;
     padding: 0.9rem 0;
     border-bottom: 1px solid #f5f5f5;
     align-items: start;
 }
 
+.cart-item-image-link {
+    all: unset;
+    width: 72px;
+    height: 72px;
+    display: inline-flex;
+    cursor: pointer;
+}
+
+.cart-item-image-link:hover img {
+    transform: scale(1.03);
+}
+
 .cart-item img {
-    width: 64px;
-    height: 64px;
-    min-width: 64px;
+    width: 72px;
+    height: 72px;
+    min-width: 72px;
     object-fit: contain !important;
     border-radius: 6px;
     background: transparent;
     padding: 2px;
     display: block;
+    transition: transform 0.18s ease;
 }
 
 .cart-item-info {
@@ -3557,6 +3570,28 @@ select:focus {
     transition: opacity 0.3s;
     text-decoration: none;
     position: relative;
+}
+
+@media (min-width: 769px) and (max-width: 1280px) {
+    .cart-sidebar {
+        width: 480px;
+        right: -480px;
+    }
+
+    .cart-item {
+        grid-template-columns: 68px 1fr auto;
+    }
+
+    .cart-item-image-link {
+        width: 68px;
+        height: 68px;
+    }
+
+    .cart-item img {
+        width: 68px;
+        height: 68px;
+        min-width: 68px;
+    }
 }
 
 .user-icon:hover {
@@ -4291,6 +4326,11 @@ select:focus {
         grid-template-columns: 56px 1fr auto !important;
         gap: 0.55rem !important;
         padding: 0.65rem 0 !important;
+    }
+
+    .cart-item-image-link {
+        width: 56px !important;
+        height: 56px !important;
     }
 
     .cart-item img {

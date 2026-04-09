@@ -359,7 +359,7 @@
         <div class="confirmation-wrap">
             <section class="confirmation-card">
                 <p class="confirmation-kicker" id="confirmation-kicker">Newsletter</p>
-                <div class="confirmation-icon" id="confirmation-icon">âœ¦</div>
+                <div class="confirmation-icon" id="confirmation-icon">✦</div>
                 <h1 class="confirmation-title" id="confirmation-title">Einen Moment bitte</h1>
                 <p class="confirmation-copy" id="confirmation-copy">Wir pr&uuml;fen gerade deine Newsletter-Bestätigung.</p>
                 <div class="confirmation-code" id="confirmation-code">
@@ -627,7 +627,7 @@
 
             if (status === 'success') {
                 kicker.textContent = 'Best&auml;tigt';
-                icon.textContent = 'âœ“';
+                icon.textContent = '✓';
                 icon.style.background = 'linear-gradient(135deg, #dfeee6 0%, #b8ddc8 100%)';
                 icon.style.color = '#2c5a45';
                 title.textContent = 'Deine Anmeldung ist best&auml;tigt';
@@ -635,12 +635,12 @@
                 note.textContent = 'Wenn du nichts findest, pr&uuml;fe bitte auch deinen Spam-Ordner.';
             } else if (status === 'already-confirmed') {
                 kicker.textContent = 'Bereits aktiv';
-                icon.textContent = 'âœ“';
+                icon.textContent = '✓';
                 icon.style.background = 'linear-gradient(135deg, #dfeee6 0%, #b8ddc8 100%)';
                 icon.style.color = '#2c5a45';
                 title.textContent = 'Diese Anmeldung ist bereits aktiv';
                 copy.textContent = 'Der Bestätigungslink wurde schon verwendet. Wenn dir dein Rabattcode fehlt, pr&uuml;fe bitte dein E-Mail-Postfach.';
-                note.textContent = 'Du kannst danach ganz normal weiter im Shop stübern.';
+                note.textContent = 'Du kannst danach ganz normal weiter im Shop stöbern.';
             } else if (status === 'expired') {
                 kicker.textContent = 'Erneut anmelden';
                 icon.textContent = '!';

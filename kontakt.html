@@ -299,7 +299,7 @@
                             feedback.style.background = '#f0faf4';
                             feedback.style.color = '#1a7a45';
                             feedback.style.border = '1px solid #b6e8c8';
-                            feedback.textContent = 'âœ“ Vielen Dank! Ihre Nachricht wurde gesendet. Wir melden uns in K&uuml;rze.';
+                            feedback.textContent = '✓ Vielen Dank! Ihre Nachricht wurde gesendet. Wir melden uns in K&uuml;rze.';
                             document.getElementById('contact-form').reset();
                         } else {
                             throw new Error(data.error || 'Unbekannter Fehler');
@@ -308,7 +308,7 @@
                         feedback.style.background = '#fff5f5';
                         feedback.style.color = '#b91c1c';
                         feedback.style.border = '1px solid #fca5a5';
-                        feedback.textContent = 'âœ— Fehler: ' + (err.message || 'Nachricht konnte nicht gesendet werden.');
+                        feedback.textContent = '✕ Fehler: ' + (err.message || 'Nachricht konnte nicht gesendet werden.');
                     }
 
                     feedback.style.display = 'block';

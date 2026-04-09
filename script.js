@@ -1388,6 +1388,29 @@ function removeFromCart(cartItemId) {
     updateCartUI();
 }
 
+function resolveCartProductId(item) {
+    if (item && item.productId) return String(item.productId);
+
+    if (item && item.id) {
+        const fromId = String(item.id).replace(/-\d+$/, '');
+        if (fromId) return fromId;
+    }
+
+    if (item && item.cartId) {
+        const cartId = String(item.cartId);
+        const idx = cartId.lastIndexOf('-');
+        if (idx > 0) return cartId.slice(0, idx);
+    }
+
+    return '';
+}
+
+function openCartItemProduct(productId) {
+    const id = String(productId || '').trim();
+    if (!id) return;
+    window.location.href = `product.html?id=${encodeURIComponent(id)}`;
+}
+
 // Warenkorb UI aktualisieren
 function updateCartUI() {
     // 1. Counter Update
@@ -1413,6 +1436,8 @@ function updateCartUI() {
             const safeCartItemId = encodeURIComponent(String(item.cartId || ''));
             const safeItemImage = safeImageSrc(item.image || 'logo.webp');
             const safeItemAlt = escapeHtml(item.name || '');
+            const productTargetId = resolveCartProductId(item);
+            const safeProductTargetId = encodeURIComponent(productTargetId);
 
             // Look up originalPrice from products array (covers items added before this feature)
             const product = products.find(p => p.id === item.productId);
@@ -1436,7 +1461,9 @@ function updateCartUI() {
 
             return `
             <div class="cart-item">
-                <img src="${safeItemImage}" alt="${safeItemAlt}" onerror="this.src='logo.webp'">
+                <button class="cart-item-image-link" onclick="openCartItemProduct(decodeURIComponent('${safeProductTargetId}'))" aria-label="Produkt anzeigen">
+                    <img src="${safeItemImage}" alt="${safeItemAlt}" onerror="this.src='logo.webp'">
+                </button>
                 <div class="cart-item-info">
                     <div class="cart-item-title" style="line-height: 1.3;">${cleanName}${inspiredText}</div>
                     <div class="cart-item-variant">${item.size}ml</div>
