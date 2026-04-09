@@ -127,6 +127,64 @@ async function syncUserLoginIndicator() {
 // Hinweis: Bilder-Dateinamen müssen später angepasst werden, wenn die Dateien im Ordner liegen.
 // Schema: 'p1_1.webp', 'p1_2.webp' etc. oder wie du sie nennst.
 let products = [];
+let productsLoadPromise = null;
+
+function hydrateProductsFromCache() {
+    try {
+        const cachedProducts = sessionStorage.getItem('note_products_v2');
+        if (!cachedProducts) return false;
+        const parsed = JSON.parse(cachedProducts);
+        if (!Array.isArray(parsed)) return false;
+        products = parsed;
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
+
+async function fetchAndStoreProducts() {
+    const res = await fetch(API_BASE_URL + '/api/products');
+    if (!res.ok) {
+        throw new Error('Failed to load products');
+    }
+    const data = await res.json();
+    if (Array.isArray(data)) {
+        products = data;
+        sessionStorage.setItem('note_products_v2', JSON.stringify(data));
+    }
+    return products;
+}
+
+async function ensureProductsLoaded({ forceRefresh = false, background = false } = {}) {
+    if (!forceRefresh && Array.isArray(products) && products.length > 0) {
+        return products;
+    }
+
+    if (!forceRefresh && hydrateProductsFromCache()) {
+        if (!background) {
+            // Cache sofort nutzen, aber still im Hintergrund aktualisieren.
+            ensureProductsLoaded({ forceRefresh: true, background: true }).catch(() => { });
+        }
+        return products;
+    }
+
+    if (!forceRefresh && productsLoadPromise) {
+        return productsLoadPromise;
+    }
+
+    productsLoadPromise = fetchAndStoreProducts()
+        .catch((error) => {
+            if (!background) {
+                console.error('Error loading products:', error);
+            }
+            throw error;
+        })
+        .finally(() => {
+            productsLoadPromise = null;
+        });
+
+    return productsLoadPromise;
+}
 
 // Helper function to remove manufacturer names from the inspiredBy field
 function stripBrandName(name) {
@@ -224,6 +282,31 @@ function handleCheckoutReturnState() {
     sessionStorage.removeItem(STRIPE_PENDING_CHECKOUT_KEY);
 }
 
+function initBrandVideoAutoplay() {
+    const videos = Array.from(document.querySelectorAll('video.brand-video'));
+    if (!videos.length) return;
+
+    const tryPlay = () => {
+        videos.forEach((video) => {
+            video.muted = true;
+            video.setAttribute('muted', '');
+            video.setAttribute('playsinline', '');
+            video.setAttribute('webkit-playsinline', '');
+            const playPromise = video.play();
+            if (playPromise && typeof playPromise.catch === 'function') {
+                playPromise.catch(() => { });
+            }
+        });
+    };
+
+    tryPlay();
+    document.addEventListener('touchstart', tryPlay, { once: true, passive: true });
+    document.addEventListener('click', tryPlay, { once: true, passive: true });
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') tryPlay();
+    });
+}
+
 const productGrid = document.getElementById('product-grid');
 const bestsellerWomenGrid = document.getElementById('bestseller-women-grid');
 const bestsellerMenGrid = document.getElementById('bestseller-men-grid');
@@ -239,34 +322,28 @@ function isBestseller(product) {
 }
 
 async function init() {
-    try {
-        const cachedProducts = sessionStorage.getItem('note_products_v2');
-        if (cachedProducts) {
-            products = JSON.parse(cachedProducts);
-            // In the background, fetch fresh products for the next page load
-            fetch(API_BASE_URL + '/api/products').then(res => {
-                if (res.ok) return res.json();
-            }).then(data => {
-                if (data) sessionStorage.setItem('note_products_v2', JSON.stringify(data));
-            }).catch(e => console.error('Background fetch failed:', e));
-        } else {
-            const res = await fetch(API_BASE_URL + '/api/products');
-            if (res.ok) {
-                products = await res.json();
-                sessionStorage.setItem('note_products_v2', JSON.stringify(products));
-            } else {
-                console.error('Failed to load products');
-            }
-        }
-    } catch (e) {
-        console.error('Error in init logic:', e);
-    }
-
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('id');
     const categoryParam = urlParams.get('category');
     const defaultCategory = document.body ? document.body.dataset.defaultCategory : null;
     const hasProductGrid = !!document.getElementById('product-grid');
+    const needsProductsForInitialRender = Boolean(
+        productId ||
+        hasProductGrid ||
+        bestsellerWomenGrid ||
+        bestsellerMenGrid
+    );
+
+    if (needsProductsForInitialRender) {
+        try {
+            await ensureProductsLoaded();
+        } catch (error) {
+            console.error('Error in init logic:', error);
+        }
+    } else {
+        // Nicht-blockierend im Hintergrund aufwärmen (bessere Suche/Produktwechsel später).
+        ensureProductsLoaded({ background: true }).catch(() => { });
+    }
 
     if (productId && products.length > 0) {
         // ID als String behandeln, damit "G1" etc. funktioniert
@@ -335,7 +412,9 @@ function initFAQ() {
 
 
 
-function getProductCardHTML(product) {
+function getProductCardHTML(product, options = {}) {
+    const imageLoading = options.imageLoading || 'lazy';
+    const imageFetchPriority = options.imageFetchPriority || 'auto';
     const defaultVariant = product.variants[30];
     const price = defaultVariant.price;
     const originalPrice = defaultVariant.originalPrice;
@@ -367,6 +446,9 @@ function getProductCardHTML(product) {
                 <img src="${safeImage}" 
                      alt="${safeProductName}" 
                      class="product-grid-image product-img-${safeProductClassId}"
+                     loading="${imageLoading}"
+                     decoding="async"
+                     fetchpriority="${imageFetchPriority}"
                      onerror="this.src='logo.webp'">
             </div>
             <div class="product-info">
@@ -482,9 +564,16 @@ function renderProducts(category = 'all', pageIndex, append = false) {
     const visibleProducts = allProductsForView.slice(start, start + limit);
 
     if (append) {
-        productGrid.insertAdjacentHTML('beforeend', visibleProducts.map(getProductCardHTML).join(''));
+        productGrid.insertAdjacentHTML('beforeend', visibleProducts.map((product) => (
+            getProductCardHTML(product, { imageLoading: 'lazy', imageFetchPriority: 'auto' })
+        )).join(''));
     } else {
-        productGrid.innerHTML = visibleProducts.map(getProductCardHTML).join('');
+        productGrid.innerHTML = visibleProducts.map((product, index) => (
+            getProductCardHTML(product, {
+                imageLoading: index < 4 ? 'eager' : 'lazy',
+                imageFetchPriority: index < 2 ? 'high' : 'auto'
+            })
+        )).join('');
     }
 
     const info = document.getElementById('product-count-info');
@@ -575,7 +664,12 @@ function renderBestsellers() {
         const visible = items.slice(0, INITIAL_COUNT);
         const hidden = items.slice(INITIAL_COUNT);
 
-        grid.innerHTML = visible.map(getProductCardHTML).join('');
+        grid.innerHTML = visible.map((product, index) => (
+            getProductCardHTML(product, {
+                imageLoading: index < 2 ? 'eager' : 'lazy',
+                imageFetchPriority: index === 0 ? 'high' : 'auto'
+            })
+        )).join('');
 
         // Remove existing "Weitere" button directly after this grid (if any)
         const existingBtn = grid.nextElementSibling;
@@ -595,7 +689,9 @@ function renderBestsellers() {
             grid.after(btn);
 
             btn.querySelector('button').addEventListener('click', () => {
-                grid.insertAdjacentHTML('beforeend', hidden.map(getProductCardHTML).join(''));
+                grid.insertAdjacentHTML('beforeend', hidden.map((product) => (
+                    getProductCardHTML(product, { imageLoading: 'lazy', imageFetchPriority: 'auto' })
+                )).join(''));
                 btn.remove();
             });
         }
@@ -1847,7 +1943,7 @@ document.addEventListener('click', (e) => {
     }
 });
 
-function performSearch() {
+async function performSearch() {
     const query = document.getElementById('search-input').value.toLowerCase();
     const resultsContainer = document.getElementById('search-results');
 
@@ -1856,6 +1952,16 @@ function performSearch() {
     if (query.length < 2) {
         resultsContainer.innerHTML = '';
         return;
+    }
+
+    if (!products.length) {
+        resultsContainer.innerHTML = '<p class="no-results" style="grid-column: 1/-1; text-align: center; color: #666; padding: 1rem;">Lade Düfte…</p>';
+        try {
+            await ensureProductsLoaded();
+        } catch (error) {
+            resultsContainer.innerHTML = '<p class="no-results" style="grid-column: 1/-1; text-align: center; color: #666; padding: 1rem;">Produkte konnten nicht geladen werden.</p>';
+            return;
+        }
     }
 
     const filteredProducts = products.filter(product =>
@@ -1983,6 +2089,7 @@ window.closeModal = closeProductModal;
 
 // Start
 handleCheckoutReturnState();
+initBrandVideoAutoplay();
 init();
 initIntroText(); // Run on startup
 

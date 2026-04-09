@@ -1269,6 +1269,204 @@ const EMAIL_TEMPLATES = {
     }
 };
 
+function renderAdminEmailShell({ badge, title, introHtml, iconHtml = '', bodyHtml = '', ctaHtml = '', afterBodyHtml = '' }) {
+    return `<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:#e2dfd8;font-family:Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#e2dfd8;padding:40px 0;"><tr><td align="center">
+<table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;">
+<tr><td style="background:#f5f3ee;padding:0;line-height:0;font-size:0;">
+  <svg xmlns="http://www.w3.org/2000/svg" width="560" height="46" viewBox="0 0 560 46" style="display:block;width:100%;height:auto;">
+    <path fill="#e4d8ab" d="M0,0 L560,0 L560,32 C528,38 492,38 432,28 C358,14 290,14 222,26 C150,38 86,42 0,30 Z"></path>
+    <path fill="#d4b64f" d="M0,0 L560,0 L560,24 C532,30 496,30 434,20 C360,8 294,8 222,18 C150,28 82,34 0,22 Z"></path>
+    <path fill="#111111" d="M0,0 L560,0 L560,18 C534,22 500,22 436,14 C362,2 296,2 224,12 C150,22 82,26 0,16 Z"></path>
+  </svg>
+</td></tr>
+<tr><td style="background:#f5f3ee;padding:18px 48px 14px;text-align:center;">
+  <p style="margin:0 0 5px;font-family:Georgia,serif;color:#000;font-size:30px;letter-spacing:0.12em;font-weight:400;">N&Oslash;TE.</p>
+  <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;border-collapse:collapse;"><tr>
+    <td style="width:32px;font-size:0;line-height:0;border-top:1px solid #333;">&nbsp;</td>
+    <td style="font-size:9px;color:#333;letter-spacing:0.28em;text-transform:uppercase;padding:0 8px;">fragrances</td>
+    <td style="width:32px;font-size:0;line-height:0;border-top:1px solid #333;">&nbsp;</td>
+  </tr></table>
+</td></tr>
+<tr><td style="height:2px;background:#d4af37;"></td></tr>
+<tr><td style="background:#f5f3ee;padding:48px 48px 40px;text-align:center;">
+  ${iconHtml ? `<div style="display:inline-block;width:62px;height:62px;border-radius:50%;border:1.5px solid #d4af37;line-height:60px;font-size:22px;color:#d4af37;margin-bottom:22px;">${iconHtml}</div>` : ''}
+  <p style="margin:0 0 8px;font-size:10px;text-transform:uppercase;letter-spacing:0.2em;color:#d4af37;font-weight:700;">${badge}</p>
+  <h1 style="margin:0 0 18px;font-family:Georgia,serif;font-size:28px;color:#1a1a1a;font-weight:400;">${title}</h1>
+  <div style="margin:0 auto;font-size:13px;color:#666;line-height:1.8;max-width:400px;">${introHtml}</div>
+</td></tr>
+${bodyHtml}
+${ctaHtml ? `<tr><td style="background:#f5f3ee;padding:0 48px 34px;text-align:center;">${ctaHtml}</td></tr>` : ''}
+${afterBodyHtml}
+<tr><td style="background:#f5f3ee;padding:0;line-height:0;font-size:0;">
+  <svg xmlns="http://www.w3.org/2000/svg" width="560" height="104" viewBox="0 0 560 104" style="display:block;width:100%;height:auto;">
+    <path fill="#e1d4a0" d="M0,40 C70,22 130,18 200,40 C260,58 320,58 380,36 C440,14 500,16 560,38 L560,92 L0,92 Z"></path>
+    <path fill="#d4b64f" d="M0,52 C80,30 150,34 220,50 C290,66 360,66 430,46 C485,30 525,28 560,42 L560,92 L0,92 Z"></path>
+    <path fill="#0f0f0f" d="M0,62 C78,42 148,46 220,62 C292,78 360,78 432,60 C488,46 528,44 560,56 L560,104 L0,104 Z"></path>
+  </svg>
+</td></tr>
+<tr><td style="background:#0f0f0f;border-bottom:1px solid #d4af37;padding:22px 36px 24px;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 28px;">
+    <tr><td colspan="4" style="text-align:center;padding:0 0 16px;">
+      <p style="margin:0 0 6px;font-family:Georgia,serif;color:#fff;font-size:26px;letter-spacing:0.12em;">N&Oslash;TE.</p>
+      <table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;border-collapse:collapse;"><tr>
+        <td style="width:34px;font-size:0;line-height:0;border-top:1px solid #d4af37;">&nbsp;</td>
+        <td style="font-family:Arial,sans-serif;font-size:9px;color:#d4af37;letter-spacing:0.28em;text-transform:uppercase;padding:0 10px;">fragrances</td>
+        <td style="width:34px;font-size:0;line-height:0;border-top:1px solid #d4af37;">&nbsp;</td>
+      </tr></table>
+    </td></tr>
+    <tr>
+      <td width="25%" valign="top" style="padding:0 10px 12px 0;">
+        <p style="margin:0 0 10px;color:#f1eee8;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;font-weight:700;">Rechtliches</p>
+        <p style="margin:0 0 7px;"><a href="https://note-fragrances.de/agb.html" style="color:#a0a0a0;text-decoration:none;font-size:12px;">AGB</a></p>
+        <p style="margin:0 0 7px;"><a href="https://note-fragrances.de/impressum.html" style="color:#a0a0a0;text-decoration:none;font-size:12px;">Impressum</a></p>
+        <p style="margin:0 0 7px;"><a href="https://note-fragrances.de/widerrufsrecht.html" style="color:#a0a0a0;text-decoration:none;font-size:12px;">Widerruf</a></p>
+        <p style="margin:0;"><a href="https://note-fragrances.de/datenschutz.html" style="color:#a0a0a0;text-decoration:none;font-size:12px;">Datenschutz</a></p>
+      </td>
+      <td width="25%" valign="top" style="padding:0 10px 12px;">
+        <p style="margin:0 0 10px;color:#f1eee8;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;font-weight:700;">Shop</p>
+        <p style="margin:0 0 7px;"><a href="https://note-fragrances.de/suche.html" style="color:#a0a0a0;text-decoration:none;font-size:12px;">Kollektion</a></p>
+        <p style="margin:0 0 7px;"><a href="https://note-fragrances.de/frauenduefte.html" style="color:#a0a0a0;text-decoration:none;font-size:12px;">Frauenduefte</a></p>
+        <p style="margin:0;"><a href="https://note-fragrances.de/herrenduefte.html" style="color:#a0a0a0;text-decoration:none;font-size:12px;">Herrenduefte</a></p>
+      </td>
+      <td width="30%" valign="top" style="padding:0 10px 12px;">
+        <p style="margin:0 0 10px;color:#f1eee8;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;font-weight:700;">Ueber Uns</p>
+        <p style="margin:0;color:#a0a0a0;font-size:12px;line-height:1.6;">Exklusive Extrait de Parfums mit hoher Duftoel-Konzentration. Intensiv, langanhaltend und kompromisslos in der Qualitaet.</p>
+      </td>
+      <td width="20%" valign="top" style="padding:0 0 12px 10px;">
+        <p style="margin:0 0 10px;color:#f1eee8;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;font-weight:700;">Service</p>
+        <p style="margin:0 0 7px;"><a href="mailto:info@note-fragrances.de" style="color:#a0a0a0;text-decoration:none;font-size:12px;">info@note-fragrances.de</a></p>
+        <p style="margin:0;color:#a0a0a0;font-size:12px;">Warnitzer Str. 20<br>13057 Berlin</p>
+      </td>
+    </tr>
+  </table>
+  <table width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid rgba(255,255,255,0.16);padding-top:16px;">
+    <tr><td style="font-size:11px;color:#767676;text-align:center;">&copy; 2026 N&Oslash;TE. fragrances. Alle Rechte vorbehalten.</td></tr>
+  </table>
+</td></tr>
+</table></td></tr></table></body></html>`;
+}
+
+function renderInternalContactPreview() {
+    return `<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:40px 20px;background:#f0f0f0;font-family:Arial,sans-serif;">
+<div style="max-width:560px;margin:auto;padding:32px;background:#f9f9f9;border-radius:8px;">
+  <h2 style="font-size:20px;margin-bottom:8px;color:#1a1a1a;">Neue Kontaktanfrage</h2>
+  <p style="color:#666;font-size:13px;margin-bottom:24px;border-bottom:1px solid #eee;padding-bottom:16px;">Eingegangen am 09.04.2026, 18:25 Uhr</p>
+  <table style="width:100%;font-size:14px;color:#333;">
+    <tr><td style="padding:6px 0;font-weight:600;width:100px;">Name</td><td>Maria Mueller</td></tr>
+    <tr><td style="padding:6px 0;font-weight:600;">E-Mail</td><td><a href="mailto:maria@beispiel.de">maria@beispiel.de</a></td></tr>
+    <tr><td style="padding:6px 0;font-weight:600;">Betreff</td><td>Frage zur Bestellung</td></tr>
+  </table>
+  <div style="margin-top:20px;padding:16px;background:#fff;border-radius:6px;border:1px solid #eee;">
+    <p style="margin:0;font-size:14px;line-height:1.7;color:#444;">Hallo, ich wuerde gerne wissen wann meine Bestellung ankommt. Vielen Dank!</p>
+  </div>
+</div></body></html>`;
+}
+
+Object.assign(EMAIL_TEMPLATES, {
+    order: {
+        subject: 'Deine Bestellung bei NOTE. fragrances \u2713',
+        from: 'Von: NOTE. fragrances <info@note-fragrances.de>  \u2022  An: Kunde',
+        html: renderAdminEmailShell({
+            badge: 'Bestellbestaetigung',
+            title: 'Vielen Dank, Max!',
+            introHtml: 'Deine Bestellung ist bei uns eingegangen und wird schnellstmoeglich bearbeitet. Wir melden uns, sobald dein Paket auf dem Weg ist.',
+            iconHtml: '&#10003;',
+            bodyHtml: `<tr><td style="background:#f5f3ee;padding:0 40px;"><div style="border-top:1px solid #dedad3;"></div></td></tr>
+<tr><td style="background:#f5f3ee;padding:28px 40px 0;">
+  <p style="margin:0 0 18px;font-size:10px;text-transform:uppercase;letter-spacing:0.18em;color:#aaa;font-weight:600;">Deine Bestellung</p>
+  <table width="100%" cellpadding="0" cellspacing="0"><tr><td style="font-size:13px;padding:10px 0;">NOTE. L190 &middot; 50ml</td><td style="text-align:right;font-size:13px;">89,90 &euro;</td></tr>
+  <tr><td style="font-size:13px;padding:10px 0;border-top:1px solid #f0ece4;">NOTE. G299 &middot; 30ml</td><td style="text-align:right;font-size:13px;border-top:1px solid #f0ece4;">69,90 &euro;</td></tr></table>
+</td></tr>
+<tr><td style="background:#f5f3ee;padding:16px 40px 40px;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="border-top:2px solid #d4af37;padding-top:12px;margin-top:12px;"><tr>
+    <td style="font-size:11px;color:#999;text-transform:uppercase;letter-spacing:0.15em;">Gesamtbetrag</td>
+    <td style="text-align:right;font-family:Georgia,serif;font-size:26px;color:#1a1a1a;">159,80 &euro;</td>
+  </tr></table>
+</td></tr>`
+        })
+    },
+    shipping: {
+        subject: 'Deine Bestellung ist unterwegs! \ud83d\ude80',
+        from: 'Von: NOTE. fragrances <info@note-fragrances.de>  \u2022  An: Kunde',
+        html: renderAdminEmailShell({
+            badge: 'Auf dem Weg zu dir',
+            title: 'Hallo Max!',
+            introHtml: 'Gute Neuigkeiten - deine Bestellung ist auf dem Weg zu dir!<br><br>Du kannst deinen Duft in den naechsten <strong style="color:#000;">1-3 Werktagen</strong> erwarten.',
+            iconHtml: '&#128230;',
+            ctaHtml: `<table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;border-collapse:collapse;"><tr>
+  <td style="background:#1a1a1a;border-radius:2px;padding:14px 32px;">
+    <a href="https://note-fragrances.de" style="font-size:12px;color:#fff;text-decoration:none;letter-spacing:0.15em;text-transform:uppercase;font-weight:600;">Zur Website</a>
+  </td>
+</tr></table>`
+        })
+    },
+    pickup: {
+        subject: 'Dein Parfum ist abholbereit! \u2713',
+        from: 'Von: NOTE. fragrances <info@note-fragrances.de>  \u2022  An: Kunde (Abholung)',
+        html: renderAdminEmailShell({
+            badge: 'Abholbereit',
+            title: 'Hallo Max!',
+            introHtml: 'Deine Bestellung ist fertig gepackt und liegt zur Abholung bereit.<br><span style="color:#333;">Warnitzer Str. 20, 13057 Berlin</span><br><br>Bitte bringe den Betrag von <strong style="color:#000;">89,90 &euro;</strong> moeglichst passend in Bar mit.',
+            iconHtml: '&#10003;'
+        })
+    },
+    'pickup-order': {
+        subject: 'Deine Abhol-Bestellung bei NOTE. fragrances \u2713',
+        from: 'Von: NOTE. fragrances <info@note-fragrances.de>  \u2022  An: Kunde (Abhol-Kauf)',
+        html: renderAdminEmailShell({
+            badge: 'Bestellbestaetigung',
+            title: 'Vielen Dank, Max!',
+            introHtml: 'Deine Bestellung zur <strong>Selbstabholung</strong> ist bei uns eingegangen und wird fuer dich bereitgestellt.',
+            iconHtml: '&#10003;'
+        })
+    },
+    'newsletter-confirm': {
+        subject: 'Bitte bestaetige deine Newsletter-Anmeldung',
+        from: 'Von: NOTE. fragrances <info@note-fragrances.de>  \u2022  An: Abonnent',
+        html: renderAdminEmailShell({
+            badge: 'Ein letzter Schritt',
+            title: 'Bestaetige deine Anmeldung',
+            introHtml: 'Bitte bestaetige mit einem Klick deine Newsletter-Anmeldung. Erst danach senden wir dir deinen persoenlichen Rabattcode zu.',
+            ctaHtml: `<table cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 22px;"><tr>
+  <td style="background:#1a1a1a;padding:14px 36px;"><a href="#" style="font-size:11px;color:#d4af37;text-decoration:none;letter-spacing:0.18em;text-transform:uppercase;">Anmeldung bestaetigen</a></td>
+</tr></table>`
+        })
+    },
+    newsletter: {
+        subject: 'Dein persoenlicher Rabattcode - 5% auf deine erste Bestellung',
+        from: 'Von: NOTE. fragrances <info@note-fragrances.de>  \u2022  An: Abonnent',
+        html: renderAdminEmailShell({
+            badge: 'Willkommen',
+            title: 'Schoen, dass du dabei bist!',
+            introHtml: 'Als Dankeschoen erhaeltst du exklusiv <strong style="color:#1a1a1a;">5&nbsp;% Rabatt</strong> auf deine erste Bestellung.',
+            bodyHtml: `<tr><td style="background:#f5f3ee;padding:0 48px 0;text-align:center;">
+  <table cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 28px;"><tr><td style="background:#1a1a1a;padding:20px 40px;text-align:center;">
+    <p style="margin:0 0 6px;font-size:10px;letter-spacing:0.2em;color:#d4af37;text-transform:uppercase;">Dein persoenlicher Code</p>
+    <p style="margin:0;font-family:Georgia,serif;font-size:28px;color:#fff;letter-spacing:0.2em;">NOTE-M7K2X</p>
+  </td></tr></table>
+</td></tr>`
+        })
+    },
+    'contact-confirm': {
+        subject: 'Wir haben Ihre Nachricht erhalten \u2713',
+        from: 'Von: NOTE. fragrances <info@note-fragrances.de>  \u2022  An: Absender',
+        html: renderAdminEmailShell({
+            badge: 'Nachricht erhalten',
+            title: 'Danke, Maria!',
+            introHtml: 'Wir haben Ihre Nachricht erhalten und melden uns schnellstmoeglich zurueck.',
+            iconHtml: '&#9993;'
+        })
+    },
+    'contact-internal': {
+        subject: 'Kontaktanfrage: Frage zur Bestellung',
+        from: 'Von: N&Oslash;TE. Kontakt <noreply@note-fragrances.de>  \u2022  An: info@note-fragrances.de',
+        html: renderInternalContactPreview()
+    }
+});
+
 function showEmailPreview(key, clickedEl) {
     const tpl = EMAIL_TEMPLATES[key];
     if (!tpl) return;
@@ -1281,11 +1479,6 @@ function showEmailPreview(key, clickedEl) {
     document.getElementById('email-preview-from').textContent = tpl.from;
 
     const frame = document.getElementById('email-preview-frame');
-    if (key === 'shipping') {
-        frame.removeAttribute('srcdoc');
-        frame.src = 'preview_shipping_email.html';
-    } else {
-        frame.removeAttribute('src');
-        frame.srcdoc = tpl.html;
-    }
+    frame.removeAttribute('src');
+    frame.srcdoc = tpl.html;
 }
