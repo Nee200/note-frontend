@@ -125,9 +125,11 @@ function renderSecurityStatus(payload) {
     const depNextDateTime = dependencyMonitor.nextRunAt
         ? new Date(dependencyMonitor.nextRunAt).toLocaleString('de-DE')
         : 'n/a';
+    const depStale = dependencyMonitor.isStale === true;
+    const depStatus = depStale ? 'Dependency-Scan veraltet' : 'Dependency-Scan aktuell';
     metaEl.textContent = `${payload.passed}/${payload.total} Checks OK · ${escapeHtml(payload.environment || 'n/a')} · Update: ${updatedText}${intervalMin ? ` · Auto-Test alle ${intervalMin} min` : ''} · Nächster Dependency-Scan: ${depNext}`;
 
-    metaEl.textContent = `${payload.passed}/${payload.total} Checks OK | ${escapeHtml(payload.environment || 'n/a')} | Update: ${updatedText}${intervalMin ? ` | Auto-Test alle ${intervalMin} min` : ''} | Dependency-Scan alle ${depIntervalHours}h | Naechster Lauf: ${depNextDateTime}`;
+    metaEl.textContent = `${payload.passed}/${payload.total} Checks OK | ${escapeHtml(payload.environment || 'n/a')} | Update: ${updatedText}${intervalMin ? ` | Auto-Test alle ${intervalMin} min` : ''} | Dependency-Scan alle ${depIntervalHours}h | Naechster Lauf: ${depNextDateTime} | ${depStatus}`;
 
     listEl.innerHTML = payload.checks.map((check) => {
         const ok = !!check.ok;
@@ -155,6 +157,12 @@ function renderSecurityStatus(payload) {
     const osvFailureText = Array.isArray(depLatest.osvFailures) && depLatest.osvFailures.length
         ? depLatest.osvFailures.join(' | ')
         : '';
+    const scanTargets = Array.isArray(depLatest.scans)
+        ? depLatest.scans.map((scan) => String(scan.id || '').trim()).filter(Boolean)
+        : [];
+    const scanTargetText = scanTargets.length
+        ? `Scan-Ziele: ${scanTargets.join(', ')}`
+        : 'Scan-Ziele: n/a';
     const scannerCards = [
         {
             label: 'npm audit',
@@ -191,6 +199,7 @@ function renderSecurityStatus(payload) {
                 `;
             }).join('')}
         </div>
+        <div style="font-size:0.78rem;color:#666;margin-top:0.4rem;">${escapeHtml(scanTargetText)}</div>
     `;
 
     const alerts = Array.isArray(monitor.alerts) ? monitor.alerts : [];
@@ -233,7 +242,7 @@ function renderSecurityStatus(payload) {
     }
 }
 
-async function loadSecurityStatus() {
+async function loadSecurityStatus(forceDependencyScan) {
     const listEl = document.getElementById('security-health-list');
     const scannerEl = document.getElementById('security-scanner-status');
     const alertsEl = document.getElementById('security-monitor-alerts');
@@ -246,7 +255,9 @@ async function loadSecurityStatus() {
     if (historyEl) historyEl.innerHTML = '';
 
     try {
-        const res = await adminFetch('/api/admin/security-status', { credentials: 'include' });
+        const force = forceDependencyScan === true;
+        const url = force ? '/api/admin/security-status?refresh=1' : '/api/admin/security-status';
+        const res = await adminFetch(url, { credentials: 'include' });
         if (!res.ok) {
             renderSecurityStatus(null);
             return;
