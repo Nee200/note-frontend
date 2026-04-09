@@ -1435,13 +1435,34 @@ Object.assign(EMAIL_TEMPLATES, {
             bodyHtml: `<tr><td style="background:#f5f3ee;padding:0 40px;"><div style="border-top:1px solid #dedad3;"></div></td></tr>
 <tr><td style="background:#f5f3ee;padding:28px 40px 0;">
   <p style="margin:0 0 18px;font-size:10px;text-transform:uppercase;letter-spacing:0.18em;color:#aaa;font-weight:600;">Deine Bestellung</p>
-  <table width="100%" cellpadding="0" cellspacing="0"><tr><td style="font-size:13px;padding:10px 0;">NOTE. L190 &middot; 50ml</td><td style="text-align:right;font-size:13px;">89,90 &euro;</td></tr>
-  <tr><td style="font-size:13px;padding:10px 0;border-top:1px solid #f0ece4;">NOTE. G299 &middot; 30ml</td><td style="text-align:right;font-size:13px;border-top:1px solid #f0ece4;">69,90 &euro;</td></tr></table>
+  <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #e6e6e6;">
+    <tr>
+      <td style="width:70px;vertical-align:middle;">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:60px;height:60px;border:1px solid #e6e6e6;border-radius:4px;background:#ffffff;">
+          <tr><td align="center" valign="middle" style="width:60px;height:60px;padding:0;">
+            <img src="https://note-fragrances.de/logo.webp" alt="NOTE. Duft" style="display:block;border:0;outline:none;text-decoration:none;width:auto;height:auto;max-width:60px;max-height:60px;">
+          </td></tr>
+        </table>
+      </td>
+      <td style="padding-left:14px;vertical-align:middle;font-size:13px;color:#1a1a1a;">No. L3 (50ml)<br><span style="font-size:12px;color:#999;">Menge: 2</span></td>
+      <td style="text-align:right;vertical-align:middle;font-size:13px;color:#1a1a1a;white-space:nowrap;">49,98 &euro;</td>
+    </tr>
+  </table>
+  <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e6e2da;border-radius:4px;padding:14px 16px;background:#fff;margin:0 0 14px;">
+    <tr><td style="font-size:11px;color:#999;text-transform:uppercase;letter-spacing:0.12em;padding-bottom:6px;">Lieferadresse</td></tr>
+    <tr><td style="font-size:13px;color:#444;line-height:1.65;">Dr.-Rosenthal-Weg 4<br>77694 Kehl<br>DE</td></tr>
+  </table>
+  <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 16px;">
+    <tr>
+      <td style="font-size:13px;color:#999;">Versand</td>
+      <td style="text-align:right;font-size:13px;color:#999;">0,00 &euro;</td>
+    </tr>
+  </table>
 </td></tr>
 <tr><td style="background:#f5f3ee;padding:16px 40px 40px;">
   <table width="100%" cellpadding="0" cellspacing="0" style="border-top:2px solid #d4af37;padding-top:12px;margin-top:12px;"><tr>
     <td style="font-size:11px;color:#999;text-transform:uppercase;letter-spacing:0.15em;">Gesamtbetrag</td>
-    <td style="text-align:right;font-family:Georgia,serif;font-size:26px;color:#1a1a1a;">159,80 &euro;</td>
+    <td style="text-align:right;font-family:Georgia,serif;font-size:26px;color:#1a1a1a;">74,97 &euro;</td>
   </tr></table>
 </td></tr>`
         })
