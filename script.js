@@ -1730,36 +1730,98 @@ async function applyCoupon() {
 
 // Warenkorb Toggle (Öffnen/Schließen)
 function toggleCart() {
-    const cartSidebar = document.getElementById('cart-sidebar');
-    const cartOverlay = document.getElementById('overlay');
-
     if (!cartSidebar) return;
+    const cartOverlay = overlay || document.getElementById('overlay');
+
+    cartSidebar.classList.remove('is-dragging');
+    cartSidebar.style.transform = '';
 
     if (cartSidebar.classList.contains('open')) {
         cartSidebar.classList.remove('open');
         if (cartOverlay) cartOverlay.classList.remove('open');
         document.body.classList.remove('no-scroll');
+        document.body.classList.remove('no-scroll-fixed');
         document.documentElement.classList.remove('no-scroll');
-        document.body.style.overflow = '';
-        document.documentElement.style.overflow = '';
-        document.body.style.position = '';
         document.body.style.top = '';
-        document.body.style.left = '';
-        document.body.style.right = '';
-        document.body.style.width = '';
         window.scrollTo(0, cartScrollLockY);
     } else {
         cartScrollLockY = window.scrollY || window.pageYOffset || 0;
         cartSidebar.classList.add('open');
         if (cartOverlay) cartOverlay.classList.add('open');
         document.body.classList.add('no-scroll');
+        document.body.classList.add('no-scroll-fixed');
         document.documentElement.classList.add('no-scroll');
-        document.body.style.position = 'fixed';
         document.body.style.top = `-${cartScrollLockY}px`;
-        document.body.style.left = '0';
-        document.body.style.right = '0';
-        document.body.style.width = '100%';
     }
+}
+
+function setupCartSwipeToClose() {
+    if (!cartSidebar || cartSidebar.dataset.swipeInit === '1') return;
+    cartSidebar.dataset.swipeInit = '1';
+
+    let startX = 0;
+    let startY = 0;
+    let deltaX = 0;
+    let tracking = false;
+    let horizontalGesture = false;
+
+    function clearDragState() {
+        tracking = false;
+        horizontalGesture = false;
+        deltaX = 0;
+        cartSidebar.classList.remove('is-dragging');
+        cartSidebar.style.transform = '';
+    }
+
+    cartSidebar.addEventListener('touchstart', (event) => {
+        if (!cartSidebar.classList.contains('open')) return;
+        if (!event.touches || event.touches.length !== 1) return;
+        const touch = event.touches[0];
+        startX = touch.clientX;
+        startY = touch.clientY;
+        deltaX = 0;
+        tracking = true;
+        horizontalGesture = false;
+        cartSidebar.classList.add('is-dragging');
+    }, { passive: true });
+
+    cartSidebar.addEventListener('touchmove', (event) => {
+        if (!tracking || !event.touches || event.touches.length !== 1) return;
+        const touch = event.touches[0];
+        const moveX = touch.clientX - startX;
+        const moveY = touch.clientY - startY;
+
+        if (!horizontalGesture) {
+            if (Math.abs(moveX) < 8 && Math.abs(moveY) < 8) return;
+            if (Math.abs(moveY) > Math.abs(moveX)) {
+                clearDragState();
+                return;
+            }
+            horizontalGesture = true;
+        }
+
+        if (moveX <= 0) {
+            deltaX = 0;
+            cartSidebar.style.transform = 'translate3d(0,0,0)';
+            return;
+        }
+
+        event.preventDefault();
+        deltaX = Math.min(moveX, cartSidebar.clientWidth || 380);
+        cartSidebar.style.transform = `translate3d(${Math.round(deltaX)}px,0,0)`;
+    }, { passive: false });
+
+    cartSidebar.addEventListener('touchend', () => {
+        if (!tracking) return;
+        const closeThreshold = Math.max(72, Math.round((cartSidebar.clientWidth || 380) * 0.24));
+        const shouldClose = deltaX >= closeThreshold;
+        clearDragState();
+        if (shouldClose && cartSidebar.classList.contains('open')) {
+            toggleCart();
+        }
+    }, { passive: true });
+
+    cartSidebar.addEventListener('touchcancel', clearDragState, { passive: true });
 }
 
 // Mobile Menu Toggle
@@ -2119,6 +2181,7 @@ handleCheckoutReturnState();
 initBrandVideoAutoplay();
 init();
 initIntroText(); // Run on startup
+setupCartSwipeToClose();
 
 // Close modal when clicking outside
 window.addEventListener('click', function (event) {
