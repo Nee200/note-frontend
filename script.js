@@ -1,4 +1,104 @@
-const API_BASE_URL = 'https://note-backend-5gy0.onrender.com';
+const API_BASE_URL = (() => {
+    const localHosts = new Set(['localhost', '127.0.0.1']);
+    if (localHosts.has(window.location.hostname)) {
+        return 'http://localhost:4242';
+    }
+    return 'https://note-backend-5gy0.onrender.com';
+})();
+
+const CSRF_COOKIE_NAME = 'csrf_token';
+const nativeFetch = window.fetch.bind(window);
+let csrfBootstrapPromise = null;
+
+function getCookieValue(name) {
+    const prefix = `${name}=`;
+    const entry = document.cookie.split('; ').find(part => part.startsWith(prefix));
+    return entry ? decodeURIComponent(entry.slice(prefix.length)) : '';
+}
+
+function isApiRequestUrl(url) {
+    return typeof url === 'string' && (url.startsWith(API_BASE_URL) || url.startsWith('/'));
+}
+
+async function ensureCsrfTokenCookie() {
+    let token = getCookieValue(CSRF_COOKIE_NAME);
+    if (token) return token;
+
+    if (!csrfBootstrapPromise) {
+        csrfBootstrapPromise = nativeFetch(API_BASE_URL + '/api/csrf-token', {
+            method: 'GET',
+            credentials: 'include'
+        }).finally(() => {
+            csrfBootstrapPromise = null;
+        });
+    }
+
+    await csrfBootstrapPromise;
+    return getCookieValue(CSRF_COOKIE_NAME);
+}
+
+window.fetch = async function patchedFetch(resource, options = {}) {
+    const requestUrl = typeof resource === 'string' ? resource : resource && resource.url;
+    const requestMethod = String(
+        options.method || (resource && resource.method) || 'GET'
+    ).toUpperCase();
+
+    if (!['GET', 'HEAD', 'OPTIONS'].includes(requestMethod) && isApiRequestUrl(requestUrl)) {
+        const csrfToken = await ensureCsrfTokenCookie();
+        if (csrfToken) {
+            const headers = new Headers(resource && resource.headers ? resource.headers : undefined);
+            if (options.headers) {
+                new Headers(options.headers).forEach((value, key) => headers.set(key, value));
+            }
+            headers.set('X-CSRF-Token', csrfToken);
+            options = {
+                ...options,
+                credentials: options.credentials || 'include',
+                headers
+            };
+        }
+    }
+
+    return nativeFetch(resource, options);
+};
+
+function persistCouponState() {
+    localStorage.setItem('discount', String(currentDiscount || 0));
+    localStorage.setItem('couponCode', currentCouponCode);
+    localStorage.setItem('couponLabel', currentCouponLabel);
+}
+
+function clearCouponState() {
+    currentDiscount = 0;
+    currentCouponCode = '';
+    currentCouponLabel = '';
+    localStorage.removeItem('discount');
+    localStorage.removeItem('couponCode');
+    localStorage.removeItem('couponLabel');
+}
+
+async function syncUserLoginIndicator() {
+    const userIcons = document.querySelectorAll('.user-icon');
+    if (!userIcons.length) return;
+
+    try {
+        const response = await fetch(API_BASE_URL + '/api/user', { credentials: 'include' });
+        const isLoggedIn = response.ok;
+
+        userIcons.forEach((icon) => {
+            icon.classList.toggle('logged-in', isLoggedIn);
+            icon.setAttribute(
+                'aria-label',
+                isLoggedIn ? 'Mein Konto, angemeldet' : 'Mein Konto'
+            );
+        });
+    } catch (error) {
+        userIcons.forEach((icon) => {
+            icon.classList.remove('logged-in');
+            icon.setAttribute('aria-label', 'Mein Konto');
+        });
+    }
+}
 // Parfüm Produkte
 // Hinweis: Bilder-Dateinamen müssen später angepasst werden, wenn die Dateien im Ordner liegen.
 // Schema: 'p1_1.webp', 'p1_2.webp' etc. oder wie du sie nennst.
@@ -30,14 +130,42 @@ function stripBrandName(name) {
     return cleaned;
 }
 
+function sanitizeProductUrlId(value) {
+    return encodeURIComponent(String(value || ''));
+}
+
+function sanitizeClassFragment(value) {
+    return String(value || '').replace(/[^a-zA-Z0-9_-]/g, '');
+}
+
+function safeImageSrc(value) {
+    const raw = String(value || '').trim();
+    if (!raw) return 'logo.webp';
+    const lowered = raw.toLowerCase();
+    if (lowered.startsWith('javascript:') || lowered.startsWith('data:')) {
+        return 'logo.webp';
+    }
+    return escapeHtml(raw);
+}
+
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let currentDiscount = parseFloat(localStorage.getItem('discount')) || 0;
+let currentCouponCode = localStorage.getItem('couponCode') || '';
+let currentCouponLabel = localStorage.getItem('couponLabel') || '';
 let currentDeliveryMethod = 'shipping';
 let currentSelectedSize = 50;
 let currentListCategory = 'all';
 let currentPageIndex = 0;
 let currentProductsPerPage = 25;
 let currentNoteFilter = 'all';
+
+if (currentDiscount > 0 && !currentCouponCode) {
+    currentDiscount = 0;
+    currentCouponLabel = '';
+    localStorage.removeItem('discount');
+    localStorage.removeItem('couponCode');
+    localStorage.removeItem('couponLabel');
+}
 
 const productGrid = document.getElementById('product-grid');
 const bestsellerWomenGrid = document.getElementById('bestseller-women-grid');
@@ -155,28 +283,49 @@ function getProductCardHTML(product) {
     const price = defaultVariant.price;
     const originalPrice = defaultVariant.originalPrice;
     const bestsellerFlag = isBestseller(product);
+    const safeProductUrlId = sanitizeProductUrlId(product.id);
+    const safeProductClassId = sanitizeClassFragment(product.id);
+    const safeImage = safeImageSrc((product.images && product.images.length > 0) ? product.images[0] : 'logo.webp');
+    const safeProductName = escapeHtml(product.name || '');
+    const safeProductCode = escapeHtml(String(product.name || '').replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, ''));
+    const safeInspiredBy = product.inspiredBy
+        ? `...${escapeHtml(stripBrandName(product.inspiredBy))}&reg;`
+        : safeProductName;
+    const safeDescription = escapeHtml(product.description || '');
+    const reviewSummary = product.reviewSummary || { average: 0, count: 0 };
+    const hasReviews = Number(reviewSummary.count) > 0;
+    const normalizedAverage = Number(reviewSummary.average) || 0;
+    const normalizedCount = Number(reviewSummary.count) || 0;
+    const ratingMarkup = hasReviews
+        ? `<div class="product-card-rating" aria-label="${normalizedAverage.toFixed(1)} von 5 Sternen aus ${normalizedCount} Bewertungen">
+                <span class="product-card-rating-stars">★★★★★</span>
+                <span class="product-card-rating-value">${normalizedAverage.toFixed(1).replace('.', ',')}</span>
+                <span class="product-card-rating-count">(${normalizedCount})</span>
+           </div>`
+        : '';
 
     return `
-        <div class="product-card" onclick="window.location.href='product.html?id=${product.id}'">
+        <div class="product-card" onclick="window.location.href='product.html?id=${safeProductUrlId}'">
             <div class="product-image-wrapper">
-                <img src="${(product.images && product.images.length > 0) ? product.images[0] : 'logo.webp'}" 
-                     alt="${product.name}" 
-                     class="product-grid-image product-img-${product.id}"
+                <img src="${safeImage}" 
+                     alt="${safeProductName}" 
+                     class="product-grid-image product-img-${safeProductClassId}"
                      onerror="this.src='logo.webp'">
             </div>
             <div class="product-info">
-                <p class="product-code">NØTE. ${product.name.replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, '')}</p>
+                <p class="product-code">NØTE. ${safeProductCode}</p>
                 <h3 class="product-title${bestsellerFlag ? ' has-badge' : ''}">
-                    ${product.inspiredBy ? '...' + stripBrandName(product.inspiredBy) + '&reg;' : product.name}
+                    ${safeInspiredBy}
                     ${bestsellerFlag ? '<span class="product-badge-bestseller">Bestseller</span>' : ''}
                 </h3>
-                <p class="product-short-desc">${product.description}</p>
+                ${ratingMarkup}
+                <p class="product-short-desc">${safeDescription}</p>
                 <div class="product-actions">
                     <div class="product-price">
                         ${originalPrice ? `<span class="original-price-strike">${originalPrice.toFixed(2)} €</span>` : ''}
                         ab ${price.toFixed(2)} €
                     </div>
-                    <button class="btn btn-outlined-card" onclick="event.stopPropagation(); window.location.href='product.html?id=${product.id}'">
+                    <button class="btn btn-outlined-card" onclick="event.stopPropagation(); window.location.href='product.html?id=${safeProductUrlId}'">
                         ZUR AUSWAHL
                     </button>
                 </div>
@@ -399,6 +548,357 @@ function renderBestsellers() {
     if (bestsellerMenGrid) buildGrid(bestsellerMenGrid, getBestsellerProductsForCategory('men'));
 }
 
+let currentReviewProductId = '';
+let currentReviewRating = 0;
+let currentReviewUser = null;
+
+function escapeHtml(value) {
+    return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function formatReviewDate(value) {
+    if (!value) return '';
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return '';
+    return date.toLocaleDateString('de-DE', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    });
+}
+
+function paintStars(container, rating) {
+    if (!container) return;
+    const normalized = Math.max(0, Math.min(5, Number(rating) || 0));
+    const stars = container.querySelectorAll('.rating-star');
+    stars.forEach((star, index) => {
+        const position = index + 1;
+        star.classList.remove('is-filled', 'is-half');
+        if (normalized >= position) {
+            star.classList.add('is-filled');
+        } else if (normalized >= position - 0.5) {
+            star.classList.add('is-half');
+        }
+    });
+}
+
+function setReviewInputStars(value) {
+    currentReviewRating = value;
+    const input = document.getElementById('review-rating-value');
+    if (input) input.value = String(value);
+
+    document.querySelectorAll('.review-star-btn').forEach((button) => {
+        const rating = Number(button.dataset.rating || 0);
+        button.classList.toggle('is-active', rating <= value);
+        button.classList.remove('is-preview');
+        button.setAttribute('aria-checked', rating === value ? 'true' : 'false');
+    });
+}
+
+function previewReviewInputStars(value) {
+    document.querySelectorAll('.review-star-btn').forEach((button) => {
+        const rating = Number(button.dataset.rating || 0);
+        button.classList.toggle('is-preview', rating <= value);
+    });
+}
+
+async function fetchCurrentReviewUser() {
+    try {
+        const response = await fetch(API_BASE_URL + '/api/user', {
+            credentials: 'include'
+        });
+        if (!response.ok) return null;
+        const data = await response.json();
+        return data.user || null;
+    } catch (error) {
+        return null;
+    }
+}
+
+function setReviewFormMessage(message, type = '') {
+    const messageEl = document.getElementById('review-form-message');
+    if (!messageEl) return;
+    messageEl.textContent = message || '';
+    messageEl.classList.remove('is-error', 'is-success');
+    if (type === 'error') messageEl.classList.add('is-error');
+    if (type === 'success') messageEl.classList.add('is-success');
+}
+
+function closeReviewModal() {
+    const modal = document.getElementById('review-modal');
+    if (!modal) return;
+    modal.setAttribute('hidden', '');
+    document.body.classList.remove('no-scroll');
+    document.documentElement.classList.remove('no-scroll');
+}
+
+function openReviewModal() {
+    const modal = document.getElementById('review-modal');
+    if (!modal) return;
+    modal.removeAttribute('hidden');
+    document.body.classList.add('no-scroll');
+    document.documentElement.classList.add('no-scroll');
+}
+
+function initReviewModal() {
+    const modal = document.getElementById('review-modal');
+    const trigger = document.getElementById('product-review-trigger');
+    const closeBtn = document.getElementById('review-modal-close');
+    const backdrop = document.getElementById('review-modal-backdrop');
+
+    if (!modal || !trigger || trigger.dataset.bound === 'true') return;
+
+    trigger.dataset.bound = 'true';
+    trigger.addEventListener('click', openReviewModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeReviewModal);
+    if (backdrop) backdrop.addEventListener('click', closeReviewModal);
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !modal.hasAttribute('hidden')) {
+            closeReviewModal();
+        }
+    });
+}
+
+function updateReviewSummary(summary) {
+    const average = summary && Number(summary.average) ? Number(summary.average) : 0;
+    const count = summary && Number(summary.count) ? Number(summary.count) : 0;
+    const averageScoreEl = document.getElementById('reviews-average-score');
+    const summaryCountEl = document.getElementById('reviews-count-text');
+    const topCountEl = document.getElementById('product-rating-count');
+
+    if (averageScoreEl) averageScoreEl.textContent = average > 0 ? average.toFixed(1).replace('.', ',') : '0,0';
+    if (summaryCountEl) {
+        summaryCountEl.textContent = count > 0
+            ? `${count} echte ${count === 1 ? 'Bewertung' : 'Bewertungen'}`
+            : 'Noch keine Bewertungen';
+    }
+    if (topCountEl) {
+        topCountEl.textContent = count > 0
+            ? `${average.toFixed(1).replace('.', ',')}/5 (${count} ${count === 1 ? 'Bewertung' : 'Bewertungen'})`
+            : 'Noch keine Bewertungen';
+    }
+
+    paintStars(document.getElementById('product-rating-stars'), average);
+    paintStars(document.getElementById('reviews-average-stars'), average);
+}
+
+function renderReviewList(reviews) {
+    const listEl = document.getElementById('reviews-list');
+    const emptyEl = document.getElementById('reviews-empty-state');
+    const subtitleEl = document.getElementById('reviews-list-subtitle');
+
+    if (!listEl || !emptyEl || !subtitleEl) return;
+
+    if (!reviews || !reviews.length) {
+        listEl.innerHTML = '';
+        emptyEl.style.display = 'block';
+        subtitleEl.textContent = 'Sobald die ersten echten Bewertungen da sind, erscheinen sie hier.';
+        return;
+    }
+
+    emptyEl.style.display = 'none';
+    subtitleEl.textContent = `${reviews.length} veröffentlichte ${reviews.length === 1 ? 'Bewertung' : 'Bewertungen'} für dieses Produkt.`;
+    listEl.innerHTML = reviews.map((review) => {
+        const initials = escapeHtml(
+            String(review.authorName || '')
+                .trim()
+                .split(/\s+/)
+                .slice(0, 2)
+                .map((part) => part.charAt(0).toUpperCase())
+                .join('')
+        );
+        const stars = Array.from({ length: 5 }, (_, index) => `
+            <span class="rating-star ${index < review.rating ? 'is-filled' : ''}" aria-hidden="true">&#9733;</span>
+        `).join('');
+        const title = review.title ? `<h4 class="review-item-title">${escapeHtml(review.title)}</h4>` : '';
+        const verified = review.verifiedPurchase ? '<span class="review-verified-pill">Verifizierter Kauf</span>' : '';
+        const own = review.isOwnReview ? '<span class="review-own-pill">Deine Bewertung</span>' : '';
+
+        return `
+            <article class="review-item">
+                <div class="review-item-header">
+                    <div class="review-item-identity">
+                        <div class="review-item-avatar">${initials}</div>
+                        <div class="review-item-author-block">
+                            <div class="review-item-author-row">
+                                <div class="review-item-author">${escapeHtml(review.authorName)}</div>
+                                <span class="review-item-date">${formatReviewDate(review.updatedAt || review.createdAt)}</span>
+                            </div>
+                            <div class="review-item-meta">
+                                ${verified}
+                                ${own}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-item-rating">
+                        <div class="rating-stars" aria-label="${review.rating} von 5 Sternen">${stars}</div>
+                    </div>
+                </div>
+                ${title}
+                <p class="review-item-comment">${escapeHtml(review.comment)}</p>
+            </article>
+        `;
+    }).join('');
+}
+
+function fillReviewFormFromOwnReview(review) {
+    const titleInput = document.getElementById('review-title');
+    const commentInput = document.getElementById('review-comment');
+    if (titleInput) titleInput.value = review ? (review.title || '') : '';
+    if (commentInput) commentInput.value = review ? (review.comment || '') : '';
+    setReviewInputStars(review ? Number(review.rating || 0) : 0);
+}
+
+function updateReviewFormState() {
+    const helperEl = document.getElementById('review-form-helper');
+    const form = document.getElementById('review-form');
+    const submitBtn = form ? form.querySelector('button[type="submit"]') : null;
+    const disabled = !currentReviewUser;
+
+    if (helperEl) {
+        helperEl.textContent = currentReviewUser
+            ? 'Du kannst deine Bewertung jederzeit aktualisieren.'
+            : 'Bitte logge dich ein, um eine Bewertung abzugeben. Mit dem Button unten kommst du direkt zum Konto.';
+    }
+
+    if (!form) return;
+
+    form.querySelectorAll('input, textarea, button').forEach((element) => {
+        if (element.type === 'hidden') return;
+        if (element.type === 'submit') return;
+        element.disabled = disabled;
+    });
+
+    if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = currentReviewUser ? 'Bewertung speichern' : 'Zum Login';
+    }
+}
+
+async function loadProductReviews(productId) {
+    currentReviewProductId = productId;
+
+    try {
+        const [user, reviewResponse] = await Promise.all([
+            fetchCurrentReviewUser(),
+            fetch(API_BASE_URL + `/api/products/${encodeURIComponent(productId)}/reviews`, {
+                credentials: 'include'
+            })
+        ]);
+
+        currentReviewUser = user;
+
+        const payload = reviewResponse.ok ? await reviewResponse.json() : { summary: { average: 0, count: 0 }, reviews: [] };
+        updateReviewSummary(payload.summary || {});
+        renderReviewList(payload.reviews || []);
+
+        const ownReview = (payload.reviews || []).find((review) => review.isOwnReview);
+        fillReviewFormFromOwnReview(ownReview || null);
+        updateReviewFormState();
+    } catch (error) {
+        console.error('Bewertungen konnten nicht geladen werden:', error);
+        updateReviewSummary({ average: 0, count: 0 });
+        renderReviewList([]);
+        currentReviewUser = null;
+        fillReviewFormFromOwnReview(null);
+        updateReviewFormState();
+    }
+}
+
+function initReviewForm() {
+    const form = document.getElementById('review-form');
+    if (!form || form.dataset.bound === 'true') return;
+    form.dataset.bound = 'true';
+
+    document.querySelectorAll('.review-star-btn').forEach((button) => {
+        button.addEventListener('mouseenter', () => {
+            previewReviewInputStars(Number(button.dataset.rating || 0));
+        });
+        button.addEventListener('focus', () => {
+            previewReviewInputStars(Number(button.dataset.rating || 0));
+        });
+        button.addEventListener('click', () => {
+            setReviewInputStars(Number(button.dataset.rating || 0));
+        });
+    });
+
+    const starInput = document.getElementById('review-star-input');
+    if (starInput) {
+        starInput.addEventListener('mouseleave', () => {
+            previewReviewInputStars(0);
+        });
+        starInput.addEventListener('focusout', () => {
+            window.setTimeout(() => {
+                if (!starInput.contains(document.activeElement)) {
+                    previewReviewInputStars(0);
+                }
+            }, 0);
+        });
+    }
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        if (!currentReviewProductId) return;
+        if (!currentReviewUser) {
+            const returnTo = encodeURIComponent(window.location.pathname.split('/').pop() + window.location.search);
+            window.location.href = `account.html?returnTo=${returnTo}`;
+            return;
+        }
+
+        if (currentReviewRating < 1 || currentReviewRating > 5) {
+            setReviewFormMessage('Bitte wähle zuerst deine Sternebewertung aus.', 'error');
+            return;
+        }
+
+        const title = document.getElementById('review-title');
+        const comment = document.getElementById('review-comment');
+        const submitButton = form.querySelector('button[type="submit"]');
+        const payload = {
+            rating: currentReviewRating,
+            title: title ? title.value.trim() : '',
+            comment: comment ? comment.value.trim() : ''
+        };
+
+        submitButton.disabled = true;
+        setReviewFormMessage('Bewertung wird gespeichert...');
+
+        try {
+            const response = await fetch(API_BASE_URL + `/api/products/${encodeURIComponent(currentReviewProductId)}/reviews`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify(payload)
+            });
+
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok) {
+                throw new Error(data.error || 'Bewertung konnte nicht gespeichert werden.');
+            }
+
+            setReviewFormMessage(data.message || 'Bewertung gespeichert.', 'success');
+            updateReviewSummary(data.summary || {});
+            renderReviewList(data.reviews || []);
+            const ownReview = (data.reviews || []).find((review) => review.isOwnReview);
+            fillReviewFormFromOwnReview(ownReview || null);
+            updateReviewFormState();
+            closeReviewModal();
+        } catch (error) {
+            setReviewFormMessage(error.message || 'Bewertung konnte nicht gespeichert werden.', 'error');
+        } finally {
+            submitButton.disabled = false;
+        }
+    });
+}
+
 // Detailansicht rendern (für product.html)
 function renderProductDetail(id) {
     const product = products.find(p => p.id === id);
@@ -418,6 +918,11 @@ function renderProductDetail(id) {
             detailBestsellerFlag.style.display = 'none';
         }
     }
+
+    initReviewForm();
+    initReviewModal();
+    setReviewFormMessage('');
+    loadProductReviews(product.id);
 
     // Social Proof Logic (Live Data from Server)
     const viewingCountEl = document.getElementById('viewing-count');
@@ -519,9 +1024,9 @@ function renderProductDetail(id) {
     const notesList = document.getElementById('detail-notes');
     if (notesList && product.notes) {
         notesList.innerHTML = `
-            <li><strong>Kopfnote:</strong> ${product.notes.head}</li>
-            <li><strong>Herznote:</strong> ${product.notes.heart}</li>
-            <li><strong>Basisnote:</strong> ${product.notes.base}</li>
+            <li><strong>Kopfnote:</strong> ${escapeHtml(product.notes.head || '')}</li>
+            <li><strong>Herznote:</strong> ${escapeHtml(product.notes.heart || '')}</li>
+            <li><strong>Basisnote:</strong> ${escapeHtml(product.notes.base || '')}</li>
         `;
     }
 
@@ -530,7 +1035,7 @@ function renderProductDetail(id) {
     if (inspiredByContainer) {
         if (product.inspiredBy) {
             const cleanName = stripBrandName(product.inspiredBy);
-            inspiredByContainer.innerHTML = `<span class="inspired-by-text">...${cleanName}&reg;</span>`;
+            inspiredByContainer.innerHTML = `<span class="inspired-by-text">...${escapeHtml(cleanName)}&reg;</span>`;
             inspiredByContainer.style.display = '';
         } else {
             inspiredByContainer.style.display = 'none';
@@ -539,15 +1044,15 @@ function renderProductDetail(id) {
 
     // Hauptbild
     const mainImg = document.getElementById('detail-main-image');
-    const mainImgSrc = (product.images && product.images.length > 0) ? product.images[0] : 'logo.webp';
+    const mainImgSrc = safeImageSrc((product.images && product.images.length > 0) ? product.images[0] : 'logo.webp');
     mainImg.src = mainImgSrc;
 
     // Thumbnails
     const thumbContainer = document.getElementById('detail-thumbnails');
     if (product.images && product.images.length > 1) {
         thumbContainer.innerHTML = product.images.map((img, index) => `
-            <img src="${img}" class="detail-thumbnail ${index === 0 ? 'active' : ''}" 
-                 onclick="changeDetailImage('${img}', this)" 
+            <img src="${safeImageSrc(img)}" class="detail-thumbnail ${index === 0 ? 'active' : ''}" 
+                 onclick="changeDetailImage(decodeURIComponent('${encodeURIComponent(String(img || ''))}'), this)" 
                  onerror="this.style.display='none'">
         `).join('');
     } else {
@@ -560,7 +1065,7 @@ function renderProductDetail(id) {
         const sizes = [30, 50];
         optionGroup.innerHTML = sizes.map(size => `
             <button class="option-btn ${size === currentSelectedSize ? 'active' : ''} relative" 
-                    onclick="changeSize('${product.id}', ${size})">
+                    onclick="changeSize(decodeURIComponent('${sanitizeProductUrlId(product.id)}'), ${size})">
                 ${size}ml
                 ${(size === 50 && isBestseller(product)) ? '<span class="badge">Bestseller</span>' : ''}
             </button>
@@ -680,7 +1185,7 @@ function initDeliveryTimeline() {
 
 // Bild in Detailansicht wechseln
 function changeDetailImage(src, thumbnail) {
-    document.getElementById('detail-main-image').src = src;
+    document.getElementById('detail-main-image').src = safeImageSrc(src);
     document.querySelectorAll('.detail-thumbnail').forEach(t => t.classList.remove('active'));
     thumbnail.classList.add('active');
 }
@@ -752,6 +1257,9 @@ function updateCartUI() {
     } else {
         cartItemsContainer.innerHTML = cart.map(item => {
             const totalPrice = item.price * item.quantity;
+            const safeCartItemId = encodeURIComponent(String(item.cartId || ''));
+            const safeItemImage = safeImageSrc(item.image || 'logo.webp');
+            const safeItemAlt = escapeHtml(item.name || '');
 
             // Look up originalPrice from products array (covers items added before this feature)
             const product = products.find(p => p.id === item.productId);
@@ -768,23 +1276,25 @@ function updateCartUI() {
                    <div class="item-savings">(${savings.toFixed(2)} € gespart)</div>`
                 : `<div class="item-price">${totalPrice.toFixed(2)} €</div>`;
 
-            const cleanName = item.name.replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, '');
-            const inspiredText = product && product.inspiredBy ? '<br><span style="font-family: \'Playfair Display\', serif; font-size: 1.3em; color: #1a1a1a; font-weight: normal; font-style: normal;">...' + stripBrandName(product.inspiredBy) + '&reg;</span>' : '';
+            const cleanName = escapeHtml(String(item.name || '').replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, ''));
+            const inspiredText = product && product.inspiredBy
+                ? `<br><span style="font-family: 'Playfair Display', serif; font-size: 1.3em; color: #1a1a1a; font-weight: normal; font-style: normal;">...${escapeHtml(stripBrandName(product.inspiredBy))}&reg;</span>`
+                : '';
 
             return `
             <div class="cart-item">
-                <img src="${item.image || 'logo.webp'}" alt="${item.name}" onerror="this.src='logo.webp'">
+                <img src="${safeItemImage}" alt="${safeItemAlt}" onerror="this.src='logo.webp'">
                 <div class="cart-item-info">
                     <div class="cart-item-title" style="line-height: 1.3;">${cleanName}${inspiredText}</div>
                     <div class="cart-item-variant">${item.size}ml</div>
                     <div class="quantity-control">
-                        <button class="qty-btn" onclick="changeQuantity('${item.cartId}', -1)">−</button>
+                        <button class="qty-btn" onclick="changeQuantity(decodeURIComponent('${safeCartItemId}'), -1)">−</button>
                         <span class="qty-display">${item.quantity}</span>
-                        <button class="qty-btn" onclick="changeQuantity('${item.cartId}', 1)">+</button>
+                        <button class="qty-btn" onclick="changeQuantity(decodeURIComponent('${safeCartItemId}'), 1)">+</button>
                     </div>
                 </div>
                 <div class="cart-item-right">
-                    <button class="delete-btn" onclick="removeFromCart('${item.cartId}')">
+                    <button class="delete-btn" onclick="removeFromCart(decodeURIComponent('${safeCartItemId}'))">
                         <i class="far fa-trash-alt"></i>
                     </button>
                     <div class="cart-item-price-block">
@@ -859,13 +1369,17 @@ function updateCartUI() {
     const message = document.getElementById('coupon-message');
     const btn = document.querySelector('.coupon-input-group button');
 
-    if (input && message && btn && currentDiscount > 0) {
-        input.value = 'Deniz10';
+    if (input && message && btn && currentDiscount > 0 && currentCouponCode) {
+        input.value = currentCouponCode;
         input.disabled = true;
         btn.disabled = true;
         btn.innerText = '✓';
-        message.textContent = 'Gutschein aktiviert (-10%)';
+        message.textContent = `Gutschein aktiviert (${currentCouponLabel || `${Math.round(currentDiscount * 100)}% Rabatt`})`;
         message.className = 'coupon-message success';
+    } else if (input && message && btn) {
+        input.disabled = false;
+        btn.disabled = false;
+        btn.innerText = 'OK';
     }
 
     // 6. Update Upsell
@@ -1009,19 +1523,22 @@ async function applyCoupon() {
 
         if (data.valid) {
             currentDiscount = data.discount / 100;
+            currentCouponCode = data.code || code.toUpperCase();
+            currentCouponLabel = data.label || `${data.discount}% Rabatt`;
             message.textContent = `Gutschein erfolgreich aktiviert (${data.label})`;
             message.className = 'coupon-message success';
             input.disabled = true;
             btn.disabled = true;
             btn.innerText = '✓';
         } else {
-            currentDiscount = 0;
+            clearCouponState();
             message.textContent = 'Der Gutscheincode ist ungültig.';
             message.className = 'coupon-message error';
             btn.disabled = false;
             btn.innerText = 'OK';
         }
     } catch (e) {
+        clearCouponState();
         message.textContent = 'Fehler bei der Überprüfung. Bitte erneut versuchen.';
         message.className = 'coupon-message error';
         btn.disabled = false;
@@ -1119,24 +1636,31 @@ async function checkout() {
             const response = await fetch(API_BASE_URL + '/create-pickup-order', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ items: pickupCartItems, customerName: name, customerEmail: email, discount: currentDiscount })
+                body: JSON.stringify({
+                    items: pickupCartItems,
+                    customerName: name,
+                    customerEmail: email,
+                    couponCode: currentCouponCode || undefined
+                })
             });
-            cart = [];
-            updateCartUI();
-            toggleCart();
             if (response.ok) {
-                window.location.href = 'success.html?pickup=true';
+                cart = [];
+                updateCartUI();
+                toggleCart();
+                const pickupSuccessUrlOk = 'success.html?pickup=true';
+                window.location.href = pickupSuccessUrlOk;
             } else {
                 // Backend-Fehler – trotzdem als Pickup-Bestellung auf Success-Seite
-                window.location.href = 'success.html?pickup=true';
+                const errorData = await response.json().catch(() => ({}));
+                if (errorData.error && errorData.error.includes('Gutscheincode')) {
+                    clearCouponState();
+                    updateCartUI();
+                }
+                alert(errorData.error || 'Die Abhol-Bestellung konnte nicht erstellt werden.');
             }
         } catch (e) {
             console.error(e);
-            // Auch bei Netzwerkfehler (z.B. CORS lokal) trotzdem weiterleiten
-            cart = [];
-            updateCartUI();
-            toggleCart();
-            window.location.href = 'success.html?pickup=true';
+            alert('Die Abhol-Bestellung konnte nicht gestartet werden. Bitte versuche es erneut.');
         }
         return;
     }
@@ -1145,7 +1669,7 @@ async function checkout() {
 
     // Versuche, die E-Mail des eingeloggten Users zu holen
     try {
-        const userRes = await fetch(API_BASE_URL + '/api/user');
+        const userRes = await fetch(API_BASE_URL + '/api/user', { credentials: 'include' });
         if (userRes.ok) {
             const userData = await userRes.json();
             customerEmail = userData.user.email;
@@ -1166,6 +1690,9 @@ async function checkout() {
     if (customerEmail) {
         body.customerEmail = customerEmail;
     }
+    if (currentCouponCode) {
+        body.couponCode = currentCouponCode;
+    }
 
     try {
         const response = await fetch(API_BASE_URL + '/create-checkout-session', {
@@ -1176,12 +1703,27 @@ async function checkout() {
             body: JSON.stringify(body),
         });
 
-        if (!response.ok) {
-            const err = await response.json();
-            throw new Error(err.error || 'Netzwerk-Antwort war nicht ok');
-        }
+            if (!response.ok) {
+                const err = await response.json();
+                if (err.error && err.error.includes('Gutscheincode')) {
+                    clearCouponState();
+                    updateCartUI();
+                }
+                throw new Error(err.error || 'Netzwerk-Antwort war nicht ok');
+            }
 
         const data = await response.json();
+
+        if (data.safeMode) {
+            const total = typeof data.totalCents === 'number'
+                ? (data.totalCents / 100).toFixed(2).replace('.', ',')
+                : '0,00';
+            const discount = typeof data.discountAmountCents === 'number'
+                ? (data.discountAmountCents / 100).toFixed(2).replace('.', ',')
+                : '0,00';
+            alert(`Safe-Mode Checkout-Test\nGesamt: ${total} €\nRabatt: ${discount} €\nEs wurde keine echte Stripe-Session erstellt.`);
+            return;
+        }
 
         // 3. Weiterleitung zu Stripe
         if (data.url) {
@@ -1263,18 +1805,23 @@ function performSearch() {
         const defaultVariant = product.variants[30] || product.variants[50];
         const price = defaultVariant ? defaultVariant.price : 0;
         const inspiredByShort = product.inspiredBy ? product.inspiredBy.split(' - ')[0] : '';
+        const safeProductUrlId = sanitizeProductUrlId(product.id);
+        const safeImage = safeImageSrc((product.images && product.images.length > 0) ? product.images[0] : 'logo.webp');
+        const safeName = escapeHtml(product.name || '');
+        const safeCode = escapeHtml(String(product.name || '').replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, ''));
+        const safeTitle = inspiredByShort ? `...${escapeHtml(stripBrandName(inspiredByShort))}&reg;` : safeName;
 
         return `
-        <div class="product-card" onclick="window.location.href='product.html?id=${product.id}'" style="cursor: pointer;">
+        <div class="product-card" onclick="window.location.href='product.html?id=${safeProductUrlId}'" style="cursor: pointer;">
             <div class="product-image-wrapper">
-                <img src="${(product.images && product.images.length > 0) ? product.images[0] : 'logo.webp'}" 
-                     alt="${product.name}" 
+                <img src="${safeImage}" 
+                     alt="${safeName}" 
                      class="product-grid-image"
                      onerror="this.style.display='none'">
             </div>
             <div class="product-info">
-                <p class="product-code">NØTE. ${product.name.replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, '')}</p>
-                <h3 class="product-title">${inspiredByShort ? '...' + stripBrandName(inspiredByShort) + '&reg;' : product.name}</h3>
+                <p class="product-code">NØTE. ${safeCode}</p>
+                <h3 class="product-title">${safeTitle}</h3>
                 <div class="product-price">ab ${price.toFixed(2)} €</div>
             </div>
         </div>
@@ -1345,8 +1892,10 @@ function expandIntroText(event) {
 
 // Ensure init is called
 document.addEventListener('DOMContentLoaded', initIntroText);
+document.addEventListener('DOMContentLoaded', syncUserLoginIndicator);
 // Also try immediately (useful if script is at end of body)
 initIntroText();
+syncUserLoginIndicator();
 
 // Add resize listener to handle orientation changes or window resizing
 window.addEventListener('resize', initIntroText);

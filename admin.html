@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>NØTE - Admin Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" data-consent-href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" data-consent-category="optional">
+    <link rel="stylesheet" data-consent-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" data-consent-category="optional">
     <!-- Inline styles for admin to keep it independent and clean -->
     <style>
         :root {
@@ -319,6 +319,7 @@
                 <li class="active" onclick="switchTab('products')"><i class="fas fa-box"></i> Parfüms (Katalog)</li>
                 <li onclick="switchTab('orders')"><i class="fas fa-shopping-cart"></i> Bestellungen</li>
                 <li onclick="switchTab('emails')"><i class="fas fa-envelope"></i> E-Mail Templates</li>
+                <li onclick="switchTab('monitoring')"><i class="fas fa-shield-alt"></i> Monitoring</li>
                 <li style="margin-top: auto; color: #d63031;" onclick="logout()"><i class="fas fa-sign-out-alt"></i>
                     Abmelden</li>
             </ul>
@@ -629,6 +630,31 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Monitoring Tab -->
+            <div id="tab-monitoring" style="display:none;">
+                <div class="header">
+                    <h2>Monitoring</h2>
+                    <span style="font-size:0.82rem;color:#888;">Sicherheitsstatus, Scanner und Laufzeitwarnungen</span>
+                </div>
+                <div class="card" id="security-health-card" style="margin-bottom:1.2rem;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;">
+                        <div>
+                            <div style="font-size:0.8rem;color:#777;text-transform:uppercase;letter-spacing:0.08em;">Security Health</div>
+                            <div id="security-health-score" style="font-size:2rem;font-weight:700;line-height:1.1;">--%</div>
+                            <div id="security-health-meta" style="font-size:0.85rem;color:#666;">Noch keine Daten</div>
+                        </div>
+                        <button class="btn" style="width:auto;padding:0.55rem 1rem;font-size:0.9rem;background:#2d3436;" onclick="loadSecurityStatus()">
+                            <i class="fas fa-shield-alt"></i> Status aktualisieren
+                        </button>
+                    </div>
+                    <div id="security-health-list" style="margin-top:0.9rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.55rem;">
+                    </div>
+                    <div id="security-scanner-status" style="margin-top:0.8rem;"></div>
+                    <div id="security-monitor-alerts" style="margin-top:0.8rem;"></div>
+                    <div id="security-monitor-history" style="margin-top:0.8rem;"></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -866,6 +892,9 @@
     </style>
 
     <script src="admin.js"></script>
+
+    <script src="cookie-consent.js"></script>
 </body>
 
 </html>
+

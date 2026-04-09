@@ -1,21 +1,259 @@
-﻿const API_BASE_URL = 'https://note-backend-5gy0.onrender.com';
+const API_BASE_URL = (() => {
+    const localHosts = new Set(['localhost', '127.0.0.1']);
+    if (localHosts.has(window.location.hostname)) {
+        return 'http://localhost:4242';
+    }
+    return 'https://note-backend-5gy0.onrender.com';
+})();
+const CSRF_COOKIE_NAME = 'csrf_token';
+const nativeFetch = window.fetch.bind(window);
+let csrfBootstrapPromise = null;
 let allProducts = [];
 let editingProductId = null;
 let selectedIds = new Set(); // Persists selections across search re-renders
 
 let allOrders = [];
 let currentOrderFilter = 'neu';
+let securityMonitorTimer = null;
 
-// Central fetch wrapper – always sends cookies cross-origin & fallback token
-function adminFetch(path, options) {
+// Central fetch wrapper - always sends cookies cross-origin
+function getCookieValue(name) {
+    const prefix = `${name}=`;
+    const entry = document.cookie.split('; ').find(part => part.startsWith(prefix));
+    return entry ? decodeURIComponent(entry.slice(prefix.length)) : '';
+}
+
+async function ensureCsrfTokenCookie() {
+    let token = getCookieValue(CSRF_COOKIE_NAME);
+    if (token) return token;
+
+    if (!csrfBootstrapPromise) {
+        csrfBootstrapPromise = nativeFetch(API_BASE_URL + '/api/csrf-token', {
+            method: 'GET',
+            credentials: 'include'
+        }).finally(() => {
+            csrfBootstrapPromise = null;
+        });
+    }
+
+    await csrfBootstrapPromise;
+    return getCookieValue(CSRF_COOKIE_NAME);
+}
+
+async function adminFetch(path, options) {
     options = options || {};
     options.credentials = 'include';
-    options.headers = options.headers || {};
-    const token = localStorage.getItem('api_admin_auth');
-    if (token) {
-        options.headers['Authorization'] = 'Bearer ' + token;
+
+    const method = String(options.method || 'GET').toUpperCase();
+    if (!['GET', 'HEAD', 'OPTIONS'].includes(method)) {
+        const csrfToken = await ensureCsrfTokenCookie();
+        if (csrfToken) {
+            const headers = new Headers(options.headers || {});
+            headers.set('X-CSRF-Token', csrfToken);
+            options.headers = headers;
+        }
     }
-    return fetch(API_BASE_URL + path, options);
+
+    return nativeFetch(API_BASE_URL + path, options);
+}
+
+function escapeHtml(value) {
+    return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function safeImageSrc(value) {
+    const raw = String(value || '').trim();
+    if (!raw) return 'logo.png';
+    const lowered = raw.toLowerCase();
+    if (lowered.startsWith('javascript:') || lowered.startsWith('data:')) {
+        return 'logo.png';
+    }
+    return escapeHtml(raw);
+}
+
+function renderSecurityStatus(payload) {
+    const scoreEl = document.getElementById('security-health-score');
+    const metaEl = document.getElementById('security-health-meta');
+    const listEl = document.getElementById('security-health-list');
+    const scannerEl = document.getElementById('security-scanner-status');
+    const alertsEl = document.getElementById('security-monitor-alerts');
+    const historyEl = document.getElementById('security-monitor-history');
+    if (!scoreEl || !metaEl || !listEl || !scannerEl || !alertsEl || !historyEl) return;
+
+    if (!payload || !Array.isArray(payload.checks)) {
+        scoreEl.textContent = '--%';
+        metaEl.textContent = 'Keine Sicherheitsdaten verfügbar';
+        listEl.innerHTML = '';
+        scannerEl.innerHTML = '';
+        alertsEl.innerHTML = '';
+        historyEl.innerHTML = '';
+        return;
+    }
+
+    const score = Number(payload.score) || 0;
+    scoreEl.textContent = `${score}%`;
+    scoreEl.style.color = score >= 85 ? '#1abc9c' : (score >= 70 ? '#f39c12' : '#e74c3c');
+    const monitor = payload.monitor || {};
+    const intervalMin = monitor.intervalMs ? Math.max(1, Math.round(Number(monitor.intervalMs) / 60000)) : 0;
+    const dependencyMonitor = payload.dependencyMonitor || {};
+    const depNext = dependencyMonitor.nextRunAt ? new Date(dependencyMonitor.nextRunAt).toLocaleTimeString('de-DE') : 'n/a';
+    const updatedText = payload.updatedAt ? new Date(payload.updatedAt).toLocaleTimeString('de-DE') : 'n/a';
+    const depIntervalHours = dependencyMonitor.intervalMs
+        ? Math.max(1, Math.round(Number(dependencyMonitor.intervalMs) / 3600000))
+        : 24;
+    const depNextDateTime = dependencyMonitor.nextRunAt
+        ? new Date(dependencyMonitor.nextRunAt).toLocaleString('de-DE')
+        : 'n/a';
+    metaEl.textContent = `${payload.passed}/${payload.total} Checks OK · ${escapeHtml(payload.environment || 'n/a')} · Update: ${updatedText}${intervalMin ? ` · Auto-Test alle ${intervalMin} min` : ''} · Nächster Dependency-Scan: ${depNext}`;
+
+    metaEl.textContent = `${payload.passed}/${payload.total} Checks OK | ${escapeHtml(payload.environment || 'n/a')} | Update: ${updatedText}${intervalMin ? ` | Auto-Test alle ${intervalMin} min` : ''} | Dependency-Scan alle ${depIntervalHours}h | Naechster Lauf: ${depNextDateTime}`;
+
+    listEl.innerHTML = payload.checks.map((check) => {
+        const ok = !!check.ok;
+        const bg = ok ? '#e8f8f5' : '#fdecea';
+        const severity = String(check.severity || '').toLowerCase();
+        const isCritical = !ok && severity === 'critical';
+        const color = ok ? '#0f8f75' : (isCritical ? '#b71c1c' : '#c0392b');
+        const icon = ok ? '&#10003;' : (isCritical ? '&#9940;' : '&#9888;');
+        return `
+            <div style="border:1px solid #e6e6e6;border-radius:8px;padding:0.55rem 0.65rem;background:${bg};">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+                    <div style="font-size:0.82rem;font-weight:600;color:#2d3436;">${escapeHtml(check.label || check.id || 'Check')}</div>
+                    <span style="font-size:0.75rem;font-weight:700;color:${color};">${icon}</span>
+                </div>
+                <div style="font-size:0.76rem;color:#666;margin-top:0.2rem;">${escapeHtml(check.detail || '')}</div>
+            </div>
+        `;
+    }).join('');
+
+    const depLatest = dependencyMonitor.latest || {};
+    const depTotals = depLatest.totals || {};
+    const npmFailureText = Array.isArray(depLatest.npmFailures) && depLatest.npmFailures.length
+        ? depLatest.npmFailures.join(' | ')
+        : '';
+    const osvFailureText = Array.isArray(depLatest.osvFailures) && depLatest.osvFailures.length
+        ? depLatest.osvFailures.join(' | ')
+        : '';
+    const scannerCards = [
+        {
+            label: 'npm audit',
+            ok: depLatest.npmOk,
+            detail: typeof depLatest.npmOk === 'boolean' && !depLatest.npmOk
+                ? (npmFailureText || 'Mindestens ein npm audit Lauf fehlgeschlagen.')
+                : `Critical/High: ${Number(depTotals.critical) || 0}/${Number(depTotals.high) || 0}, Moderate: ${Number(depTotals.moderate) || 0}`
+        },
+        {
+            label: 'OSV Scan',
+            ok: depLatest.osvOk,
+            detail: typeof depLatest.osvOk === 'boolean' && !depLatest.osvOk
+                ? (osvFailureText || 'Mindestens ein OSV Scan Lauf fehlgeschlagen.')
+                : `OSV Hits: ${Number(depTotals.osvVulns) || 0}, betroffene Pakete: ${Number(depTotals.osvAffectedPackages) || 0}`
+        }
+    ];
+
+    scannerEl.innerHTML = `
+        <div style="font-size:0.8rem;color:#777;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.35rem;">Scanner Ampel</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.5rem;">
+            ${scannerCards.map((scanner) => {
+                const hasValue = typeof scanner.ok === 'boolean';
+                const bg = !hasValue ? '#f4f6f8' : (scanner.ok ? '#e8f8f5' : '#fdecea');
+                const color = !hasValue ? '#60707c' : (scanner.ok ? '#0f8f75' : '#b71c1c');
+                const badge = !hasValue ? 'GRAU' : (scanner.ok ? 'GRUEN' : 'ROT');
+                return `
+                    <div style="border:1px solid #e6e6e6;border-radius:8px;padding:0.55rem 0.65rem;background:${bg};">
+                        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+                            <div style="font-size:0.85rem;font-weight:700;color:#2d3436;">${escapeHtml(scanner.label)}</div>
+                            <span style="font-size:0.72rem;font-weight:700;color:${color};">${badge}</span>
+                        </div>
+                        <div style="font-size:0.78rem;color:#666;margin-top:0.2rem;">${escapeHtml(scanner.detail)}</div>
+                    </div>
+                `;
+            }).join('')}
+        </div>
+    `;
+
+    const alerts = Array.isArray(monitor.alerts) ? monitor.alerts : [];
+    if (!alerts.length) {
+        alertsEl.innerHTML = '<div style="padding:0.55rem 0.7rem;border-radius:8px;background:#e8f8f5;color:#0f8f75;font-size:0.85rem;font-weight:600;">Keine aktuellen Sicherheitswarnungen aus den Laufzeit-Tests.</div>';
+    } else {
+        alertsEl.innerHTML = `
+            <div style="font-size:0.8rem;color:#777;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.4rem;">Aktive Alarme</div>
+            ${alerts.map((alert) => {
+                const sev = String(alert.severity || 'warning').toLowerCase();
+                const bg = sev === 'critical' ? '#fdecea' : '#fff6e6';
+                const color = sev === 'critical' ? '#b71c1c' : '#b26a00';
+                return `<div style="border:1px solid #f1d2d2;border-radius:8px;background:${bg};padding:0.55rem 0.7rem;margin-bottom:0.35rem;color:${color};font-size:0.84rem;">
+                    <strong>${sev === 'critical' ? 'Kritisch' : 'Warnung'}:</strong> ${escapeHtml(alert.message || 'Unbekannter Alarm')}
+                </div>`;
+            }).join('')}
+        `;
+    }
+
+    const history = Array.isArray(monitor.history) ? monitor.history : [];
+    if (!history.length) {
+        historyEl.innerHTML = '';
+    } else {
+        historyEl.innerHTML = `
+            <div style="font-size:0.8rem;color:#777;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.35rem;">Letzte Testläufe</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.45rem;">
+                ${history.map((run) => {
+                    const runScore = Number(run.score) || 0;
+                    const runFailed = Number(run.failedCount) || 0;
+                    const badge = runScore >= 85 ? '#e8f8f5' : (runScore >= 70 ? '#fff6e6' : '#fdecea');
+                    return `<div style="border:1px solid #e6e6e6;border-radius:8px;padding:0.5rem 0.6rem;background:${badge};font-size:0.8rem;">
+                        <div style="font-weight:700;color:#2d3436;">Score ${runScore}%</div>
+                        <div style="color:#555;">Fehler: ${runFailed}</div>
+                        <div style="color:#666;">Dauer: ${escapeHtml(String(run.durationMs || 0))} ms</div>
+                        <div style="color:#777;">${run.finishedAt ? new Date(run.finishedAt).toLocaleTimeString('de-DE') : ''}</div>
+                    </div>`;
+                }).join('')}
+            </div>
+        `;
+    }
+}
+
+async function loadSecurityStatus() {
+    const listEl = document.getElementById('security-health-list');
+    const scannerEl = document.getElementById('security-scanner-status');
+    const alertsEl = document.getElementById('security-monitor-alerts');
+    const historyEl = document.getElementById('security-monitor-history');
+    if (listEl) {
+        listEl.innerHTML = '<div style="font-size:0.85rem;color:#888;">Lade Sicherheitsstatus und Laufzeit-Tests...</div>';
+    }
+    if (scannerEl) scannerEl.innerHTML = '';
+    if (alertsEl) alertsEl.innerHTML = '';
+    if (historyEl) historyEl.innerHTML = '';
+
+    try {
+        const res = await adminFetch('/api/admin/security-status', { credentials: 'include' });
+        if (!res.ok) {
+            renderSecurityStatus(null);
+            return;
+        }
+        const data = await res.json();
+        renderSecurityStatus(data);
+    } catch (err) {
+        renderSecurityStatus(null);
+    }
+}
+
+function startSecurityMonitor() {
+    if (securityMonitorTimer) {
+        clearInterval(securityMonitorTimer);
+        securityMonitorTimer = null;
+    }
+    loadSecurityStatus();
+    securityMonitorTimer = setInterval(() => {
+        const dashboard = document.getElementById('dashboard');
+        if (dashboard && dashboard.style.display === 'block') {
+            loadSecurityStatus();
+        }
+    }, 60000);
 }
 
 async function login() {
@@ -31,12 +269,9 @@ async function login() {
             credentials: 'include'
         });
         if (res.ok) {
-            const data = await res.json();
-            if (data.token) {
-                localStorage.setItem('api_admin_auth', data.token);
-            }
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
+            startSecurityMonitor();
             loadProducts();
         } else {
             const data = await res.json();
@@ -74,7 +309,7 @@ function startLockoutCountdown(minutes) {
         } else {
             var m = Math.floor(secsLeft / 60);
             var s = secsLeft % 60;
-            errEl.textContent = 'Gesperrt â€“ noch ' + m + ':' + String(s).padStart(2, '0') + ' Minuten';
+            errEl.textContent = 'Gesperrt – noch ' + m + ':' + String(s).padStart(2, '0') + ' Minuten';
             errEl.style.color = '#e74c3c';
         }
     }, 1000);
@@ -86,6 +321,7 @@ async function checkAuth() {
         if (res.ok) {
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
+            startSecurityMonitor();
             loadProducts();
         }
     } catch (e) {
@@ -99,6 +335,8 @@ function switchTab(tab) {
     document.getElementById('tab-products').style.display = tab === 'products' ? 'block' : 'none';
     document.getElementById('tab-orders').style.display = tab === 'orders' ? 'block' : 'none';
     document.getElementById('tab-emails').style.display = tab === 'emails' ? 'block' : 'none';
+    document.getElementById('tab-monitoring').style.display = tab === 'monitoring' ? 'block' : 'none';
+    if (tab === 'monitoring') loadSecurityStatus();
     if (tab === 'orders' && !ordersLoaded) loadOrders();
     if (tab === 'emails') initEmailTab();
 
@@ -111,10 +349,11 @@ function switchTab(tab) {
 }
 
 function logout() {
-    // Also delete the cookie client-side as a fallback
-    document.cookie = 'api_admin_auth=; Max-Age=0; path=/; SameSite=None; Secure';
-    localStorage.removeItem('api_admin_auth');
     adminFetch('/api/admin/logout', { method: 'POST' }).finally(function () {
+        if (securityMonitorTimer) {
+            clearInterval(securityMonitorTimer);
+            securityMonitorTimer = null;
+        }
         document.getElementById('dashboard').style.display = 'none';
         document.getElementById('login-screen').style.display = 'flex';
         document.getElementById('admin-pw').value = '';
@@ -138,7 +377,7 @@ async function loadOrders() {
         } else {
             var errText = 'HTTP ' + res.status;
             try { var d = await res.json(); errText = d.error || errText; } catch (ex) { }
-            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:red;padding:2rem;">Fehler: ' + errText + '</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:red;padding:2rem;">Fehler: ' + escapeHtml(errText) + '</td></tr>';
         }
     } catch (e) {
         tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#e67e22;padding:2rem;"><i class="fas fa-exclamation-triangle"></i> Server noch nicht bereit &ndash; kurz warten und Aktualisieren klicken</td></tr>';
@@ -248,7 +487,7 @@ function renderOrders() {
         const tab = document.querySelector('.order-tab-' + cls);
         if (tab) {
             // Label-Text neu setzen ohne den Badge zu verlieren
-            const labels = { 'neu': '🚨 Neu', 'bearbeitung': '⚙️ In Bearbeitung', 'abgeschlossen': '✓ Abgeschlossen', 'archiv': '💾 Archiv' };
+            const labels = { 'neu': '?? Neu', 'bearbeitung': '?? In Bearbeitung', 'abgeschlossen': '? Abgeschlossen', 'archiv': '?? Archiv' };
             tab.innerHTML = labels[cls] + (count > 0 ? ` <span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.18);color:inherit;font-size:0.75rem;font-weight:700;min-width:20px;height:20px;padding:0 5px;border-radius:10px;margin-left:4px;">${count}</span>` : '');
         }
     }
@@ -261,6 +500,8 @@ function renderOrders() {
     tbody.innerHTML = filteredOrders.map(function (o) {
         var date = new Date(o.date).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
         var amount = o.amount ? (o.amount / 100).toFixed(2) + ' EUR' : '-';
+        var safeName = escapeHtml(o.name || '-');
+        var safeEmail = escapeHtml(o.email || '');
 
         // Address block
         var addr = '-';
@@ -268,21 +509,21 @@ function renderOrders() {
         if (o.address) {
             var a = o.address;
             var parts = [];
-            if (a.name) parts.push('<strong>' + a.name + '</strong>');
+            if (a.name) parts.push('<strong>' + escapeHtml(a.name) + '</strong>');
             if (a.line1) {
-                parts.push(a.line1);
+                parts.push(escapeHtml(a.line1));
                 if (a.line1.toLowerCase().includes('selbstabholung')) {
                     isPickup = true;
                 }
             }
-            if (a.line2) parts.push(a.line2);
-            var cityLine = [a.postal_code, a.city].filter(Boolean).join(' ');
+            if (a.line2) parts.push(escapeHtml(a.line2));
+            var cityLine = [a.postal_code, a.city].filter(Boolean).map(escapeHtml).join(' ');
             if (cityLine) parts.push(cityLine);
-            if (a.country) parts.push(a.country);
+            if (a.country) parts.push(escapeHtml(a.country));
             if (!parts.length) {
-                if (a.street) parts.push(a.street);
-                if (a.zip || a.city) parts.push([a.zip, a.city].filter(Boolean).join(' '));
-                if (a.country) parts.push(a.country);
+                if (a.street) parts.push(escapeHtml(a.street));
+                if (a.zip || a.city) parts.push([a.zip, a.city].filter(Boolean).map(escapeHtml).join(' '));
+                if (a.country) parts.push(escapeHtml(a.country));
             }
             addr = parts.join('<br>');
         }
@@ -295,29 +536,31 @@ function renderOrders() {
         var items = '-';
         if (o.items && o.items.length) {
             items = o.items.map(function (item) {
-                return (item.quantity > 1 ? item.quantity + 'x ' : '') + (item.description || '');
+                const quantity = Number(item.quantity) > 1 ? Number(item.quantity) + 'x ' : '';
+                return quantity + escapeHtml(item.description || '');
             }).join('<br>');
         }
 
         // Actions
+        var safeOrderId = encodeURIComponent(String(o._id || ''));
         let actions = '<div class="order-actions">';
         if (currentOrderFilter === 'neu') {
-            actions += `<button class="order-action-btn btn-start" onclick="setOrderStatus('${o._id}', 'in_bearbeitung')"><i class="fas fa-box-open"></i> In Bearbeitung</button>`;
+            actions += `<button class="order-action-btn btn-start" onclick="setOrderStatus(decodeURIComponent('${safeOrderId}'), 'in_bearbeitung')"><i class="fas fa-box-open"></i> In Bearbeitung</button>`;
         } else if (currentOrderFilter === 'in_bearbeitung') {
-            actions += `<button class="order-action-btn btn-done" onclick="setOrderStatus('${o._id}', 'abgeschlossen')"><i class="fas fa-check"></i> Abschlie&szlig;en</button>`;
+            actions += `<button class="order-action-btn btn-done" onclick="setOrderStatus(decodeURIComponent('${safeOrderId}'), 'abgeschlossen')"><i class="fas fa-check"></i> Abschlie&szlig;en</button>`;
 
             if (isPickup) {
                 if (o.pickupEmailSent) {
                     actions += `<button class="order-action-btn btn-pickup sent" disabled><i class="fas fa-check-circle"></i> Mail gesendet</button>`;
                 } else {
-                    actions += `<button class="order-action-btn btn-pickup" onclick="sendPickupEmail(this, '${o._id}')"><i class="fas fa-envelope"></i> Abhol-Mail</button>`;
+                    actions += `<button class="order-action-btn btn-pickup" onclick="sendPickupEmail(this, decodeURIComponent('${safeOrderId}'))"><i class="fas fa-envelope"></i> Abhol-Mail</button>`;
                 }
             }
 
-            actions += `<button class="order-action-btn btn-back" onclick="setOrderStatus('${o._id}', 'neu')"><i class="fas fa-undo"></i> Zur&uuml;ck auf Neu</button>`;
+            actions += `<button class="order-action-btn btn-back" onclick="setOrderStatus(decodeURIComponent('${safeOrderId}'), 'neu')"><i class="fas fa-undo"></i> Zur&uuml;ck auf Neu</button>`;
         } else if (currentOrderFilter === 'abgeschlossen') {
-            actions += `<button class="order-action-btn btn-back" onclick="setOrderStatus('${o._id}', 'in_bearbeitung')"><i class="fas fa-undo"></i> Bearbeiten</button>`;
-            actions += `<button class="order-action-btn btn-archive" onclick="setOrderStatus('${o._id}', 'archiv')"><i class="fas fa-archive"></i> Archivieren</button>`;
+            actions += `<button class="order-action-btn btn-back" onclick="setOrderStatus(decodeURIComponent('${safeOrderId}'), 'in_bearbeitung')"><i class="fas fa-undo"></i> Bearbeiten</button>`;
+            actions += `<button class="order-action-btn btn-archive" onclick="setOrderStatus(decodeURIComponent('${safeOrderId}'), 'archiv')"><i class="fas fa-archive"></i> Archivieren</button>`;
         } else {
             actions += `<span class="status-badge" style="background:#ddd;color:#555;"><i class="fas fa-archive"></i> Im Archiv</span>`;
         }
@@ -325,7 +568,7 @@ function renderOrders() {
 
         return '<tr>' +
             '<td style="white-space:nowrap;font-size:0.85rem;">' + date + '</td>' +
-            '<td><strong>' + (o.name || '-') + '</strong><br><span style="font-size:0.8rem;color:#888;">' + (o.email || '') + '</span></td>' +
+            '<td><strong>' + safeName + '</strong><br><span style="font-size:0.8rem;color:#888;">' + safeEmail + '</span></td>' +
             '<td style="font-size:0.82rem;line-height:1.5;">' + addr + '</td>' +
             '<td style="font-size:0.82rem;line-height:1.6;">' + items + '</td>' +
             '<td style="font-weight:600;white-space:nowrap;">' + amount + '</td>' +
@@ -352,7 +595,7 @@ async function sendPickupEmail(btnElement, orderId) {
             if (idx !== -1) {
                 allOrders[idx].pickupEmailSent = true;
             }
-            // Tabelle neu rendern – Button erscheint nun direkt im grauen Zustand
+            // Tabelle neu rendern - Button erscheint nun direkt im grauen Zustand
             renderOrders();
         } else {
             const err = await res.json();
@@ -389,20 +632,25 @@ function renderProductTable(productsToRender) {
         return;
     }
     tbody.innerHTML = productsToRender.map(function (p) {
-        var imgSrc = (p.images && p.images.length > 0) ? p.images[0] : 'logo.png';
+        var safeId = encodeURIComponent(String(p.id || ''));
+        var safeIdText = escapeHtml(p.id || '');
+        var safeName = escapeHtml(p.name || '');
+        var safeInspiredBy = escapeHtml(p.inspiredBy || '');
+        var safeCategory = escapeHtml(p.category || '');
+        var imgSrc = safeImageSrc((p.images && p.images.length > 0) ? p.images[0] : 'logo.png');
         var price50 = (p.variants && p.variants['50']) ? p.variants['50'].price.toFixed(2) + ' EUR' : '-';
         var isChecked = selectedIds.has(p.id) ? ' checked' : '';
         return '<tr>' +
-            '<td><input type="checkbox" class="product-cb" data-id="' + p.id + '"' + isChecked + ' onchange="onCheckboxChange(this)"></td>' +
+            '<td><input type="checkbox" class="product-cb" data-id="' + safeIdText + '"' + isChecked + ' onchange="onCheckboxChange(this)"></td>' +
             '<td><img src="' + imgSrc + '" onerror="this.src=\'logo.png\'" style="width:40px;height:40px;border-radius:4px;object-fit:cover;"></td>' +
-            '<td style="font-weight:500;">' + p.id + '</td>' +
-            '<td>' + (p.name || '') + '<br><span style="font-size:0.8rem;color:#888;">' + (p.inspiredBy || '') + '</span></td>' +
-            '<td><span class="status-badge success">' + (p.category || '') + '</span></td>' +
+            '<td style="font-weight:500;">' + safeIdText + '</td>' +
+            '<td>' + safeName + '<br><span style="font-size:0.8rem;color:#888;">' + safeInspiredBy + '</span></td>' +
+            '<td><span class="status-badge success">' + safeCategory + '</span></td>' +
             '<td>' + price50 + '</td>' +
             '<td style="white-space:nowrap;">' +
-            '<button class="btn-edit" title="Bearbeiten" onclick="editProduct(\'' + p.id + '\')"><i class="fas fa-pen"></i></button>' +
+            '<button class="btn-edit" title="Bearbeiten" onclick="editProduct(decodeURIComponent(\'' + safeId + '\'))"><i class="fas fa-pen"></i></button>' +
             ' ' +
-            '<button class="btn-delete" title="Loeschen" onclick="deleteProduct(\'' + p.id + '\')"><i class="fas fa-trash"></i></button>' +
+            '<button class="btn-delete" title="Loeschen" onclick="deleteProduct(decodeURIComponent(\'' + safeId + '\'))"><i class="fas fa-trash"></i></button>' +
             '</td></tr>';
     }).join('');
     updateBulkPanel();
@@ -639,7 +887,7 @@ async function deleteProduct(id) {
 // ---- ADD NEW PRODUCT ----
 
 // Figure out the next free ID for a given category
-// e.g. men â†’ finds highest G-number â†’ returns G261
+// e.g. men → finds highest G-number → returns G261
 function suggestNextId(category) {
     var catProducts = allProducts.filter(function (p) { return p.category === category; });
     if (!catProducts.length) return '';

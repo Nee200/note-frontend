@@ -4,18 +4,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>NØTE. fragrances | Langanhaltendes Extrait de Parfum & Duftzwillinge</title>
-    <meta name="description"
-        content="Entdecke exklusive Duftzwillinge und Extrait de Parfum mit über 40% Duftölanteil. Langanhaltende Damen- und Herrendüfte, Made in Germany. Jetzt 60€ gratis Versand!">
-    <meta name="keywords"
-        content="Extrait de Parfum, Duftzwillinge, Parfüm, Langanhaltendes Parfum, NØTE fragrances, Damen Parfum, Herren Parfum">
-    <meta name="author" content="NØTE. fragrances">
+    <title>Newsletter-Bestätigung - NOTE. Extrait de Parfum</title>
     <link rel="stylesheet" href="style.css?v=1772548916338">
     <link rel="stylesheet" data-consent-href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;900&display=swap" data-consent-category="optional">
     <link rel="stylesheet" data-consent-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" data-consent-category="optional"
         integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script data-consent-src="https://js.stripe.com/v3/" data-consent-category="optional"></script>
+    <style>
+        .confirmation-page {
+            position: relative;
+            padding: 4.5rem 0 5rem;
+            overflow: hidden;
+        }
+
+        .confirmation-page::before {
+            content: '';
+            position: absolute;
+            inset: 0 0 auto;
+            height: 460px;
+            background:
+                radial-gradient(circle at 18% 18%, rgba(212, 175, 55, 0.16), transparent 32%),
+                radial-gradient(circle at 82% 14%, rgba(201, 168, 76, 0.12), transparent 28%),
+                linear-gradient(180deg, #f8f4ec 0%, rgba(248, 244, 236, 0.55) 58%, rgba(248, 244, 236, 0) 100%);
+            pointer-events: none;
+        }
+
+        .confirmation-wrap {
+            position: relative;
+            z-index: 1;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 1.2rem;
+        }
+
+        .confirmation-card {
+            background: rgba(255, 252, 246, 0.88);
+            border: 1px solid rgba(39, 34, 24, 0.08);
+            border-radius: 30px;
+            box-shadow: 0 32px 100px rgba(23, 20, 16, 0.08);
+            padding: clamp(2rem, 4vw, 3.4rem);
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .confirmation-kicker {
+            margin: 0 0 0.9rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #b79236;
+        }
+
+        .confirmation-icon {
+            width: 78px;
+            height: 78px;
+            margin: 0 auto 1.35rem;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f3e6bb 0%, #d7bb63 100%);
+            color: #6a5317;
+            font-size: 2rem;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+        }
+
+        .confirmation-title {
+            margin: 0 0 1rem;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            line-height: 1.05;
+            color: #181715;
+        }
+
+        .confirmation-copy {
+            max-width: 600px;
+            margin: 0 auto;
+            color: #605b53;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .confirmation-code {
+            display: none;
+            width: fit-content;
+            min-width: 270px;
+            margin: 2rem auto 0;
+            padding: 1.05rem 1.5rem 1.2rem;
+            border-radius: 20px;
+            background: #171715;
+            box-shadow: 0 24px 48px rgba(17, 17, 16, 0.16);
+        }
+
+        .confirmation-code-label {
+            display: block;
+            margin-bottom: 0.4rem;
+            color: #d6b15b;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .confirmation-code-value {
+            color: #fffdf8;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.9rem;
+            letter-spacing: 0.18em;
+        }
+
+        .confirmation-note {
+            margin: 1.5rem auto 0;
+            max-width: 560px;
+            color: #7c7568;
+            font-size: 0.92rem;
+            line-height: 1.7;
+        }
+
+        .confirmation-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.95rem;
+            margin-top: 2.2rem;
+        }
+
+        .confirmation-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 52px;
+            padding: 0.9rem 1.3rem;
+            border-radius: 999px;
+            border: 1px solid rgba(26, 26, 26, 0.12);
+            color: #1a1a1a;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .confirmation-secondary:hover {
+            transform: translateY(-1px);
+            border-color: rgba(26, 26, 26, 0.24);
+            background: rgba(255, 255, 255, 0.65);
+        }
+
+        @media (max-width: 680px) {
+            .confirmation-page {
+                padding: 3.2rem 0 4rem;
+            }
+
+            .confirmation-card {
+                border-radius: 24px;
+                padding: 2rem 1.2rem;
+            }
+
+            .confirmation-actions {
+                flex-direction: column;
+            }
+
+            .confirmation-actions .btn,
+            .confirmation-secondary {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -198,116 +355,26 @@
         </div>
     </nav>
 
-
-
-    <!-- Hero Section -->
-    <header class="hero" id="hero-section">
-        <picture style="display:none" id="hero-picture">
-            <source srcset="images_website/image_hero.webp" type="image/webp">
-            <img src="images_website/image_hero.jpg" alt="" id="hero-img"
-                onload="document.getElementById('hero-section').style.backgroundImage='url('+this.currentSrc+')'">
-        </picture>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <span class="hero-subtitle">NØTE.</span>
-            <h1>Düfte für die Ewigkeit.</h1>
-            <p class="hero-description">Erlebe die Kraft von <strong>Extrait de Parfum</strong> – intensiv und
-                langanhaltend.</p>
-            <a href="suche" class="btn btn-hero">ZUR KOLLEKTION</a>
+    <main class="confirmation-page">
+        <div class="confirmation-wrap">
+            <section class="confirmation-card">
+                <p class="confirmation-kicker" id="confirmation-kicker">Newsletter</p>
+                <div class="confirmation-icon" id="confirmation-icon">âœ¦</div>
+                <h1 class="confirmation-title" id="confirmation-title">Einen Moment bitte</h1>
+                <p class="confirmation-copy" id="confirmation-copy">Wir pr&uuml;fen gerade deine Newsletter-Bestätigung.</p>
+                <div class="confirmation-code" id="confirmation-code">
+                    <span class="confirmation-code-label">Dein Testcode</span>
+                    <span class="confirmation-code-value" id="confirmation-code-value"></span>
+                </div>
+                <p class="confirmation-note" id="confirmation-note">Danach geht es für dich ganz normal im Shop weiter.</p>
+                <div class="confirmation-actions">
+                    <a href="suche.html" class="btn btn-primary">Zur Kollektion</a>
+                    <a href="kontakt.html" class="confirmation-secondary">Kontakt</a>
+                </div>
+            </section>
         </div>
-    </header>
+    </main>
 
-    <section class="container section brand-video-section">
-        <div class="brand-video-inner">
-            <div class="brand-video-copy">
-                <h2 class="brand-video-title">NØTE. in Bewegung</h2>
-                <p class="brand-video-text">
-                    Ein Einblick in unsere Welt intensiver Extrait de Parfum &ndash; modern, klar und kompromisslos.
-                </p>
-            </div>
-            <div class="brand-video-wrapper">
-                <video class="brand-video" src="images_website/test.mp4" autoplay muted loop playsinline
-                    poster="images_website/image_hero.webp"></video>
-            </div>
-        </div>
-    </section>
-
-    <section id="bestseller" class="container section">
-        <h2 class="section-title">Bestseller</h2>
-        <p class="collection-intro">
-            Eine Auswahl unserer beliebtesten Düfte, getrennt nach Damen- und Herrendüften.
-        </p>
-        <h3 id="frauen-section"><a href="frauenduefte.html">Damen &rarr;</a></h3>
-        <div id="bestseller-women-grid" class="product-grid"></div>
-        <h3 id="herren-section"><a href="herrenduefte.html">Herren &rarr;</a></h3>
-        <div id="bestseller-men-grid" class="product-grid"></div>
-    </section>
-
-    <section id="kollektion-entdecken" class="container section">
-        <h2 class="section-title">Die Kollektion entdecken</h2>
-        <p class="collection-intro">
-            W&auml;hle zwischen unseren exklusiven Damen- und Herrendüften.
-        </p>
-        <div class="category-entry-grid">
-            <a href="frauenduefte.html" class="category-entry-card">
-                <div class="category-entry-image-wrapper">
-                    <img src="images_parfume/Frauenduefte_webp.webp" alt="Frauendüfte" class="category-entry-image">
-                </div>
-                <div class="category-entry-overlay">
-                    <span class="category-entry-title">Frauendüfte</span>
-                    <span class="category-entry-cta">Hier entdecken</span>
-                </div>
-            </a>
-            <a href="herrenduefte.html" class="category-entry-card">
-                <div class="category-entry-image-wrapper">
-                    <img src="images_parfume/Herrenduefte_note.webp" alt="Herrendüfte" class="category-entry-image">
-                </div>
-                <div class="category-entry-overlay">
-                    <span class="category-entry-title">Herrendüfte</span>
-                    <span class="category-entry-cta">Hier entdecken</span>
-                </div>
-            </a>
-        </div>
-    </section>
-
-    <!-- Modal for Intro Text -->
-    <div id="intro-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeIntroModal()">&times;</span>
-            <div class="modal-body" style="display: block; text-align: center; padding: 2rem;">
-                <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 1rem;">Unsere Philosophie</h2>
-                <p id="intro-modal-text" style="line-height: 1.6; color: #555;"></p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Product Detail Modal -->
-    <div id="product-modal" class="modal">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeModal()">&times;</button>
-            <div class="modal-body">
-                <div class="modal-gallery">
-                    <div class="main-image-container">
-                        <img id="modal-main-image" src="" alt="Detailansicht">
-                    </div>
-                    <div id="modal-thumbnails" class="thumbnails-container">
-                        <!-- Thumbnails per JS -->
-                    </div>
-                </div>
-                <div class="modal-info">
-                    <h2 id="modal-title">Produktname</h2>
-                    <p id="modal-price" class="modal-price">0.00 &euro;</p>
-                    <div class="modal-description">
-                        <p id="modal-desc">Beschreibungstext...</p>
-                        <p id="modal-long-desc" class="long-desc">Ausf&uuml;hrliche Beschreibung...</p>
-                    </div>
-                    <button id="modal-add-btn" class="btn btn-primary btn-block">In den Warenkorb</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Warenkorb Sidebar -->
     <div id="cart-sidebar" class="cart-sidebar">
         <!-- Header -->
         <div class="cart-header">
@@ -389,12 +456,6 @@
             <button class="btn btn-checkout" onclick="checkout()">
                 <i class="fas fa-lock"></i> Sicher zur Kasse
             </button>
-            <p style="margin:8px 0 0;font-size:0.72rem;color:#777;line-height:1.4;">
-                Mit Klick auf "Sicher zur Kasse" wirst du zu Stripe weitergeleitet. Es gelten
-                <a href="agb.html" style="color:#444;">AGB</a>,
-                <a href="widerrufsrecht.html" style="color:#444;">Widerrufsrecht</a> und
-                <a href="datenschutz.html" style="color:#444;">Datenschutz</a>.
-            </p>
             <div class="payment-icons">
                 <span class="pay-icon">PayPal</span>
                 <span class="pay-icon">Klarna.</span>
@@ -405,129 +466,6 @@
     </div>
     <div id="overlay" class="overlay" onclick="toggleCart()"></div>
 
-    <!-- FAQ Section -->
-    <section class="faq-section container section">
-        <h2 class="section-title">H&Auml;UFIG GESTELLTE FRAGEN</h2>
-        <div class="faq-container">
-            <div class="faq-item">
-                <button class="faq-question">Was sind Duftzwillinge? <span class="icon">+</span></button>
-                <div class="faq-answer">
-                    <p>Duftzwillinge sind hochwertige Parfums, die olfaktorisch bekannten Markend&uuml;ften ?hneln, jedoch
-                        unter eigenem Namen vertrieben werden. Sie bieten ein ?hnliches Dufterlebnis zu einem
-                        g&uuml;nstigeren Preis.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">Warum sind Duftzwillinge so beliebt? <span class="icon">+</span></button>
-                <div class="faq-answer">
-                    <p>Sie sind beliebt, weil sie hohe Qualität und exzellente Haltbarkeit zu einem Bruchteil des
-                        Preises von Designerd&uuml;ften bieten. Man zahlt für den Duft, nicht für die Marke.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">Welches sind die beliebtesten Duftzwillinge? <span
-                        class="icon">+</span></button>
-                <div class="faq-answer">
-                    <p>Bei den Damendüften sind aktuell <strong>NØTE. L190</strong> (&hellip;Libre&reg;) und
-                        <strong>NØTE. L95</strong> (&hellip;Scandal Le Parfum&reg;) unsere gefragtesten Düfte
-                        &ndash; beide stehen für feminine Eleganz und außergewöhnliche Langlebigkeit auf der Haut.
-                    </p>
-                    <p style="margin-top:10px;">Bei den Herrendüften begeistern vor allem <strong>NØTE. No.
-                            G299</strong> (&hellip;Erba Pura&reg;) und <strong>NØTE. G105</strong>
-                        (&hellip;Ambassador&reg;) &ndash; kraftvolle Kompositionen, die durch ihren hohen Duftölanteil
-                        stundenlang pr&auml;sent bleiben.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">Welches Parfum hat einen Zwilling? <span class="icon">+</span></button>
-                <div class="faq-answer">
-                    <p>Wir f&uuml;hren Zwillinge zu vielen bekannten Nischen- und Designerd&uuml;ften. Jeder unserer Düfte ist
-                        einem ikonischen Original nachempfunden &ndash; den jeweiligen Vergleichsduft finden Sie direkt auf
-                        der
-                        jeweiligen Produktseite.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">Wie finde ich den richtigen Duftzwilling? <span
-                        class="icon">+</span></button>
-                <div class="faq-answer">
-                    <p>Orientieren Sie sich an den Duftnoten und der Duftfamilie &ndash; jede Produktseite beschreibt den
-                        Charakter des Dufts detailliert. Wenn Sie unsicher sind, hilft unser Kundenservice gerne weiter.
-                    </p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">Wie lange dauert der Versand? <span class="icon">+</span></button>
-                <div class="faq-answer">
-                    <p>Der Versand erfolgt in der Regel innerhalb von 1&ndash;3 Werktagen. Ab einem Bestellwert von 60&nbsp;&euro;
-                        ist der Versand innerhalb Deutschlands kostenlos.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">Wie lange h&ouml;lt der Duft auf der Haut? <span class="icon">+</span></button>
-                <div class="faq-answer">
-                    <p>Unsere Extraits de Parfum enthalten einen hohen &ouml;lanteil, wodurch der Duft den ganzen Tag (10h+)
-                        h&ouml;lt.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Bar -->
-    <div class="features-bar">
-        <div class="container features-grid">
-            <div class="feature-item">
-                <div class="feature-icon-wrapper">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="1" y="3" width="15" height="13"></rect>
-                        <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
-                        <circle cx="5.5" cy="18.5" r="2.5"></circle>
-                        <circle cx="18.5" cy="18.5" r="2.5"></circle>
-                    </svg>
-                </div>
-                <h3>SCHNELL UND SICHER</h3>
-                <p>Deutschlandweit kostenloser Versand ab 60&euro;.</p>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon-wrapper">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path
-                            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
-                        </path>
-                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                    </svg>
-                </div>
-                <h3>STRESSFREIE RETOURE</h3>
-                <p>Bei Nichtgefallen, kannst du deine Bestellung retournieren.</p>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon-wrapper">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"></path>
-                        <circle cx="12" cy="10" r="3"></circle>
-                    </svg>
-                </div>
-                <h3>MADE IN GERMANY</h3>
-                <p>German-Made für h&ouml;chste Qualität und Stil Anspr&uuml;che.</p>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon-wrapper">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
-                    </svg>
-                </div>
-                <h3>H&Ouml;CHSTER &Ouml;LANTEIL</h3>
-                <p>Extrait de Parfum mit über 40% Duftölanteil für maximale Haltbarkeit.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Newsletter Section -->
     <section class="newsletter-section">
         <div class="newsletter-inner">
             <p class="newsletter-label">EXKLUSIVE VORTEILE</p>
@@ -640,12 +578,10 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="legal-encoding-fix.js"></script>
     <script src="script.js?v=1772548916338"></script>
     <script src="banner-sync.js"></script>
 
-    <!-- Newsletter Popup -->
     <div id="nl-backdrop"
         style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:8000;backdrop-filter:blur(3px);opacity:0;transition:opacity 0.3s;">
     </div>
@@ -678,67 +614,66 @@
 
     <script>
         (function () {
-            if (localStorage.getItem('nl_dismissed')) return;
+            const params = new URLSearchParams(window.location.search);
+            const status = params.get('status');
+            const code = params.get('code');
+            const kicker = document.getElementById('confirmation-kicker');
+            const icon = document.getElementById('confirmation-icon');
+            const title = document.getElementById('confirmation-title');
+            const copy = document.getElementById('confirmation-copy');
+            const codeWrap = document.getElementById('confirmation-code');
+            const codeValue = document.getElementById('confirmation-code-value');
+            const note = document.getElementById('confirmation-note');
 
-            const backdrop = document.getElementById('nl-backdrop');
-            const popup = document.getElementById('nl-popup');
-
-            function showPopup() {
-                backdrop.style.display = 'block';
-                popup.style.display = 'block';
-                // Force reflow then animate in
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        backdrop.style.opacity = '1';
-                        popup.style.opacity = '1';
-                        popup.style.transform = 'translateY(0)';
-                    });
-                });
+            if (status === 'success') {
+                kicker.textContent = 'Best&auml;tigt';
+                icon.textContent = 'âœ“';
+                icon.style.background = 'linear-gradient(135deg, #dfeee6 0%, #b8ddc8 100%)';
+                icon.style.color = '#2c5a45';
+                title.textContent = 'Deine Anmeldung ist best&auml;tigt';
+                copy.textContent = 'Dein Newsletter ist jetzt aktiv. Deinen pers&ouml;nlichen Rabattcode senden wir dir direkt per E-Mail zu.';
+                note.textContent = 'Wenn du nichts findest, pr&uuml;fe bitte auch deinen Spam-Ordner.';
+            } else if (status === 'already-confirmed') {
+                kicker.textContent = 'Bereits aktiv';
+                icon.textContent = 'âœ“';
+                icon.style.background = 'linear-gradient(135deg, #dfeee6 0%, #b8ddc8 100%)';
+                icon.style.color = '#2c5a45';
+                title.textContent = 'Diese Anmeldung ist bereits aktiv';
+                copy.textContent = 'Der Bestätigungslink wurde schon verwendet. Wenn dir dein Rabattcode fehlt, pr&uuml;fe bitte dein E-Mail-Postfach.';
+                note.textContent = 'Du kannst danach ganz normal weiter im Shop stübern.';
+            } else if (status === 'expired') {
+                kicker.textContent = 'Erneut anmelden';
+                icon.textContent = '!';
+                icon.style.background = 'linear-gradient(135deg, #f6e8d5 0%, #ebc88e 100%)';
+                icon.style.color = '#8f5a13';
+                title.textContent = 'Dein Bestätigungslink ist abgelaufen';
+                copy.textContent = 'Bitte trage deine E-Mail-Adresse noch einmal im Newsletter-Formular ein. Danach senden wir dir einen neuen Bestätigungslink.';
+                note.textContent = 'So stellen wir sicher, dass nur g&ouml;ltige Anmeldungen aktiv werden.';
+            } else if (status === 'invalid') {
+                kicker.textContent = 'Link ung&ouml;ltig';
+                icon.textContent = '!';
+                icon.style.background = 'linear-gradient(135deg, #f6e8d5 0%, #ebc88e 100%)';
+                icon.style.color = '#8f5a13';
+                title.textContent = 'Dieser Link ist nicht mehr g&ouml;ltig';
+                copy.textContent = 'Bitte melde dich erneut für den Newsletter an, damit wir dir einen g&ouml;ltigen Bestätigungslink schicken können.';
+                note.textContent = 'Der Link wurde möglicherweise schon verwendet oder war unvollst&auml;ndig.';
+            } else if (status === 'error') {
+                kicker.textContent = 'Fehler';
+                icon.textContent = '!';
+                icon.style.background = 'linear-gradient(135deg, #f6dddd 0%, #efb6b6 100%)';
+                icon.style.color = '#9f2f2f';
+                title.textContent = 'Die Bestätigung hat nicht geklappt';
+                copy.textContent = 'Beim Verarbeiten deiner Bestätigung ist ein Fehler aufgetreten. Bitte versuche es sp&auml;ter erneut oder melde dich direkt bei uns.';
+                note.textContent = 'Wenn das Problem bleibt, helfen wir dir gern über den Kontaktbereich weiter.';
             }
 
-            backdrop.addEventListener('click', dismissNewsletter);
-            setTimeout(showPopup, 10000);
+            if (code) {
+                codeWrap.style.display = 'block';
+                codeValue.textContent = code;
+                copy.textContent = 'Dein Newsletter ist jetzt aktiv. Im lokalen Testmodus zeigen wir dir deinen Testcode direkt hier an.';
+                note.textContent = 'Im echten Betrieb kommt dein Rabattcode nach der Bestätigung per E-Mail.';
+            }
         })();
-
-        function dismissNewsletter() {
-            localStorage.setItem('nl_dismissed', '1');
-            const backdrop = document.getElementById('nl-backdrop');
-            const popup = document.getElementById('nl-popup');
-            backdrop.style.opacity = '0';
-            popup.style.opacity = '0';
-            popup.style.transform = 'translateY(16px)';
-            setTimeout(() => { backdrop.style.display = 'none'; popup.style.display = 'none'; }, 350);
-        }
-
-        async function submitNewsletterPopup(e) {
-            e.preventDefault();
-            const email = document.getElementById('nl-popup-email').value.trim();
-            const btn = document.getElementById('nl-popup-btn');
-            const fb = document.getElementById('nl-popup-feedback');
-            btn.disabled = true; btn.textContent = '…';
-
-            try {
-                const res = await fetch(API_BASE_URL + '/api/newsletter', {
-                    method: 'POST', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email })
-                });
-                const data = await res.json();
-                if (res.ok && data.success) {
-                    fb.style.cssText = 'display:block;background:rgba(45,122,80,.15);color:#6fcf97;border:1px solid rgba(111,207,151,.25);padding:9px 12px;border-radius:4px;font-size:.8rem;';
-                    fb.textContent = data.message || 'Bitte best&auml;tige deine Anmeldung über die E-Mail, die wir dir gerade gesendet haben.';
-                    document.getElementById('nl-popup-form').style.display = 'none';
-                    localStorage.setItem('nl_dismissed', '1');
-                } else if (data.alreadySubscribed) {
-                    fb.style.cssText = 'display:block;background:rgba(201,168,76,.1);color:#c9a84c;border:1px solid rgba(201,168,76,.25);padding:9px 12px;border-radius:4px;font-size:.8rem;';
-                    fb.textContent = 'Diese E-Mail ist bereits angemeldet.';
-                    btn.disabled = false; btn.textContent = 'Jetzt sichern';
-                } else { throw new Error(); }
-            } catch {
-                fb.style.cssText = 'display:block;background:rgba(185,28,28,.12);color:#f87171;border:1px solid rgba(248,113,113,.25);padding:9px 12px;border-radius:4px;font-size:.8rem;';
-                fb.textContent = 'Fehler &ndash; bitte erneut versuchen.';
-                btn.disabled = false; btn.textContent = 'Jetzt sichern';
-            }
-        }
     </script>
 
     <script src="cookie-consent.js"></script>
