@@ -176,12 +176,14 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let currentDiscount = parseFloat(localStorage.getItem('discount')) || 0;
 let currentCouponCode = localStorage.getItem('couponCode') || '';
 let currentCouponLabel = localStorage.getItem('couponLabel') || '';
+const STRIPE_PENDING_CHECKOUT_KEY = 'stripe_checkout_pending';
 let currentDeliveryMethod = 'shipping';
 let currentSelectedSize = 50;
 let currentListCategory = 'all';
 let currentPageIndex = 0;
 let currentProductsPerPage = 25;
 let currentNoteFilter = 'all';
+let cartScrollLockY = 0;
 
 if (currentDiscount > 0 && !currentCouponCode) {
     currentDiscount = 0;
@@ -189,6 +191,37 @@ if (currentDiscount > 0 && !currentCouponCode) {
     localStorage.removeItem('discount');
     localStorage.removeItem('couponCode');
     localStorage.removeItem('couponLabel');
+}
+
+function clearCartState() {
+    cart = [];
+    clearCouponState();
+    localStorage.removeItem('cart');
+    updateCartUI();
+}
+
+function handleCheckoutReturnState() {
+    const path = String(window.location.pathname || '').toLowerCase();
+    const isSuccessPage = path.endsWith('/success.html') || path.endsWith('success.html');
+    const isCancelPage = path.endsWith('/cancel.html') || path.endsWith('cancel.html');
+
+    if (isCancelPage) {
+        sessionStorage.removeItem(STRIPE_PENDING_CHECKOUT_KEY);
+        return;
+    }
+
+    if (!isSuccessPage) return;
+
+    const params = new URLSearchParams(window.location.search || '');
+    const isPickup = params.get('pickup') === 'true' || sessionStorage.getItem('isPickupOrder') === 'true';
+    const hadStripePending = sessionStorage.getItem(STRIPE_PENDING_CHECKOUT_KEY) === '1';
+
+    if (isPickup || hadStripePending) {
+        clearCartState();
+    }
+
+    sessionStorage.removeItem('isPickupOrder');
+    sessionStorage.removeItem(STRIPE_PENDING_CHECKOUT_KEY);
 }
 
 const productGrid = document.getElementById('product-grid');
@@ -1586,11 +1619,23 @@ function toggleCart() {
         document.documentElement.classList.remove('no-scroll');
         document.body.style.overflow = '';
         document.documentElement.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.width = '';
+        window.scrollTo(0, cartScrollLockY);
     } else {
+        cartScrollLockY = window.scrollY || window.pageYOffset || 0;
         cartSidebar.classList.add('open');
         if (cartOverlay) cartOverlay.classList.add('open');
         document.body.classList.add('no-scroll');
         document.documentElement.classList.add('no-scroll');
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${cartScrollLockY}px`;
+        document.body.style.left = '0';
+        document.body.style.right = '0';
+        document.body.style.width = '100%';
     }
 }
 
@@ -1751,6 +1796,7 @@ async function checkout() {
 
         // 3. Weiterleitung zu Stripe
         if (data.url) {
+            sessionStorage.setItem(STRIPE_PENDING_CHECKOUT_KEY, '1');
             window.location.href = data.url;
         } else {
             console.error('Keine URL erhalten:', data);
@@ -1936,6 +1982,7 @@ function closeProductModal() {
 window.closeModal = closeProductModal;
 
 // Start
+handleCheckoutReturnState();
 init();
 initIntroText(); // Run on startup
 

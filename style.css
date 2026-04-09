@@ -4011,6 +4011,12 @@ select:focus {
         -webkit-overflow-scrolling: touch;
     }
 
+    .cart-items {
+        overscroll-behavior: contain;
+        touch-action: pan-y;
+        -webkit-overflow-scrolling: touch;
+    }
+
     /* ==== MOBILE FIXES (IPHONE/SMALL SCREENS) ==== */
     @media (max-width: 480px) {
 
