@@ -462,6 +462,34 @@ async function setOrderStatus(orderId, newStatus) {
     }
 }
 
+async function deleteOrder(orderId) {
+    if (!orderId) return;
+
+    const ok = confirm('Bestellung wirklich loeschen? Dieser Schritt kann nicht rueckgaengig gemacht werden.');
+    if (!ok) return;
+
+    try {
+        const res = await adminFetch(`/api/admin/orders/${orderId}`, {
+            method: 'DELETE'
+        });
+
+        if (res.ok) {
+            allOrders = allOrders.filter(o => String(o._id) !== String(orderId));
+            renderOrders();
+            return;
+        }
+
+        let msg = 'Fehler beim Loeschen der Bestellung';
+        try {
+            const data = await res.json();
+            if (data && data.error) msg = data.error;
+        } catch (err) { }
+        alert(msg);
+    } catch (e) {
+        alert('Verbindungsfehler');
+    }
+}
+
 function closeTrackingModal() {
     document.getElementById('trackingModal').classList.remove('open');
     _pendingAbschliessenOrderId = null;
@@ -591,6 +619,7 @@ function renderOrders() {
         } else {
             actions += `<span class="status-badge" style="background:#ddd;color:#555;"><i class="fas fa-archive"></i> Im Archiv</span>`;
         }
+        actions += `<button class="order-action-btn btn-delete" onclick="deleteOrder(decodeURIComponent('${safeOrderId}'))"><i class="fas fa-times"></i> Loeschen</button>`;
         actions += '</div>';
 
         return '<tr>' +
