@@ -532,7 +532,7 @@
                         border: 1px solid #dfe6e9;
                     }
 
-                    .order-action-btn.btn-delete {
+                    .order-action-btn.btn-order-delete {
                         background: #fdecea;
                         color: #c62828;
                         border: 1px solid #f3b5b5;
@@ -882,6 +882,30 @@
                     <i class="fas fa-check"></i>&nbsp;Abschlie&szlig;en &amp; E-Mail senden
                 </button>
                 <button onclick="closeTrackingModal()"
+                    style="flex:1;padding:0.8rem;border:1px solid #ccc;background:none;border-radius:4px;cursor:pointer;font-family:inherit;">
+                    Abbrechen
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Order Modal -->
+    <div class="modal" id="deleteOrderModal">
+        <div class="modal-content" style="max-width:460px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-trash-alt" style="color:#c62828;margin-right:8px;"></i>Bestellung loeschen</h3>
+                <button class="close-btn" onclick="closeDeleteOrderModal()">&times;</button>
+            </div>
+            <p style="margin:0 0 1.2rem;color:#636e72;font-size:0.92rem;line-height:1.6;">
+                Willst du diese Bestellung wirklich loeschen?
+                <br>
+                <strong style="color:#c62828;">Diese Aktion kann nicht rueckgaengig gemacht werden.</strong>
+            </p>
+            <div style="margin-top:1.5rem;display:flex;gap:0.8rem;">
+                <button class="btn" onclick="confirmDeleteOrder()" style="flex:1;background:#c62828;">
+                    <span style="font-weight:700;">&times;</span>&nbsp;Ja, loeschen
+                </button>
+                <button onclick="closeDeleteOrderModal()"
                     style="flex:1;padding:0.8rem;border:1px solid #ccc;background:none;border-radius:4px;cursor:pointer;font-family:inherit;">
                     Abbrechen
                 </button>

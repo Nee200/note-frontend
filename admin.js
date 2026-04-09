@@ -424,6 +424,7 @@ function filterOrders(status) {
 }
 
 let _pendingAbschliessenOrderId = null;
+let _pendingDeleteOrderId = null;
 
 async function setOrderStatus(orderId, newStatus) {
     // For 'abgeschlossen': open the tracking-link modal instead of a plain confirm
@@ -464,9 +465,21 @@ async function setOrderStatus(orderId, newStatus) {
 
 async function deleteOrder(orderId) {
     if (!orderId) return;
+    _pendingDeleteOrderId = orderId;
+    const modal = document.getElementById('deleteOrderModal');
+    if (modal) modal.classList.add('open');
+}
 
-    const ok = confirm('Bestellung wirklich loeschen? Dieser Schritt kann nicht rueckgaengig gemacht werden.');
-    if (!ok) return;
+function closeDeleteOrderModal() {
+    const modal = document.getElementById('deleteOrderModal');
+    if (modal) modal.classList.remove('open');
+    _pendingDeleteOrderId = null;
+}
+
+async function confirmDeleteOrder() {
+    const orderId = _pendingDeleteOrderId;
+    if (!orderId) return;
+    closeDeleteOrderModal();
 
     try {
         const res = await adminFetch(`/api/admin/orders/${orderId}`, {
@@ -542,7 +555,12 @@ function renderOrders() {
         const tab = document.querySelector('.order-tab-' + cls);
         if (tab) {
             // Label-Text neu setzen ohne den Badge zu verlieren
-            const labels = { 'neu': '?? Neu', 'bearbeitung': '?? In Bearbeitung', 'abgeschlossen': '? Abgeschlossen', 'archiv': '?? Archiv' };
+            const labels = {
+                neu: '&#128680; Neu',
+                bearbeitung: '&#9881; In Bearbeitung',
+                abgeschlossen: '&#10003; Abgeschlossen',
+                archiv: '&#128190; Archiv'
+            };
             tab.innerHTML = labels[cls] + (count > 0 ? ` <span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.18);color:inherit;font-size:0.75rem;font-weight:700;min-width:20px;height:20px;padding:0 5px;border-radius:10px;margin-left:4px;">${count}</span>` : '');
         }
     }
@@ -619,7 +637,7 @@ function renderOrders() {
         } else {
             actions += `<span class="status-badge" style="background:#ddd;color:#555;"><i class="fas fa-archive"></i> Im Archiv</span>`;
         }
-        actions += `<button class="order-action-btn btn-delete" onclick="deleteOrder(decodeURIComponent('${safeOrderId}'))"><i class="fas fa-times"></i> Loeschen</button>`;
+        actions += `<button class="order-action-btn btn-order-delete" onclick="deleteOrder(decodeURIComponent('${safeOrderId}'))"><span aria-hidden="true" style="font-weight:700;">&times;</span> Loeschen</button>`;
         actions += '</div>';
 
         return '<tr>' +
