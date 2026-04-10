@@ -1,4 +1,26 @@
 // API_BASE_URL is inherited from script.js
+const AUTH_TOKEN_STORAGE_KEY = 'user_auth_token';
+
+function getStoredAuthToken() {
+    try {
+        return String(localStorage.getItem(AUTH_TOKEN_STORAGE_KEY) || '').trim();
+    } catch (error) {
+        return '';
+    }
+}
+
+function setStoredAuthToken(token) {
+    const normalized = String(token || '').trim();
+    try {
+        if (normalized) {
+            localStorage.setItem(AUTH_TOKEN_STORAGE_KEY, normalized);
+        } else {
+            localStorage.removeItem(AUTH_TOKEN_STORAGE_KEY);
+        }
+    } catch (error) {
+        // no-op
+    }
+}
 
 async function ensureAccountCsrfToken() {
     if (typeof ensureCsrfTokenCookie === 'function') {
@@ -24,6 +46,11 @@ async function accountFetch(path, options = {}) {
     requestOptions.credentials = 'include';
     const headers = new Headers(options.headers || {});
     const method = String(requestOptions.method || 'GET').toUpperCase();
+    const bearerToken = getStoredAuthToken();
+
+    if (bearerToken && !headers.has('Authorization')) {
+        headers.set('Authorization', `Bearer ${bearerToken}`);
+    }
 
     if (!['GET', 'HEAD', 'OPTIONS'].includes(method) && !headers.has('X-CSRF-Token')) {
         const csrfToken = await ensureAccountCsrfToken();
@@ -110,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     errorDiv.style.display = 'block';
                     return;
                 }
+                setStoredAuthToken(data && data.authToken ? data.authToken : '');
 
                 if (!redirectAfterAuth()) {
                     window.location.reload();
@@ -149,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     errorDiv.style.display = 'block';
                     return;
                 }
+                setStoredAuthToken(data && data.authToken ? data.authToken : '');
 
                 successDiv.textContent = 'Registrierung erfolgreich. Du bist jetzt eingeloggt.';
                 successDiv.style.display = 'block';
@@ -175,6 +204,9 @@ async function checkLoginStatus() {
         const response = await accountFetch('/api/user');
 
         if (!response.ok) {
+            if (response.status === 401) {
+                setStoredAuthToken('');
+            }
             throw new Error('Not logged in');
         }
 
@@ -200,6 +232,7 @@ async function checkLoginStatus() {
 async function logout() {
     try {
         await accountFetch('/api/logout', { method: 'POST' });
+        setStoredAuthToken('');
         window.location.reload();
     } catch (error) {
         console.error('Logout error:', error);
