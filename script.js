@@ -21,6 +21,14 @@ function getReadableCsrfToken() {
     return getCookieValue(CSRF_COOKIE_NAME) || csrfTokenMemory;
 }
 
+function getStoredUserAuthToken() {
+    try {
+        return String(localStorage.getItem('user_auth_token') || '').trim();
+    } catch (error) {
+        return '';
+    }
+}
+
 function isApiRequestUrl(url) {
     return typeof url === 'string' && (url.startsWith(API_BASE_URL) || url.startsWith('/'));
 }
@@ -67,6 +75,23 @@ window.fetch = async function patchedFetch(resource, options = {}) {
         };
     }
 
+    if (apiRequest) {
+        const headers = new Headers(resource && resource.headers ? resource.headers : undefined);
+        if (options.headers) {
+            new Headers(options.headers).forEach((value, key) => headers.set(key, value));
+        }
+        if (!headers.has('Authorization')) {
+            const authToken = getStoredUserAuthToken();
+            if (authToken) {
+                headers.set('Authorization', `Bearer ${authToken}`);
+            }
+        }
+        options = {
+            ...options,
+            headers
+        };
+    }
+
     if (!['GET', 'HEAD', 'OPTIONS'].includes(requestMethod) && apiRequest) {
         const csrfToken = await ensureCsrfTokenCookie();
         if (csrfToken) {
@@ -109,19 +134,8 @@ async function syncUserLoginIndicator() {
     if (!userIcons.length) return;
 
     try {
-        const headers = new Headers();
-        try {
-            const token = String(localStorage.getItem('user_auth_token') || '').trim();
-            if (token) {
-                headers.set('Authorization', `Bearer ${token}`);
-            }
-        } catch (error) {
-            // localStorage can be unavailable in strict browsing modes
-        }
-
         const response = await fetch(API_BASE_URL + '/api/user', {
-            credentials: 'include',
-            headers
+            credentials: 'include'
         });
         const isLoggedIn = response.ok;
 
@@ -818,7 +832,9 @@ async function fetchCurrentReviewUser() {
         });
         if (!response.ok) return null;
         const data = await response.json();
-        return data.user || null;
+        if (data && data.user) return data.user;
+        if (data && data.email) return data;
+        return null;
     } catch (error) {
         return null;
     }
@@ -841,12 +857,19 @@ function closeReviewModal() {
     document.documentElement.classList.remove('no-scroll');
 }
 
-function openReviewModal() {
+async function openReviewModal() {
     const modal = document.getElementById('review-modal');
     if (!modal) return;
     modal.removeAttribute('hidden');
     document.body.classList.add('no-scroll');
     document.documentElement.classList.add('no-scroll');
+
+    // Refresh auth state on every open (important after login redirect / mobile browser caching)
+    const freshUser = await fetchCurrentReviewUser();
+    if (freshUser) {
+        currentReviewUser = freshUser;
+        updateReviewFormState();
+    }
 }
 
 function initReviewModal() {
@@ -1050,6 +1073,13 @@ function initReviewForm() {
         event.preventDefault();
 
         if (!currentReviewProductId) return;
+        if (!currentReviewUser) {
+            const freshUser = await fetchCurrentReviewUser();
+            if (freshUser) {
+                currentReviewUser = freshUser;
+                updateReviewFormState();
+            }
+        }
         if (!currentReviewUser) {
             const returnTo = encodeURIComponent(window.location.pathname.split('/').pop() + window.location.search);
             window.location.href = `account.html?returnTo=${returnTo}`;
