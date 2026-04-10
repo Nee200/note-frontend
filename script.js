@@ -109,7 +109,20 @@ async function syncUserLoginIndicator() {
     if (!userIcons.length) return;
 
     try {
-        const response = await fetch(API_BASE_URL + '/api/user', { credentials: 'include' });
+        const headers = new Headers();
+        try {
+            const token = String(localStorage.getItem('user_auth_token') || '').trim();
+            if (token) {
+                headers.set('Authorization', `Bearer ${token}`);
+            }
+        } catch (error) {
+            // localStorage can be unavailable in strict browsing modes
+        }
+
+        const response = await fetch(API_BASE_URL + '/api/user', {
+            credentials: 'include',
+            headers
+        });
         const isLoggedIn = response.ok;
 
         userIcons.forEach((icon) => {
@@ -239,6 +252,7 @@ let currentCouponCode = localStorage.getItem('couponCode') || '';
 let currentCouponLabel = localStorage.getItem('couponLabel') || '';
 let currentCouponFreeShipping = localStorage.getItem('couponFreeShipping') === '1';
 const STRIPE_PENDING_CHECKOUT_KEY = 'stripe_checkout_pending';
+let couponStateSynced = false;
 let currentDeliveryMethod = 'shipping';
 let currentSelectedSize = 50;
 let currentListCategory = 'all';
@@ -384,9 +398,40 @@ async function init() {
     }
 
     initDeliveryTimeline();
+    await syncStoredCouponState();
     updateCartUI();
     initFAQ();
     initAccordion();
+}
+
+async function syncStoredCouponState() {
+    if (couponStateSynced) return;
+    couponStateSynced = true;
+
+    if (!currentCouponCode) return;
+
+    try {
+        const res = await fetch(API_BASE_URL + '/api/validate-coupon', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code: currentCouponCode })
+        });
+        if (!res.ok) return;
+
+        const data = await res.json();
+        if (!data.valid) {
+            clearCouponState();
+            return;
+        }
+
+        currentDiscount = Number(data.discount || 0) / 100;
+        currentCouponCode = data.code || currentCouponCode;
+        currentCouponLabel = data.label || `${data.discount}% Rabatt`;
+        currentCouponFreeShipping = data.freeShipping === true;
+        persistCouponState();
+    } catch (e) {
+        // Keep existing local state if sync temporarily fails.
+    }
 }
 
 // Accordion Initialisierung
