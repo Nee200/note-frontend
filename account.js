@@ -1,12 +1,38 @@
 // API_BASE_URL is inherited from script.js
 
-function accountFetch(path, options = {}) {
+async function ensureAccountCsrfToken() {
+    if (typeof ensureCsrfTokenCookie === 'function') {
+        const token = await ensureCsrfTokenCookie();
+        if (token) return token;
+    }
+
+    try {
+        const response = await fetch(API_BASE_URL + '/api/csrf-token', {
+            method: 'GET',
+            credentials: 'include'
+        });
+        if (!response.ok) return '';
+        const data = await response.json().catch(() => null);
+        return data && typeof data.csrfToken === 'string' ? data.csrfToken : '';
+    } catch (error) {
+        return '';
+    }
+}
+
+async function accountFetch(path, options = {}) {
     const requestOptions = { ...options };
     requestOptions.credentials = 'include';
-    requestOptions.headers = {
-        ...(options.headers || {})
-    };
+    const headers = new Headers(options.headers || {});
+    const method = String(requestOptions.method || 'GET').toUpperCase();
 
+    if (!['GET', 'HEAD', 'OPTIONS'].includes(method) && !headers.has('X-CSRF-Token')) {
+        const csrfToken = await ensureAccountCsrfToken();
+        if (csrfToken) {
+            headers.set('X-CSRF-Token', csrfToken);
+        }
+    }
+
+    requestOptions.headers = headers;
     return fetch(API_BASE_URL + path, requestOptions);
 }
 
