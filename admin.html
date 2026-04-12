@@ -320,6 +320,7 @@
                 <li onclick="switchTab('orders')"><i class="fas fa-shopping-cart"></i> Bestellungen</li>
                 <li onclick="switchTab('emails')"><i class="fas fa-envelope"></i> E-Mail Templates</li>
                 <li onclick="switchTab('monitoring')"><i class="fas fa-shield-alt"></i> Monitoring</li>
+                <li onclick="switchTab('idmapping')"><i class="fas fa-exchange-alt"></i> ID-Umrechner</li>
                 <li style="margin-top: auto; color: #d63031;" onclick="logout()"><i class="fas fa-sign-out-alt"></i>
                     Abmelden</li>
             </ul>
@@ -609,6 +610,13 @@
                                 <div style="font-size:0.72rem;color:#999;margin-top:2px;">Bei Abhol-Kauf</div>
                             </div>
                         </div>
+                        <div class="email-tab-item" onclick="showEmailPreview('pickup-order-internal',this)">
+                            <span style="font-size:1.1rem;">📥</span>
+                            <div>
+                                <div style="font-weight:500;font-size:0.82rem;">Abhol-Bestellung Intern</div>
+                                <div style="font-size:0.72rem;color:#999;margin-top:2px;">An info@</div>
+                            </div>
+                        </div>
                         <div class="email-tab-item" onclick="showEmailPreview('newsletter-confirm',this)">
                             <span style="font-size:1.1rem;">✅</span>
                             <div>
@@ -673,6 +681,35 @@
                     <div id="security-scanner-status" style="margin-top:0.8rem;"></div>
                     <div id="security-monitor-alerts" style="margin-top:0.8rem;"></div>
                     <div id="security-monitor-history" style="margin-top:0.8rem;"></div>
+                </div>
+            </div>
+
+            <!-- ID Mapping Tab -->
+            <div id="tab-idmapping" style="display:none;">
+                <div class="header">
+                    <h2>ID-Umrechner</h2>
+                    <span style="font-size:0.82rem;color:#888;">Interne IDs (G/L) mit Listen-IDs (M/W) vergleichen</span>
+                </div>
+                <div class="card" id="id-mapping-card" style="margin-bottom:1.2rem;">
+                    <div style="margin-top:0.1rem;display:flex;gap:0.55rem;flex-wrap:wrap;">
+                        <input id="id-mapping-input" type="text" placeholder="z.B. G122 oder mehrere: G11, G25, G225"
+                            style="flex:1;min-width:220px;padding:0.62rem 0.7rem;border:1px solid #ccc;border-radius:6px;font-size:0.9rem;text-transform:uppercase;">
+                        <button class="btn" style="width:auto;padding:0.6rem 1rem;" onclick="lookupProductIdMapping()">
+                            <i class="fas fa-search"></i> ID suchen
+                        </button>
+                    </div>
+                    <div id="id-mapping-result" style="margin-top:0.8rem;"></div>
+                    <div style="margin-top:1rem;border-top:1px solid #ececec;padding-top:0.9rem;">
+                        <div style="font-size:0.8rem;color:#777;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.55rem;">Referenzliste</div>
+                        <details id="supplier-men-details" style="margin-bottom:0.55rem;">
+                            <summary style="cursor:pointer;font-weight:600;color:#2d3436;">Herrenliste (M...) <span id="supplier-men-count" style="font-weight:400;color:#666;"></span></summary>
+                            <div id="supplier-men-list" style="margin-top:0.5rem;max-height:260px;overflow:auto;border:1px solid #e6e6e6;border-radius:8px;padding:0.6rem;background:#fff;"></div>
+                        </details>
+                        <details id="supplier-women-details">
+                            <summary style="cursor:pointer;font-weight:600;color:#2d3436;">Frauenliste (W...) <span id="supplier-women-count" style="font-weight:400;color:#666;"></span></summary>
+                            <div id="supplier-women-list" style="margin-top:0.5rem;max-height:260px;overflow:auto;border:1px solid #e6e6e6;border-radius:8px;padding:0.6rem;background:#fff;"></div>
+                        </details>
+                    </div>
                 </div>
             </div>
         </div>

@@ -260,6 +260,36 @@ function safeImageSrc(value) {
     return escapeHtml(raw);
 }
 
+function normalizeSearchText(value) {
+    return String(value || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
+
+function matchesSearchValue(value, queryNormalized) {
+    if (!queryNormalized) return true;
+    return normalizeSearchText(value).includes(queryNormalized);
+}
+
+function matchesProductSearch(product, queryRaw) {
+    const queryNormalized = normalizeSearchText(queryRaw);
+    if (!queryNormalized) return true;
+
+    const noteValues = product && product.notes ? Object.values(product.notes) : [];
+
+    return (
+        matchesSearchValue(product && product.name, queryNormalized) ||
+        matchesSearchValue(product && product.description, queryNormalized) ||
+        matchesSearchValue(product && product.longDescription, queryNormalized) ||
+        matchesSearchValue(product && product.inspiredBy, queryNormalized) ||
+        noteValues.some((note) => matchesSearchValue(note, queryNormalized))
+    );
+}
+
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let currentDiscount = parseFloat(localStorage.getItem('discount')) || 0;
 let currentCouponCode = localStorage.getItem('couponCode') || '';
@@ -545,14 +575,15 @@ function getFilteredAndSortedProducts(category) {
 
     const filterInput = document.getElementById('product-filter-input');
     if (filterInput && filterInput.value.trim() !== '') {
-        const term = filterInput.value.trim().toLowerCase();
+        const termRaw = filterInput.value.trim();
+        const termNormalized = normalizeSearchText(termRaw);
         list = list.filter(p => {
-            // Check matches in specific fields
-            const nameMatch = p.name.toLowerCase().includes(term);
-            const inspiredMatch = p.inspiredBy ? p.inspiredBy.toLowerCase().includes(term) : false;
-            const headMatch = p.notes && p.notes.head && p.notes.head.toLowerCase().includes(term);
-            const heartMatch = p.notes && p.notes.heart && p.notes.heart.toLowerCase().includes(term);
-            const baseMatch = p.notes && p.notes.base && p.notes.base.toLowerCase().includes(term);
+            // Fehlertolerante Suche (z.B. "no 5" trifft auch "No. 5")
+            const nameMatch = matchesSearchValue(p.name, termNormalized);
+            const inspiredMatch = matchesSearchValue(p.inspiredBy, termNormalized);
+            const headMatch = matchesSearchValue(p.notes && p.notes.head, termNormalized);
+            const heartMatch = matchesSearchValue(p.notes && p.notes.heart, termNormalized);
+            const baseMatch = matchesSearchValue(p.notes && p.notes.base, termNormalized);
 
             if (currentNoteFilter === 'all') {
                 return nameMatch || inspiredMatch || headMatch || heartMatch || baseMatch;
@@ -2124,7 +2155,8 @@ document.addEventListener('click', (e) => {
 });
 
 async function performSearch() {
-    const query = document.getElementById('search-input').value.toLowerCase();
+    const queryRaw = document.getElementById('search-input').value;
+    const query = queryRaw.toLowerCase();
     const resultsContainer = document.getElementById('search-results');
 
     if (!resultsContainer) return;
@@ -2144,13 +2176,7 @@ async function performSearch() {
         }
     }
 
-    const filteredProducts = products.filter(product =>
-        product.name.toLowerCase().includes(query) ||
-        product.description.toLowerCase().includes(query) ||
-        (product.longDescription && product.longDescription.toLowerCase().includes(query)) ||
-        (product.inspiredBy && product.inspiredBy.toLowerCase().includes(query)) ||
-        (product.notes && Object.values(product.notes).some(note => note.toLowerCase().includes(query)))
-    );
+    const filteredProducts = products.filter((product) => matchesProductSearch(product, queryRaw));
 
     if (filteredProducts.length === 0) {
         resultsContainer.innerHTML = '<p class="no-results" style="grid-column: 1/-1; text-align: center; color: #666; padding: 1rem;">Keine Düfte gefunden.</p>';
@@ -2185,7 +2211,7 @@ async function performSearch() {
 
     // "Alle Ergebnisse" link at the bottom
     const showAllLink = document.createElement('a');
-    showAllLink.href = `suche?q=${encodeURIComponent(query)}`;
+    showAllLink.href = `suche?q=${encodeURIComponent(queryRaw.trim())}`;
     showAllLink.style.cssText = 'display:block; text-align:center; padding: 12px 16px; font-size:0.83rem; font-weight:600; color:#000; text-decoration:none; border-top:1px solid #f0f0f0; background:#fafafa; border-radius: 0 0 14px 14px; letter-spacing:0.03em;';
     showAllLink.textContent = `Alle ${filteredProducts.length} Ergebnisse anzeigen →`;
     resultsContainer.appendChild(showAllLink);

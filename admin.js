@@ -1,7 +1,10 @@
 const API_BASE_URL = (() => {
+    const host = String(window.location.hostname || '').toLowerCase();
     const localHosts = new Set(['localhost', '127.0.0.1']);
-    if (localHosts.has(window.location.hostname)) {
-        return 'http://localhost:4242';
+    const isPrivateIpv4 = /^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[0-1])\.)/.test(host);
+    if (localHosts.has(host) || isPrivateIpv4) {
+        const protocol = window.location.protocol === 'https:' ? 'https:' : 'http:';
+        return `${protocol}//${window.location.hostname}:4242`;
     }
     return 'https://note-backend-5gy0.onrender.com';
 })();
@@ -16,6 +19,7 @@ let selectedIds = new Set(); // Persists selections across search re-renders
 let allOrders = [];
 let currentOrderFilter = 'neu';
 let securityMonitorTimer = null;
+let supplierCatalogLoaded = false;
 
 // Central fetch wrapper - always sends cookies cross-origin
 function getCookieValue(name) {
@@ -283,6 +287,256 @@ function startSecurityMonitor() {
     }, 60000);
 }
 
+function renderProductIdMappingResult(payload, errorText) {
+    const resultEl = document.getElementById('id-mapping-result');
+    if (!resultEl) return;
+    resultEl.innerHTML = buildProductIdMappingResultHtml(payload, errorText);
+}
+
+function buildProductIdMappingResultHtml(payload, errorText) {
+    if (errorText) {
+        return `<div style="border:1px solid #f1d2d2;border-radius:8px;background:#fdecea;padding:0.65rem 0.75rem;color:#b03a2e;font-size:0.86rem;">${escapeHtml(errorText)}</div>`;
+    }
+
+    if (!payload) {
+        return '';
+    }
+
+    const warnings = Array.isArray(payload.warnings) ? payload.warnings : [];
+    const warningHtml = warnings.length
+        ? `<div style="margin-top:0.55rem;">
+            ${warnings.map((warning) => `<div style="border:1px solid #f6e3b2;border-radius:8px;background:#fff8e8;padding:0.5rem 0.65rem;color:#9a6a00;font-size:0.82rem;margin-bottom:0.35rem;">${escapeHtml(warning)}</div>`).join('')}
+          </div>`
+        : '';
+
+    const product = payload.product || null;
+    const supplierIdValue = payload.supplierId || '-';
+    const supplierBadgeSingle = supplierIdValue !== '-'
+        ? `<span style="display:inline-flex;align-items:center;justify-content:center;min-width:74px;padding:0.2rem 0.55rem;border-radius:999px;background:transparent;color:#b8860b;font-weight:900;letter-spacing:0.04em;border:1px solid #d9b348;">${escapeHtml(supplierIdValue)}</span>`
+        : '<span style="color:#6b7280;font-weight:700;">-</span>';
+    const productHtml = product
+        ? `<div style="margin-top:0.55rem;border-top:1px solid #ececec;padding-top:0.55rem;">
+            <div style="font-size:0.79rem;color:#777;text-transform:uppercase;letter-spacing:0.08em;">Produkt</div>
+            <div style="font-size:0.9rem;color:#2d3436;font-weight:600;">${escapeHtml(product.id)} - ${escapeHtml(product.name || '')}</div>
+            <div style="font-size:0.83rem;color:#555;margin-top:0.15rem;">Inspired by: ${escapeHtml(product.inspiredBy || '-')}</div>
+          </div>`
+        : '';
+
+    return `
+        <div style="border:1px solid #dde7ff;border-radius:10px;background:#f7faff;padding:0.75rem 0.8rem;">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0.55rem;">
+                <div style="border:1px solid #e5ecff;border-radius:8px;background:#fff;padding:0.55rem 0.6rem;">
+                    <div style="font-size:0.76rem;color:#777;text-transform:uppercase;letter-spacing:0.08em;">Eingabe</div>
+                    <div style="font-size:0.93rem;color:#111;font-weight:700;">${escapeHtml(payload.query || '-')}</div>
+                </div>
+                <div style="border:1px solid #e5ecff;border-radius:8px;background:#fff;padding:0.55rem 0.6rem;">
+                    <div style="font-size:0.76rem;color:#777;text-transform:uppercase;letter-spacing:0.08em;">Interne ID</div>
+                    <div style="font-size:0.93rem;color:#111;font-weight:700;">${escapeHtml(payload.internalId || '-')}</div>
+                </div>
+                <div style="border:1px solid #e5ecff;border-radius:8px;background:#fff;padding:0.55rem 0.6rem;">
+                    <div style="font-size:0.76rem;color:#777;text-transform:uppercase;letter-spacing:0.08em;">Listen-ID (Anhang)</div>
+                    <div style="font-size:0.93rem;color:#111;font-weight:700;">${supplierBadgeSingle}</div>
+                </div>
+            </div>
+            ${productHtml}
+            ${warningHtml}
+        </div>
+    `;
+}
+
+function renderBatchProductIdMappingResults(results) {
+    const resultEl = document.getElementById('id-mapping-result');
+    if (!resultEl) return;
+    if (!Array.isArray(results) || !results.length) {
+        resultEl.innerHTML = '';
+        return;
+    }
+    const okCount = results.filter(entry => !entry.error && entry.payload && entry.payload.supplierId).length;
+    const failCount = results.length - okCount;
+
+    const rowsHtml = results.map((entry) => {
+        const payload = entry.payload || {};
+        const product = payload.product || {};
+        const supplierId = payload.supplierId || '-';
+        const confidence = Number(payload.confidence || 0);
+        const confidenceLabel = confidence > 0
+            ? `${Math.round(confidence * 100)}%`
+            : '-';
+        const statusColor = entry.error
+            ? '#b03a2e'
+            : (supplierId === '-' ? '#9a6a00' : '#0f8f75');
+        const statusText = entry.error
+            ? 'Fehler'
+            : (supplierId === '-' ? 'Ohne Match' : 'OK');
+        const supplierBadge = supplierId !== '-'
+            ? `<span style="display:inline-flex;align-items:center;justify-content:center;min-width:62px;padding:0.18rem 0.5rem;border-radius:999px;background:transparent;color:#b8860b;font-weight:900;letter-spacing:0.04em;border:1px solid #d9b348;">${escapeHtml(supplierId)}</span>`
+            : `<span style="display:inline-flex;align-items:center;justify-content:center;min-width:62px;padding:0.18rem 0.5rem;border-radius:999px;background:#f3f4f6;color:#6b7280;font-weight:700;">-</span>`;
+        const warningText = Array.isArray(payload.warnings) && payload.warnings.length
+            ? payload.warnings.join(' | ')
+            : '';
+
+        return `<tr>
+            <td style="padding:0.55rem 0.5rem;border-bottom:1px solid #ececec;font-weight:700;">${escapeHtml(entry.query || '-')}</td>
+            <td style="padding:0.55rem 0.5rem;border-bottom:1px solid #ececec;">${escapeHtml(payload.internalId || '-')}</td>
+            <td style="padding:0.55rem 0.5rem;border-bottom:1px solid #ececec;">${supplierBadge}</td>
+            <td style="padding:0.55rem 0.5rem;border-bottom:1px solid #ececec;">${escapeHtml(product.name || '-')}</td>
+            <td style="padding:0.55rem 0.5rem;border-bottom:1px solid #ececec;">${escapeHtml(product.inspiredBy || '-')}</td>
+            <td style="padding:0.55rem 0.5rem;border-bottom:1px solid #ececec;">${escapeHtml(confidenceLabel)}</td>
+            <td style="padding:0.55rem 0.5rem;border-bottom:1px solid #ececec;color:${statusColor};font-weight:700;">${statusText}</td>
+            <td style="padding:0.55rem 0.5rem;border-bottom:1px solid #ececec;color:#666;">${escapeHtml(entry.error || warningText || '-')}</td>
+        </tr>`;
+    }).join('');
+
+    resultEl.innerHTML = `
+        <div style="border:1px solid #dde7ff;border-radius:10px;background:#f7faff;padding:0.75rem 0.8rem;">
+            <div style="display:flex;gap:0.45rem;flex-wrap:wrap;margin-bottom:0.6rem;">
+                <span style="display:inline-flex;align-items:center;background:#fff;border:1px solid #dfe6e9;border-radius:999px;padding:0.2rem 0.6rem;font-size:0.78rem;color:#2d3436;">Anfragen: ${results.length}</span>
+                <span style="display:inline-flex;align-items:center;background:#e8f8f5;border:1px solid #cfeee7;border-radius:999px;padding:0.2rem 0.6rem;font-size:0.78rem;color:#0f8f75;">OK: ${okCount}</span>
+                <span style="display:inline-flex;align-items:center;background:#fff6e6;border:1px solid #f6e3b2;border-radius:999px;padding:0.2rem 0.6rem;font-size:0.78rem;color:#9a6a00;">Offen/Fehler: ${failCount}</span>
+            </div>
+            <div style="overflow:auto;border:1px solid #e5ecff;border-radius:8px;background:#fff;">
+                <table style="width:100%;min-width:980px;border-collapse:collapse;font-size:0.83rem;">
+                    <thead>
+                        <tr style="background:#f8fafc;color:#666;text-transform:uppercase;letter-spacing:0.06em;font-size:0.72rem;">
+                            <th style="text-align:left;padding:0.5rem;border-bottom:1px solid #e8eef8;">Eingabe</th>
+                            <th style="text-align:left;padding:0.5rem;border-bottom:1px solid #e8eef8;">Interne ID</th>
+                            <th style="text-align:left;padding:0.5rem;border-bottom:1px solid #e8eef8;">Listen-ID</th>
+                            <th style="text-align:left;padding:0.5rem;border-bottom:1px solid #e8eef8;">Produkt</th>
+                            <th style="text-align:left;padding:0.5rem;border-bottom:1px solid #e8eef8;">Inspired By</th>
+                            <th style="text-align:left;padding:0.5rem;border-bottom:1px solid #e8eef8;">Treffer</th>
+                            <th style="text-align:left;padding:0.5rem;border-bottom:1px solid #e8eef8;">Status</th>
+                            <th style="text-align:left;padding:0.5rem;border-bottom:1px solid #e8eef8;">Hinweis</th>
+                        </tr>
+                    </thead>
+                    <tbody>${rowsHtml}</tbody>
+                </table>
+            </div>
+        </div>
+    `;
+}
+
+async function lookupProductIdMapping() {
+    const inputEl = document.getElementById('id-mapping-input');
+    const resultEl = document.getElementById('id-mapping-result');
+    if (!inputEl || !resultEl) return;
+
+    const rawQuery = String(inputEl.value || '').trim().toUpperCase();
+    if (!rawQuery) {
+        renderProductIdMappingResult(null, 'Bitte zuerst eine ID eingeben (z.B. G122 oder L44).');
+        return;
+    }
+
+    const queryParts = Array.from(new Set(
+        rawQuery
+            .split(',')
+            .map(part => part.trim())
+            .filter(Boolean)
+    ));
+
+    if (!queryParts.length) {
+        renderProductIdMappingResult(null, 'Bitte zuerst eine ID eingeben (z.B. G122 oder L44).');
+        return;
+    }
+
+    resultEl.innerHTML = queryParts.length > 1
+        ? `<div style="font-size:0.85rem;color:#777;">Suche ${queryParts.length} Zuordnungen...</div>`
+        : '<div style="font-size:0.85rem;color:#777;">Suche Zuordnung...</div>';
+
+    try {
+        if (queryParts.length === 1) {
+            const res = await adminFetch(`/api/admin/id-mapping?id=${encodeURIComponent(queryParts[0])}`);
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok) {
+                renderProductIdMappingResult(null, data.error || 'Zuordnung konnte nicht geladen werden.');
+                return;
+            }
+            renderProductIdMappingResult(data, '');
+            return;
+        }
+
+        const results = await Promise.all(queryParts.map(async (query) => {
+            try {
+                const res = await adminFetch(`/api/admin/id-mapping?id=${encodeURIComponent(query)}`);
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok) {
+                    return { query, payload: null, error: data.error || 'Zuordnung konnte nicht geladen werden.' };
+                }
+                return { query, payload: data, error: '' };
+            } catch (error) {
+                return { query, payload: null, error: 'Server nicht erreichbar.' };
+            }
+        }));
+
+        renderBatchProductIdMappingResults(results);
+    } catch (error) {
+        renderProductIdMappingResult(null, 'Server nicht erreichbar.');
+    }
+}
+
+function initProductIdMappingTool() {
+    const inputEl = document.getElementById('id-mapping-input');
+    if (!inputEl || inputEl.dataset.bound === 'true') return;
+    inputEl.dataset.bound = 'true';
+    inputEl.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            lookupProductIdMapping();
+        }
+    });
+    loadSupplierCatalogLists();
+}
+
+function renderSupplierCatalogList(listEl, items) {
+    if (!listEl) return;
+    const rows = Array.isArray(items) ? items : [];
+    if (!rows.length) {
+        listEl.innerHTML = '<div style="font-size:0.83rem;color:#888;">Keine Eintraege geladen.</div>';
+        return;
+    }
+    listEl.innerHTML = rows.map((item) => {
+        return `<div style="display:grid;grid-template-columns:72px 1fr;gap:0.6rem;padding:0.35rem 0;border-bottom:1px solid #f1f1f1;">
+            <div style="font-weight:700;color:#1f2937;">${escapeHtml(item.supplierId || '-')}</div>
+            <div style="color:#374151;">${escapeHtml(item.inspiredBy || '-')}</div>
+        </div>`;
+    }).join('');
+}
+
+async function loadSupplierCatalogLists() {
+    if (supplierCatalogLoaded) return;
+
+    const menListEl = document.getElementById('supplier-men-list');
+    const womenListEl = document.getElementById('supplier-women-list');
+    const menCountEl = document.getElementById('supplier-men-count');
+    const womenCountEl = document.getElementById('supplier-women-count');
+    if (!menListEl || !womenListEl || !menCountEl || !womenCountEl) return;
+
+    menListEl.innerHTML = '<div style="font-size:0.83rem;color:#888;">Lade Herrenliste...</div>';
+    womenListEl.innerHTML = '<div style="font-size:0.83rem;color:#888;">Lade Frauenliste...</div>';
+
+    try {
+        const res = await adminFetch('/api/admin/id-mapping/catalog');
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+            const msg = escapeHtml(data.error || 'Katalog konnte nicht geladen werden.');
+            menListEl.innerHTML = `<div style="font-size:0.83rem;color:#b03a2e;">${msg}</div>`;
+            womenListEl.innerHTML = `<div style="font-size:0.83rem;color:#b03a2e;">${msg}</div>`;
+            return;
+        }
+
+        const men = Array.isArray(data.men) ? data.men : [];
+        const women = Array.isArray(data.women) ? data.women : [];
+
+        menCountEl.textContent = `(${men.length})`;
+        womenCountEl.textContent = `(${women.length})`;
+        renderSupplierCatalogList(menListEl, men);
+        renderSupplierCatalogList(womenListEl, women);
+        supplierCatalogLoaded = true;
+    } catch (error) {
+        menListEl.innerHTML = '<div style="font-size:0.83rem;color:#b03a2e;">Server nicht erreichbar.</div>';
+        womenListEl.innerHTML = '<div style="font-size:0.83rem;color:#b03a2e;">Server nicht erreichbar.</div>';
+    }
+}
+
 async function login() {
     const pw = document.getElementById('admin-pw').value;
     const errEl = document.getElementById('login-err');
@@ -363,9 +617,14 @@ function switchTab(tab) {
     document.getElementById('tab-orders').style.display = tab === 'orders' ? 'block' : 'none';
     document.getElementById('tab-emails').style.display = tab === 'emails' ? 'block' : 'none';
     document.getElementById('tab-monitoring').style.display = tab === 'monitoring' ? 'block' : 'none';
+    document.getElementById('tab-idmapping').style.display = tab === 'idmapping' ? 'block' : 'none';
     if (tab === 'monitoring') loadSecurityStatus();
     if (tab === 'orders' && !ordersLoaded) loadOrders();
     if (tab === 'emails') initEmailTab();
+    if (tab === 'idmapping') {
+        initProductIdMappingTool();
+        loadSupplierCatalogLists();
+    }
 
     // Sidebar aktiven Punkt markieren
     document.querySelectorAll('.sidebar-menu li').forEach(li => li.classList.remove('active'));
@@ -610,7 +869,12 @@ function renderOrders() {
         if (o.items && o.items.length) {
             items = o.items.map(function (item) {
                 const quantity = Number(item.quantity) > 1 ? Number(item.quantity) + 'x ' : '';
-                return quantity + escapeHtml(item.description || '');
+                const desc = escapeHtml(item.description || '');
+                const supplierId = String(item.supplierId || '').trim();
+                const supplierLabel = supplierId
+                    ? ` <span style="color:#b8860b;font-weight:800;">(${escapeHtml(supplierId)})</span>`
+                    : '';
+                return quantity + desc + supplierLabel;
             }).join('<br>');
         }
 
@@ -1118,6 +1382,7 @@ function showAddStatus(msg, color) {
 
 // Initial auth check
 checkAuth();
+initProductIdMappingTool();
 
 // ---- EMAIL TEMPLATES PREVIEW ----
 let emailTabInited = false;
@@ -1540,6 +1805,40 @@ Object.assign(EMAIL_TEMPLATES, {
             title: 'Vielen Dank, Max!',
             introHtml: 'Deine Bestellung zur <strong>Selbstabholung</strong> ist bei uns eingegangen und wird fuer dich bereitgestellt.',
             iconHtml: '&#10003;'
+        })
+    },
+    'pickup-order-internal': {
+        subject: 'Neue Selbstabholung-Bestellung',
+        from: 'Von: NOTE. fragrances <info@note-fragrances.de>  \u2022  An: info@note-fragrances.de',
+        html: renderAdminEmailShell({
+            badge: 'Interne Bestellung',
+            title: 'Neue Selbstabholung',
+            introHtml: 'Eine neue Selbstabholung-Bestellung wurde erfasst. Alle Details findest du unten.',
+            iconHtml: '&#128230;',
+            bodyHtml: `<tr><td style="background:#f5f3ee;padding:0 40px;"><div style="border-top:1px solid #dedad3;"></div></td></tr>
+<tr><td style="background:#f5f3ee;padding:28px 40px 0;">
+  <p style="margin:0 0 18px;font-size:10px;text-transform:uppercase;letter-spacing:0.18em;color:#aaa;font-weight:600;">Bestelldetails (Intern)</p>
+  <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:14px;">
+    <tr><td style="font-size:13px;color:#666;padding:0 0 6px;">Kunde</td><td style="font-size:13px;color:#1a1a1a;text-align:right;">Max Mustermann</td></tr>
+    <tr><td style="font-size:13px;color:#666;padding:0 0 6px;">E-Mail</td><td style="font-size:13px;color:#1a1a1a;text-align:right;"><a href="mailto:max@beispiel.de" style="color:#1a1a1a;text-decoration:none;">max@beispiel.de</a></td></tr>
+    <tr><td style="font-size:13px;color:#666;padding:0 0 6px;">Bestelltyp</td><td style="font-size:13px;color:#1a1a1a;text-align:right;">Selbstabholung</td></tr>
+    <tr><td style="font-size:13px;color:#666;">Eingang</td><td style="font-size:13px;color:#1a1a1a;text-align:right;">09.04.2026, 18:25</td></tr>
+  </table>
+  <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e6e2da;border-radius:4px;padding:12px 14px;background:#fff;margin:0 0 14px;">
+    <tr>
+      <td style="font-size:11px;color:#999;text-transform:uppercase;letter-spacing:0.12em;padding-bottom:8px;">Produkt</td>
+      <td style="font-size:11px;color:#999;text-transform:uppercase;letter-spacing:0.12em;padding-bottom:8px;text-align:center;">Menge</td>
+      <td style="font-size:11px;color:#999;text-transform:uppercase;letter-spacing:0.12em;padding-bottom:8px;text-align:right;">Summe</td>
+    </tr>
+    <tr><td style="padding:8px 0;border-bottom:1px solid #eee;color:#333;">No. L3 (50ml) [BARZAHLUNG]</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:center;color:#333;">2</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right;color:#333;">49,98 €</td></tr>
+  </table>
+</td></tr>
+<tr><td style="background:#f5f3ee;padding:16px 40px 40px;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="border-top:2px solid #d4af37;padding-top:12px;margin-top:12px;"><tr>
+    <td style="font-size:11px;color:#999;text-transform:uppercase;letter-spacing:0.15em;">Gesamtbetrag</td>
+    <td style="text-align:right;font-family:Georgia,serif;font-size:26px;color:#1a1a1a;">49,98 &euro;</td>
+  </tr></table>
+</td></tr>`
         })
     },
     'newsletter-confirm': {
