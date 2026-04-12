@@ -385,6 +385,32 @@ function isBestseller(product) {
     return product.bestseller === true;
 }
 
+function scrollToSearchResultsIfNeeded(query) {
+    if (!query) return;
+    const productGridEl = document.getElementById('product-grid');
+    if (!productGridEl) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const navbar = document.querySelector('.navbar');
+    const topBanner = document.querySelector('.top-banner');
+    const offset = (navbar ? navbar.getBoundingClientRect().height : 0)
+        + (topBanner ? topBanner.getBoundingClientRect().height : 0)
+        + 110;
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            const targetTop = Math.max(
+                productGridEl.getBoundingClientRect().top + window.pageYOffset - offset,
+                0
+            );
+            window.scrollTo({
+                top: targetTop,
+                behavior: prefersReducedMotion ? 'auto' : 'smooth'
+            });
+        });
+    });
+}
+
 async function init() {
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('id');
@@ -414,12 +440,14 @@ async function init() {
         renderProductDetail(productId);
     } else {
         const isSearchPage = document.body && document.body.dataset.page === 'search';
+        let searchQueryParam = '';
         if (hasProductGrid) {
             if (isSearchPage) {
                 const q = new URLSearchParams(window.location.search).get('q');
+                searchQueryParam = String(q || '').trim();
                 const filterInput = document.getElementById('product-filter-input');
-                if (q && filterInput) {
-                    filterInput.value = q;
+                if (searchQueryParam && filterInput) {
+                    filterInput.value = searchQueryParam;
                     const searchTitle = document.getElementById('search-page-title');
                     if(searchTitle) searchTitle.innerText = `Ergebnisse für "${q}"`;
                 }
@@ -434,6 +462,9 @@ async function init() {
                 renderProducts();
             }
             initProductControls();
+            if (isSearchPage) {
+                scrollToSearchResultsIfNeeded(searchQueryParam);
+            }
         }
 
         if (bestsellerWomenGrid || bestsellerMenGrid) {
