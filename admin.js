@@ -9,6 +9,7 @@ const API_BASE_URL = (() => {
     return 'https://note-backend-5gy0.onrender.com';
 })();
 const CSRF_COOKIE_NAME = 'csrf_token';
+const ADMIN_AUTH_TOKEN_STORAGE_KEY = 'admin_auth_token';
 const nativeFetch = window.fetch.bind(window);
 let csrfBootstrapPromise = null;
 let csrfTokenMemory = '';
@@ -30,6 +31,32 @@ function getCookieValue(name) {
 
 function getReadableCsrfToken() {
     return getCookieValue(CSRF_COOKIE_NAME) || csrfTokenMemory;
+}
+
+function getStoredAdminAuthToken() {
+    try {
+        return String(sessionStorage.getItem(ADMIN_AUTH_TOKEN_STORAGE_KEY) || '').trim();
+    } catch (error) {
+        return '';
+    }
+}
+
+function setStoredAdminAuthToken(token) {
+    try {
+        const safeToken = String(token || '').trim();
+        if (!safeToken) return;
+        sessionStorage.setItem(ADMIN_AUTH_TOKEN_STORAGE_KEY, safeToken);
+    } catch (error) {
+        // ignore storage issues
+    }
+}
+
+function clearStoredAdminAuthToken() {
+    try {
+        sessionStorage.removeItem(ADMIN_AUTH_TOKEN_STORAGE_KEY);
+    } catch (error) {
+        // ignore storage issues
+    }
 }
 
 async function ensureCsrfTokenCookie() {
@@ -63,14 +90,19 @@ async function ensureCsrfTokenCookie() {
 async function adminFetch(path, options) {
     options = options || {};
     options.credentials = 'include';
+    const headers = new Headers(options.headers || {});
+
+    const adminAuthToken = getStoredAdminAuthToken();
+    if (adminAuthToken && !headers.has('Authorization')) {
+        headers.set('Authorization', `Bearer ${adminAuthToken}`);
+    }
+    options.headers = headers;
 
     const method = String(options.method || 'GET').toUpperCase();
     if (!['GET', 'HEAD', 'OPTIONS'].includes(method)) {
         const csrfToken = await ensureCsrfTokenCookie();
         if (csrfToken) {
-            const headers = new Headers(options.headers || {});
             headers.set('X-CSRF-Token', csrfToken);
-            options.headers = headers;
         }
     }
 
@@ -550,6 +582,10 @@ async function login() {
             credentials: 'include'
         });
         if (res.ok) {
+            const data = await res.json().catch(() => ({}));
+            if (data && typeof data.adminAuthToken === 'string') {
+                setStoredAdminAuthToken(data.adminAuthToken);
+            }
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
             startSecurityMonitor();
@@ -636,6 +672,7 @@ function switchTab(tab) {
 
 function logout() {
     adminFetch('/api/admin/logout', { method: 'POST' }).finally(function () {
+        clearStoredAdminAuthToken();
         if (securityMonitorTimer) {
             clearInterval(securityMonitorTimer);
             securityMonitorTimer = null;
