@@ -305,6 +305,40 @@ async function loadSecurityStatus(forceDependencyScan) {
     }
 }
 
+async function runAllMonitoringChecks() {
+    const btn = document.getElementById('run-all-checks-btn');
+    const statusEl = document.getElementById('manual-check-status');
+    const originalHtml = btn ? btn.innerHTML : '';
+
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Checks laufen...';
+    }
+    if (statusEl) {
+        statusEl.textContent = 'Fuehre Backend-Smoke, Runtime-Security und Dependency/CVE-Scan aus. Das kann ein paar Sekunden dauern...';
+        statusEl.style.color = '#666';
+    }
+
+    try {
+        await loadSecurityStatus(true);
+        if (statusEl) {
+            const now = new Date().toLocaleString('de-DE');
+            statusEl.textContent = `Manueller Check abgeschlossen: ${now}. Ergebnisse stehen unten in Security Health, Scanner Ampel und Letzte Testlaeufe.`;
+            statusEl.style.color = '#0f8f75';
+        }
+    } catch (error) {
+        if (statusEl) {
+            statusEl.textContent = 'Manueller Check konnte nicht abgeschlossen werden. Bitte Backend-Logs pruefen.';
+            statusEl.style.color = '#c0392b';
+        }
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = originalHtml;
+        }
+    }
+}
+
 function startSecurityMonitor() {
     if (securityMonitorTimer) {
         clearInterval(securityMonitorTimer);

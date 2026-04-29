@@ -848,6 +848,23 @@
                     <h2>Monitoring</h2>
                     <span style="font-size:0.82rem;color:#888;">Sicherheitsstatus, Scanner und Laufzeitwarnungen</span>
                 </div>
+                <div class="card" style="margin-bottom:1.2rem;border-left:4px solid #2d3436;">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;">
+                        <div>
+                            <div style="font-size:0.82rem;color:#777;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.25rem;">Check-Rhythmus</div>
+                            <div style="font-size:0.92rem;color:#2d3436;line-height:1.55;">
+                                Backend-Smoke alle 5 Minuten per GitHub Health Monitor. Interne Runtime-Checks alle 5 Minuten im Backend. Dependency/CVE-Scan alle 24 Stunden oder manuell.
+                            </div>
+                            <div style="font-size:0.8rem;color:#777;margin-top:0.35rem;">
+                                Empfehlung: Uptime/Health alle 5 Minuten, Security Runtime alle 5-10 Minuten, Dependency Scan taeglich und nach jedem Dependency-Update.
+                            </div>
+                        </div>
+                        <button class="btn" id="run-all-checks-btn" style="width:auto;padding:0.65rem 1rem;font-size:0.9rem;background:#0f8f75;" onclick="runAllMonitoringChecks()">
+                            <i class="fas fa-play"></i> Alle Checks jetzt ausführen
+                        </button>
+                    </div>
+                    <div id="manual-check-status" style="font-size:0.82rem;color:#666;margin-top:0.75rem;"></div>
+                </div>
                 <div class="card" id="security-health-card" style="margin-bottom:1.2rem;">
                     <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;">
                         <div>
@@ -856,7 +873,7 @@
                             <div id="security-health-meta" style="font-size:0.85rem;color:#666;">Noch keine Daten</div>
                         </div>
                         <button class="btn" style="width:auto;padding:0.55rem 1rem;font-size:0.9rem;background:#2d3436;" onclick="loadSecurityStatus(true)">
-                            <i class="fas fa-shield-alt"></i> Status aktualisieren
+                            <i class="fas fa-shield-alt"></i> Status + CVEs aktualisieren
                         </button>
                     </div>
                     <div id="security-health-list" style="margin-top:0.9rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.55rem;">

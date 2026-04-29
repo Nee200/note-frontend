@@ -1,0 +1,56 @@
+name: Frontend CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+
+    env:
+      FRONTEND_BASE_URL: http://127.0.0.1:5500
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Syntax check smoke script
+        run: node --check scripts/smoke-frontend.js
+
+      - name: Syntax check frontend runtime scripts
+        run: |
+          node --check script.js
+          node --check admin.js
+          node --check account.js
+
+      - name: Start static server
+        run: |
+          npx --yes serve . -l 5500 > frontend-ci.log 2>&1 &
+          echo $! > frontend-ci.pid
+
+      - name: Wait for frontend
+        run: |
+          for attempt in $(seq 1 30); do
+            if curl -fsS "$FRONTEND_BASE_URL/" >/dev/null; then
+              exit 0
+            fi
+            echo "Waiting for frontend ($attempt/30)"
+            sleep 2
+          done
+          cat frontend-ci.log
+          exit 1
+
+      - name: Frontend smoke test
+        run: node scripts/smoke-frontend.js
+
+      - name: Frontend logs on failure
+        if: failure()
+        run: cat frontend-ci.log || true
