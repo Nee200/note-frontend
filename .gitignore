@@ -5,3 +5,32 @@ node_modules/
 # Local smoke-test/build scratch files
 __tmp_*.js
 tmp_*.js
+
+# One-off maintenance/AI patch scripts
+absolute_fix_*.js
+add_*_toggle.js
+apply_*.js
+clean_*.js
+dedup_*.js
+download_*.js
+enhance_*.js
+extract_*.js
+fix_*.js
+increase_*.js
+inject_*.js
+insert_*.js
+patch_*.js
+rebuild_*.js
+reduce_*.js
+restore_*.js
+sync_*.js
+unify_*.js
+update_*.js
+upgrade_*.js
+
+# Local previews/backups
+*_backup.html
+*_summer_backup.*
+preview_email.html
+preview_order_email.html
+email-preview.html
