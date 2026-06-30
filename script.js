@@ -841,6 +841,141 @@ function escapeHtml(value) {
         .replace(/'/g, '&#39;');
 }
 
+function getProductSeoName(product) {
+    return String(product && product.name ? product.name : '')
+        .replace(/\s*\(\d+ml\)/, '')
+        .trim();
+}
+
+function getProductCategoryLabel(product) {
+    return product && product.category === 'women' ? 'Damenduft' : 'Herrenduft';
+}
+
+function truncateSeoText(value, maxLength = 155) {
+    const text = String(value || '').replace(/\s+/g, ' ').trim();
+    if (text.length <= maxLength) return text;
+    const shortened = text.slice(0, maxLength - 1).trim();
+    return shortened.replace(/\s+\S*$/, '') + '...';
+}
+
+function getProductCanonicalUrl(product) {
+    const url = new URL('/product.html', 'https://www.note-fragrances.de');
+    url.searchParams.set('id', String(product && product.id ? product.id : ''));
+    return url.href;
+}
+
+function getProductImageUrl(product) {
+    const image = product && Array.isArray(product.images) && product.images.length > 0
+        ? String(product.images[0] || '').trim()
+        : 'logo.webp';
+    try {
+        return new URL(image || 'logo.webp', 'https://www.note-fragrances.de/').href;
+    } catch (error) {
+        return 'https://www.note-fragrances.de/logo.webp';
+    }
+}
+
+function getProductSeoDescription(product) {
+    const name = getProductSeoName(product);
+    const category = getProductCategoryLabel(product);
+    const inspiredBy = stripBrandName(product && product.inspiredBy ? product.inspiredBy : '');
+    const dupePart = inspiredBy ? ` Duftalternative zu ${inspiredBy}.` : '';
+    return truncateSeoText(`${name} von N\u00d8TE. fragrances: langanhaltender ${category} als Extrait de Parfum mit 40% Duft\u00f6lanteil.${dupePart}`);
+}
+
+function upsertMeta(selector, createAttributes, content) {
+    let element = document.head.querySelector(selector);
+    if (!element) {
+        element = document.createElement('meta');
+        Object.entries(createAttributes).forEach(([key, value]) => {
+            element.setAttribute(key, value);
+        });
+        document.head.appendChild(element);
+    }
+    element.setAttribute('content', content);
+}
+
+function upsertCanonical(href) {
+    let link = document.head.querySelector('link[rel="canonical"]');
+    if (!link) {
+        link = document.createElement('link');
+        link.setAttribute('rel', 'canonical');
+        document.head.appendChild(link);
+    }
+    link.setAttribute('href', href);
+}
+
+function upsertProductJsonLd(product, title, description, canonicalUrl, imageUrl) {
+    let script = document.getElementById('product-json-ld');
+    if (!script) {
+        script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.id = 'product-json-ld';
+        document.head.appendChild(script);
+    }
+
+    const variant = product && product.variants
+        ? (product.variants[50] || product.variants['50'] || product.variants[30] || product.variants['30'] || product.variants[100] || product.variants['100'])
+        : null;
+
+    const schema = {
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        name: title,
+        description,
+        image: [imageUrl],
+        sku: String(product.id || ''),
+        brand: {
+            '@type': 'Brand',
+            name: 'N\u00d8TE. fragrances'
+        },
+        url: canonicalUrl,
+        offers: {
+            '@type': 'Offer',
+            url: canonicalUrl,
+            priceCurrency: 'EUR',
+            availability: 'https://schema.org/InStock',
+            itemCondition: 'https://schema.org/NewCondition'
+        }
+    };
+
+    if (variant && typeof variant.price === 'number') {
+        schema.offers.price = variant.price.toFixed(2);
+    }
+
+    const summary = product.reviewSummary || {};
+    if (summary.count > 0 && summary.average > 0) {
+        schema.aggregateRating = {
+            '@type': 'AggregateRating',
+            ratingValue: Number(summary.average).toFixed(1),
+            reviewCount: Number(summary.count)
+        };
+    }
+
+    script.textContent = JSON.stringify(schema);
+}
+
+function updateProductSeo(product) {
+    if (!product || !product.id) return;
+
+    const name = getProductSeoName(product);
+    const title = `N\u00d8TE. ${name} Duftzwilling | Extrait de Parfum`;
+    const description = getProductSeoDescription(product);
+    const canonicalUrl = getProductCanonicalUrl(product);
+    const imageUrl = getProductImageUrl(product);
+
+    document.title = title;
+    upsertMeta('meta[name="description"]', { name: 'description' }, description);
+    upsertCanonical(canonicalUrl);
+    upsertMeta('meta[property="og:type"]', { property: 'og:type' }, 'product');
+    upsertMeta('meta[property="og:site_name"]', { property: 'og:site_name' }, 'N\u00d8TE. fragrances');
+    upsertMeta('meta[property="og:title"]', { property: 'og:title' }, title);
+    upsertMeta('meta[property="og:description"]', { property: 'og:description' }, description);
+    upsertMeta('meta[property="og:url"]', { property: 'og:url' }, canonicalUrl);
+    upsertMeta('meta[property="og:image"]', { property: 'og:image' }, imageUrl);
+    upsertProductJsonLd(product, title, description, canonicalUrl, imageUrl);
+}
+
 function formatReviewDate(value) {
     if (!value) return '';
     const date = new Date(value);
@@ -1201,6 +1336,12 @@ function renderProductDetail(id) {
     if (!product) {
         document.querySelector('.detail-container').innerHTML = '<p>Produkt nicht gefunden.</p>';
         return;
+    }
+
+    try {
+        updateProductSeo(product);
+    } catch (error) {
+        console.error('Product SEO update failed:', error);
     }
 
     document.getElementById('detail-title').innerText = 'NØTE. ' + product.name.replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, '');
