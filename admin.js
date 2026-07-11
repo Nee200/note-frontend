@@ -903,7 +903,7 @@ function renderOrders() {
     tbody.innerHTML = filteredOrders.map(function (o) {
         var date = new Date(o.date).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
         var amount = o.amount ? (o.amount / 100).toFixed(2) + ' EUR' : '-';
-        var safeName = escapeHtml(o.name || '-');
+        var safeName = escapeHtml(o.name || (o.address && o.address.name) || '-');
         var safeEmail = escapeHtml(o.email || '');
 
         // Address block

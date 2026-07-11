@@ -5,6 +5,9 @@ const API_BASE_URL = (() => {
     }
     return 'https://note-backend-5gy0.onrender.com';
 })();
+// Ans Window haengen, damit style-wave-home.js es wiederverwenden kann
+// (verhindert "Identifier has already been declared", wenn beide Skripte geladen werden).
+window.API_BASE_URL = API_BASE_URL;
 
 const CSRF_COOKIE_NAME = 'csrf_token';
 const nativeFetch = window.fetch.bind(window);
@@ -216,30 +219,76 @@ async function ensureProductsLoaded({ forceRefresh = false, background = false }
     return productsLoadPromise;
 }
 
-// Helper function to remove manufacturer names from the inspiredBy field
+// Includes spelling variants and abbreviations found in the supplier catalogue.
+// Long aliases are checked first so "Van Cleef & Arpels" wins over "Van Cleef".
+const PRODUCT_BRAND_ALIASES = [
+    "Abdul Samad Al Qurashi", "Maison Francis Kurkdjian", "Jean Paul Gaultier", "Jean Paul Gaulter",
+    "Marc-Antonie Barrois", "Stephane Humbert Lucas", "Van Cleef & Arpels", "Escentric Molecules",
+    "Molecules Escentric", "Salvatore Ferragamo", "Parfums de Marly", "Parfum De Marly",
+    "Parfum de Marly", "Yves Saint Laurent", "Narciso Rodriguez", "Carolina Herrera",
+    "Caronlina Herrera", "Christian Clive", "Clive Christian", "Collection Prestige",
+    "Dolce & Gabbana", "Giorgio Armani", "Giorgo Armani", "Thierry Mugler", "Roberto Cavalli",
+    "Zadig & Voltaire", "Franck Olivier", "Frederic Malle", "Jacques Bogart", "Britney Spears",
+    "Priscilla Presley", "Juliette Has A Gun", "Victoria Secret", "Acqua di Parma", "Arabian Oud",
+    "Bottega Veneta", "Calvin Klein", "Narciso", "Maison Crivelli", "Maison Margiela",
+    "Maison Alhambra", "Tiziana Terenzi", "Tiziana Terenzi", "Viktor & Rolf", "Viktor Rolf",
+    "Victor Rolf", "Paco Rabanne", "Paco Rabbane", "Ard Al Zaafaran", "Ard Al Khaleej",
+    "Al Jazeera Perfumes", "Al Jaezeera", "Maison Alhambra", "Michael Kors", "Milton Llyod",
+    "Franck Olivier", "Franco Ferre", "Marc Jacobs", "Nina Ricci", "Issey Miyake", "Issey Miake",
+    "Jo Malone", "Jimmy Choo", "Elie Saab", "Estee Lauder", "Hugo Boss", "Tom Ford",
+    "Louis Vuitton", "Nina Ricci", "Jil Sander", "Ted Lapidus", "KayAli", "Khadlaj",
+    "D´Hermés", "Hermés", "Hermès", "Hermes", "Guerlain", "Baccarat", "Bulgari", "Bvlgari",
+    "Afnan", "Azzaro", "Aramis", "Bois 1920", "Cacharel", "Cartier", "Chanel", "Chopard", "Chloe",
+    "Creed", "Davidoff", "Diesel", "Dior", "Diptyque", "DKNY", "Dunhill", "Eisenberg", "Ex Nihilo",
+    "Escada", "Fendi", "Gisada", "Gisah", "Givenchy", "Gucci", "Initio", "Joop!", "Joop",
+    "Hummer", "Kajal", "Kenzo", "Kilian", "Killian", "Lacoste", "Lancome", "Lancôme", "Lattafa", "Lattfa", "Le Labo",
+    "Mancera", "Malizia Uomo", "Montale", "Montblanc", "Mugler", "Nasomatto", "Nautica",
+    "Nikos", "Nishane", "Orlane", "Orto Parisi", "Paris Hilton", "Penhaligon", "Prada",
+    "Rasai", "Rasasi", "Roja", "Rochas", "Sospiro", "Terenzi", "Thameen", "Trussardi", "Valentino",
+    "Versace", "Vertus", "Widian", "Xerjoff", "Yves Rocher", "Zarko Perfume", "Casamorati",
+    "Amouage", "Ajmal", "Atkinson", "Bond No 9", "Burberry", "Byredo", "Memo Paris",
+    "Molecules", "MFK", "JPG", "Jpg", "T.F.", "YSL", "D&G", "BLV", "CH", "PR", "LB", "Lv",
+    "Armani", "Boss", "Yves"
+].sort((a, b) => b.length - a.length);
+
+function escapeRegExp(value) {
+    return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// Removes real manufacturer names while preserving the perfume name shown after the ellipsis.
 function stripBrandName(name) {
     if (!name) return '';
-    const brands = [
-        "Louis Vuitton", "Maison Francis Kurkdjian", "Maison Crivelli", "Maison Margiela", "Maison Alhambra",
-        "Tiziana Terenzi", "Tom Ford", "Yves Saint Laurent", "YSL", "Paco Rabanne", "Giorgio Armani", "Armani",
-        "Abdul Samad Al Qurashi", "Victoria Secret", "Xerjoff", "Casamorati", "Zadig & Voltaire", "Narciso Rodriguez",
-        "Carolina Herrera", "Mugler", "Givenchy", "Lancome", "Gucci", "Hermes", "Hugo Boss", "Boss", "Dolce & Gabbana",
-        "D&G", "Chanel", "Dior", "Creed", "Bvlgari", "Versace", "Amouage", "Acqua di Parma", "Baccarat", "Bond No 9",
-        "Burberry", "Byredo", "Calvin Klein", "Chloe", "Clive Christian", "Davidoff", "DKNY", "Diptyque", "Eisenberg",
-        "Elie Saab", "Escada", "Estee Lauder", "Gisada", "Guerlain", "Initio", "Jean Paul Gaultier", "Jimmy Choo",
-        "Jo Malone", "Kilian", "Kenzo", "Lattafa", "Le Labo", "Mancera", "Marc Jacobs", "Montale", "Nasomatto",
-        "Nina Ricci", "Nishane", "Prada", "Penhaligon", "Roja", "Sospiro", "Terenzi", "Valentino", "Viktor & Rolf",
-        "Yves Rocher", "Yves", "Parfums de Marly", "Arabian Oud", "Bottega Veneta", "Cartier", "Chopard", "Diesel",
-        "Escentric Molecules", "Ex Nihilo", "Issey Miyake", "Joop", "Juliette Has A Gun", "Montblanc", "Narciso",
-        "Rasasi", "Van Cleef", "Van Cleef & Arpels", "Ajmal", "Memo Paris", "Nikos", "Trussardi", "Atkinson"
-    ];
-    let cleaned = name.split(' - ').slice(-1)[0].trim(); // Get part after hyphen if any
-    for (const b of brands) {
-        if (cleaned.toLowerCase().startsWith(b.toLowerCase() + ' ')) {
-            return cleaned.substring(b.length + 1).trim();
+
+    let cleaned = String(name).split(/\s+-\s+/).slice(-1)[0].trim();
+    const separator = "[\\s\\-–—/:|·'’´]+";
+
+    // Multiple passes handle combinations such as "Bulgari Bvlgari Le Gemme Tygar".
+    for (let pass = 0; pass < 4; pass += 1) {
+        const beforePass = cleaned;
+
+        for (const brand of PRODUCT_BRAND_ALIASES) {
+            const escapedBrand = escapeRegExp(brand);
+            const prefix = new RegExp(`^${escapedBrand}(?:${separator}|$)`, 'i');
+            const suffix = new RegExp(`(?:${separator}|^)${escapedBrand}$`, 'i');
+            const embedded = new RegExp(`(^|${separator})${escapedBrand}(?=${separator}|$)`, 'i');
+
+            if (prefix.test(cleaned)) {
+                cleaned = cleaned.replace(prefix, '').trim();
+            } else if (suffix.test(cleaned)) {
+                cleaned = cleaned.replace(suffix, '').trim();
+            } else if (embedded.test(cleaned)) {
+                cleaned = cleaned.replace(embedded, '$1').trim();
+            }
         }
+
+        cleaned = cleaned
+            .replace(/^[\s\-–—/:|·'’´]+|[\s\-–—/:|·'’´]+$/g, '')
+            .replace(/\s{2,}/g, ' ')
+            .trim();
+        if (cleaned === beforePass) break;
     }
-    return cleaned;
+
+    return cleaned || 'Duftkomposition';
 }
 
 function sanitizeProductUrlId(value) {
@@ -544,7 +593,6 @@ function getProductCardHTML(product, options = {}) {
     const defaultVariant = product.variants[30];
     const price = defaultVariant.price;
     const originalPrice = defaultVariant.originalPrice;
-    const bestsellerFlag = isBestseller(product);
     const safeProductUrlId = sanitizeProductUrlId(product.id);
     const safeProductClassId = sanitizeClassFragment(product.id);
     const safeImage = safeImageSrc((product.images && product.images.length > 0) ? product.images[0] : 'logo.webp');
@@ -553,22 +601,15 @@ function getProductCardHTML(product, options = {}) {
     const safeInspiredBy = product.inspiredBy
         ? `...${escapeHtml(stripBrandName(product.inspiredBy))}&reg;`
         : safeProductName;
-    const safeDescription = escapeHtml(product.description || '');
-    const reviewSummary = product.reviewSummary || { average: 0, count: 0 };
-    const hasReviews = Number(reviewSummary.count) > 0;
-    const normalizedAverage = Number(reviewSummary.average) || 0;
-    const normalizedCount = Number(reviewSummary.count) || 0;
-    const ratingMarkup = hasReviews
-        ? `<div class="product-card-rating" aria-label="${normalizedAverage.toFixed(1)} von 5 Sternen aus ${normalizedCount} Bewertungen">
-                <span class="product-card-rating-stars">★★★★★</span>
-                <span class="product-card-rating-value">${normalizedAverage.toFixed(1).replace('.', ',')}</span>
-                <span class="product-card-rating-count">(${normalizedCount})</span>
-           </div>`
+    const formattedPrice = price.toFixed(2).replace('.', ',');
+    const formattedOriginalPrice = originalPrice
+        ? originalPrice.toFixed(2).replace('.', ',')
         : '';
 
     return `
-        <div class="product-card" onclick="window.location.href='product.html?id=${safeProductUrlId}'">
-            <div class="product-image-wrapper">
+        <a class="product-card shop-product-card" href="product.html?id=${safeProductUrlId}" aria-label="N&Oslash;TE. ${safeProductCode} ansehen">
+            <span class="product-code">N&Oslash;TE. ${safeProductCode}</span>
+            <div class="product-stage">
                 <img src="${safeImage}" 
                      alt="${safeProductName}" 
                      class="product-grid-image product-img-${safeProductClassId}"
@@ -577,25 +618,14 @@ function getProductCardHTML(product, options = {}) {
                      fetchpriority="${imageFetchPriority}"
                      onerror="this.src='logo.webp'">
             </div>
-            <div class="product-info">
-                <p class="product-code">NØTE. ${safeProductCode}</p>
-                <h3 class="product-title${bestsellerFlag ? ' has-badge' : ''}">
-                    ${safeInspiredBy}
-                    ${bestsellerFlag ? '<span class="product-badge-bestseller">Bestseller</span>' : ''}
-                </h3>
-                ${ratingMarkup}
-                <p class="product-short-desc">${safeDescription}</p>
-                <div class="product-actions">
-                    <div class="product-price">
-                        ${originalPrice ? `<span class="original-price-strike">${originalPrice.toFixed(2)} €</span>` : ''}
-                        ab ${price.toFixed(2)} €
-                    </div>
-                    <button class="btn btn-outlined-card" onclick="event.stopPropagation(); window.location.href='product.html?id=${safeProductUrlId}'">
-                        ZUR AUSWAHL
-                    </button>
+            <div class="product-copy">
+                <h3 class="product-title">${safeInspiredBy}</h3>
+                <div class="product-price">
+                    ${originalPrice ? `<s>${formattedOriginalPrice} &euro;</s>` : ''}
+                    <span>ab ${formattedPrice} &euro;</span>
                 </div>
             </div>
-        </div>
+        </a>
     `;
 }
 
@@ -1661,9 +1691,11 @@ function addToCart(productId, size = 50) {
     updateCartUI();
 
     // Open cart automatically
-    if (!cartSidebar.classList.contains('open')) {
+    if (cartSidebar && !cartSidebar.classList.contains('open')) {
         toggleCart();
     }
+    // Neues Header-System (site-header): Warenkorb-Drawer öffnen, falls vorhanden
+    window.dispatchEvent(new CustomEvent('note:open-cart'));
 }
 
 // Aus dem Warenkorb entfernen
@@ -1708,6 +1740,11 @@ function updateCartUI() {
     // Save state
     localStorage.setItem('cart', JSON.stringify(cart));
     persistCouponState();
+
+    // Neues Header-System (style-wave-home.js) ueber Aenderung informieren,
+    // damit der neue Cart-Drawer + .cart-count neu gerendert werden.
+    // (storage-Event feuert nur in anderen Tabs, daher eigenes Event.)
+    window.dispatchEvent(new CustomEvent('note:cart-changed'));
 
     // 2. Items rendern
     if (!cartItemsContainer) return;
@@ -2327,7 +2364,9 @@ document.addEventListener('click', (e) => {
 });
 
 async function performSearch() {
-    const queryRaw = document.getElementById('search-input').value;
+    const searchInput = document.getElementById('search-input');
+    if (!searchInput) return;
+    const queryRaw = searchInput.value;
     const query = queryRaw.toLowerCase();
     const resultsContainer = document.getElementById('search-results');
 
