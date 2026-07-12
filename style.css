@@ -5110,6 +5110,44 @@ html:has(body.no-scroll) {
     }
 }
 
+/* Shared mobile page gutter for collection and gender catalogue pages. */
+@media screen and (max-width: 768px) {
+    body[data-default-category] .split-hero,
+    body[data-page="search"] .split-hero {
+        width: auto !important;
+        margin-right: max(16px, env(safe-area-inset-right)) !important;
+        margin-bottom: 2rem !important;
+        margin-left: max(16px, env(safe-area-inset-left)) !important;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+
+    body[data-default-category] main#products.container.section,
+    body[data-page="search"] main#products.container.section {
+        width: auto;
+        max-width: none;
+        margin-right: max(16px, env(safe-area-inset-right));
+        margin-left: max(16px, env(safe-area-inset-left));
+        padding-right: 0;
+        padding-left: 0;
+        box-sizing: border-box;
+    }
+
+    body[data-default-category] main#products .product-grid,
+    body[data-page="search"] main#products .product-grid {
+        width: 100%;
+        padding-right: 0;
+        padding-left: 0;
+        box-sizing: border-box;
+    }
+
+    body[data-page="search"] main#products .category-toolbar,
+    body[data-default-category] main#products .category-toolbar-minimal {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
 
 /* Feature Item Box Layout and Animations */
 .features-bar {
