@@ -18,8 +18,25 @@ const cartFooter = document.querySelector("[data-cart-footer]");
 const cartTotal = document.querySelector("[data-cart-total]");
 const cartStatus = document.querySelector("[data-cart-status]");
 const cartCheckoutButton = document.querySelector("[data-cart-checkout]");
+const cartSubtotal = document.querySelector("[data-cart-subtotal]");
+const cartShipping = document.querySelector("[data-cart-shipping]");
+const cartDiscount = document.querySelector("[data-cart-discount]");
+const cartDiscountRow = document.querySelector("[data-cart-discount-row]");
+const cartShippingMessage = document.querySelector("[data-cart-shipping-message]");
+const cartShippingPercent = document.querySelector("[data-cart-shipping-percent]");
+const cartShippingBar = document.querySelector("[data-cart-shipping-bar]");
+const cartCouponForm = document.querySelector("[data-cart-coupon-form]");
+const cartCouponInput = document.querySelector("[data-cart-coupon]");
+const cartCouponMessage = document.querySelector("[data-cart-coupon-message]");
+const cartPickupFields = document.querySelector("[data-cart-pickup]");
+const cartUpsell = document.querySelector("[data-cart-upsell]");
 const newsletterForm = document.querySelector("[data-newsletter-form]");
 const newsletterStatus = document.querySelector("[data-newsletter-status]");
+const searchSuggestions = document.querySelector("[data-search-suggestions]");
+
+let drawerDeliveryMethod = "shipping";
+let storefrontProducts = [];
+let storefrontProductsPromise = null;
 
 // API_BASE_URL: falls script.js schon geladen wurde, dessen Wert am window
 // wiederverwenden, sonst selbst setzen. (window.API_BASE_URL, kein top-level const,
@@ -56,24 +73,91 @@ function readCart() {
 function writeCart(items) {
     localStorage.setItem("cart", JSON.stringify(items));
     renderCart();
+    window.dispatchEvent(new CustomEvent("note:cart-updated-by-drawer"));
 }
 
 function formatPrice(value) {
     return new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(Number(value) || 0);
 }
 
+async function loadStorefrontProducts() {
+    if (storefrontProducts.length) return storefrontProducts;
+    if (!storefrontProductsPromise) {
+        storefrontProductsPromise = fetch(`${window.API_BASE_URL}/api/products`, { credentials: "include" })
+            .then((response) => {
+                if (!response.ok) throw new Error("Produkte konnten nicht geladen werden.");
+                return response.json();
+            })
+            .then((items) => {
+                storefrontProducts = Array.isArray(items) ? items : [];
+                return storefrontProducts;
+            })
+            .finally(() => {
+                storefrontProductsPromise = null;
+            });
+    }
+    return storefrontProductsPromise;
+}
+
+function getDrawerTotals(items) {
+    const subtotal = items.reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 0), 0);
+    const discountRate = Math.max(0, Math.min(Number(localStorage.getItem("discount") || 0), 1));
+    const discountAmount = subtotal * discountRate;
+    const freeShipping = localStorage.getItem("couponFreeShipping") === "1" || subtotal >= 60;
+    const shippingCost = drawerDeliveryMethod === "shipping" && !freeShipping ? 6.99 : 0;
+    return { subtotal, discountRate, discountAmount, shippingCost, total: subtotal - discountAmount + shippingCost, freeShipping };
+}
+
+async function renderCartUpsell(items) {
+    if (!cartUpsell || !items.length) return;
+    try {
+        const products = await loadStorefrontProducts();
+        const ids = new Set(items.map((item) => String(item.productId || "")));
+        const suggestion = products.find((product) => product?.bestseller && !ids.has(String(product.id)))
+            || products.find((product) => !ids.has(String(product.id)));
+        if (!suggestion) {
+            cartUpsell.innerHTML = "";
+            return;
+        }
+        const image = safeImageSource(suggestion.images?.[0]);
+        const variant = suggestion.variants?.[30] || suggestion.variants?.[50] || Object.values(suggestion.variants || {})[0];
+        cartUpsell.innerHTML = `
+            <span>Dazu passt</span>
+            <a href="product.html?id=${encodeURIComponent(String(suggestion.id || ""))}">
+                <img src="${image}" alt="${escapeHtml(suggestion.name || "Duft entdecken")}">
+                <strong>${escapeHtml(suggestion.name || "Duft entdecken")}</strong>
+                <small>${variant ? `ab ${formatPrice(variant.price)}` : "Ansehen"}</small>
+            </a>`;
+    } catch (error) {
+        cartUpsell.innerHTML = "";
+    }
+}
+
 function renderCart() {
     if (!cartItemsRoot) return;
     const items = readCart();
     const itemCount = items.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
-    const subtotal = items.reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 0), 0);
+    const totals = getDrawerTotals(items);
 
     document.querySelectorAll(".cart-count").forEach((element) => {
         element.textContent = String(itemCount);
     });
     const drawerCount = cartDrawer?.querySelector(".cart-drawer-header span");
     if (drawerCount) drawerCount.textContent = String(itemCount);
-    if (cartTotal) cartTotal.textContent = formatPrice(subtotal);
+    if (cartSubtotal) cartSubtotal.textContent = formatPrice(totals.subtotal);
+    if (cartDiscount) cartDiscount.textContent = `−${formatPrice(totals.discountAmount)}`;
+    if (cartDiscountRow) cartDiscountRow.hidden = totals.discountAmount <= 0;
+    if (cartShipping) cartShipping.textContent = drawerDeliveryMethod === "pickup" ? "Abholung" : (totals.freeShipping ? "Kostenlos" : formatPrice(totals.shippingCost));
+    if (cartTotal) cartTotal.textContent = formatPrice(totals.total);
+    const shippingProgress = Math.max(0, Math.min((totals.subtotal / 60) * 100, 100));
+    if (cartShippingBar) cartShippingBar.style.width = `${shippingProgress}%`;
+    if (cartShippingPercent) cartShippingPercent.textContent = `${Math.round(shippingProgress)}%`;
+    if (cartShippingMessage) {
+        const remaining = Math.max(0, 60 - totals.subtotal);
+        cartShippingMessage.textContent = totals.freeShipping
+            ? "Kostenloser Versand ist erreicht"
+            : `Noch ${formatPrice(remaining)} bis zum kostenlosen Versand`;
+    }
     if (cartFooter) cartFooter.hidden = items.length === 0;
     cartItemsRoot.classList.toggle("has-items", items.length > 0);
 
@@ -81,7 +165,7 @@ function renderCart() {
         cartItemsRoot.innerHTML = `
             <div class="cart-empty-state">
                 <p>Dein Warenkorb ist leer.</p>
-                <a class="btn btn-dark" href="#bestseller">Bestseller ansehen</a>
+                <a class="btn btn-dark" href="index.html#bestseller">Bestseller ansehen</a>
             </div>`;
         return;
     }
@@ -89,9 +173,12 @@ function renderCart() {
     cartItemsRoot.innerHTML = items.map((item) => {
         const cartId = escapeHtml(item.cartId || "");
         const productId = escapeHtml(item.productId || String(item.id || "").replace(/-\d+$/, ""));
-        const name = escapeHtml(item.name || "NØTE. fragrance");
+        const name = escapeHtml(String(item.name || "NØTE. fragrance").replace(/\s*\(\d+ml\)\s*$/i, ""));
         const image = safeImageSource(item.image);
         const quantity = Math.max(1, Number(item.quantity) || 1);
+        const linePrice = Number(item.price || 0) * quantity;
+        const originalLinePrice = Number(item.originalPrice || 0) * quantity;
+        const hasSaving = originalLinePrice > linePrice;
         return `
             <article class="wave-cart-item" data-cart-id="${cartId}">
                 <a class="wave-cart-image" href="product.html?id=${encodeURIComponent(productId)}">
@@ -99,7 +186,7 @@ function renderCart() {
                 </a>
                 <div class="wave-cart-copy">
                     <a href="product.html?id=${encodeURIComponent(productId)}">${name}</a>
-                    <span>${formatPrice(Number(item.price) * quantity)}</span>
+                    <small>${escapeHtml(item.size || "50")} ml · ${formatPrice(item.price)} je Flakon</small>
                     <div class="wave-cart-quantity" aria-label="Menge ändern">
                         <button type="button" data-cart-action="decrease" aria-label="Menge verringern">−</button>
                         <strong>${quantity}</strong>
@@ -107,8 +194,14 @@ function renderCart() {
                         <button class="wave-cart-remove" type="button" data-cart-action="remove">Entfernen</button>
                     </div>
                 </div>
+                <div class="wave-cart-price">
+                    ${hasSaving ? `<s>${formatPrice(originalLinePrice)}</s>` : ""}
+                    <strong>${formatPrice(linePrice)}</strong>
+                    ${hasSaving ? `<small>${formatPrice(originalLinePrice - linePrice)} gespart</small>` : ""}
+                </div>
             </article>`;
     }).join("");
+    renderCartUpsell(items);
 }
 
 function changeCartItem(cartId, action) {
@@ -135,10 +228,36 @@ async function startCheckout() {
     if (cartStatus) cartStatus.textContent = "Sicherer Checkout wird vorbereitet…";
     try {
         const csrfToken = await getCsrfToken();
+        const couponCode = String(localStorage.getItem("couponCode") || "").trim();
+
+        if (drawerDeliveryMethod === "pickup") {
+            const customerName = String(document.querySelector("[data-cart-pickup-name]")?.value || "").trim();
+            const customerEmail = String(document.querySelector("[data-cart-pickup-email]")?.value || "").trim();
+            if (!customerName || !customerEmail) {
+                throw new Error("Bitte gib für die Abholung deinen Namen und deine E-Mail-Adresse ein.");
+            }
+            const pickupResponse = await fetch(`${window.API_BASE_URL}/create-pickup-order`, {
+                method: "POST",
+                credentials: "include",
+                headers: { "Content-Type": "application/json", "X-CSRF-Token": csrfToken },
+                body: JSON.stringify({
+                    items: items.map((item) => ({ id: item.id, quantity: Number(item.quantity) })),
+                    customerName,
+                    customerEmail,
+                    couponCode: couponCode || undefined
+                })
+            });
+            const pickupPayload = await pickupResponse.json().catch(() => ({}));
+            if (!pickupResponse.ok) throw new Error(pickupPayload.error || "Abholung konnte nicht reserviert werden.");
+            sessionStorage.setItem("isPickupOrder", "true");
+            writeCart([]);
+            window.location.assign("success.html?pickup=true");
+            return;
+        }
+
         const requestBody = {
             items: items.map((item) => ({ id: item.id, quantity: Number(item.quantity) }))
         };
-        const couponCode = String(localStorage.getItem("couponCode") || "").trim();
         if (couponCode) requestBody.couponCode = couponCode;
         const response = await fetch(`${window.API_BASE_URL}/create-checkout-session`, {
             method: "POST",
@@ -162,7 +281,38 @@ async function startCheckout() {
     }
 }
 
-async function submitNewsletter(event) {
+async function applyDrawerCoupon(event) {
+    event.preventDefault();
+    const code = String(cartCouponInput?.value || "").trim().toUpperCase();
+    if (!code || !cartCouponMessage) return;
+    cartCouponMessage.textContent = "Gutschein wird geprüft…";
+    try {
+        const csrfToken = await getCsrfToken();
+        const response = await fetch(`${window.API_BASE_URL}/api/validate-coupon`, {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json", "X-CSRF-Token": csrfToken },
+            body: JSON.stringify({ code })
+        });
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok || !payload.valid) throw new Error(payload.error || "Der Gutscheincode ist ungültig oder bereits verbraucht.");
+        localStorage.setItem("discount", String(Number(payload.discount || 0) / 100));
+        localStorage.setItem("couponCode", String(payload.code || code));
+        localStorage.setItem("couponLabel", String(payload.label || `${payload.discount}% Rabatt`));
+        localStorage.setItem("couponFreeShipping", payload.freeShipping ? "1" : "0");
+        cartCouponMessage.textContent = payload.label || "Gutschein wurde aktiviert.";
+        renderCart();
+    } catch (error) {
+        localStorage.removeItem("discount");
+        localStorage.removeItem("couponCode");
+        localStorage.removeItem("couponLabel");
+        localStorage.removeItem("couponFreeShipping");
+        cartCouponMessage.textContent = error.message || "Gutschein konnte nicht geprüft werden.";
+        renderCart();
+    }
+}
+
+async function submitWaveNewsletter(event) {
     event.preventDefault();
     if (!newsletterForm || !newsletterStatus) return;
     const input = newsletterForm.querySelector('input[type="email"]');
@@ -222,6 +372,60 @@ function closeSearchPanel() {
     searchPanel.classList.remove("is-open");
     searchPanel.setAttribute("aria-hidden", "true");
     searchOpenButton?.setAttribute("aria-expanded", "false");
+    searchPanel.classList.remove("has-results");
+    if (searchSuggestions) searchSuggestions.innerHTML = "";
+}
+
+function normalizeStorefrontSearch(value) {
+    return String(value || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, " ")
+        .trim();
+}
+
+let searchRequestId = 0;
+async function renderSearchSuggestions() {
+    if (!searchInput || !searchSuggestions || !searchPanel) return;
+    const query = normalizeStorefrontSearch(searchInput.value);
+    const requestId = ++searchRequestId;
+    if (query.length < 2) {
+        searchSuggestions.innerHTML = "";
+        searchPanel.classList.remove("has-results");
+        return;
+    }
+    searchSuggestions.innerHTML = '<p class="search-panel-message">Düfte werden geladen…</p>';
+    searchPanel.classList.add("has-results");
+    try {
+        const products = await loadStorefrontProducts();
+        if (requestId !== searchRequestId) return;
+        const matches = products.filter((product) => {
+            const notes = Object.values(product?.notes || {}).join(" ");
+            return normalizeStorefrontSearch([
+                product?.name,
+                product?.inspiredBy,
+                product?.description,
+                notes
+            ].join(" ")).includes(query);
+        });
+        if (!matches.length) {
+            searchSuggestions.innerHTML = '<p class="search-panel-message">Keine passenden Düfte gefunden.</p>';
+            return;
+        }
+        const cards = matches.slice(0, 4).map((product) => {
+            const variant = product.variants?.[30] || product.variants?.[50] || Object.values(product.variants || {})[0];
+            return `
+                <a class="search-suggestion" href="product.html?id=${encodeURIComponent(String(product.id || ""))}">
+                    <img src="${safeImageSource(product.images?.[0])}" alt="${escapeHtml(product.name || "NØTE. Duft")}">
+                    <span><strong>${escapeHtml(product.name || "NØTE. Duft")}</strong><small>${variant ? `ab ${formatPrice(variant.price)}` : "Details ansehen"}</small></span>
+                </a>`;
+        }).join("");
+        searchSuggestions.innerHTML = `${cards}<a class="search-show-all" href="suche.html?q=${encodeURIComponent(searchInput.value.trim())}">Alle Ergebnisse ansehen</a>`;
+    } catch (error) {
+        if (requestId !== searchRequestId) return;
+        searchSuggestions.innerHTML = '<p class="search-panel-message">Die Suche ist gerade nicht erreichbar.</p>';
+    }
 }
 
 function positionSearchPanel() {
@@ -241,6 +445,8 @@ function openCartDrawer() {
     cartDrawer.classList.add("is-open");
     drawerBackdrop.classList.add("is-open");
     cartDrawer.setAttribute("aria-hidden", "false");
+    document.documentElement.classList.add("cart-drawer-open");
+    renderCart();
 }
 
 function closeCartDrawer() {
@@ -248,6 +454,7 @@ function closeCartDrawer() {
     cartDrawer.classList.remove("is-open");
     drawerBackdrop.classList.remove("is-open");
     cartDrawer.setAttribute("aria-hidden", "true");
+    document.documentElement.classList.remove("cart-drawer-open");
 }
 
 searchOpenButton?.addEventListener("click", () => {
@@ -257,6 +464,7 @@ searchOpenButton?.addEventListener("click", () => {
     }
     openSearchPanel();
 });
+searchInput?.addEventListener("input", renderSearchSuggestions);
 mobileMenuButton?.addEventListener("click", () => {
     const shouldOpen = !mainNav?.classList.contains("is-open");
     closeSearchPanel();
@@ -278,7 +486,16 @@ cartItemsRoot?.addEventListener("click", (event) => {
     changeCartItem(item.dataset.cartId || "", button.dataset.cartAction || "");
 });
 cartCheckoutButton?.addEventListener("click", startCheckout);
-newsletterForm?.addEventListener("submit", submitNewsletter);
+cartCouponForm?.addEventListener("submit", applyDrawerCoupon);
+document.querySelectorAll("[data-cart-delivery]").forEach((button) => {
+    button.addEventListener("click", () => {
+        drawerDeliveryMethod = button.dataset.cartDelivery === "pickup" ? "pickup" : "shipping";
+        document.querySelectorAll("[data-cart-delivery]").forEach((entry) => entry.classList.toggle("is-active", entry === button));
+        if (cartPickupFields) cartPickupFields.hidden = drawerDeliveryMethod !== "pickup";
+        renderCart();
+    });
+});
+newsletterForm?.addEventListener("submit", submitWaveNewsletter);
 window.addEventListener("storage", (event) => {
     if (event.key === "cart") renderCart();
 });
@@ -352,35 +569,42 @@ const positionStoryConnectors = () => {
         const media = scene.querySelector(".story-media");
         if (!connector || !anchor || !callout || !media) return;
 
-        // On mobile the connector is position:relative (vertical line).
-        // Don't apply desktop inline positioning there.
-        if (window.getComputedStyle(connector).position !== "absolute") {
-            connector.style.top = "";
-            connector.style.left = "";
-            connector.style.right = "";
+        const sceneWidth = scene.clientWidth;
+        const sceneRect = scene.getBoundingClientRect();
+        const anchorRect = anchor.getBoundingClientRect();
+        const calloutRect = callout.getBoundingClientRect();
+        const anchorX = anchorRect.left + (anchorRect.width / 2) - sceneRect.left;
+        const anchorY = anchorRect.top + (anchorRect.height / 2) - sceneRect.top;
+        const calloutX = calloutRect.left - sceneRect.left;
+        const calloutY = calloutRect.top - sceneRect.top;
+
+        // The mobile story is stacked. Measure a real vertical connection from
+        // the anchor dot inside the image to the top edge of its text card.
+        if (window.matchMedia("(max-width: 980px)").matches) {
+            connector.style.top = `${anchorY}px`;
+            connector.style.left = `${anchorX - 1}px`;
+            connector.style.right = "auto";
+            connector.style.width = "2px";
+            connector.style.height = `${Math.max(0, calloutY - anchorY)}px`;
             return;
         }
 
-        const sceneWidth = scene.clientWidth;
-
-        // Use layout offsets instead of getBoundingClientRect, because the image
-        // fades/scales in. Rects include transforms and can make the line drift.
-        const anchorX = media.offsetLeft + anchor.offsetLeft;
-        const anchorY = media.offsetTop + anchor.offsetTop;
+        connector.style.width = "";
+        connector.style.height = "";
 
         const isRight = scene.classList.contains("story-scene-right");
 
         if (isRight) {
             // Media on the right, callout on the left.
             // Line runs from the callout's right edge to the anchor dot.
-            const calloutEdgeX = callout.offsetLeft + callout.offsetWidth;
+            const calloutEdgeX = calloutX + calloutRect.width;
             connector.style.top = `${anchorY}px`;
             connector.style.left = `${calloutEdgeX}px`;
             connector.style.right = `${sceneWidth - anchorX}px`;
         } else {
             // Media on the left, callout on the right.
             // Line runs from the anchor dot to the callout's left edge.
-            const calloutEdgeX = callout.offsetLeft;
+            const calloutEdgeX = calloutX;
             connector.style.top = `${anchorY}px`;
             connector.style.left = `${anchorX}px`;
             connector.style.right = `${sceneWidth - calloutEdgeX}px`;

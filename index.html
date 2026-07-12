@@ -9,7 +9,7 @@
     <meta name="author" content="NØTE. fragrances">
     <meta name="theme-color" content="#101010">
     <link rel="canonical" href="https://www.note-fragrances.de/">
-    <link rel="stylesheet" href="style-wave-home.css?v=26">
+    <link rel="stylesheet" href="style-wave-home.css?v=30">
 </head>
 
 <body>
@@ -101,6 +101,7 @@
             <input id="preview-search" name="q" type="search" placeholder="Suche..."
                 autocomplete="off" aria-label="Duft suchen">
         </form>
+        <div class="search-panel-results" aria-live="polite" data-search-suggestions></div>
     </div>
 
     <div class="drawer-backdrop" data-drawer-backdrop></div>
@@ -109,14 +110,42 @@
             <h2>Warenkorb <span>0</span></h2>
             <button class="panel-close" type="button" aria-label="Warenkorb schließen" data-cart-close>&times;</button>
         </div>
+        <div class="cart-shipping-progress">
+            <div class="cart-shipping-copy">
+                <span data-cart-shipping-message>Noch 60,00 € bis zum kostenlosen Versand</span>
+                <strong data-cart-shipping-percent>0%</strong>
+            </div>
+            <div class="cart-shipping-track" aria-hidden="true"><span data-cart-shipping-bar></span></div>
+        </div>
         <div class="cart-drawer-body" data-cart-items></div>
         <div class="cart-drawer-footer" data-cart-footer>
-            <div class="cart-drawer-summary">
-                <span>Zwischensumme</span>
-                <strong data-cart-total>0,00 €</strong>
+            <div class="cart-delivery-toggle" aria-label="Lieferart">
+                <button class="is-active" type="button" data-cart-delivery="shipping">Postversand</button>
+                <button type="button" data-cart-delivery="pickup">Abholung</button>
             </div>
+            <div class="cart-pickup-fields" data-cart-pickup hidden>
+                <input type="text" autocomplete="name" placeholder="Vor- und Nachname" data-cart-pickup-name>
+                <input type="email" autocomplete="email" placeholder="E-Mail-Adresse" data-cart-pickup-email>
+                <small>Bezahlung bei Abholung vor Ort.</small>
+            </div>
+            <form class="cart-coupon-form" data-cart-coupon-form>
+                <input type="text" autocomplete="off" placeholder="Gutscheincode" aria-label="Gutscheincode" data-cart-coupon>
+                <button type="submit">Einlösen</button>
+            </form>
+            <p class="cart-coupon-message" role="status" aria-live="polite" data-cart-coupon-message></p>
+            <div class="cart-drawer-totals">
+                <div><span>Zwischensumme</span><strong data-cart-subtotal>0,00 €</strong></div>
+                <div data-cart-discount-row hidden><span>Rabatt</span><strong data-cart-discount>−0,00 €</strong></div>
+                <div><span>Versand</span><strong data-cart-shipping>0,00 €</strong></div>
+                <div class="cart-total-row"><span>Gesamtsumme</span><strong data-cart-total>0,00 €</strong></div>
+            </div>
+            <div class="cart-upsell" data-cart-upsell></div>
             <button class="btn btn-dark cart-checkout-button" type="button" data-cart-checkout>Sicher zur Kasse</button>
             <p class="cart-drawer-status" role="status" aria-live="polite" data-cart-status></p>
+            <p class="cart-legal-note">Sicher bezahlen über Stripe. Es gelten unsere <a href="agb.html">AGB</a> und <a href="datenschutz.html">Datenschutzhinweise</a>.</p>
+            <div class="cart-payment-labels" aria-label="Zahlungsarten">
+                <span>Visa</span><span>Mastercard</span><span>PayPal</span><span>Klarna.</span>
+            </div>
         </div>
     </aside>
 
@@ -299,7 +328,7 @@
                         <small>01 / Extrait</small>
                         <h3>Duftölanteil</h3>
                         <strong>40%+</strong>
-                        <p>Aus dem Zerstäuber wird sichtbar, was N&Oslash;TE ausmacht: ein dichter, präsenter Duf
+                        <p>Aus dem Zerstäuber wird sichtbar, was N&Oslash;TE ausmacht: ein dichter, präsenter Duft
                             mit Extrait-Charakter.</p>
                     </div>
                 </article>
@@ -543,7 +572,7 @@
     </footer>
 
     <script src="cookie-consent.js?v=20260711" defer></script>
-    <script src="style-wave-home.js?v=5" defer></script>
+    <script src="style-wave-home.js?v=9" defer></script>
 </body>
 
 </html>

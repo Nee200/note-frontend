@@ -1690,12 +1690,13 @@ function addToCart(productId, size = 50) {
 
     updateCartUI();
 
-    // Open cart automatically
-    if (cartSidebar && !cartSidebar.classList.contains('open')) {
+    // Das neue Header-System hat Vorrang. Den alten Sidebar nur noch als
+    // Rückfall für Seiten ohne den gemeinsamen Drawer öffnen.
+    if (document.querySelector('[data-cart-drawer]')) {
+        window.dispatchEvent(new CustomEvent('note:open-cart'));
+    } else if (cartSidebar && !cartSidebar.classList.contains('open')) {
         toggleCart();
     }
-    // Neues Header-System (site-header): Warenkorb-Drawer öffnen, falls vorhanden
-    window.dispatchEvent(new CustomEvent('note:open-cart'));
 }
 
 // Aus dem Warenkorb entfernen
@@ -1895,6 +1896,17 @@ function updateCartUI() {
     // 6. Update Upsell
     updateUpsell();
 }
+
+window.addEventListener('note:cart-updated-by-drawer', () => {
+    try {
+        const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');
+        cart = Array.isArray(storedCart) ? storedCart : [];
+        updateCartUI();
+    } catch (error) {
+        cart = [];
+        updateCartUI();
+    }
+});
 
 // Menge ändern (+/-)
 function changeQuantity(cartId, delta) {
