@@ -629,6 +629,29 @@ function getProductCardHTML(product, options = {}) {
     `;
 }
 
+const BESTSELLER_INSPIRATION_IMAGES = Object.freeze({
+    L37: 'images_website/bestsellers/l37-comparison-transparent-v3.webp',
+    L93: 'images_website/bestsellers/l93-comparison-transparent-v1.webp',
+    L95: 'images_website/bestsellers/l95-comparison-transparent-v1.webp',
+    G81: 'images_website/bestsellers/g81-comparison-transparent-v1.webp',
+    G105: 'images_website/bestsellers/g105-comparison-transparent-v2.webp',
+    G133: 'images_website/bestsellers/g133-comparison-transparent-v1.webp'
+});
+
+function getProductGalleryImages(product) {
+    const productImages = Array.isArray(product?.images)
+        ? product.images.map(image => String(image || '').trim()).filter(Boolean)
+        : [];
+    const inspirationImage = BESTSELLER_INSPIRATION_IMAGES[String(product?.id || '')];
+    if (inspirationImage) {
+        return [
+            inspirationImage,
+            ...productImages.filter(image => image !== inspirationImage)
+        ];
+    }
+    return productImages.length ? productImages : ['logo.webp'];
+}
+
 function getFilteredAndSortedProducts(category) {
     let list = category === 'all'
         ? products
@@ -1510,15 +1533,16 @@ function renderProductDetail(id) {
     }
 
     // Hauptbild
+    const galleryImages = getProductGalleryImages(product);
     const mainImg = document.getElementById('detail-main-image');
-    const mainImgSrc = safeImageSrc((product.images && product.images.length > 0) ? product.images[0] : 'logo.webp');
+    const mainImgSrc = safeImageSrc(galleryImages[0]);
     mainImg.src = mainImgSrc;
 
     // Thumbnails
     const thumbContainer = document.getElementById('detail-thumbnails');
-    if (product.images && product.images.length > 1) {
-        thumbContainer.innerHTML = product.images.map((img, index) => `
-            <img src="${safeImageSrc(img)}" class="detail-thumbnail ${index === 0 ? 'active' : ''}" 
+    if (galleryImages.length > 1) {
+        thumbContainer.innerHTML = galleryImages.map((img, index) => `
+            <img src="${safeImageSrc(img)}" alt="${escapeHtml(product.name || 'Produkt')} Ansicht ${index + 1}" class="detail-thumbnail ${index === 0 ? 'active' : ''}"
                  onclick="changeDetailImage(decodeURIComponent('${encodeURIComponent(String(img || ''))}'), this)" 
                  onerror="this.style.display='none'">
         `).join('');
