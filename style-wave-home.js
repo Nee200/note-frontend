@@ -30,6 +30,7 @@ const cartCouponInput = document.querySelector("[data-cart-coupon]");
 const cartCouponMessage = document.querySelector("[data-cart-coupon-message]");
 const cartPickupFields = document.querySelector("[data-cart-pickup]");
 const cartUpsell = document.querySelector("[data-cart-upsell]");
+const cartPaymentLabels = document.querySelector(".cart-payment-labels");
 const newsletterForm = document.querySelector("[data-newsletter-form]");
 const newsletterStatus = document.querySelector("[data-newsletter-status]");
 const searchSuggestions = document.querySelector("[data-search-suggestions]");
@@ -58,6 +59,18 @@ function safeImageSource(value) {
     const source = String(value || "").trim();
     if (!source || /^(?:javascript|data):/i.test(source)) return "logo.webp";
     return escapeHtml(source);
+}
+
+function renderCartPaymentLogos() {
+    if (!cartPaymentLabels) return;
+    cartPaymentLabels.innerHTML = `
+        <span class="cart-payment-logo" title="Visa"><img src="images_website/payments/visa.svg" alt="Visa"></span>
+        <span class="cart-payment-logo" title="Mastercard"><img src="images_website/payments/mastercard.svg" alt="Mastercard"></span>
+        <span class="cart-payment-logo cart-payment-logo-amex" title="American Express"><img src="images_website/payments/amex.svg" alt="American Express"></span>
+        <span class="cart-payment-logo" title="PayPal"><img src="images_website/payments/paypal.svg" alt="PayPal"></span>
+        <span class="cart-payment-logo" title="Apple Pay"><img src="images_website/payments/apple-pay.svg" alt="Apple Pay"></span>
+        <span class="cart-payment-logo" title="Google Pay"><img src="images_website/payments/google-pay.svg" alt="Google Pay"></span>
+        <span class="cart-payment-logo cart-payment-logo-klarna" title="Klarna" aria-label="Klarna">Klarna.</span>`;
 }
 
 function readCart() {
@@ -501,6 +514,7 @@ window.addEventListener("storage", (event) => {
 });
 // Wenn das alte script.js den Warenkorb aendert, neu rendern (gleicher Tab).
 window.addEventListener("note:cart-changed", renderCart);
+renderCartPaymentLogos();
 renderCart();
 
 document.addEventListener("pointerdown", (event) => {
