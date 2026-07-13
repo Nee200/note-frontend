@@ -2913,6 +2913,9 @@ html.cart-drawer-open {
 .cart-drawer-body.has-items {
     flex: 1 1 auto;
     min-height: 0;
+    padding: 20px;
+    align-content: start;
+    justify-items: stretch;
     overflow-x: hidden;
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -2929,7 +2932,7 @@ html.cart-drawer-open {
 
 .wave-cart-item {
     grid-template-columns: 82px minmax(0, 1fr) minmax(88px, auto);
-    align-items: center;
+    align-items: start;
     gap: 14px;
     padding: 16px 0;
 }
@@ -2952,6 +2955,9 @@ html.cart-drawer-open {
 }
 
 .wave-cart-copy {
+    display: grid;
+    align-content: start;
+    gap: 7px;
     min-width: 0;
 }
 
@@ -2964,8 +2970,9 @@ html.cart-drawer-open {
     grid-column: 3;
     grid-row: 1;
     min-width: 88px;
-    align-content: center;
+    align-content: start;
     justify-items: end;
+    padding-top: 2px;
     text-align: right;
 }
 
@@ -3012,109 +3019,127 @@ html.cart-drawer-open {
 
 @media (max-width: 620px) {
     .cart-drawer-header {
-        padding: 16px;
+        padding: 12px;
+    }
+
+    .cart-drawer-header h2 {
+        font-size: 22px;
     }
 
     .cart-shipping-progress {
-        padding: 11px 16px 12px;
+        padding: 8px 12px 9px;
     }
 
     .cart-drawer-body,
     .cart-drawer-footer {
-        padding-left: 16px;
-        padding-right: 16px;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .cart-drawer-body.has-items {
+        padding: 8px 12px;
     }
 
     .cart-drawer-footer {
-        padding-top: 10px;
-        padding-bottom: max(10px, env(safe-area-inset-bottom));
+        padding-top: 7px;
+        padding-bottom: max(7px, env(safe-area-inset-bottom));
     }
 
     .cart-delivery-toggle {
-        margin-bottom: 8px;
+        margin-bottom: 6px;
     }
 
     .cart-delivery-toggle button {
-        min-height: 34px;
-        padding: 7px 8px;
+        min-height: 30px;
+        padding: 5px 7px;
+        font-size: 0.62rem;
     }
 
     .cart-pickup-fields input,
     .cart-coupon-form input {
-        min-height: 38px;
+        min-height: 34px;
+        font-size: 0.76rem;
+    }
+
+    .cart-coupon-form button {
+        min-height: 34px;
+        padding: 0 10px;
+        font-size: 0.62rem;
     }
 
     .cart-coupon-message {
         min-height: 0;
-        margin: 4px 0 6px;
+        margin: 3px 0 4px;
+    }
+
+    .cart-coupon-message:empty,
+    .cart-drawer-status:empty {
+        display: none;
     }
 
     .cart-drawer-totals {
-        gap: 5px;
-        padding: 8px 0 10px;
+        gap: 3px;
+        padding: 6px 0 7px;
+        font-size: 0.72rem;
     }
 
     .cart-upsell {
-        margin-bottom: 8px;
-    }
-
-    .cart-upsell > span {
-        margin-bottom: 5px;
-    }
-
-    .cart-upsell > a {
-        padding: 6px;
+        display: none;
     }
 
     .cart-checkout-button {
-        min-height: 46px;
+        min-height: 40px;
+        padding: 9px 12px;
+        font-size: 0.72rem;
     }
 
     .cart-drawer-status {
         min-height: 0;
-        margin-top: 6px;
+        margin-top: 4px;
     }
 
     .cart-legal-note {
-        margin: 7px 0 8px;
-        font-size: 0.6rem;
+        margin: 5px 0 6px;
+        font-size: 0.55rem;
+        line-height: 1.25;
     }
 
     .wave-cart-item {
-        grid-template-columns: 64px minmax(0, 1fr) minmax(82px, auto);
-        gap: 11px;
-        padding: 13px 0;
+        grid-template-columns: 54px minmax(0, 1fr) minmax(70px, auto);
+        gap: 8px;
+        padding: 9px 0;
     }
 
     .wave-cart-image {
-        width: 64px;
-        height: 78px;
-        padding: 4px;
+        width: 54px;
+        height: 66px;
+        padding: 3px;
     }
 
     .wave-cart-copy > a {
-        font-size: 0.9rem;
+        font-size: 0.82rem;
     }
 
     .wave-cart-copy > small {
-        font-size: 0.66rem;
+        font-size: 0.6rem;
     }
 
     .wave-cart-price {
         grid-column: 3;
         grid-row: 1;
-        min-width: 82px;
+        min-width: 70px;
         justify-items: end;
+        font-size: 0.66rem;
     }
 
     .wave-cart-quantity {
         flex-wrap: wrap;
-        gap: 6px;
+        gap: 4px;
     }
 
     .wave-cart-quantity button {
-        width: 30px;
-        height: 30px;
+        width: 26px;
+        height: 26px;
     }
 
     .wave-cart-quantity .wave-cart-remove {
@@ -3123,22 +3148,41 @@ html.cart-drawer-open {
     }
 
     .cart-payment-labels {
-        gap: 5px;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        gap: 3px;
+    }
+
+    .cart-payment-labels .cart-payment-logo {
+        width: 34px;
+        min-width: 0;
+        height: 23px;
+        padding: 3px;
+    }
+
+    .cart-payment-labels .cart-payment-logo img {
+        max-width: 28px;
+    }
+
+    .cart-payment-labels .cart-payment-logo-klarna {
+        width: 44px;
+        min-width: 44px;
+        font-size: 0.6rem;
     }
 }
 
 @media (max-width: 360px) {
     .wave-cart-item {
-        grid-template-columns: 58px minmax(0, 1fr) 74px;
-        gap: 8px;
+        grid-template-columns: 50px minmax(0, 1fr) 64px;
+        gap: 7px;
     }
 
     .wave-cart-image {
-        width: 58px;
-        height: 70px;
+        width: 50px;
+        height: 62px;
     }
 
     .wave-cart-price {
-        min-width: 74px;
+        min-width: 64px;
     }
 }
