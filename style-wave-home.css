@@ -10,6 +10,8 @@
     --muted: #746d63;
     --line: rgba(29, 27, 24, 0.12);
     --shadow: 0 28px 80px rgba(38, 28, 12, 0.12);
+    --mobile-page-gutter-left: max(16px, env(safe-area-inset-left));
+    --mobile-page-gutter-right: max(16px, env(safe-area-inset-right));
 }
 
 * {
@@ -2845,5 +2847,27 @@ html.cart-drawer-open {
         width: 16px;
         height: 16px;
         font-size: 9px;
+    }
+}
+
+/* Keep home-page sections on the same mobile edge as all shop pages. */
+@media (max-width: 768px) {
+    .container {
+        padding-left: var(--mobile-page-gutter-left) !important;
+        padding-right: var(--mobile-page-gutter-right) !important;
+    }
+
+    .hero-section {
+        padding-left: var(--mobile-page-gutter-left);
+        padding-right: var(--mobile-page-gutter-right);
+    }
+
+    .collection-section,
+    .bestseller-section,
+    .promise-section,
+    .faq-section {
+        width: auto;
+        margin-left: var(--mobile-page-gutter-left);
+        margin-right: var(--mobile-page-gutter-right);
     }
 }

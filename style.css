@@ -14,6 +14,8 @@
     --accent: #d4af37;
     /* Optional: Gold-Akzent */
     --text-color: #1a1a1a;
+    --mobile-page-gutter-left: max(16px, env(safe-area-inset-left));
+    --mobile-page-gutter-right: max(16px, env(safe-area-inset-right));
     /* Fix für fehlende Variable */
 }
 
@@ -5115,9 +5117,9 @@ html:has(body.no-scroll) {
     body[data-default-category] .split-hero,
     body[data-page="search"] .split-hero {
         width: auto !important;
-        margin-right: max(16px, env(safe-area-inset-right)) !important;
+        margin-right: var(--mobile-page-gutter-right) !important;
         margin-bottom: 2rem !important;
-        margin-left: max(16px, env(safe-area-inset-left)) !important;
+        margin-left: var(--mobile-page-gutter-left) !important;
         overflow: hidden;
         border-radius: 10px;
     }
@@ -5126,8 +5128,8 @@ html:has(body.no-scroll) {
     body[data-page="search"] main#products.container.section {
         width: auto;
         max-width: none;
-        margin-right: max(16px, env(safe-area-inset-right));
-        margin-left: max(16px, env(safe-area-inset-left));
+        margin-right: var(--mobile-page-gutter-right);
+        margin-left: var(--mobile-page-gutter-left);
         padding-right: 0;
         padding-left: 0;
         box-sizing: border-box;
@@ -6268,5 +6270,36 @@ html:has(body.no-scroll) {
         padding-top: 20px !important;
         gap: 15px !important;
         border-top: none !important; /* Remove the separator line on mobile */
+    }
+}
+
+/*
+ * One shared content edge for every public page on phones.
+ * This final rule intentionally wins over older page-specific container values,
+ * while full-bleed headers, footers and backgrounds remain full width.
+ */
+@media screen and (max-width: 768px) {
+    .container,
+    .account-container,
+    .confirmation-wrap {
+        padding-left: var(--mobile-page-gutter-left) !important;
+        padding-right: var(--mobile-page-gutter-right) !important;
+        box-sizing: border-box;
+    }
+
+    /* Information pages previously added a second gutter inside .container. */
+    .container.section > h1,
+    .container.section > .content-text {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    /* Catalogue pages use the gutter as the outer card/grid margin. */
+    body[data-default-category] main#products.container.section,
+    body[data-page="search"] main#products.container.section {
+        margin-left: var(--mobile-page-gutter-left);
+        margin-right: var(--mobile-page-gutter-right);
+        padding-left: 0 !important;
+        padding-right: 0 !important;
     }
 }
