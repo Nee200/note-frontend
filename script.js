@@ -638,18 +638,25 @@ const BESTSELLER_INSPIRATION_IMAGES = Object.freeze({
     G133: 'images_website/bestsellers/g133-comparison-transparent-v1.webp'
 });
 
+const PRODUCT_DETAIL_INFOGRAPHIC_IMAGE = 'images_website/product-details/note-product-infographic-v1.webp';
+
 function getProductGalleryImages(product) {
     const productImages = Array.isArray(product?.images)
         ? product.images.map(image => String(image || '').trim()).filter(Boolean)
         : [];
     const inspirationImage = BESTSELLER_INSPIRATION_IMAGES[String(product?.id || '')];
-    if (inspirationImage) {
-        return [
-            inspirationImage,
-            ...productImages.filter(image => image !== inspirationImage)
-        ];
-    }
-    return productImages.length ? productImages : ['logo.webp'];
+    const galleryImages = inspirationImage
+        ? [inspirationImage, ...productImages.filter(image => image !== inspirationImage)]
+        : (productImages.length ? [...productImages] : ['logo.webp']);
+    const infographicPosition = inspirationImage ? 2 : 1;
+
+    galleryImages.splice(
+        Math.min(infographicPosition, galleryImages.length),
+        0,
+        PRODUCT_DETAIL_INFOGRAPHIC_IMAGE
+    );
+
+    return [...new Set(galleryImages)];
 }
 
 function getFilteredAndSortedProducts(category) {

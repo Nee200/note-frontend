@@ -5075,6 +5075,38 @@ html:has(body.no-scroll) {
     }
 }
 
+/* Keep every product-gallery image in one stable, equally sized frame. */
+.product-detail-page .detail-gallery {
+    height: auto;
+    max-height: none;
+}
+
+.product-detail-page .detail-main-image-wrapper {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    aspect-ratio: 1 / 1;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.product-detail-page #detail-main-image {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    object-fit: contain;
+    object-position: center;
+}
+
+@media screen and (max-width: 768px) {
+    .product-detail-page .detail-main-image-wrapper,
+    .product-detail-page #detail-main-image {
+        max-height: none;
+    }
+}
+
 
 /* Mobile Split Hero Full Asset Visibility */
 @media screen and (max-width: 768px) {
