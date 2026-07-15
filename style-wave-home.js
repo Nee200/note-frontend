@@ -723,3 +723,94 @@ window.addEventListener("load", () => {
     positionStoryConnectors();
     updateSprayFrames();
 });
+
+const initBestsellerRails = () => {
+    document.querySelectorAll(".bestseller-section .product-rail").forEach((rail) => {
+        if (rail.dataset.dragReady === "true") return;
+        rail.dataset.dragReady = "true";
+
+        const shell = rail.closest(".product-rail-shell");
+        const previousButton = shell?.querySelector(".product-rail-arrow-prev");
+        const nextButton = shell?.querySelector(".product-rail-arrow-next");
+        const cards = Array.from(rail.querySelectorAll(".product-card"));
+
+        const updateArrowState = () => {
+            const hasOverflow = rail.scrollWidth > rail.clientWidth + 4;
+            const atStart = rail.scrollLeft <= 4;
+            const atEnd = rail.scrollLeft >= rail.scrollWidth - rail.clientWidth - 4;
+
+            if (previousButton) previousButton.disabled = !hasOverflow || atStart;
+            if (nextButton) nextButton.disabled = !hasOverflow || atEnd;
+        };
+
+        const moveByPage = (direction) => {
+            if (cards.length <= 3) return;
+
+            const firstOffset = cards[0].offsetLeft;
+            const pageDistance = cards[3].offsetLeft - firstOffset;
+            const currentPage = Math.round(rail.scrollLeft / pageDistance);
+            const lastPage = Math.ceil((cards.length - 3) / 3);
+            const targetPage = Math.max(0, Math.min(lastPage, currentPage + direction));
+            const targetIndex = Math.min(targetPage * 3, cards.length - 3);
+            const targetLeft = cards[targetIndex].offsetLeft - firstOffset;
+
+            rail.scrollTo({ left: targetLeft, behavior: "smooth" });
+        };
+
+        previousButton?.addEventListener("click", () => moveByPage(-1));
+        nextButton?.addEventListener("click", () => moveByPage(1));
+
+        let scrollFrame = 0;
+        rail.addEventListener("scroll", () => {
+            cancelAnimationFrame(scrollFrame);
+            scrollFrame = requestAnimationFrame(updateArrowState);
+        }, { passive: true });
+
+        window.addEventListener("resize", updateArrowState, { passive: true });
+        requestAnimationFrame(updateArrowState);
+
+        let dragging = false;
+        let dragged = false;
+        let startX = 0;
+        let startScrollLeft = 0;
+
+        rail.addEventListener("pointerdown", (event) => {
+            if (event.pointerType !== "mouse" || event.button !== 0) return;
+
+            dragging = true;
+            dragged = false;
+            startX = event.clientX;
+            startScrollLeft = rail.scrollLeft;
+            rail.classList.add("is-dragging");
+            rail.setPointerCapture(event.pointerId);
+        });
+
+        rail.addEventListener("pointermove", (event) => {
+            if (!dragging) return;
+
+            const distance = event.clientX - startX;
+            if (Math.abs(distance) > 5) dragged = true;
+            rail.scrollLeft = startScrollLeft - distance;
+        });
+
+        const stopDragging = (event) => {
+            if (!dragging) return;
+            dragging = false;
+            rail.classList.remove("is-dragging");
+            if (rail.hasPointerCapture(event.pointerId)) {
+                rail.releasePointerCapture(event.pointerId);
+            }
+        };
+
+        rail.addEventListener("pointerup", stopDragging);
+        rail.addEventListener("pointercancel", stopDragging);
+        rail.addEventListener("click", (event) => {
+            if (!dragged) return;
+            event.preventDefault();
+            event.stopPropagation();
+            dragged = false;
+        }, true);
+    });
+};
+
+initBestsellerRails();

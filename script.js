@@ -633,9 +633,27 @@ const BESTSELLER_INSPIRATION_IMAGES = Object.freeze({
     L37: 'images_website/bestsellers/l37-comparison-transparent-v3.webp',
     L93: 'images_website/bestsellers/l93-comparison-transparent-v1.webp',
     L95: 'images_website/bestsellers/l95-comparison-transparent-v1.webp',
-    G81: 'images_website/bestsellers/g81-comparison-transparent-v1.webp',
-    G105: 'images_website/bestsellers/g105-comparison-transparent-v2.webp',
-    G133: 'images_website/bestsellers/g133-comparison-transparent-v1.webp'
+    L12: 'images_website/bestsellers/l12-comparison-transparent-v2.webp',
+    L56: 'images_website/bestsellers/l56-comparison-transparent-v2.webp',
+    L62: 'images_website/bestsellers/l62-comparison-transparent-v2.webp',
+    L73: 'images_website/bestsellers/l73-comparison-transparent-v2.webp',
+    L123: 'images_website/bestsellers/l123-comparison-transparent-v2.webp',
+    L145: 'images_website/bestsellers/l145-comparison-transparent-v2.webp',
+    L146: 'images_website/bestsellers/l146-comparison-transparent-v2.webp',
+    L147: 'images_website/bestsellers/l147-comparison-transparent-v2.webp',
+    L155: 'images_website/bestsellers/l155-comparison-transparent-v2.webp',
+    L190: 'images_website/bestsellers/l190-comparison-transparent-v2.webp',
+    G111: 'images_website/bestsellers/g111-comparison-transparent-v1.webp',
+    G160: 'images_website/bestsellers/g160-comparison-transparent-v2.webp',
+    G169: 'images_website/bestsellers/g169-comparison-transparent-v2.webp',
+    G223: 'images_website/bestsellers/g223-comparison-transparent-v1.webp',
+    G232: 'images_website/bestsellers/g232-comparison-transparent-v1.webp',
+    G245: 'images_website/bestsellers/g245-comparison-transparent-v1.webp',
+    G263: 'images_website/bestsellers/g263-comparison-transparent-v1.webp',
+    G282: 'images_website/bestsellers/g282-comparison-transparent-v1.webp',
+    G298: 'images_website/bestsellers/g298-comparison-transparent-v1.webp',
+    G307: 'images_website/bestsellers/g307-comparison-transparent-v2.webp',
+    G322: 'images_website/bestsellers/g322-comparison-transparent-v2.webp'
 });
 
 const PRODUCT_DETAIL_INFOGRAPHIC_IMAGE = 'images_website/product-details/note-product-infographic-v1.webp';
