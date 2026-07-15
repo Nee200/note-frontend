@@ -510,20 +510,20 @@
             const note = document.getElementById('confirmation-note');
 
             if (status === 'success') {
-                kicker.textContent = 'Best&auml;tigt';
+                kicker.textContent = 'Bestätigt';
                 icon.textContent = '✓';
                 icon.style.background = 'linear-gradient(135deg, #dfeee6 0%, #b8ddc8 100%)';
                 icon.style.color = '#2c5a45';
-                title.textContent = 'Deine Anmeldung ist best&auml;tigt';
-                copy.textContent = 'Dein Newsletter ist jetzt aktiv. Deinen pers&ouml;nlichen Rabattcode senden wir dir direkt per E-Mail zu.';
-                note.textContent = 'Wenn du nichts findest, pr&uuml;fe bitte auch deinen Spam-Ordner.';
+                title.textContent = 'Deine Anmeldung ist bestätigt';
+                copy.textContent = 'Dein Newsletter ist jetzt aktiv. Deinen persönlichen Rabattcode senden wir dir direkt per E-Mail zu.';
+                note.textContent = 'Wenn du nichts findest, prüfe bitte auch deinen Spam-Ordner.';
             } else if (status === 'already-confirmed') {
                 kicker.textContent = 'Bereits aktiv';
                 icon.textContent = '✓';
                 icon.style.background = 'linear-gradient(135deg, #dfeee6 0%, #b8ddc8 100%)';
                 icon.style.color = '#2c5a45';
                 title.textContent = 'Diese Anmeldung ist bereits aktiv';
-                copy.textContent = 'Der Bestätigungslink wurde schon verwendet. Wenn dir dein Rabattcode fehlt, pr&uuml;fe bitte dein E-Mail-Postfach.';
+                copy.textContent = 'Der Bestätigungslink wurde schon verwendet. Wenn dir dein Rabattcode fehlt, prüfe bitte dein E-Mail-Postfach.';
                 note.textContent = 'Du kannst danach ganz normal weiter im Shop stöbern.';
             } else if (status === 'expired') {
                 kicker.textContent = 'Erneut anmelden';
@@ -532,22 +532,22 @@
                 icon.style.color = '#8f5a13';
                 title.textContent = 'Dein Bestätigungslink ist abgelaufen';
                 copy.textContent = 'Bitte trage deine E-Mail-Adresse noch einmal im Newsletter-Formular ein. Danach senden wir dir einen neuen Bestätigungslink.';
-                note.textContent = 'So stellen wir sicher, dass nur g&ouml;ltige Anmeldungen aktiv werden.';
+                note.textContent = 'So stellen wir sicher, dass nur gültige Anmeldungen aktiv werden.';
             } else if (status === 'invalid') {
-                kicker.textContent = 'Link ung&ouml;ltig';
+                kicker.textContent = 'Link ungültig';
                 icon.textContent = '!';
                 icon.style.background = 'linear-gradient(135deg, #f6e8d5 0%, #ebc88e 100%)';
                 icon.style.color = '#8f5a13';
-                title.textContent = 'Dieser Link ist nicht mehr g&ouml;ltig';
-                copy.textContent = 'Bitte melde dich erneut für den Newsletter an, damit wir dir einen g&ouml;ltigen Bestätigungslink schicken können.';
-                note.textContent = 'Der Link wurde möglicherweise schon verwendet oder war unvollst&auml;ndig.';
+                title.textContent = 'Dieser Link ist nicht mehr gültig';
+                copy.textContent = 'Bitte melde dich erneut für den Newsletter an, damit wir dir einen gültigen Bestätigungslink schicken können.';
+                note.textContent = 'Der Link wurde möglicherweise schon verwendet oder war unvollständig.';
             } else if (status === 'error') {
                 kicker.textContent = 'Fehler';
                 icon.textContent = '!';
                 icon.style.background = 'linear-gradient(135deg, #f6dddd 0%, #efb6b6 100%)';
                 icon.style.color = '#9f2f2f';
                 title.textContent = 'Die Bestätigung hat nicht geklappt';
-                copy.textContent = 'Beim Verarbeiten deiner Bestätigung ist ein Fehler aufgetreten. Bitte versuche es sp&auml;ter erneut oder melde dich direkt bei uns.';
+                copy.textContent = 'Beim Verarbeiten deiner Bestätigung ist ein Fehler aufgetreten. Bitte versuche es später erneut oder melde dich direkt bei uns.';
                 note.textContent = 'Wenn das Problem bleibt, helfen wir dir gern über den Kontaktbereich weiter.';
             }
 

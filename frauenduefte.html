@@ -406,7 +406,7 @@
                 const data = await res.json();
                 if (res.ok && data.success) {
                     fb.style.cssText = 'display:block;background:rgba(45,122,80,.15);color:#6fcf97;border:1px solid rgba(111,207,151,.25);padding:9px 12px;border-radius:4px;font-size:.8rem;';
-                    fb.textContent = data.message || 'Bitte best&auml;tige deine Anmeldung über die E-Mail, die wir dir gerade gesendet haben.';
+                    fb.textContent = data.message || 'Bitte bestätige deine Anmeldung über die E-Mail, die wir dir gerade gesendet haben.';
                     document.getElementById('nl-popup-form').style.display = 'none';
                     localStorage.setItem('nl_dismissed', '1');
                 } else if (data.alreadySubscribed) {
@@ -416,7 +416,7 @@
                 } else { throw new Error(); }
             } catch {
                 fb.style.cssText = 'display:block;background:rgba(185,28,28,.12);color:#f87171;border:1px solid rgba(248,113,113,.25);padding:9px 12px;border-radius:4px;font-size:.8rem;';
-                fb.textContent = 'Fehler &ndash; bitte erneut versuchen.';
+                fb.textContent = 'Fehler – bitte erneut versuchen.';
                 btn.disabled = false; btn.textContent = 'Jetzt sichern';
             }
         }
