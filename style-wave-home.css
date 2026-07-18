@@ -3486,3 +3486,11 @@ html.cart-drawer-open {
 footer a[href="suche.html"] {
     display: none !important;
 }
+
+@media (max-width: 900px) {
+    #main-navigation a[href="suche.html"],
+    .main-nav a[href="suche.html"],
+    .nav-links a[href="suche.html"] {
+        display: none !important;
+    }
+}

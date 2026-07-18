@@ -5277,6 +5277,25 @@ footer a[href="suche.html"] {
     display: none !important;
 }
 
+@media (max-width: 900px) {
+    #main-navigation a[href="suche.html"],
+    .main-nav a[href="suche.html"],
+    .nav-links a[href="suche.html"] {
+        display: none !important;
+    }
+
+    .product-detail-page .detail-main-image-wrapper {
+        touch-action: pan-y;
+        user-select: none;
+        -webkit-user-select: none;
+        -webkit-user-drag: none;
+    }
+
+    .product-detail-page #detail-main-image {
+        pointer-events: none;
+    }
+}
+
 
 /* Feature Item Box Layout and Animations */
 .features-bar {

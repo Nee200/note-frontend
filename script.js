@@ -1739,6 +1739,7 @@ function renderProductDetail(id) {
     } else {
         thumbContainer.innerHTML = '';
     }
+    initProductGallerySwipe();
 
     // Größenauswahl (Buttons in existierende Gruppe rendern)
     const optionGroup = document.querySelector('.option-group');
@@ -1868,7 +1869,49 @@ function initDeliveryTimeline() {
 function changeDetailImage(src, thumbnail) {
     document.getElementById('detail-main-image').src = safeImageSrc(src);
     document.querySelectorAll('.detail-thumbnail').forEach(t => t.classList.remove('active'));
-    thumbnail.classList.add('active');
+    if (thumbnail) thumbnail.classList.add('active');
+}
+
+function initProductGallerySwipe() {
+    const wrapper = document.querySelector('.detail-main-image-wrapper');
+    const mainImage = document.getElementById('detail-main-image');
+    if (!wrapper || !mainImage || wrapper.dataset.swipeReady === 'true') return;
+
+    wrapper.dataset.swipeReady = 'true';
+    wrapper.setAttribute('role', 'region');
+    wrapper.setAttribute('aria-label', 'Produktbilder. Nach links oder rechts wischen, um das Bild zu wechseln.');
+
+    let startX = 0;
+    let startY = 0;
+
+    wrapper.addEventListener('touchstart', (event) => {
+        const touch = event.changedTouches[0];
+        startX = touch.clientX;
+        startY = touch.clientY;
+    }, { passive: true });
+
+    wrapper.addEventListener('touchend', (event) => {
+        const thumbnails = Array.from(document.querySelectorAll('.detail-thumbnail:not([style*="display: none"])'));
+        if (thumbnails.length < 2) return;
+
+        const touch = event.changedTouches[0];
+        const deltaX = touch.clientX - startX;
+        const deltaY = touch.clientY - startY;
+        if (Math.abs(deltaX) < 42 || Math.abs(deltaX) <= Math.abs(deltaY) * 1.15) return;
+
+        const activeIndex = Math.max(0, thumbnails.findIndex((thumbnail) => thumbnail.classList.contains('active')));
+        const nextIndex = Math.min(thumbnails.length - 1, Math.max(0, activeIndex + (deltaX < 0 ? 1 : -1)));
+        if (nextIndex === activeIndex) return;
+
+        const nextThumbnail = thumbnails[nextIndex];
+        changeDetailImage(nextThumbnail.getAttribute('src'), nextThumbnail);
+        if (typeof mainImage.animate === 'function') {
+            mainImage.animate([
+                { opacity: 0.62, transform: 'scale(0.992)' },
+                { opacity: 1, transform: 'scale(1)' }
+            ], { duration: 180, easing: 'ease-out' });
+        }
+    }, { passive: true });
 }
 
 

@@ -49,6 +49,7 @@ function ensurePrimaryNavigationOrder() {
 
         if (collectionLink) {
             navigation.insertBefore(newArrivalsLink, collectionLink);
+            collectionLink.remove();
         } else {
             navigation.prepend(newArrivalsLink);
         }
@@ -743,8 +744,8 @@ if (prefersReducedMotion || !("IntersectionObserver" in window)) {
         });
     }, {
         root: null,
-        rootMargin: "0px 0px -12% 0px",
-        threshold: 0.16
+        rootMargin: "0px 0px -4% 0px",
+        threshold: 0.1
     });
 
     revealItems.forEach((item) => revealObserver.observe(item));
@@ -956,15 +957,18 @@ const initBestsellerRails = () => {
             dragged = false;
             startX = event.clientX;
             startScrollLeft = rail.scrollLeft;
-            rail.classList.add("is-dragging");
-            rail.setPointerCapture(event.pointerId);
         });
 
         rail.addEventListener("pointermove", (event) => {
             if (!dragging) return;
 
             const distance = event.clientX - startX;
-            if (Math.abs(distance) > 5) dragged = true;
+            if (!dragged && Math.abs(distance) <= 12) return;
+            if (!dragged) {
+                dragged = true;
+                rail.classList.add("is-dragging");
+                rail.setPointerCapture(event.pointerId);
+            }
             rail.scrollLeft = startScrollLeft - distance;
         });
 
