@@ -910,7 +910,7 @@
         min-height: 470px;
         padding: 70px 28px 62px;
         border-right: 0;
-        border-top: 1px solid rgba(201, 155, 55, 0.5);
+        border-top: 0;
         border-bottom: 0;
     }
 
@@ -929,8 +929,13 @@
         bottom: -1px;
         left: 0;
         width: 100%;
-        height: 110px;
-        background: linear-gradient(0deg, rgba(4, 3, 3, 0.5) 0%, rgba(4, 3, 3, 0.16) 48%, transparent 100%);
+        height: clamp(170px, 32vw, 240px);
+        background: linear-gradient(0deg,
+                #040303 0%,
+                rgba(4, 3, 3, 0.98) 12%,
+                rgba(4, 3, 3, 0.88) 34%,
+                rgba(4, 3, 3, 0.42) 64%,
+                transparent 100%);
     }
 
     .hybrid-v3-page .hybrid-drop-seal {
@@ -951,16 +956,16 @@
         right: 18px;
         bottom: 18px;
         gap: 10px;
-        padding: 9px 12px;
+        padding: 0;
         color: #fff;
-        background: rgba(4, 3, 3, 0.7);
-        border: 1px solid rgba(240, 207, 117, 0.38);
-        border-radius: 999px;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
+        background: transparent;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
         font-size: 9px;
-        font-weight: 800;
+        font-weight: 700;
     }
 
     .hybrid-v3-page .hero-hybrid-v3 .hero-scroll-cue i {

@@ -5165,6 +5165,8 @@ body[data-default-category="men"] .product-grid > .shop-product-card.has-compari
 }
 
 .product-detail-page .detail-main-image-wrapper {
+    position: relative;
+    isolation: isolate;
     width: 100%;
     height: auto;
     min-height: 0;
@@ -5177,6 +5179,8 @@ body[data-default-category="men"] .product-grid > .shop-product-card.has-compari
 }
 
 .product-detail-page #detail-main-image {
+    position: relative;
+    z-index: 2;
     width: 100%;
     height: 100%;
     max-height: none;
@@ -5293,6 +5297,28 @@ footer a[href="suche.html"] {
 
     .product-detail-page #detail-main-image {
         pointer-events: none;
+    }
+
+    .product-detail-page .detail-main-image-wrapper.is-gallery-dragging {
+        cursor: grabbing;
+    }
+
+    .product-detail-page .detail-main-image-wrapper.is-gallery-dragging #detail-main-image,
+    .product-detail-page .detail-main-image-wrapper.is-gallery-settling #detail-main-image {
+        will-change: transform;
+    }
+
+    .product-detail-page .detail-gallery-swipe-image {
+        position: absolute;
+        z-index: 1;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+        border-radius: 16px;
+        pointer-events: none;
+        will-change: transform;
     }
 }
 

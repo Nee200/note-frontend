@@ -1881,37 +1881,177 @@ function initProductGallerySwipe() {
     wrapper.setAttribute('role', 'region');
     wrapper.setAttribute('aria-label', 'Produktbilder. Nach links oder rechts wischen, um das Bild zu wechseln.');
 
+    const settleDuration = 300;
+    const settleEasing = 'cubic-bezier(0.22, 0.61, 0.36, 1)';
     let startX = 0;
     let startY = 0;
+    let currentX = 0;
+    let lastMoveAt = 0;
+    let swipeVelocity = 0;
+    let activePointerId = null;
+    let isTracking = false;
+    let isHorizontal = false;
+    let direction = 0;
+    let previewImage = null;
+    let nextThumbnail = null;
+    let settleTimer = 0;
 
-    wrapper.addEventListener('touchstart', (event) => {
-        const touch = event.changedTouches[0];
-        startX = touch.clientX;
-        startY = touch.clientY;
-    }, { passive: true });
+    const getVisibleThumbnails = () => Array.from(document.querySelectorAll('.detail-thumbnail'))
+        .filter((thumbnail) => thumbnail.style.display !== 'none');
 
-    wrapper.addEventListener('touchend', (event) => {
-        const thumbnails = Array.from(document.querySelectorAll('.detail-thumbnail:not([style*="display: none"])'));
-        if (thumbnails.length < 2) return;
+    function removePreview() {
+        if (previewImage) previewImage.remove();
+        previewImage = null;
+        nextThumbnail = null;
+        direction = 0;
+    }
 
-        const touch = event.changedTouches[0];
-        const deltaX = touch.clientX - startX;
-        const deltaY = touch.clientY - startY;
-        if (Math.abs(deltaX) < 42 || Math.abs(deltaX) <= Math.abs(deltaY) * 1.15) return;
+    function resetGalleryPosition() {
+        window.clearTimeout(settleTimer);
+        mainImage.style.transition = '';
+        mainImage.style.transform = '';
+        wrapper.classList.remove('is-gallery-dragging', 'is-gallery-settling');
+        removePreview();
+    }
+
+    function preparePreview(deltaX) {
+        const thumbnails = getVisibleThumbnails();
+        if (thumbnails.length < 2) return false;
 
         const activeIndex = Math.max(0, thumbnails.findIndex((thumbnail) => thumbnail.classList.contains('active')));
-        const nextIndex = Math.min(thumbnails.length - 1, Math.max(0, activeIndex + (deltaX < 0 ? 1 : -1)));
-        if (nextIndex === activeIndex) return;
+        const requestedDirection = deltaX < 0 ? 1 : -1;
+        const nextIndex = activeIndex + requestedDirection;
 
-        const nextThumbnail = thumbnails[nextIndex];
-        changeDetailImage(nextThumbnail.getAttribute('src'), nextThumbnail);
-        if (typeof mainImage.animate === 'function') {
-            mainImage.animate([
-                { opacity: 0.62, transform: 'scale(0.992)' },
-                { opacity: 1, transform: 'scale(1)' }
-            ], { duration: 180, easing: 'ease-out' });
+        if (nextIndex < 0 || nextIndex >= thumbnails.length) {
+            removePreview();
+            direction = requestedDirection;
+            return false;
         }
-    }, { passive: true });
+
+        const requestedThumbnail = thumbnails[nextIndex];
+        if (previewImage && requestedThumbnail === nextThumbnail) return true;
+
+        removePreview();
+        direction = requestedDirection;
+        nextThumbnail = requestedThumbnail;
+        previewImage = document.createElement('img');
+        previewImage.className = 'detail-gallery-swipe-image';
+        previewImage.src = requestedThumbnail.currentSrc || requestedThumbnail.getAttribute('src');
+        previewImage.alt = '';
+        previewImage.setAttribute('aria-hidden', 'true');
+        previewImage.draggable = false;
+        wrapper.insertBefore(previewImage, mainImage);
+        return true;
+    }
+
+    function moveGallery(deltaX) {
+        const hasNextImage = preparePreview(deltaX);
+        const displayedDelta = hasNextImage ? deltaX : deltaX * 0.22;
+
+        mainImage.style.transform = `translate3d(${displayedDelta}px, 0, 0)`;
+        if (previewImage) {
+            previewImage.style.transform = `translate3d(calc(${direction * 100}% + ${deltaX}px), 0, 0)`;
+        }
+    }
+
+    function settleGallery(commit) {
+        const frameWidth = Math.max(1, wrapper.getBoundingClientRect().width);
+        wrapper.classList.remove('is-gallery-dragging');
+        wrapper.classList.add('is-gallery-settling');
+        mainImage.style.transition = `transform ${settleDuration}ms ${settleEasing}`;
+
+        if (previewImage) {
+            previewImage.style.transition = `transform ${settleDuration}ms ${settleEasing}`;
+        }
+
+        requestAnimationFrame(() => {
+            if (commit && previewImage && nextThumbnail) {
+                mainImage.style.transform = `translate3d(${-direction * frameWidth}px, 0, 0)`;
+                previewImage.style.transform = 'translate3d(0, 0, 0)';
+            } else {
+                mainImage.style.transform = 'translate3d(0, 0, 0)';
+                if (previewImage) {
+                    previewImage.style.transform = `translate3d(${direction * 100}%, 0, 0)`;
+                }
+            }
+        });
+
+        const selectedThumbnail = nextThumbnail;
+        settleTimer = window.setTimeout(() => {
+            if (commit && selectedThumbnail) {
+                changeDetailImage(selectedThumbnail.getAttribute('src'), selectedThumbnail);
+            }
+            resetGalleryPosition();
+        }, settleDuration + 30);
+    }
+
+    wrapper.addEventListener('pointerdown', (event) => {
+        if (!event.isPrimary || (event.pointerType === 'mouse' && event.button !== 0)) return;
+        if (event.pointerType === 'mouse' && !window.matchMedia('(max-width: 900px)').matches) return;
+        if (wrapper.classList.contains('is-gallery-settling')) return;
+
+        startX = event.clientX;
+        startY = event.clientY;
+        currentX = startX;
+        lastMoveAt = performance.now();
+        swipeVelocity = 0;
+        activePointerId = event.pointerId;
+        isTracking = true;
+        isHorizontal = false;
+        mainImage.style.transition = 'none';
+        wrapper.classList.add('is-gallery-dragging');
+        wrapper.setPointerCapture?.(event.pointerId);
+    });
+
+    wrapper.addEventListener('pointermove', (event) => {
+        if (!isTracking || event.pointerId !== activePointerId) return;
+        const now = performance.now();
+        const deltaX = event.clientX - startX;
+        const deltaY = event.clientY - startY;
+        swipeVelocity = Math.abs(event.clientX - currentX) / Math.max(1, now - lastMoveAt);
+        currentX = event.clientX;
+        lastMoveAt = now;
+
+        if (!isHorizontal) {
+            if (Math.max(Math.abs(deltaX), Math.abs(deltaY)) < 7) return;
+            if (Math.abs(deltaY) >= Math.abs(deltaX)) {
+                isTracking = false;
+                wrapper.classList.remove('is-gallery-dragging');
+                mainImage.style.transition = '';
+                if (wrapper.hasPointerCapture?.(event.pointerId)) wrapper.releasePointerCapture(event.pointerId);
+                activePointerId = null;
+                return;
+            }
+            isHorizontal = true;
+        }
+
+        event.preventDefault();
+        moveGallery(deltaX);
+    });
+
+    wrapper.addEventListener('pointerup', (event) => {
+        if (!isTracking || event.pointerId !== activePointerId) return;
+        const deltaX = event.clientX - startX;
+        const threshold = Math.min(72, wrapper.getBoundingClientRect().width * 0.18);
+        const commit = isHorizontal && Boolean(previewImage) &&
+            (Math.abs(deltaX) >= threshold || (Math.abs(deltaX) >= 24 && swipeVelocity >= 0.35));
+
+        isTracking = false;
+        if (wrapper.hasPointerCapture?.(event.pointerId)) wrapper.releasePointerCapture(event.pointerId);
+        activePointerId = null;
+        if (isHorizontal) {
+            settleGallery(commit);
+        } else {
+            resetGalleryPosition();
+        }
+    });
+
+    wrapper.addEventListener('pointercancel', (event) => {
+        if (!isTracking || event.pointerId !== activePointerId) return;
+        isTracking = false;
+        activePointerId = null;
+        settleGallery(false);
+    });
 }
 
 
