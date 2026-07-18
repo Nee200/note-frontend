@@ -10,6 +10,7 @@
     position: relative;
     display: grid;
     grid-template-columns: minmax(410px, 41%) minmax(0, 59%);
+    gap: 0;
     align-items: stretch;
     min-height: min(760px, calc(100vh - 112px));
     height: auto;
