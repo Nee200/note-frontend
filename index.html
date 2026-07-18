@@ -9,10 +9,11 @@
     <meta name="author" content="NØTE. fragrances">
     <meta name="theme-color" content="#101010">
     <link rel="canonical" href="https://www.note-fragrances.de/">
-    <link rel="stylesheet" href="style-wave-home.css?v=20260715-bestseller-carousel-v2">
+    <link rel="stylesheet" href="style-wave-home.css?v=20260717-mobile-polish">
+    <link rel="stylesheet" href="style-hero-neuheiten-v3.css?v=53">
 </head>
 
-<body>
+<body class="hybrid-v3-page">
     <div class="top-banner" aria-label="Shop Vorteile">
         <div class="top-banner-track">
             <div class="top-banner-sequence">
@@ -52,6 +53,7 @@
             <span class="logo-sub">fragrances</span>
         </a>
         <nav class="main-nav" id="main-navigation" aria-label="Hauptnavigation">
+            <a href="neuheiten.html">Neuheiten</a>
             <a href="suche.html">Kollektion</a>
             <a href="#bestseller">Bestseller</a>
             <a href="frauenduefte.html">Frauendüfte</a>
@@ -150,26 +152,137 @@
     </aside>
 
     <main>
-        <section class="hero-section">
-            <div class="hero-copy">
-                <h1>Simply well scented.</h1>
-                <p>
-                    Extrait de Parfum mit 40% Duftölanteil. Inspiriert von ikonischen Duftwelten,
-                    kompromisslos in Intensität und Qualität.
+        <section class="hero-section hero-hybrid-v3" data-hero-editorial>
+            <div class="hybrid-hero-copy">
+                <p class="hero-editorial-eyebrow"><span></span> NØTE. fragrances · Berlin</p>
+                <h1><span>Simply well</span><em>scented.</em></h1>
+                <p class="hero-editorial-lede">
+                    Extrait de Parfum mit 40% Duftölanteil. Klar komponiert,
+                    intensiv im Ausdruck und gemacht für eine Präsenz, die bleibt.
                 </p>
                 <div class="hero-actions">
-                    <a class="btn btn-dark" href="suche.html">Kollektion entdecken</a>
+                    <a class="btn hero-editorial-cta" href="suche.html">Kollektion entdecken</a>
+                </div>
+                <div class="hero-editorial-facts" aria-label="Produktvorteile">
+                    <span>40% Duftölanteil</span>
+                    <span>Extrait de Parfum</span>
+                    <span>Made in Berlin</span>
                 </div>
             </div>
-            <div class="hero-stage" aria-label="Parfum Produktbühne">
-                <img class="hero-bottle hero-bottle-left" src="images_parfume/parfume_mann_webp.webp"
-                    alt="Herrenduft Flakon">
-                <img class="hero-bottle hero-bottle-main" src="images_parfume/parfume_frau_webp.webp"
-                    alt="Damenduft Flakon">
-                <div class="hero-note-card">
-                    <strong>Extrait de Parfum</strong>
-                    <span>Intensiv. Klar. Langanhaltend.</span>
+
+            <a class="hybrid-drop-seal" href="neuheiten.html" aria-label="Alle Neuheiten entdecken">
+                <strong>NEW<br>DROP</strong>
+            </a>
+
+            <div class="hybrid-hero-visual" aria-label="NØTE. Neuheiten auf einer warm beleuchteten Steinbühne">
+                <img class="hybrid-stage-image" src="images_website/hero-new-arrivals-studio-v2.png"
+                    alt="Warme Steinbühne im Licht" fetchpriority="high">
+                <span class="hybrid-new-badge">NEU</span>
+            </div>
+
+            <a class="hero-scroll-cue" href="#bestseller" aria-label="Zu den Bestsellern scrollen">
+                <span>Mehr entdecken</span>
+                <i aria-hidden="true"></i>
+            </a>
+        </section>
+
+        <section class="new-arrivals-showcase" id="neuheiten" aria-labelledby="new-arrivals-title">
+            <div class="new-arrivals-intro">
+                <p class="new-arrivals-kicker">Neuheiten</p>
+                <h2 id="new-arrivals-title">Neue Düfte.<br>Neue Geschichten.</h2>
+                <p class="new-arrivals-copy">Entdecke unsere neuesten Kreationen – ausdrucksstark komponiert und gemacht für unvergessliche Eindrücke.</p>
+                <a class="new-arrivals-all" href="neuheiten.html">Alle Neuheiten</a>
+                <span class="new-arrivals-rule" aria-hidden="true"></span>
+            </div>
+
+            <div class="new-arrivals-rail-shell">
+                <button class="new-arrivals-arrow new-arrivals-arrow-prev" type="button" data-new-arrivals-prev
+                    aria-label="Vorherige Neuheiten anzeigen"><span aria-hidden="true"></span></button>
+                <div class="new-arrivals-track" data-new-arrivals-track role="region"
+                    aria-label="Neuheiten horizontal durchblättern" tabindex="0">
+                <article class="new-drop-card">
+                    <div class="new-drop-media new-drop-media-warm">
+                        <span>NEU</span>
+                        <img src="images_website/new-arrivals/g333-notes-5pct-v1.webp"
+                            alt="NØTE. G333 Cherry Oud mit seinen prägenden Duftnoten">
+                    </div>
+                    <div class="new-drop-info">
+                        <p>No. G333</p>
+                        <h3>Cherry Oud</h3>
+                        <span>Kirsche · Rose · Oud</span>
+                        <i aria-hidden="true"></i>
+                        <small>Extrait de Parfum<br>30 ml</small>
+                        <div class="new-drop-price"><s>34,99 €</s><strong>19,99 €</strong></div>
+                        <button class="new-drop-cart" type="button" data-new-arrival-cart data-product-id="G333"
+                            data-product-name="No. G333" data-product-image="images_website/new-arrivals/g333-notes-5pct-v1.webp"
+                            aria-label="Variante für No. G333 wählen" aria-expanded="false" aria-controls="variant-picker-G333">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h15l-2 9H8L6 4H3"></path><circle cx="9" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg>
+                        </button>
+                        <div class="new-drop-variant-picker" id="variant-picker-G333" role="dialog" aria-label="Größe für No. G333 wählen" hidden>
+                            <span>Größe wählen</span>
+                            <button type="button" data-add-variant data-size="30" data-price="19.99" data-original-price="34.99"><b>30 ml</b><span><s>34,99 €</s><em>19,99 €</em></span></button>
+                            <button type="button" data-add-variant data-size="50" data-price="24.99" data-original-price="44.99"><b>50 ml</b><span><s>44,99 €</s><em>24,99 €</em></span></button>
+                        </div>
+                    </div>
+                    <a class="new-drop-card-link" href="product?id=G333" aria-label="No. G333 Cherry Oud ansehen"></a>
+                </article>
+
+                <article class="new-drop-card new-drop-card-featured">
+                    <div class="new-drop-media new-drop-media-dark">
+                        <span>NEU</span>
+                        <img src="images_website/new-arrivals/g343-notes-5pct-v1.webp"
+                            alt="NØTE. G343 Bleu Exclusif mit seinen prägenden Duftnoten">
+                    </div>
+                    <div class="new-drop-info">
+                        <p>No. G343</p>
+                        <h3>Bleu Exclusif</h3>
+                        <span>Sandelholz · Leder · Labdanum</span>
+                        <i aria-hidden="true"></i>
+                        <small>Extrait de Parfum<br>30 ml</small>
+                        <div class="new-drop-price"><s>34,99 €</s><strong>19,99 €</strong></div>
+                        <button class="new-drop-cart" type="button" data-new-arrival-cart data-product-id="G343"
+                            data-product-name="No. G343" data-product-image="images_website/new-arrivals/g343-notes-5pct-v1.webp"
+                            aria-label="Variante für No. G343 wählen" aria-expanded="false" aria-controls="variant-picker-G343">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h15l-2 9H8L6 4H3"></path><circle cx="9" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg>
+                        </button>
+                        <div class="new-drop-variant-picker" id="variant-picker-G343" role="dialog" aria-label="Größe für No. G343 wählen" hidden>
+                            <span>Größe wählen</span>
+                            <button type="button" data-add-variant data-size="30" data-price="19.99" data-original-price="34.99"><b>30 ml</b><span><s>34,99 €</s><em>19,99 €</em></span></button>
+                            <button type="button" data-add-variant data-size="50" data-price="24.99" data-original-price="44.99"><b>50 ml</b><span><s>44,99 €</s><em>24,99 €</em></span></button>
+                        </div>
+                    </div>
+                    <a class="new-drop-card-link" href="product?id=G343" aria-label="No. G343 Bleu Exclusif ansehen"></a>
+                </article>
+
+                <article class="new-drop-card">
+                    <div class="new-drop-media new-drop-media-soft">
+                        <span>NEU</span>
+                        <img src="images_website/new-arrivals/l203-notes-5pct-v1.webp"
+                            alt="NØTE. L203 Good Girl Blush mit seinen prägenden Duftnoten">
+                    </div>
+                    <div class="new-drop-info">
+                        <p>No. L203</p>
+                        <h3>Good Girl Blush</h3>
+                        <span>Bergamotte · Pfingstrose · Vanille</span>
+                        <i aria-hidden="true"></i>
+                        <small>Extrait de Parfum<br>30 ml</small>
+                        <div class="new-drop-price"><s>34,99 €</s><strong>19,99 €</strong></div>
+                        <button class="new-drop-cart" type="button" data-new-arrival-cart data-product-id="L203"
+                            data-product-name="No. L203" data-product-image="images_website/new-arrivals/l203-notes-5pct-v1.webp"
+                            aria-label="Variante für No. L203 wählen" aria-expanded="false" aria-controls="variant-picker-L203">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h15l-2 9H8L6 4H3"></path><circle cx="9" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg>
+                        </button>
+                        <div class="new-drop-variant-picker" id="variant-picker-L203" role="dialog" aria-label="Größe für No. L203 wählen" hidden>
+                            <span>Größe wählen</span>
+                            <button type="button" data-add-variant data-size="30" data-price="19.99" data-original-price="34.99"><b>30 ml</b><span><s>34,99 €</s><em>19,99 €</em></span></button>
+                            <button type="button" data-add-variant data-size="50" data-price="24.99" data-original-price="44.99"><b>50 ml</b><span><s>44,99 €</s><em>24,99 €</em></span></button>
+                        </div>
+                    </div>
+                    <a class="new-drop-card-link" href="product?id=L203" aria-label="No. L203 Good Girl Blush ansehen"></a>
+                </article>
                 </div>
+                <button class="new-arrivals-arrow new-arrivals-arrow-next" type="button" data-new-arrivals-next
+                    aria-label="Weitere Neuheiten anzeigen"><span aria-hidden="true"></span></button>
             </div>
         </section>
 
@@ -201,15 +314,15 @@
             </div>
             <div class="bestseller-group reveal-section">
                 <div class="bestseller-group-heading reveal-item">
-                    <h3><a href="frauenduefte.html">Frauendüfte</a></h3>
-                    <a class="view-all-link" href="frauenduefte.html">Alle ansehen <span aria-hidden="true"></span></a>
+                    <h3><a href="frauenduefte?sort=bestseller#products">Frauendüfte</a></h3>
+                    <a class="view-all-link" href="frauenduefte?sort=bestseller#products">Alle ansehen <span aria-hidden="true"></span></a>
                 </div>
                 <div class="product-rail-shell">
                     <button class="product-rail-arrow product-rail-arrow-prev" type="button" aria-label="Drei vorherige Bestseller anzeigen">
                         <span aria-hidden="true"></span>
                     </button>
                     <div class="product-rail reveal-group" role="region" aria-label="Bestseller Frauendüfte horizontal durchblättern" tabindex="0">
-                    <a class="product-card reveal-item" href="product.html?id=L12" aria-label="NØTE. L12 ansehen">
+                    <a class="product-card reveal-item" href="product?id=L12" aria-label="NØTE. L12 ansehen">
                         <span class="product-code">N&Oslash;TE. L12</span>
                         <div class="product-stage product-stage-swap">
                             <img class="product-stage-primary" src="images_website/bestsellers/l12-comparison-transparent-v2.webp" alt="N&Oslash;TE. L12 mit kleinerem Vergleichsflakon">
@@ -217,47 +330,47 @@
                         </div>
                         <div class="product-copy"><h3>&hellip;S&igrave; Passione&reg;</h3><div class="product-price"><s>34.99 &euro;</s><span>ab 19.99 &euro;</span></div></div>
                     </a>
-                    <a class="product-card reveal-item" href="product.html?id=L56" aria-label="NØTE. L56 ansehen">
+                    <a class="product-card reveal-item" href="product?id=L56" aria-label="NØTE. L56 ansehen">
                         <span class="product-code">N&Oslash;TE. L56</span>
                         <div class="product-stage product-stage-swap"><img class="product-stage-primary" src="images_website/bestsellers/l56-comparison-transparent-v2.webp" alt="N&Oslash;TE. L56 mit kleinerem Vergleichsflakon"><img class="product-stage-secondary" src="images_parfume/parfume_frau_webp.webp" alt="N&Oslash;TE. L56"></div>
                         <div class="product-copy"><h3>&hellip;Miss Dior&reg;</h3><div class="product-price"><s>34.99 &euro;</s><span>ab 19.99 &euro;</span></div></div>
                     </a>
-                    <a class="product-card reveal-item" href="product.html?id=L62" aria-label="NØTE. L62 ansehen">
+                    <a class="product-card reveal-item" href="product?id=L62" aria-label="NØTE. L62 ansehen">
                         <span class="product-code">N&Oslash;TE. L62</span>
                         <div class="product-stage product-stage-swap"><img class="product-stage-primary" src="images_website/bestsellers/l62-comparison-transparent-v2.webp" alt="N&Oslash;TE. L62 mit kleinerem Vergleichsflakon"><img class="product-stage-secondary" src="images_parfume/parfume_frau_webp.webp" alt="N&Oslash;TE. L62"></div>
                         <div class="product-copy"><h3>&hellip;Devotion&reg;</h3><div class="product-price"><s>34.99 &euro;</s><span>ab 19.99 &euro;</span></div></div>
                     </a>
-                    <a class="product-card reveal-item" href="product.html?id=L73" aria-label="NØTE. L73 ansehen">
+                    <a class="product-card reveal-item" href="product?id=L73" aria-label="NØTE. L73 ansehen">
                         <span class="product-code">N&Oslash;TE. L73</span>
                         <div class="product-stage product-stage-swap"><img class="product-stage-primary" src="images_website/bestsellers/l73-comparison-transparent-v2.webp" alt="N&Oslash;TE. L73 mit kleinerem Vergleichsflakon"><img class="product-stage-secondary" src="images_parfume/parfume_frau_webp.webp" alt="N&Oslash;TE. L73"></div>
                         <div class="product-copy"><h3>&hellip;Ambassadora&reg;</h3><div class="product-price"><s>34.99 &euro;</s><span>ab 19.99 &euro;</span></div></div>
                     </a>
-                    <a class="product-card reveal-item" href="product.html?id=L123" aria-label="NØTE. L123 ansehen">
+                    <a class="product-card reveal-item" href="product?id=L123" aria-label="NØTE. L123 ansehen">
                         <span class="product-code">N&Oslash;TE. L123</span>
                         <div class="product-stage product-stage-swap"><img class="product-stage-primary" src="images_website/bestsellers/l123-comparison-transparent-v2.webp" alt="N&Oslash;TE. L123 mit kleinerem Vergleichsflakon"><img class="product-stage-secondary" src="images_parfume/parfume_frau_webp.webp" alt="N&Oslash;TE. L123"></div>
                         <div class="product-copy"><h3>&hellip;Coco Vanille&reg;</h3><div class="product-price"><s>34.99 &euro;</s><span>ab 19.99 &euro;</span></div></div>
                     </a>
-                    <a class="product-card reveal-item" href="product.html?id=L145" aria-label="NØTE. L145 ansehen">
+                    <a class="product-card reveal-item" href="product?id=L145" aria-label="NØTE. L145 ansehen">
                         <span class="product-code">N&Oslash;TE. L145</span>
                         <div class="product-stage product-stage-swap"><img class="product-stage-primary" src="images_website/bestsellers/l145-comparison-transparent-v2.webp" alt="N&Oslash;TE. L145 mit kleinerem Vergleichsflakon"><img class="product-stage-secondary" src="images_parfume/parfume_frau_webp.webp" alt="N&Oslash;TE. L145"></div>
                         <div class="product-copy"><h3>&hellip;Olympea&reg;</h3><div class="product-price"><s>34.99 &euro;</s><span>ab 19.99 &euro;</span></div></div>
                     </a>
-                    <a class="product-card reveal-item" href="product.html?id=L146" aria-label="NØTE. L146 ansehen">
+                    <a class="product-card reveal-item" href="product?id=L146" aria-label="NØTE. L146 ansehen">
                         <span class="product-code">N&Oslash;TE. L146</span>
                         <div class="product-stage product-stage-swap"><img class="product-stage-primary" src="images_website/bestsellers/l146-comparison-transparent-v2.webp" alt="N&Oslash;TE. L146 mit kleinerem Vergleichsflakon"><img class="product-stage-secondary" src="images_parfume/parfume_frau_webp.webp" alt="N&Oslash;TE. L146"></div>
                         <div class="product-copy"><h3>&hellip;Delina&reg;</h3><div class="product-price"><s>34.99 &euro;</s><span>ab 19.99 &euro;</span></div></div>
                     </a>
-                    <a class="product-card reveal-item" href="product.html?id=L147" aria-label="NØTE. L147 ansehen">
+                    <a class="product-card reveal-item" href="product?id=L147" aria-label="NØTE. L147 ansehen">
                         <span class="product-code">N&Oslash;TE. L147</span>
                         <div class="product-stage product-stage-swap"><img class="product-stage-primary" src="images_website/bestsellers/l147-comparison-transparent-v2.webp" alt="N&Oslash;TE. L147 mit kleinerem Vergleichsflakon"><img class="product-stage-secondary" src="images_parfume/parfume_frau_webp.webp" alt="N&Oslash;TE. L147"></div>
                         <div class="product-copy"><h3>&hellip;Valaya&reg;</h3><div class="product-price"><s>34.99 &euro;</s><span>ab 19.99 &euro;</span></div></div>
                     </a>
-                    <a class="product-card reveal-item" href="product.html?id=L155" aria-label="NØTE. L155 ansehen">
+                    <a class="product-card reveal-item" href="product?id=L155" aria-label="NØTE. L155 ansehen">
                         <span class="product-code">N&Oslash;TE. L155</span>
                         <div class="product-stage product-stage-swap"><img class="product-stage-primary" src="images_website/bestsellers/l155-comparison-transparent-v2.webp" alt="N&Oslash;TE. L155 mit kleinerem Vergleichsflakon"><img class="product-stage-secondary" src="images_parfume/parfume_frau_webp.webp" alt="N&Oslash;TE. L155"></div>
                         <div class="product-copy"><h3>&hellip;Paradoxe Intense&reg;</h3><div class="product-price"><s>34.99 &euro;</s><span>ab 19.99 &euro;</span></div></div>
                     </a>
-                    <a class="product-card reveal-item" href="product.html?id=L190" aria-label="NØTE. L190 ansehen">
+                    <a class="product-card reveal-item" href="product?id=L190" aria-label="NØTE. L190 ansehen">
                         <span class="product-code">N&Oslash;TE. L190</span>
                         <div class="product-stage product-stage-swap"><img class="product-stage-primary" src="images_website/bestsellers/l190-comparison-transparent-v2.webp" alt="N&Oslash;TE. L190 mit kleinerem Vergleichsflakon"><img class="product-stage-secondary" src="images_parfume/parfume_frau_webp.webp" alt="N&Oslash;TE. L190"></div>
                         <div class="product-copy"><h3>&hellip;Libre&reg;</h3><div class="product-price"><s>34.99 &euro;</s><span>ab 19.99 &euro;</span></div></div>
@@ -270,15 +383,15 @@
             </div>
             <div class="bestseller-group reveal-section">
                 <div class="bestseller-group-heading reveal-item">
-                    <h3><a href="herrenduefte.html">Herrendüfte</a></h3>
-                    <a class="view-all-link" href="herrenduefte.html">Alle ansehen <span aria-hidden="true"></span></a>
+                    <h3><a href="herrenduefte?sort=bestseller#products">Herrendüfte</a></h3>
+                    <a class="view-all-link" href="herrenduefte?sort=bestseller#products">Alle ansehen <span aria-hidden="true"></span></a>
                 </div>
                 <div class="product-rail-shell">
                     <button class="product-rail-arrow product-rail-arrow-prev" type="button" aria-label="Drei vorherige Bestseller anzeigen">
                         <span aria-hidden="true"></span>
                     </button>
                     <div class="product-rail reveal-group" role="region" aria-label="Bestseller Herrendüfte horizontal durchblättern" tabindex="0">
-                    <a class="product-card reveal-item" href="product.html?id=G111" aria-label="NØTE. G111 ansehen">
+                    <a class="product-card reveal-item" href="product?id=G111" aria-label="NØTE. G111 ansehen">
                         <span class="product-code">N&Oslash;TE. G111</span>
                         <div class="product-stage product-stage-swap">
                             <img class="product-stage-primary" src="images_website/bestsellers/g111-comparison-transparent-v1.webp" alt="N&Oslash;TE. G111 mit kleinerem Vergleichsflakon">
@@ -292,7 +405,7 @@
                             </div>
                         </div>
                     </a>
-                    <a class="product-card reveal-item" href="product.html?id=G160" aria-label="NØTE. G160 ansehen">
+                    <a class="product-card reveal-item" href="product?id=G160" aria-label="NØTE. G160 ansehen">
                         <span class="product-code">N&Oslash;TE. G160</span>
                         <div class="product-stage product-stage-swap">
                             <img class="product-stage-primary" src="images_website/bestsellers/g160-comparison-transparent-v2.webp" alt="N&Oslash;TE. G160 mit kleinerem Vergleichsflakon">
@@ -306,7 +419,7 @@
                             </div>
                         </div>
                     </a>
-                    <a class="product-card reveal-item" href="product.html?id=G169" aria-label="NØTE. G169 ansehen">
+                    <a class="product-card reveal-item" href="product?id=G169" aria-label="NØTE. G169 ansehen">
                         <span class="product-code">N&Oslash;TE. G169</span>
                         <div class="product-stage product-stage-swap">
                             <img class="product-stage-primary" src="images_website/bestsellers/g169-comparison-transparent-v2.webp" alt="N&Oslash;TE. G169 mit kleinerem Vergleichsflakon">
@@ -320,7 +433,7 @@
                             </div>
                         </div>
                     </a>
-                    <a class="product-card reveal-item" href="product.html?id=G223" aria-label="NØTE. G223 ansehen">
+                    <a class="product-card reveal-item" href="product?id=G223" aria-label="NØTE. G223 ansehen">
                         <span class="product-code">N&Oslash;TE. G223</span>
                         <div class="product-stage product-stage-swap">
                             <img class="product-stage-primary" src="images_website/bestsellers/g223-comparison-transparent-v1.webp" alt="N&Oslash;TE. G223 mit kleinerem Vergleichsflakon">
@@ -334,7 +447,7 @@
                             </div>
                         </div>
                     </a>
-                    <a class="product-card reveal-item" href="product.html?id=G232" aria-label="NØTE. G232 ansehen">
+                    <a class="product-card reveal-item" href="product?id=G232" aria-label="NØTE. G232 ansehen">
                         <span class="product-code">N&Oslash;TE. G232</span>
                         <div class="product-stage product-stage-swap">
                             <img class="product-stage-primary" src="images_website/bestsellers/g232-comparison-transparent-v1.webp" alt="N&Oslash;TE. G232 mit kleinerem Vergleichsflakon">
@@ -348,7 +461,7 @@
                             </div>
                         </div>
                     </a>
-                    <a class="product-card reveal-item" href="product.html?id=G245" aria-label="NØTE. G245 ansehen">
+                    <a class="product-card reveal-item" href="product?id=G245" aria-label="NØTE. G245 ansehen">
                         <span class="product-code">N&Oslash;TE. G245</span>
                         <div class="product-stage product-stage-swap">
                             <img class="product-stage-primary" src="images_website/bestsellers/g245-comparison-transparent-v1.webp" alt="N&Oslash;TE. G245 mit kleinerem Vergleichsflakon">
@@ -362,7 +475,7 @@
                             </div>
                         </div>
                     </a>
-                    <a class="product-card reveal-item" href="product.html?id=G263" aria-label="NØTE. G263 ansehen">
+                    <a class="product-card reveal-item" href="product?id=G263" aria-label="NØTE. G263 ansehen">
                         <span class="product-code">N&Oslash;TE. G263</span>
                         <div class="product-stage product-stage-swap">
                             <img class="product-stage-primary" src="images_website/bestsellers/g263-comparison-transparent-v1.webp" alt="N&Oslash;TE. G263 mit kleinerem Vergleichsflakon">
@@ -376,7 +489,7 @@
                             </div>
                         </div>
                     </a>
-                    <a class="product-card reveal-item" href="product.html?id=G282" aria-label="NØTE. G282 ansehen">
+                    <a class="product-card reveal-item" href="product?id=G282" aria-label="NØTE. G282 ansehen">
                         <span class="product-code">N&Oslash;TE. G282</span>
                         <div class="product-stage product-stage-swap">
                             <img class="product-stage-primary" src="images_website/bestsellers/g282-comparison-transparent-v1.webp" alt="N&Oslash;TE. G282 mit kleinerem Vergleichsflakon">
@@ -390,7 +503,7 @@
                             </div>
                         </div>
                     </a>
-                    <a class="product-card reveal-item" href="product.html?id=G298" aria-label="NØTE. G298 ansehen">
+                    <a class="product-card reveal-item" href="product?id=G298" aria-label="NØTE. G298 ansehen">
                         <span class="product-code">N&Oslash;TE. G298</span>
                         <div class="product-stage product-stage-swap">
                             <img class="product-stage-primary" src="images_website/bestsellers/g298-comparison-transparent-v1.webp" alt="N&Oslash;TE. G298 mit kleinerem Vergleichsflakon">
@@ -404,7 +517,7 @@
                             </div>
                         </div>
                     </a>
-                    <a class="product-card reveal-item" href="product.html?id=G307" aria-label="NØTE. G307 ansehen">
+                    <a class="product-card reveal-item" href="product?id=G307" aria-label="NØTE. G307 ansehen">
                         <span class="product-code">N&Oslash;TE. G307</span>
                         <div class="product-stage product-stage-swap">
                             <img class="product-stage-primary" src="images_website/bestsellers/g307-comparison-transparent-v2.webp" alt="N&Oslash;TE. G307 mit kleinerem Vergleichsflakon">
@@ -418,7 +531,7 @@
                             </div>
                         </div>
                     </a>
-                    <a class="product-card reveal-item" href="product.html?id=G322" aria-label="NØTE. G322 ansehen">
+                    <a class="product-card reveal-item" href="product?id=G322" aria-label="NØTE. G322 ansehen">
                         <span class="product-code">N&Oslash;TE. G322</span>
                         <div class="product-stage product-stage-swap">
                             <img class="product-stage-primary" src="images_website/bestsellers/g322-comparison-transparent-v2.webp" alt="N&Oslash;TE. G322 mit kleinerem Vergleichsflakon">
@@ -717,7 +830,8 @@
     </footer>
 
     <script src="cookie-consent.js?v=20260711" defer></script>
-    <script src="style-wave-home.js?v=11" defer></script>
+    <script src="style-wave-home.js?v=20" defer></script>
+    <script src="style-hero-neuheiten-v3.js?v=6" defer></script>
 </body>
 
 </html>

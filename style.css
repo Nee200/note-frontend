@@ -4402,15 +4402,22 @@ html:has(body.no-scroll) {
 }
 
 .product-grid .shop-product-card .product-badge-bestseller {
-    margin: 7px 0 0;
-    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    margin: 0;
+    padding: 10px 16px;
     border: 0;
     border-radius: 0;
-    color: #9a761d;
+    background: #d4a62f;
+    color: #111313;
     font-family: 'Inter', Arial, sans-serif;
-    font-size: 8px;
+    font-size: 0.62rem;
     font-weight: 800;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.12em;
+    line-height: 1;
+    text-transform: uppercase;
 }
 
 .product-grid .shop-product-card .product-card-rating {
@@ -4438,6 +4445,28 @@ html:has(body.no-scroll) {
     color: #9a761d;
     font-size: 17px;
     font-weight: 800;
+}
+
+/* Neuheiten nutzen dieselbe großzügige Bildwirkung wie die Bestseller. */
+body[data-page="new-arrivals"] .product-grid .shop-product-card .product-code {
+    transform: translateY(-6px);
+}
+
+body[data-page="new-arrivals"] .product-grid .shop-product-card .product-stage {
+    min-height: 280px;
+    margin: 2px 0 20px;
+    padding: 2px;
+}
+
+body[data-page="new-arrivals"] .product-grid .shop-product-card .product-grid-image {
+    width: min(100%, 306px);
+    height: 276px;
+    transform: scale(1.3);
+}
+
+body[data-page="new-arrivals"] .product-grid > .shop-product-card:hover .product-grid-image,
+body[data-page="new-arrivals"] .product-grid > .shop-product-card:focus-visible .product-grid-image {
+    transform: translateY(-4px) scale(1.3);
 }
 
 @media (max-width: 760px) {
@@ -4469,6 +4498,26 @@ html:has(body.no-scroll) {
         height: 150px !important;
     }
 
+    body[data-page="new-arrivals"] .product-grid .shop-product-card .product-stage {
+        min-height: 180px;
+        margin: 4px 0 14px;
+    }
+
+    body[data-page="new-arrivals"] .product-grid .shop-product-card .product-code {
+        transform: translateY(-3px);
+    }
+
+    body[data-page="new-arrivals"] .product-grid .shop-product-card .product-grid-image {
+        width: min(100%, 190px);
+        height: 180px !important;
+        transform: scale(1.18);
+    }
+
+    body[data-page="new-arrivals"] .product-grid > .shop-product-card:hover .product-grid-image,
+    body[data-page="new-arrivals"] .product-grid > .shop-product-card:focus-visible .product-grid-image {
+        transform: translateY(-3px) scale(1.18);
+    }
+
     .product-grid .shop-product-card .product-title {
         min-height: 2.4em;
         font-size: clamp(15px, 4.5vw, 18px);
@@ -4476,8 +4525,10 @@ html:has(body.no-scroll) {
     }
 
     .product-grid .shop-product-card .product-badge-bestseller {
-        margin-top: 5px;
-        font-size: 7px;
+        top: 0;
+        left: 0;
+        margin: 0;
+        font-size: 0.62rem;
     }
 
     .product-grid .shop-product-card .product-card-rating {
@@ -5075,6 +5126,38 @@ html:has(body.no-scroll) {
     }
 }
 
+/*
+ * The newer comparison renders use a square canvas with more optical breathing
+ * room than the original portrait bottle renders. Compensate only those assets
+ * on the women/men catalogues so their visible bottle size stays consistent.
+ */
+body[data-default-category="women"] .product-grid .shop-product-card.has-comparison-image .product-grid-image,
+body[data-default-category="men"] .product-grid .shop-product-card.has-comparison-image .product-grid-image {
+    transform: scale(1.28);
+    transform-origin: center;
+}
+
+body[data-default-category="women"] .product-grid > .shop-product-card.has-comparison-image:hover .product-grid-image,
+body[data-default-category="women"] .product-grid > .shop-product-card.has-comparison-image:focus-visible .product-grid-image,
+body[data-default-category="men"] .product-grid > .shop-product-card.has-comparison-image:hover .product-grid-image,
+body[data-default-category="men"] .product-grid > .shop-product-card.has-comparison-image:focus-visible .product-grid-image {
+    transform: translateY(-4px) scale(1.28);
+}
+
+@media screen and (max-width: 768px) {
+    body[data-default-category="women"] .product-grid .shop-product-card.has-comparison-image .product-grid-image,
+    body[data-default-category="men"] .product-grid .shop-product-card.has-comparison-image .product-grid-image {
+        transform: scale(1.2);
+    }
+
+    body[data-default-category="women"] .product-grid > .shop-product-card.has-comparison-image:hover .product-grid-image,
+    body[data-default-category="women"] .product-grid > .shop-product-card.has-comparison-image:focus-visible .product-grid-image,
+    body[data-default-category="men"] .product-grid > .shop-product-card.has-comparison-image:hover .product-grid-image,
+    body[data-default-category="men"] .product-grid > .shop-product-card.has-comparison-image:focus-visible .product-grid-image {
+        transform: translateY(-3px) scale(1.2);
+    }
+}
+
 /* Keep every product-gallery image in one stable, equally sized frame. */
 .product-detail-page .detail-gallery {
     height: auto;
@@ -5090,6 +5173,7 @@ html:has(body.no-scroll) {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    border-radius: 16px;
 }
 
 .product-detail-page #detail-main-image {
@@ -5098,6 +5182,11 @@ html:has(body.no-scroll) {
     max-height: none;
     object-fit: contain;
     object-position: center;
+    border-radius: 16px;
+}
+
+.product-detail-page .detail-thumbnail {
+    border-radius: 8px;
 }
 
 @media screen and (max-width: 768px) {
@@ -5157,7 +5246,7 @@ html:has(body.no-scroll) {
     }
 
     body[data-default-category] main#products.container.section,
-    body[data-page="search"] main#products.container.section {
+body[data-page="search"] main#products.container.section {
         width: auto;
         max-width: none;
         margin-right: var(--mobile-page-gutter-right);
@@ -5180,6 +5269,12 @@ html:has(body.no-scroll) {
         width: 100%;
         box-sizing: border-box;
     }
+}
+
+/* Collection catalogue is temporarily removed from primary customer navigation. */
+#main-navigation > a[href="suche.html"],
+footer a[href="suche.html"] {
+    display: none !important;
 }
 
 

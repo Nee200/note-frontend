@@ -132,6 +132,11 @@ function clearCouponState() {
     localStorage.removeItem('couponFreeShipping');
 }
 
+window.addEventListener('note:coupon-removed', () => {
+    clearCouponState();
+    updateCartUI();
+});
+
 async function syncUserLoginIndicator() {
     const userIcons = document.querySelectorAll('.user-icon');
     if (!userIcons.length) return;
@@ -162,13 +167,26 @@ async function syncUserLoginIndicator() {
 let products = [];
 let productsLoadPromise = null;
 
+function normalizeNewArrivalPrices(items) {
+    return items.map((product) => {
+        if (product?.newArrival !== true || !product.variants?.['30']) return product;
+        return {
+            ...product,
+            variants: {
+                ...product.variants,
+                '30': { ...product.variants['30'], price: 19.99 }
+            }
+        };
+    });
+}
+
 function hydrateProductsFromCache() {
     try {
         const cachedProducts = sessionStorage.getItem('note_products_v2');
         if (!cachedProducts) return false;
         const parsed = JSON.parse(cachedProducts);
         if (!Array.isArray(parsed)) return false;
-        products = parsed;
+        products = normalizeNewArrivalPrices(parsed);
         return true;
     } catch (error) {
         return false;
@@ -182,8 +200,8 @@ async function fetchAndStoreProducts() {
     }
     const data = await res.json();
     if (Array.isArray(data)) {
-        products = data;
-        sessionStorage.setItem('note_products_v2', JSON.stringify(data));
+        products = normalizeNewArrivalPrices(data);
+        sessionStorage.setItem('note_products_v2', JSON.stringify(products));
     }
     return products;
 }
@@ -354,6 +372,39 @@ let currentProductsPerPage = 25;
 let currentNoteFilter = 'all';
 let cartScrollLockY = 0;
 
+function syncNewArrivalCartPrices() {
+    if (!Array.isArray(cart) || !cart.length || !Array.isArray(products) || !products.length) return;
+
+    const newArrivalsById = new Map(
+        products
+            .filter((product) => product?.newArrival === true)
+            .map((product) => [String(product.id), product])
+    );
+    let changed = false;
+
+    cart.forEach((item) => {
+        const productId = String(item.productId || String(item.id || '').replace(/-\d+$/, ''));
+        const size = String(item.size || '').replace(/[^0-9]/g, '');
+        if (size !== '30') return;
+
+        const variant = newArrivalsById.get(productId)?.variants?.['30'];
+        if (!variant) return;
+
+        const nextPrice = Number(variant.price);
+        const nextOriginalPrice = Number(variant.originalPrice);
+        if (Number.isFinite(nextPrice) && Number(item.price) !== nextPrice) {
+            item.price = nextPrice;
+            changed = true;
+        }
+        if (Number.isFinite(nextOriginalPrice) && Number(item.originalPrice) !== nextOriginalPrice) {
+            item.originalPrice = nextOriginalPrice;
+            changed = true;
+        }
+    });
+
+    if (changed) localStorage.setItem('cart', JSON.stringify(cart));
+}
+
 if (currentDiscount > 0 && !currentCouponCode) {
     currentDiscount = 0;
     currentCouponLabel = '';
@@ -434,6 +485,28 @@ function isBestseller(product) {
     return product.bestseller === true;
 }
 
+// Die kuratierte Auswahl entspricht exakt den beiden Bestseller-Reihen auf
+// der Startseite. Sie ist bewusst unabhängig vom Datenbankfeld `bestseller`,
+// damit Kategorie- und Startseite immer dieselben Favoriten zeigen.
+const CURATED_BESTSELLER_IDS = Object.freeze({
+    women: Object.freeze(['L12', 'L56', 'L62', 'L73', 'L123', 'L145', 'L146', 'L147', 'L155', 'L190']),
+    men: Object.freeze(['G111', 'G160', 'G169', 'G223', 'G232', 'G245', 'G263', 'G282', 'G298', 'G307', 'G322'])
+});
+
+const CURATED_BESTSELLER_ID_SET = new Set([
+    ...CURATED_BESTSELLER_IDS.women,
+    ...CURATED_BESTSELLER_IDS.men
+]);
+
+function isCuratedBestseller(product) {
+    return CURATED_BESTSELLER_ID_SET.has(String(product?.id || '').toUpperCase());
+}
+
+function getCuratedBestsellerRank(product) {
+    const category = product?.category === 'men' ? 'men' : 'women';
+    return CURATED_BESTSELLER_IDS[category].indexOf(String(product?.id || '').toUpperCase());
+}
+
 function scrollToSearchResultsIfNeeded(query) {
     if (!query) return;
     const productGridEl = document.getElementById('product-grid');
@@ -464,6 +537,7 @@ async function init() {
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('id');
     const categoryParam = urlParams.get('category');
+    const sortParam = urlParams.get('sort');
     const defaultCategory = document.body ? document.body.dataset.defaultCategory : null;
     const hasProductGrid = !!document.getElementById('product-grid');
     const needsProductsForInitialRender = Boolean(
@@ -476,6 +550,20 @@ async function init() {
     if (needsProductsForInitialRender) {
         try {
             await ensureProductsLoaded();
+            // Die Neuheiten-Seite darf nicht mit einem älteren Session-Cache leer
+            // gerendert werden. Falls der Cache noch keine Neuheiten kennt, warten
+            // wir einmal auf die aktuellen API-Daten, bevor die Karten entstehen.
+            if (defaultCategory === 'new' && !products.some(product => product.newArrival === true)) {
+                await ensureProductsLoaded({ forceRefresh: true });
+            }
+            // Produktseiten neuer Düfte sollen nach Galerie-/Noten-Updates nicht
+            // einmalig mit einem älteren Session-Cache gerendert werden.
+            const requestedProduct = productId
+                ? products.find(product => String(product.id) === String(productId))
+                : null;
+            if (requestedProduct?.newArrival === true) {
+                await ensureProductsLoaded({ forceRefresh: true });
+            }
         } catch (error) {
             console.error('Error in init logic:', error);
         }
@@ -484,6 +572,8 @@ async function init() {
         ensureProductsLoaded({ background: true }).catch(() => { });
     }
 
+    syncNewArrivalCartPrices();
+
     if (productId && products.length > 0) {
         // ID als String behandeln, damit "G1" etc. funktioniert
         renderProductDetail(productId);
@@ -491,6 +581,10 @@ async function init() {
         const isSearchPage = document.body && document.body.dataset.page === 'search';
         let searchQueryParam = '';
         if (hasProductGrid) {
+            const sortSelect = document.getElementById('product-sort-select');
+            if (sortParam === 'bestseller' && sortSelect) {
+                sortSelect.value = 'bestseller-first';
+            }
             if (isSearchPage) {
                 const q = new URLSearchParams(window.location.search).get('q');
                 searchQueryParam = String(q || '').trim();
@@ -598,6 +692,7 @@ function getProductCardHTML(product, options = {}) {
     const safeImage = safeImageSrc((product.images && product.images.length > 0) ? product.images[0] : 'logo.webp');
     const safeProductName = escapeHtml(product.name || '');
     const safeProductCode = escapeHtml(String(product.name || '').replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, ''));
+    const hasComparisonImage = safeImage.includes('images_website/bestsellers/');
     const safeInspiredBy = product.inspiredBy
         ? `...${escapeHtml(stripBrandName(product.inspiredBy))}&reg;`
         : safeProductName;
@@ -607,7 +702,8 @@ function getProductCardHTML(product, options = {}) {
         : '';
 
     return `
-        <a class="product-card shop-product-card" href="product.html?id=${safeProductUrlId}" aria-label="N&Oslash;TE. ${safeProductCode} ansehen">
+        <a class="product-card shop-product-card${isCuratedBestseller(product) ? ' is-bestseller' : ''}${hasComparisonImage ? ' has-comparison-image' : ''}" href="product.html?id=${safeProductUrlId}" aria-label="N&Oslash;TE. ${safeProductCode} ansehen">
+            ${isCuratedBestseller(product) ? '<span class="product-badge-bestseller">Bestseller</span>' : ''}
             <span class="product-code">N&Oslash;TE. ${safeProductCode}</span>
             <div class="product-stage">
                 <img src="${safeImage}" 
@@ -662,6 +758,13 @@ function getProductGalleryImages(product) {
     const productImages = Array.isArray(product?.images)
         ? product.images.map(image => String(image || '').trim()).filter(Boolean)
         : [];
+
+    // Neuheiten enthalten ihre bewusst sortierte Dreier-Galerie direkt in den
+    // Produktdaten: Vergleich, Einzelflakon und Explosionsbild.
+    if (product?.newArrival === true && productImages.length) {
+        return [...new Set(productImages)];
+    }
+
     const inspirationImage = BESTSELLER_INSPIRATION_IMAGES[String(product?.id || '')];
     const galleryImages = inspirationImage
         ? [inspirationImage, ...productImages.filter(image => image !== inspirationImage)]
@@ -678,9 +781,18 @@ function getProductGalleryImages(product) {
 }
 
 function getFilteredAndSortedProducts(category) {
-    let list = category === 'all'
-        ? products
-        : products.filter(product => product.category === category);
+    let list;
+    if (category === 'all') {
+        list = products;
+    } else if (category === 'new') {
+        list = products.filter(product => product.newArrival === true);
+        const selectedGender = document.body ? document.body.dataset.newArrivalView : '';
+        if (selectedGender === 'men' || selectedGender === 'women') {
+            list = list.filter(product => product.category === selectedGender);
+        }
+    } else {
+        list = products.filter(product => product.category === category);
+    }
 
     const filterInput = document.getElementById('product-filter-input');
     if (filterInput && filterInput.value.trim() !== '') {
@@ -724,9 +836,19 @@ function getFilteredAndSortedProducts(category) {
             list = list.slice().sort((a, b) => getPrice(b) - getPrice(a));
         } else if (value === 'bestseller-first') {
             list = list.slice().sort((a, b) => {
-                const aBest = isBestseller(a) ? 1 : 0;
-                const bBest = isBestseller(b) ? 1 : 0;
-                return bBest - aBest;
+                const aRank = getCuratedBestsellerRank(a);
+                const bRank = getCuratedBestsellerRank(b);
+
+                if (aRank !== -1 || bRank !== -1) {
+                    if (aRank === -1) return 1;
+                    if (bRank === -1) return -1;
+                    return aRank - bRank;
+                }
+
+                return String(a.id || '').localeCompare(String(b.id || ''), 'de', {
+                    numeric: true,
+                    sensitivity: 'base'
+                });
             });
         } else if (value === 'women-first') {
             list = list.slice().sort((a, b) =>
@@ -791,6 +913,18 @@ function renderProducts(category = 'all', pageIndex, append = false) {
         }
     }
 
+    const newArrivalFilterStatus = document.querySelector('[data-new-arrival-filter-status]');
+    if (newArrivalFilterStatus && category === 'new') {
+        const selectedGender = document.body ? document.body.dataset.newArrivalView : 'all';
+        if (selectedGender === 'men') {
+            newArrivalFilterStatus.textContent = `${allProductsForView.length} neue Herrend\u00fcfte ausgew\u00e4hlt.`;
+        } else if (selectedGender === 'women') {
+            newArrivalFilterStatus.textContent = `${allProductsForView.length} neue Damend\u00fcfte ausgew\u00e4hlt.`;
+        } else {
+            newArrivalFilterStatus.textContent = `Alle ${allProductsForView.length} Neuheiten werden angezeigt. W\u00e4hle deine Duftwelt.`;
+        }
+    }
+
     const nextBtn = document.getElementById('product-next-page');
     if (nextBtn) {
         if (currentPageIndex < maxPageIndex) {
@@ -827,8 +961,9 @@ function initProductControls() {
     const sortSelect = document.getElementById('product-sort-select');
     const nextBtn = document.getElementById('product-next-page');
     const filterButtons = document.querySelectorAll('.filter-btn');
+    const newArrivalGenderButtons = document.querySelectorAll('[data-new-arrival-gender]');
 
-    if (!filterInput && !sortSelect && !nextBtn && filterButtons.length === 0) return;
+    if (!filterInput && !sortSelect && !nextBtn && filterButtons.length === 0 && newArrivalGenderButtons.length === 0) return;
 
     const getCategoryForControls = () => {
         if (currentListCategory && currentListCategory !== 'all') return currentListCategory;
@@ -851,6 +986,36 @@ function initProductControls() {
     if (nextBtn) {
         nextBtn.addEventListener('click', () => {
             goToNextProductPage();
+        });
+    }
+
+    if (newArrivalGenderButtons.length > 0) {
+        newArrivalGenderButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                const requestedGender = button.dataset.newArrivalGender;
+                if (requestedGender !== 'men' && requestedGender !== 'women') return;
+
+                const currentGender = document.body ? document.body.dataset.newArrivalView : 'all';
+                const nextGender = currentGender === requestedGender ? 'all' : requestedGender;
+                if (document.body) document.body.dataset.newArrivalView = nextGender;
+
+                newArrivalGenderButtons.forEach((item) => {
+                    const isActive = item.dataset.newArrivalGender === nextGender;
+                    item.classList.toggle('is-active', isActive);
+                    item.setAttribute('aria-pressed', String(isActive));
+                });
+
+                renderProducts(getCategoryForControls(), 0);
+
+                const productsSection = document.getElementById('products');
+                if (productsSection) {
+                    const header = document.querySelector('.site-header');
+                    const offset = (header ? header.getBoundingClientRect().height : 0) + 28;
+                    const top = Math.max(productsSection.getBoundingClientRect().top + window.pageYOffset - offset, 0);
+                    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    window.scrollTo({ top, behavior: reducedMotion ? 'auto' : 'smooth' });
+                }
+            });
         });
     }
 }
@@ -2566,6 +2731,28 @@ function closeProductModal() {
 window.closeModal = closeProductModal;
 
 // Start
+function ensureNewArrivalsNavigationLink() {
+    document.querySelectorAll('.main-nav, .nav-links').forEach((navigation) => {
+        const links = Array.from(navigation.querySelectorAll('a'));
+        let link = links.find((item) => /^Neuheiten$/i.test(String(item.textContent || '').trim()));
+        if (!link) {
+            link = document.createElement('a');
+            link.textContent = 'Neuheiten';
+        }
+        link.href = 'neuheiten.html';
+
+        const collectionLink = links.find((item) =>
+            /^(Kollektion|Shop)$/i.test(String(item.textContent || '').trim())
+        );
+        if (collectionLink) {
+            collectionLink.insertAdjacentElement('beforebegin', link);
+        } else {
+            navigation.prepend(link);
+        }
+    });
+}
+
+ensureNewArrivalsNavigationLink();
 handleCheckoutReturnState();
 initBrandVideoAutoplay();
 init();

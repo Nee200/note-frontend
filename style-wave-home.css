@@ -643,6 +643,36 @@ html.cart-drawer-open {
     font-size: 0.7rem;
 }
 
+.cart-coupon-message.is-success {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    color: #806111;
+    font-weight: 700;
+}
+
+.cart-coupon-remove {
+    display: inline-grid;
+    flex: 0 0 24px;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    place-items: center;
+    border: 1px solid rgba(128, 97, 17, 0.32);
+    border-radius: 50%;
+    background: transparent;
+    color: #806111;
+    cursor: pointer;
+    font: 700 1rem/1 Arial, sans-serif;
+}
+
+.cart-coupon-remove:hover,
+.cart-coupon-remove:focus-visible {
+    border-color: #806111;
+    background: rgba(183, 137, 39, 0.1);
+}
+
 .cart-drawer-totals {
     display: grid;
     gap: 8px;
@@ -650,6 +680,10 @@ html.cart-drawer-open {
     border-top: 1px solid rgba(16, 16, 16, 0.08);
     color: #5f594f;
     font-size: 0.78rem;
+}
+
+.cart-drawer-totals [hidden] {
+    display: none !important;
 }
 
 .cart-drawer-totals strong {
@@ -3354,4 +3388,101 @@ html.cart-drawer-open {
     .wave-cart-price {
         min-width: 64px;
     }
+}
+
+/* Mobile home polish: readable cards, robust overlays and compact service rows. */
+@media (max-width: 620px) {
+    .main-nav.is-open {
+        max-height: calc(100dvh - 98px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
+    .section-heading h2,
+    .promise-copy h2 {
+        font-size: clamp(32px, 10.5vw, 36px);
+    }
+
+    .faq-item.active .faq-answer {
+        max-height: 440px;
+    }
+
+    .features-bar {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .features-grid.container {
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: 22px 20px 24px !important;
+    }
+
+    .feature-item {
+        display: grid;
+        grid-template-columns: 38px minmax(0, 1fr);
+        grid-template-rows: auto auto;
+        column-gap: 15px;
+        row-gap: 6px;
+        min-height: 0;
+        padding: 18px 0;
+        text-align: left;
+    }
+
+    .feature-item + .feature-item {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .feature-icon-wrapper {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        align-self: center;
+        margin: 0;
+    }
+
+    .feature-icon-wrapper svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    .feature-item h3,
+    .feature-item p {
+        grid-column: 2;
+        margin: 0;
+    }
+
+    .feature-item h3 {
+        font-size: 0.72rem;
+        line-height: 1.25;
+    }
+
+    .feature-item p {
+        font-size: 0.78rem;
+        line-height: 1.5;
+    }
+
+    .footer-social {
+        justify-content: center;
+    }
+
+    .footer-bottom-flex .copyright {
+        text-align: center;
+        line-height: 1.5;
+    }
+}
+
+@media (max-width: 420px) {
+    .bestseller-section .product-rail {
+        grid-auto-columns: 84%;
+    }
+
+    .newsletter-card h2 {
+        font-size: clamp(30px, 9.5vw, 34px);
+    }
+}
+
+/* Collection catalogue is temporarily removed from primary customer navigation. */
+#main-navigation > a[href="suche.html"],
+footer a[href="suche.html"] {
+    display: none !important;
 }

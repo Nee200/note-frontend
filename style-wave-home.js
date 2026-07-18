@@ -35,9 +35,54 @@ const newsletterForm = document.querySelector("[data-newsletter-form]");
 const newsletterStatus = document.querySelector("[data-newsletter-status]");
 const searchSuggestions = document.querySelector("[data-search-suggestions]");
 
+function ensurePrimaryNavigationOrder() {
+    document.querySelectorAll(".main-nav, .nav-links").forEach((navigation) => {
+        const links = Array.from(navigation.querySelectorAll(":scope > a"));
+        const collectionLink = links.find((link) => /^(Kollektion|Shop)$/i.test(String(link.textContent || "").trim()));
+        let newArrivalsLink = links.find((link) => /^Neuheiten$/i.test(String(link.textContent || "").trim()));
+
+        if (!newArrivalsLink) {
+            newArrivalsLink = document.createElement("a");
+            newArrivalsLink.textContent = "Neuheiten";
+        }
+        newArrivalsLink.href = "neuheiten.html";
+
+        if (collectionLink) {
+            navigation.insertBefore(newArrivalsLink, collectionLink);
+        } else {
+            navigation.prepend(newArrivalsLink);
+        }
+    });
+}
+
+ensurePrimaryNavigationOrder();
+
 let drawerDeliveryMethod = "shipping";
 let storefrontProducts = [];
 let storefrontProductsPromise = null;
+const BESTSELLER_CART_IMAGE_BY_ID = Object.freeze({
+    L12: "images_website/bestsellers/l12-comparison-transparent-v2.webp",
+    L56: "images_website/bestsellers/l56-comparison-transparent-v2.webp",
+    L62: "images_website/bestsellers/l62-comparison-transparent-v2.webp",
+    L73: "images_website/bestsellers/l73-comparison-transparent-v2.webp",
+    L123: "images_website/bestsellers/l123-comparison-transparent-v2.webp",
+    L145: "images_website/bestsellers/l145-comparison-transparent-v2.webp",
+    L146: "images_website/bestsellers/l146-comparison-transparent-v2.webp",
+    L147: "images_website/bestsellers/l147-comparison-transparent-v2.webp",
+    L155: "images_website/bestsellers/l155-comparison-transparent-v2.webp",
+    L190: "images_website/bestsellers/l190-comparison-transparent-v2.webp",
+    G111: "images_website/bestsellers/g111-comparison-transparent-v1.webp",
+    G160: "images_website/bestsellers/g160-comparison-transparent-v2.webp",
+    G169: "images_website/bestsellers/g169-comparison-transparent-v2.webp",
+    G223: "images_website/bestsellers/g223-comparison-transparent-v1.webp",
+    G232: "images_website/bestsellers/g232-comparison-transparent-v1.webp",
+    G245: "images_website/bestsellers/g245-comparison-transparent-v1.webp",
+    G263: "images_website/bestsellers/g263-comparison-transparent-v1.webp",
+    G282: "images_website/bestsellers/g282-comparison-transparent-v1.webp",
+    G298: "images_website/bestsellers/g298-comparison-transparent-v1.webp",
+    G307: "images_website/bestsellers/g307-comparison-transparent-v2.webp",
+    G322: "images_website/bestsellers/g322-comparison-transparent-v2.webp"
+});
 
 // API_BASE_URL: falls script.js schon geladen wurde, dessen Wert am window
 // wiederverwenden, sonst selbst setzen. (window.API_BASE_URL, kein top-level const,
@@ -59,6 +104,19 @@ function safeImageSource(value) {
     const source = String(value || "").trim();
     if (!source || /^(?:javascript|data):/i.test(source)) return "logo.webp";
     return escapeHtml(source);
+}
+
+function normalizeStorefrontProductPrices(items) {
+    return items.map((product) => {
+        if (product?.newArrival !== true || !product.variants?.["30"]) return product;
+        return {
+            ...product,
+            variants: {
+                ...product.variants,
+                "30": { ...product.variants["30"], price: 19.99 }
+            }
+        };
+    });
 }
 
 function renderCartPaymentLogos() {
@@ -102,7 +160,7 @@ async function loadStorefrontProducts() {
                 return response.json();
             })
             .then((items) => {
-                storefrontProducts = Array.isArray(items) ? items : [];
+                storefrontProducts = Array.isArray(items) ? normalizeStorefrontProductPrices(items) : [];
                 return storefrontProducts;
             })
             .finally(() => {
@@ -112,9 +170,41 @@ async function loadStorefrontProducts() {
     return storefrontProductsPromise;
 }
 
+async function syncBestsellerCardPrices() {
+    const cards = Array.from(document.querySelectorAll(".bestseller-section .product-card[href*='product?id=']"));
+    if (!cards.length) return;
+
+    try {
+        const products = await loadStorefrontProducts();
+        const productsById = new Map(products.map((product) => [String(product?.id || ""), product]));
+
+        cards.forEach((card) => {
+            const productId = new URL(card.href, window.location.href).searchParams.get("id");
+            const variant = productsById.get(String(productId || ""))?.variants?.["30"];
+            if (!variant) return;
+
+            const oldPrice = card.querySelector(".product-price s");
+            const currentPrice = card.querySelector(".product-price span");
+            if (oldPrice && Number.isFinite(Number(variant.originalPrice))) {
+                oldPrice.textContent = formatPrice(variant.originalPrice);
+            }
+            if (currentPrice && Number.isFinite(Number(variant.price))) {
+                currentPrice.textContent = `ab ${formatPrice(variant.price)}`;
+            }
+        });
+    } catch (error) {
+        // Die im HTML hinterlegten Preise bleiben als Fallback sichtbar.
+    }
+}
+
+syncBestsellerCardPrices();
+
 function getDrawerTotals(items) {
     const subtotal = items.reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 0), 0);
-    const discountRate = Math.max(0, Math.min(Number(localStorage.getItem("discount") || 0), 1));
+    const couponCode = String(localStorage.getItem("couponCode") || "").trim();
+    const discountRate = couponCode
+        ? Math.max(0, Math.min(Number(localStorage.getItem("discount") || 0), 1))
+        : 0;
     const discountAmount = subtotal * discountRate;
     const freeShipping = localStorage.getItem("couponFreeShipping") === "1" || subtotal >= 60;
     const shippingCost = drawerDeliveryMethod === "shipping" && !freeShipping ? 6.99 : 0;
@@ -146,6 +236,48 @@ async function renderCartUpsell(items) {
     }
 }
 
+async function syncCartProductImages(items) {
+    if (!cartItemsRoot || !items.length) return;
+
+    try {
+        const products = await loadStorefrontProducts();
+        const productsById = new Map(products.map((product) => [String(product?.id || ""), product]));
+        let cartChanged = false;
+
+        items.forEach((item) => {
+            const productId = String(item.productId || String(item.id || "").replace(/-\d+$/, ""));
+            const product = productsById.get(productId);
+            const firstImage = BESTSELLER_CART_IMAGE_BY_ID[productId] || product?.images?.[0];
+            if (firstImage && item.image !== firstImage) {
+                item.image = firstImage;
+                cartChanged = true;
+            }
+
+            const size = String(item.size || "").replace(/[^0-9]/g, "");
+            const variant = product?.newArrival === true && size === "30" ? product.variants?.["30"] : null;
+            if (variant && Number.isFinite(Number(variant.price)) && Number(item.price) !== Number(variant.price)) {
+                item.price = Number(variant.price);
+                cartChanged = true;
+            }
+            if (variant && Number.isFinite(Number(variant.originalPrice)) && Number(item.originalPrice) !== Number(variant.originalPrice)) {
+                item.originalPrice = Number(variant.originalPrice);
+                cartChanged = true;
+            }
+        });
+
+        const itemsByCartId = new Map(items.map((item) => [String(item.cartId || ""), item]));
+        cartItemsRoot.querySelectorAll("[data-cart-id]").forEach((row) => {
+            const item = itemsByCartId.get(String(row.dataset.cartId || ""));
+            const image = row.querySelector("img");
+            if (item?.image && image) image.src = item.image;
+        });
+
+        if (cartChanged) localStorage.setItem("cart", JSON.stringify(items));
+    } catch (error) {
+        // Das gespeicherte Warenkorbbild bleibt als Offline-Fallback erhalten.
+    }
+}
+
 function renderCart() {
     if (!cartItemsRoot) return;
     const items = readCart();
@@ -160,6 +292,26 @@ function renderCart() {
     if (cartSubtotal) cartSubtotal.textContent = formatPrice(totals.subtotal);
     if (cartDiscount) cartDiscount.textContent = `−${formatPrice(totals.discountAmount)}`;
     if (cartDiscountRow) cartDiscountRow.hidden = totals.discountAmount <= 0;
+    if (cartCouponMessage) {
+        const couponCode = String(localStorage.getItem("couponCode") || "").trim();
+        const couponLabel = String(localStorage.getItem("couponLabel") || "").trim();
+        if (totals.discountRate > 0 && couponCode) {
+            cartCouponMessage.textContent = "";
+            const couponText = document.createElement("span");
+            couponText.textContent = `Gutschein ${couponCode} aktiv${couponLabel ? ` (${couponLabel})` : ""}.`;
+            const removeCouponButton = document.createElement("button");
+            removeCouponButton.type = "button";
+            removeCouponButton.className = "cart-coupon-remove";
+            removeCouponButton.dataset.cartCouponRemove = "";
+            removeCouponButton.setAttribute("aria-label", `Gutschein ${couponCode} entfernen`);
+            removeCouponButton.textContent = "×";
+            cartCouponMessage.append(couponText, removeCouponButton);
+            cartCouponMessage.classList.add("is-success");
+        } else if (!cartCouponMessage.textContent.includes("wird geprüft")) {
+            cartCouponMessage.textContent = "";
+            cartCouponMessage.classList.remove("is-success");
+        }
+    }
     if (cartShipping) cartShipping.textContent = drawerDeliveryMethod === "pickup" ? "Abholung" : (totals.freeShipping ? "Kostenlos" : formatPrice(totals.shippingCost));
     if (cartTotal) cartTotal.textContent = formatPrice(totals.total);
     const shippingProgress = Math.max(0, Math.min((totals.subtotal / 60) * 100, 100));
@@ -214,8 +366,25 @@ function renderCart() {
                 </div>
             </article>`;
     }).join("");
+    syncCartProductImages(items);
     renderCartUpsell(items);
 }
+
+cartCouponMessage?.addEventListener("click", (event) => {
+    const removeButton = event.target.closest("[data-cart-coupon-remove]");
+    if (!removeButton) return;
+
+    localStorage.removeItem("discount");
+    localStorage.removeItem("couponCode");
+    localStorage.removeItem("couponLabel");
+    localStorage.removeItem("couponFreeShipping");
+    if (cartCouponInput) {
+        cartCouponInput.value = "";
+        cartCouponInput.disabled = false;
+    }
+    window.dispatchEvent(new CustomEvent("note:coupon-removed"));
+    renderCart();
+});
 
 function changeCartItem(cartId, action) {
     const items = readCart();
@@ -444,12 +613,14 @@ async function renderSearchSuggestions() {
 function positionSearchPanel() {
     if (!searchPanel || !searchOpenButton) return;
     const buttonRect = searchOpenButton.getBoundingClientRect();
-    const panelWidth = Math.min(390, window.innerWidth - 24);
+    const viewportWidth = document.documentElement.clientWidth || window.innerWidth;
+    const panelWidth = Math.min(390, viewportWidth - 24);
     const idealLeft = buttonRect.right - panelWidth + 22;
-    const left = Math.max(12, Math.min(idealLeft, window.innerWidth - panelWidth - 12));
+    const left = Math.max(12, Math.min(idealLeft, viewportWidth - panelWidth - 12));
 
     searchPanel.style.top = `${Math.round(buttonRect.bottom + 8)}px`;
     searchPanel.style.left = `${Math.round(left)}px`;
+    searchPanel.style.width = `${Math.round(panelWidth)}px`;
 }
 
 function openCartDrawer() {
@@ -486,6 +657,10 @@ mobileMenuButton?.addEventListener("click", () => {
 mainNav?.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMobileMenu));
 document.querySelector("[data-search-close]")?.addEventListener("click", closeSearchPanel);
 document.querySelector("[data-cart-open]")?.addEventListener("click", openCartDrawer);
+window.addEventListener("note:cart-updated", () => {
+    renderCart();
+    openCartDrawer();
+});
 // Wenn das alte script.js einen Artikel in den Warenkorb legt, neuen Drawer öffnen
 window.addEventListener("note:open-cart", () => {
     if (cartDrawer) openCartDrawer();
