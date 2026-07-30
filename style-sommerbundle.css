@@ -359,7 +359,7 @@
 /* Selectable bundle campaign below the unchanged homepage hero */
 
 .summer-inline-bundle {
-    width: min(calc(100% - 48px), 1460px);
+    width: min(calc(100% - 48px), 980px);
     margin: clamp(18px, 2vw, 30px) auto clamp(84px, 10vw, 150px);
     display: flex;
     flex-direction: column;
@@ -373,7 +373,7 @@
 .summer-inline-visual {
     order: 1;
     position: relative;
-    min-height: clamp(520px, 50vw, 760px);
+    min-height: clamp(360px, 33vw, 510px);
     isolation: isolate;
     overflow: hidden;
     background: #23170f;

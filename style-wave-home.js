@@ -35,6 +35,70 @@ const newsletterForm = document.querySelector("[data-newsletter-form]");
 const newsletterStatus = document.querySelector("[data-newsletter-status]");
 const searchSuggestions = document.querySelector("[data-search-suggestions]");
 
+function mountSummerGlobalCountdown() {
+    if (document.querySelector("[data-summer-global-bar]")) return;
+
+    const bar = document.createElement("a");
+    bar.className = "summer-global-countdown-bar";
+    bar.href = "sommerbundle.html";
+    bar.setAttribute("data-summer-global-bar", "");
+    bar.setAttribute("aria-label", "Sommerbundle entdecken und bis zu 35,97 Euro sparen");
+    bar.innerHTML = `
+        <span class="summer-global-copy">
+            <small>Nur für kurze Zeit</small>
+            <strong>Spare bis zu 35,97 € im Sommerbundle</strong>
+        </span>
+        <span class="summer-global-clock" aria-label="Angebot endet in">
+            <span><b data-global-countdown-days>00</b><small>Tage</small></span>
+            <i aria-hidden="true">:</i>
+            <span><b data-global-countdown-hours>00</b><small>Std.</small></span>
+            <i aria-hidden="true">:</i>
+            <span><b data-global-countdown-minutes>00</b><small>Min.</small></span>
+            <i aria-hidden="true">:</i>
+            <span><b data-global-countdown-seconds>00</b><small>Sek.</small></span>
+        </span>
+        <span class="summer-global-cta">Bundle entdecken <i aria-hidden="true">→</i></span>
+    `;
+
+    document.body.prepend(bar);
+    document.body.classList.add("has-summer-global-bar");
+
+    const countdownKey = "note_summer_bundle_countdown_v1";
+    const defaultEnd = Date.now() + ((2 * 24 + 12) * 60 * 60 * 1000);
+    let end = defaultEnd;
+
+    try {
+        const stored = Number(sessionStorage.getItem(countdownKey));
+        if (Number.isFinite(stored) && stored > Date.now()) {
+            end = stored;
+        } else {
+            sessionStorage.setItem(countdownKey, String(defaultEnd));
+        }
+    } catch (_error) {
+        end = defaultEnd;
+    }
+
+    const fields = {
+        days: bar.querySelector("[data-global-countdown-days]"),
+        hours: bar.querySelector("[data-global-countdown-hours]"),
+        minutes: bar.querySelector("[data-global-countdown-minutes]"),
+        seconds: bar.querySelector("[data-global-countdown-seconds]")
+    };
+    const pad = (value) => String(value).padStart(2, "0");
+    const update = () => {
+        const totalSeconds = Math.floor(Math.max(0, end - Date.now()) / 1000);
+        fields.days.textContent = pad(Math.floor(totalSeconds / 86400));
+        fields.hours.textContent = pad(Math.floor((totalSeconds % 86400) / 3600));
+        fields.minutes.textContent = pad(Math.floor((totalSeconds % 3600) / 60));
+        fields.seconds.textContent = pad(totalSeconds % 60);
+    };
+
+    update();
+    window.setInterval(update, 1000);
+}
+
+mountSummerGlobalCountdown();
+
 function ensurePrimaryNavigationOrder() {
     document.querySelectorAll(".main-nav, .nav-links").forEach((navigation) => {
         const links = Array.from(navigation.querySelectorAll(":scope > a"));
