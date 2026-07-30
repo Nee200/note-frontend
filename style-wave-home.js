@@ -108,16 +108,7 @@ function safeImageSource(value) {
 }
 
 function normalizeStorefrontProductPrices(items) {
-    return items.map((product) => {
-        if (product?.newArrival !== true || !product.variants?.["30"]) return product;
-        return {
-            ...product,
-            variants: {
-                ...product.variants,
-                "30": { ...product.variants["30"], price: 19.99 }
-            }
-        };
-    });
+    return items;
 }
 
 function renderCartPaymentLogos() {
@@ -246,6 +237,7 @@ async function syncCartProductImages(items) {
         let cartChanged = false;
 
         items.forEach((item) => {
+            if (Array.isArray(item.bundleSelections)) return;
             const productId = String(item.productId || String(item.id || "").replace(/-\d+$/, ""));
             const product = productsById.get(productId);
             const firstImage = BESTSELLER_CART_IMAGE_BY_ID[productId] || product?.images?.[0];
@@ -255,13 +247,16 @@ async function syncCartProductImages(items) {
             }
 
             const size = String(item.size || "").replace(/[^0-9]/g, "");
-            const variant = product?.newArrival === true && size === "30" ? product.variants?.["30"] : null;
+            const variant = product?.variants?.[size] || null;
             if (variant && Number.isFinite(Number(variant.price)) && Number(item.price) !== Number(variant.price)) {
                 item.price = Number(variant.price);
                 cartChanged = true;
             }
-            if (variant && Number.isFinite(Number(variant.originalPrice)) && Number(item.originalPrice) !== Number(variant.originalPrice)) {
-                item.originalPrice = Number(variant.originalPrice);
+            const nextOriginalPrice = variant && Number(variant.originalPrice) > Number(variant.price)
+                ? Number(variant.originalPrice)
+                : null;
+            if (variant && item.originalPrice !== nextOriginalPrice) {
+                item.originalPrice = nextOriginalPrice;
                 cartChanged = true;
             }
         });

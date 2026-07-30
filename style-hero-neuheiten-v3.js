@@ -75,8 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!button || !productId) return;
 
         const size = variantButton.dataset.size || '30';
-        const price = Number(variantButton.dataset.price || 17.99);
-        const originalPrice = Number(variantButton.dataset.originalPrice || 34.99);
+        const price = Number(variantButton.dataset.price || 34.99);
+        const originalPrice = Number(variantButton.dataset.originalPrice || 0);
         let cart = [];
         try {
             const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');

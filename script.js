@@ -168,21 +168,12 @@ let products = [];
 let productsLoadPromise = null;
 
 function normalizeNewArrivalPrices(items) {
-    return items.map((product) => {
-        if (product?.newArrival !== true || !product.variants?.['30']) return product;
-        return {
-            ...product,
-            variants: {
-                ...product.variants,
-                '30': { ...product.variants['30'], price: 19.99 }
-            }
-        };
-    });
+    return items;
 }
 
 function hydrateProductsFromCache() {
     try {
-        const cachedProducts = sessionStorage.getItem('note_products_v2');
+        const cachedProducts = sessionStorage.getItem('note_products_v3');
         if (!cachedProducts) return false;
         const parsed = JSON.parse(cachedProducts);
         if (!Array.isArray(parsed)) return false;
@@ -201,7 +192,7 @@ async function fetchAndStoreProducts() {
     const data = await res.json();
     if (Array.isArray(data)) {
         products = normalizeNewArrivalPrices(data);
-        sessionStorage.setItem('note_products_v2', JSON.stringify(products));
+        sessionStorage.setItem('note_products_v3', JSON.stringify(products));
     }
     return products;
 }
@@ -372,31 +363,28 @@ let currentProductsPerPage = 25;
 let currentNoteFilter = 'all';
 let cartScrollLockY = 0;
 
-function syncNewArrivalCartPrices() {
+function syncCartPricesFromCatalog() {
     if (!Array.isArray(cart) || !cart.length || !Array.isArray(products) || !products.length) return;
 
-    const newArrivalsById = new Map(
-        products
-            .filter((product) => product?.newArrival === true)
-            .map((product) => [String(product.id), product])
-    );
+    const productsById = new Map(products.map((product) => [String(product.id), product]));
     let changed = false;
 
     cart.forEach((item) => {
+        if (Array.isArray(item.bundleSelections)) return;
         const productId = String(item.productId || String(item.id || '').replace(/-\d+$/, ''));
         const size = String(item.size || '').replace(/[^0-9]/g, '');
-        if (size !== '30') return;
-
-        const variant = newArrivalsById.get(productId)?.variants?.['30'];
+        const variant = productsById.get(productId)?.variants?.[size];
         if (!variant) return;
 
         const nextPrice = Number(variant.price);
-        const nextOriginalPrice = Number(variant.originalPrice);
+        const nextOriginalPrice = Number(variant.originalPrice) > nextPrice
+            ? Number(variant.originalPrice)
+            : null;
         if (Number.isFinite(nextPrice) && Number(item.price) !== nextPrice) {
             item.price = nextPrice;
             changed = true;
         }
-        if (Number.isFinite(nextOriginalPrice) && Number(item.originalPrice) !== nextOriginalPrice) {
+        if (item.originalPrice !== nextOriginalPrice) {
             item.originalPrice = nextOriginalPrice;
             changed = true;
         }
@@ -572,7 +560,7 @@ async function init() {
         ensureProductsLoaded({ background: true }).catch(() => { });
     }
 
-    syncNewArrivalCartPrices();
+    syncCartPricesFromCatalog();
 
     if (productId && products.length > 0) {
         // ID als String behandeln, damit "G1" etc. funktioniert
@@ -697,7 +685,8 @@ function getProductCardHTML(product, options = {}) {
         ? `...${escapeHtml(stripBrandName(product.inspiredBy))}&reg;`
         : safeProductName;
     const formattedPrice = price.toFixed(2).replace('.', ',');
-    const formattedOriginalPrice = originalPrice
+    const hasOriginalPrice = Number(originalPrice) > Number(price);
+    const formattedOriginalPrice = hasOriginalPrice
         ? originalPrice.toFixed(2).replace('.', ',')
         : '';
 
@@ -717,7 +706,7 @@ function getProductCardHTML(product, options = {}) {
             <div class="product-copy">
                 <h3 class="product-title">${safeInspiredBy}</h3>
                 <div class="product-price">
-                    ${originalPrice ? `<s>${formattedOriginalPrice} &euro;</s>` : ''}
+                    ${hasOriginalPrice ? `<s>${formattedOriginalPrice} &euro;</s>` : ''}
                     <span>ab ${formattedPrice} &euro;</span>
                 </div>
             </div>
@@ -1860,7 +1849,7 @@ function updateDetailPrice(product, size) {
     let priceHTML = '';
 
     // Originalpreis anzeigen falls vorhanden
-    if (variant.originalPrice) {
+    if (Number(variant.originalPrice) > Number(variant.price)) {
         priceHTML += `<span class="detail-original-price">${variant.originalPrice.toFixed(2)} €</span>`;
     }
 

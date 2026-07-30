@@ -439,7 +439,7 @@
 
     function readCachedProducts() {
         try {
-            const cached = JSON.parse(sessionStorage.getItem("note_products_v2") || "[]");
+            const cached = JSON.parse(sessionStorage.getItem("note_products_v3") || "[]");
             return Array.isArray(cached) && cached.length ? cached : null;
         } catch (_error) {
             return null;
@@ -474,7 +474,7 @@
             try {
                 const products = await fetchProducts(endpoint);
                 try {
-                    sessionStorage.setItem("note_products_v2", JSON.stringify(products));
+                    sessionStorage.setItem("note_products_v3", JSON.stringify(products));
                 } catch (_error) {
                     // Der Katalog funktioniert auch ohne Browser-Cache.
                 }
@@ -528,7 +528,7 @@
 
         const emptyBottleMarkup = `
             <span class="summer-empty-bottle" aria-hidden="true">
-                <img src="images_website/branding/note-bottle-outline-note-antique-gold-transparent-v4.png" alt="">
+                <img src="images_website/sommerbundle/note-bottle-outline-note-antique-gold-transparent-v4.png" alt="">
             </span>
         `;
 
