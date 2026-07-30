@@ -2912,30 +2912,33 @@ body.summer-drawer-open {
     }
 
     .summer-action-steps-heading h2 {
-        font-size: 23px;
+        font-size: 20px;
     }
 
     .summer-action-step-images {
-        grid-template-columns: 1fr;
-        gap: 24px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0;
+        align-items: stretch;
     }
 
     .summer-action-step-images figure {
-        padding: 0;
+        overflow: hidden;
+        padding: 0 2px;
     }
 
     .summer-action-step-images img {
-        width: 100%;
-        margin-left: 0;
+        width: 112%;
+        max-width: none;
+        margin-left: -6%;
     }
 
     .summer-action-step-images figure + figure::before {
-        top: -12px;
-        bottom: auto;
-        left: 8%;
-        right: 8%;
-        width: auto;
-        height: 1px;
+        top: 10%;
+        bottom: 10%;
+        left: 0;
+        right: auto;
+        width: 1px;
+        height: auto;
     }
 
     .summer-action-explainer ol {
