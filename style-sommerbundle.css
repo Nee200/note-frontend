@@ -1,0 +1,3090 @@
+:root {
+    --summer-ink: #11110f;
+    --summer-night: #2b1d0f;
+    --summer-teal: #a8752d;
+    --summer-gold: #c89b50;
+    --summer-gold-soft: #e4c88f;
+    --summer-sand: #e9ddc8;
+    --summer-ivory: #f8f3e9;
+    --summer-line: rgba(17, 17, 15, 0.16);
+}
+
+.summer-bundle-campaign-page,
+.summer-builder-page {
+    background: var(--summer-ivory);
+    color: var(--summer-ink);
+}
+
+.summer-countdown-bar {
+    position: relative;
+    min-height: 78px;
+    padding: 10px clamp(18px, 3.2vw, 62px);
+    display: grid;
+    grid-template-columns: minmax(240px, 1fr) auto minmax(180px, 1fr);
+    align-items: center;
+    gap: clamp(20px, 4vw, 70px);
+    overflow: hidden;
+    isolation: isolate;
+    color: #fff;
+    background:
+        radial-gradient(circle at 88% 20%, rgba(228, 200, 143, 0.42), transparent 24%),
+        linear-gradient(108deg, #15120f 0%, #3a2b1d 55%, #ad8040 100%);
+    text-decoration: none;
+}
+
+.summer-bundle-campaign-page .summer-countdown-bar {
+    margin-top: 0;
+}
+
+.summer-bundle-campaign-page .site-header {
+    margin-top: 0;
+}
+
+.summer-countdown-bar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.3;
+    background-image:
+        linear-gradient(45deg, transparent 46%, rgba(255,255,255,0.12) 48%, transparent 50%),
+        linear-gradient(-45deg, transparent 46%, rgba(255,255,255,0.08) 48%, transparent 50%);
+    background-size: 24px 24px;
+    mask-image: linear-gradient(90deg, transparent, #000 70%, #000);
+}
+
+.summer-countdown-copy {
+    display: grid;
+    gap: 4px;
+}
+
+.summer-countdown-copy small,
+.summer-countdown-clock small {
+    font: 700 9px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.summer-countdown-copy small {
+    color: rgba(255,255,255,0.68);
+}
+
+.summer-countdown-copy strong {
+    font: 400 clamp(20px, 2vw, 31px)/1.06 Georgia, "Times New Roman", serif;
+}
+
+.summer-countdown-clock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+}
+
+.summer-countdown-clock > span {
+    min-width: 38px;
+    display: grid;
+    justify-items: center;
+    gap: 4px;
+}
+
+.summer-countdown-clock b {
+    font: 500 clamp(22px, 2.2vw, 35px)/0.9 Georgia, "Times New Roman", serif;
+    font-variant-numeric: tabular-nums;
+}
+
+.summer-countdown-clock small {
+    color: rgba(255,255,255,0.7);
+    font-size: 7px;
+}
+
+.summer-countdown-clock i {
+    margin-top: -13px;
+    color: rgba(255,255,255,0.5);
+    font-style: normal;
+}
+
+.summer-countdown-cta {
+    justify-self: end;
+    padding: 14px 18px;
+    border: 1px solid rgba(255,255,255,0.44);
+    font: 700 11px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.summer-countdown-cta i {
+    margin-left: 10px;
+    font-style: normal;
+}
+
+.summer-countdown-bar:hover .summer-countdown-cta,
+.summer-countdown-bar:focus-visible .summer-countdown-cta {
+    color: var(--summer-night);
+    background: #fff;
+    transform: translateX(2px);
+}
+
+.summer-bundle-campaign-page .summer-countdown-bar:hover .summer-countdown-cta,
+.summer-bundle-campaign-page .summer-countdown-bar:focus-visible .summer-countdown-cta {
+    color: #21170f;
+}
+
+.summer-countdown-bar:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: -4px;
+}
+
+.summer-campaign-hero {
+    position: relative;
+    min-height: clamp(620px, 78vh, 850px);
+    display: grid;
+    align-items: center;
+    overflow: hidden;
+    isolation: isolate;
+    background: #bca481;
+}
+
+.summer-campaign-image,
+.summer-campaign-shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.summer-campaign-image {
+    z-index: -3;
+    object-fit: cover;
+    object-position: center center;
+}
+
+.summer-campaign-shade {
+    z-index: -2;
+    background:
+        linear-gradient(90deg, rgba(43, 29, 15, 0.95) 0%, rgba(43, 29, 15, 0.82) 29%, rgba(43, 29, 15, 0.25) 56%, rgba(43, 29, 15, 0.02) 76%),
+        linear-gradient(180deg, rgba(0,0,0,0.14), transparent 30%, rgba(0,0,0,0.18));
+}
+
+.summer-campaign-content {
+    width: min(620px, 52vw);
+    margin-left: clamp(24px, 7vw, 128px);
+    padding: 76px 0 92px;
+    color: #fff;
+}
+
+.summer-campaign-kicker {
+    margin: 0 0 23px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--summer-gold-soft);
+    font: 700 11px/1.2 Inter, Arial, sans-serif;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.summer-campaign-kicker span {
+    width: 42px;
+    height: 1px;
+    background: currentColor;
+}
+
+.summer-campaign-content h1 {
+    margin: 0;
+    display: grid;
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    letter-spacing: -0.045em;
+}
+
+.summer-campaign-content h1 span {
+    font-size: clamp(55px, 6.7vw, 108px);
+    line-height: 0.86;
+}
+
+.summer-campaign-content h1 em {
+    margin-left: clamp(18px, 4vw, 76px);
+    color: var(--summer-gold-soft);
+    font-size: clamp(48px, 5.7vw, 92px);
+    font-weight: 400;
+    line-height: 0.96;
+}
+
+.summer-campaign-lede {
+    max-width: 530px;
+    margin: 30px 0 0;
+    color: rgba(255,255,255,0.78);
+    font: 400 clamp(15px, 1.2vw, 18px)/1.65 Inter, Arial, sans-serif;
+}
+
+.summer-campaign-price {
+    margin: 30px 0 0;
+    display: flex;
+    align-items: baseline;
+    gap: 15px;
+}
+
+.summer-campaign-price span {
+    color: var(--summer-gold-soft);
+    font: 700 10px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.summer-campaign-price strong {
+    font: 400 clamp(30px, 3vw, 45px)/1 Georgia, "Times New Roman", serif;
+}
+
+.summer-campaign-price s {
+    color: rgba(255,255,255,0.54);
+    font: 400 15px/1 Inter, Arial, sans-serif;
+}
+
+.summer-campaign-actions {
+    margin-top: 34px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.summer-primary-action,
+.summer-secondary-action {
+    min-height: 50px;
+    padding: 0 21px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font: 700 11px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.summer-primary-action {
+    color: var(--summer-night);
+    background: var(--summer-gold-soft);
+}
+
+.summer-secondary-action {
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.42);
+}
+
+.summer-primary-action:hover,
+.summer-primary-action:focus-visible,
+.summer-secondary-action:hover,
+.summer-secondary-action:focus-visible {
+    transform: translateY(-2px);
+}
+
+.summer-secondary-action:hover,
+.summer-secondary-action:focus-visible {
+    color: var(--summer-night);
+    background: #fff;
+}
+
+.summer-primary-action:focus-visible,
+.summer-secondary-action:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+}
+
+.summer-campaign-facts {
+    margin: 34px 0 0;
+    padding: 20px 0 0;
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    list-style: none;
+    border-top: 1px solid rgba(255,255,255,0.22);
+}
+
+.summer-campaign-facts li {
+    position: relative;
+    padding-left: 13px;
+    color: rgba(255,255,255,0.74);
+    font: 600 10px/1.2 Inter, Arial, sans-serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.summer-campaign-facts li::before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 0;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--summer-gold-soft);
+}
+
+.summer-hero-scroll {
+    position: absolute;
+    right: clamp(24px, 4vw, 70px);
+    bottom: 35px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+    font: 700 9px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.summer-hero-scroll i {
+    position: relative;
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(255,255,255,0.44);
+    border-radius: 50%;
+}
+
+.summer-hero-scroll i::after {
+    content: "";
+    position: absolute;
+    top: 11px;
+    left: 12px;
+    width: 8px;
+    height: 8px;
+    border-right: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    transform: rotate(45deg);
+}
+
+/* Selectable bundle campaign below the unchanged homepage hero */
+
+.summer-inline-bundle {
+    width: min(calc(100% - 48px), 1460px);
+    margin: clamp(18px, 2vw, 30px) auto clamp(84px, 10vw, 150px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgba(176, 132, 67, 0.34);
+    border-radius: clamp(18px, 2vw, 30px);
+    background: #f5efe4;
+    box-shadow: 0 30px 80px rgba(23, 29, 25, 0.13);
+}
+
+.summer-inline-visual {
+    order: 1;
+    position: relative;
+    min-height: clamp(520px, 50vw, 760px);
+    isolation: isolate;
+    overflow: hidden;
+    background: #23170f;
+}
+
+.summer-inline-visual::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background:
+        linear-gradient(90deg, rgba(23, 15, 10, 0.92) 0%, rgba(29, 19, 12, 0.62) 29%, rgba(29, 19, 12, 0.12) 57%, rgba(29, 19, 12, 0.01) 100%),
+        linear-gradient(0deg, rgba(19, 13, 9, 0.18), transparent 45%);
+}
+
+.summer-inline-visual > img {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.summer-inline-copy {
+    position: absolute;
+    top: 50%;
+    left: clamp(38px, 7vw, 110px);
+    width: min(39%, 520px);
+    color: #fff;
+    transform: translateY(-50%);
+}
+
+.summer-inline-kicker {
+    margin: 0 0 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--summer-gold-soft);
+    font: 700 10px/1.2 Inter, Arial, sans-serif;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+}
+
+.summer-inline-kicker::before {
+    content: "";
+    width: 36px;
+    height: 1px;
+    background: currentColor;
+}
+
+.summer-inline-copy h2 {
+    margin: 0;
+    color: #fff;
+    font: 500 clamp(48px, 5.2vw, 84px)/0.92 "Cormorant Garamond", Georgia, serif;
+    letter-spacing: -0.045em;
+}
+
+.summer-inline-copy h2 em {
+    display: inline-block;
+    color: var(--summer-gold-soft);
+    font-weight: 500;
+}
+
+.summer-inline-copy > p:not(.summer-inline-kicker) {
+    max-width: 420px;
+    margin: 26px 0 0;
+    color: rgba(255,255,255,0.8);
+    font: 400 clamp(14px, 1.15vw, 17px)/1.65 Inter, Arial, sans-serif;
+}
+
+.summer-inline-prices {
+    margin-top: 34px;
+    display: grid;
+    gap: 10px;
+}
+
+.summer-inline-price {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.summer-inline-price span {
+    color: rgba(255,255,255,0.66);
+    font: 700 10px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.summer-inline-price strong {
+    color: #fff;
+    font: 600 clamp(25px, 2.5vw, 38px)/1 "Cormorant Garamond", Georgia, serif;
+}
+
+.summer-inline-price s {
+    color: rgba(255,255,255,0.48);
+    font: 500 15px/1 Inter, Arial, sans-serif;
+}
+
+.summer-inline-price--compact strong {
+    font-size: clamp(21px, 2vw, 30px);
+}
+
+.summer-inline-price--compact s {
+    font-size: 13px;
+}
+
+.summer-glass-cta {
+    min-width: 245px;
+    min-height: 58px;
+    margin-top: 32px;
+    padding: 12px 14px 12px 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 999px;
+    color: #fff;
+    background: linear-gradient(135deg, rgba(255,255,255,0.23), rgba(255,255,255,0.08));
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.34), 0 14px 38px rgba(0,0,0,0.18);
+    backdrop-filter: blur(16px) saturate(135%);
+    -webkit-backdrop-filter: blur(16px) saturate(135%);
+    font: 800 10px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.14em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.summer-glass-cta i {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255,255,255,0.42);
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    font: 400 17px/1 Georgia, serif;
+}
+
+.summer-glass-cta:hover,
+.summer-glass-cta:focus-visible {
+    border-color: rgba(255,255,255,0.78);
+    background: linear-gradient(135deg, rgba(255,255,255,0.32), rgba(255,255,255,0.14));
+    transform: translateY(-2px);
+}
+
+.summer-glass-cta:focus-visible {
+    outline: 3px solid rgba(255,255,255,0.38);
+    outline-offset: 4px;
+}
+
+.summer-glass-hint {
+    max-width: 310px;
+    margin-top: 12px;
+    display: block;
+    color: rgba(255,255,255,0.62);
+    font: 500 9px/1.45 Inter, Arial, sans-serif;
+    letter-spacing: 0.04em;
+}
+
+.summer-inline-selector {
+    order: 2;
+    padding: clamp(28px, 4vw, 56px) clamp(24px, 5vw, 72px) clamp(26px, 4vw, 50px);
+    color: var(--summer-ink);
+    background:
+        radial-gradient(circle at 97% 0%, rgba(214, 185, 126, 0.16), transparent 30%),
+        #f8f3e9;
+}
+
+.summer-inline-selector-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 30px;
+}
+
+.summer-inline-selector-head > div {
+    display: grid;
+    gap: 7px;
+}
+
+.summer-inline-selector-head span {
+    color: #847254;
+    font: 700 9px/1.2 Inter, Arial, sans-serif;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.summer-inline-selector-head strong {
+    font: 500 clamp(24px, 2.3vw, 36px)/1.12 "Cormorant Garamond", Georgia, serif;
+}
+
+.summer-inline-selector-head .summer-inline-saving {
+    padding: 10px 14px;
+    border: 1px solid rgba(159, 114, 48, 0.36);
+    border-radius: 999px;
+    color: #7e5722;
+    background: rgba(228, 200, 143, 0.18);
+    white-space: nowrap;
+}
+
+.summer-inline-selects {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.summer-inline-selects label {
+    display: grid;
+    gap: 9px;
+}
+
+.summer-inline-selects label > span {
+    color: #766c5e;
+    font: 700 9px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.summer-inline-selects select {
+    width: 100%;
+    height: 58px;
+    padding: 0 42px 0 17px;
+    border: 1px solid rgba(19, 57, 53, 0.24);
+    border-radius: 0;
+    color: #211b16;
+    background-color: #fff;
+    font: 600 13px/1.2 Inter, Arial, sans-serif;
+    cursor: pointer;
+}
+
+.summer-inline-selects select:focus-visible {
+    outline: 2px solid var(--summer-gold);
+    outline-offset: 2px;
+}
+
+.summer-inline-selects option:disabled {
+    color: #aaa;
+}
+
+.summer-inline-selector-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(17, 17, 15, 0.12);
+}
+
+.summer-inline-selector-foot p {
+    margin: 0;
+    color: #6d6457;
+    font: 500 13px/1.45 Inter, Arial, sans-serif;
+}
+
+.summer-inline-selector-foot button {
+    min-width: 250px;
+    min-height: 54px;
+    padding: 15px 25px;
+    border: 1px solid #171411;
+    border-radius: 0;
+    color: #fff;
+    background: #171411;
+    font: 700 10px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 180ms ease, background 180ms ease, opacity 180ms ease;
+}
+
+.summer-inline-selector-foot button:hover:not(:disabled) {
+    color: #171411;
+    background: transparent;
+}
+
+.summer-inline-selector-foot button:disabled {
+    cursor: not-allowed;
+    opacity: 0.42;
+}
+
+.summer-inline-selector > small {
+    display: block;
+    margin-top: 14px;
+    color: #928674;
+    font: 500 10px/1.4 Inter, Arial, sans-serif;
+}
+
+/* Linked bundle builder */
+
+.summer-builder-page .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+}
+
+.summer-builder-main {
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 7% 20%, rgba(196, 154, 82, 0.13), transparent 25%),
+        var(--summer-ivory);
+}
+
+.summer-builder-shell {
+    width: min(1460px, calc(100% - 48px));
+    margin: 0 auto;
+    padding: clamp(46px, 7vw, 100px) 0;
+    display: grid;
+    grid-template-columns: minmax(360px, 0.88fr) minmax(520px, 1.12fr);
+    gap: clamp(38px, 6vw, 96px);
+    align-items: start;
+}
+
+.summer-builder-media {
+    position: sticky;
+    top: 110px;
+}
+
+.summer-builder-media-frame {
+    position: relative;
+    overflow: hidden;
+    min-height: 650px;
+    border-radius: 22px;
+    background: var(--summer-night);
+    box-shadow: 0 26px 70px rgba(17, 17, 15, 0.16);
+}
+
+.summer-builder-media-frame img {
+    width: 100%;
+    height: 100%;
+    min-height: 650px;
+    display: block;
+    object-fit: cover;
+    object-position: 69% center;
+}
+
+.summer-builder-media-badge {
+    position: absolute;
+    top: 22px;
+    left: 22px;
+    padding: 10px 13px;
+    color: var(--summer-night);
+    background: var(--summer-gold-soft);
+    font: 800 9px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.summer-builder-mini-facts {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--summer-line);
+    background: rgba(255,255,255,0.58);
+}
+
+.summer-builder-mini-facts div {
+    padding: 17px 12px;
+    display: grid;
+    gap: 4px;
+    text-align: center;
+}
+
+.summer-builder-mini-facts div + div {
+    border-left: 1px solid var(--summer-line);
+}
+
+.summer-builder-mini-facts strong {
+    font: 600 12px/1.15 Inter, Arial, sans-serif;
+}
+
+.summer-builder-mini-facts span {
+    color: #706b62;
+    font: 500 9px/1.2 Inter, Arial, sans-serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.summer-builder-panel {
+    padding-top: 10px;
+}
+
+.summer-builder-eyebrow {
+    margin: 0 0 17px;
+    color: #8d6c32;
+    font: 800 10px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+}
+
+.summer-builder-panel h1 {
+    max-width: 760px;
+    margin: 0;
+    font: 400 clamp(45px, 5vw, 76px)/0.98 Georgia, "Times New Roman", serif;
+    letter-spacing: -0.04em;
+}
+
+.summer-builder-intro {
+    max-width: 690px;
+    margin: 23px 0 0;
+    color: #625e57;
+    font: 400 16px/1.7 Inter, Arial, sans-serif;
+}
+
+.summer-builder-pricing {
+    margin: 26px 0 0;
+    padding: 22px 0;
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    border-top: 1px solid var(--summer-line);
+    border-bottom: 1px solid var(--summer-line);
+}
+
+.summer-builder-pricing strong {
+    font: 400 36px/1 Georgia, "Times New Roman", serif;
+}
+
+.summer-builder-pricing s {
+    color: #8c877f;
+    font: 400 15px/1 Inter, Arial, sans-serif;
+}
+
+.summer-saving-display {
+    margin-left: auto;
+    padding: 2px 0 2px 28px;
+    display: grid;
+    gap: 7px;
+    border-left: 1px solid rgba(168, 117, 45, 0.48);
+    color: #8b5f22;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.summer-saving-display span {
+    font: 800 11px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.summer-saving-display b {
+    color: #9c691f;
+    font: 700 34px/0.95 Georgia, "Times New Roman", serif;
+}
+
+.summer-size-choice {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.summer-size-choice legend {
+    width: 100%;
+    margin: 0 0 18px;
+    padding: 0;
+    color: var(--summer-ink);
+    font: 400 27px/1.1 Georgia, "Times New Roman", serif;
+}
+
+.summer-size-choice-options {
+    position: relative;
+    max-width: 602px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 279px));
+    justify-content: center;
+    gap: 44px;
+}
+
+.summer-size-choice-options::before {
+    content: "";
+    position: absolute;
+    top: 16%;
+    bottom: 16%;
+    left: 50%;
+    width: 1px;
+    background: rgba(104, 94, 82, 0.22);
+    transform: translateX(-50%);
+}
+
+.summer-size-choice-options button {
+    position: relative;
+    min-width: 0;
+    padding: 0;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    border: 2px solid transparent;
+    border-radius: 16px;
+    background: #f3eee4;
+    box-shadow: 0 8px 22px rgba(41, 34, 27, 0.08);
+    cursor: pointer;
+    transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.summer-size-choice-options button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 13px 28px rgba(41, 34, 27, 0.14);
+}
+
+.summer-size-choice-options button:focus-visible {
+    outline: 2px solid var(--summer-gold);
+    outline-offset: 3px;
+}
+
+.summer-size-choice-options button.is-active {
+    border-color: #b78a37;
+    box-shadow:
+        0 0 0 3px rgba(183, 138, 55, 0.18),
+        0 12px 28px rgba(41, 34, 27, 0.14);
+}
+
+.summer-size-choice-options img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.summer-size-check {
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    width: 25px;
+    height: 25px;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.7);
+    border-radius: 50%;
+    background: #9c762f;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+    font: 800 12px/1 Inter, Arial, sans-serif;
+    opacity: 0;
+    transform: scale(0.72);
+    transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.summer-size-choice-options button.is-active .summer-size-check {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.summer-action-steps {
+    margin: 30px 0 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.summer-action-steps-heading {
+    margin: 0 0 18px;
+    text-align: center;
+}
+
+.summer-action-steps-heading small {
+    color: #8d6c32;
+    font: 800 11px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.summer-action-steps-heading h2 {
+    margin: 7px 0 0;
+    font: 400 27px/1.15 Georgia, "Times New Roman", serif;
+}
+
+.summer-step-pricing {
+    max-width: 602px;
+    margin: 24px auto 0;
+    padding: 20px 0 0;
+    align-items: center;
+    border-bottom: 0;
+}
+
+.summer-step-pricing > .summer-price-display {
+    display: grid;
+    gap: 9px;
+}
+
+.summer-step-pricing > .summer-price-display > small {
+    color: #5e574f;
+    font: 800 12px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.summer-price-line {
+    display: flex;
+    align-items: baseline;
+    gap: 17px;
+}
+
+.summer-step-pricing .summer-price-line > strong {
+    font-size: 42px;
+}
+
+.summer-original-price {
+    color: #756d63;
+    font: 600 13px/1.1 Inter, Arial, sans-serif;
+}
+
+.summer-original-price s {
+    margin-left: 4px;
+    color: #686057;
+    font: 600 18px/1 Inter, Arial, sans-serif;
+    text-decoration-thickness: 1.5px;
+}
+
+.summer-action-step-images {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.summer-action-step-images figure {
+    position: relative;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.summer-action-step-images figure + figure::before {
+    content: "";
+    position: absolute;
+    top: 10%;
+    bottom: 10%;
+    left: 0;
+    width: 1px;
+    background: rgba(104, 94, 82, 0.24);
+}
+
+.summer-action-step-images img {
+    width: 108%;
+    max-width: none;
+    height: auto;
+    margin-left: -4%;
+    display: block;
+}
+
+.summer-builder-flow {
+    margin-top: 30px;
+    border-bottom: 1px solid var(--summer-line);
+}
+
+.summer-builder-flow-step {
+    margin: 0;
+    padding: 27px 0 30px;
+    border-top: 1px solid var(--summer-line);
+}
+
+.summer-action-explainer {
+    margin-top: 24px;
+    padding: 24px;
+    border: 1px solid rgba(171, 123, 52, 0.26);
+    border-radius: 18px;
+    background:
+        radial-gradient(circle at 100% 0%, rgba(196, 72, 75, 0.13), transparent 34%),
+        rgba(255,255,255,0.62);
+}
+
+.summer-action-explainer > span {
+    color: #8d6c32;
+    font: 800 9px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.summer-action-explainer > strong {
+    margin-top: 8px;
+    display: block;
+    font: 400 24px/1.15 Georgia, "Times New Roman", serif;
+}
+
+.summer-action-explainer ol {
+    margin: 20px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    list-style: none;
+    border-top: 1px solid var(--summer-line);
+}
+
+.summer-action-explainer li {
+    padding: 17px 13px 0 0;
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 8px;
+}
+
+.summer-action-explainer li + li {
+    padding-left: 13px;
+    border-left: 1px solid var(--summer-line);
+}
+
+.summer-action-explainer b {
+    color: #b4554c;
+    font: 700 11px/1.2 Inter, Arial, sans-serif;
+}
+
+.summer-action-explainer li span {
+    display: grid;
+    gap: 5px;
+}
+
+.summer-action-explainer li strong {
+    font: 700 11px/1.25 Inter, Arial, sans-serif;
+}
+
+.summer-action-explainer li small {
+    color: #777169;
+    font: 500 9px/1.45 Inter, Arial, sans-serif;
+}
+
+.summer-builder-step {
+    margin-top: 0;
+}
+
+.summer-builder-step-head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.summer-builder-step-head h2 {
+    margin: 0;
+    font: 400 27px/1.1 Georgia, "Times New Roman", serif;
+}
+
+.summer-builder-step-head p {
+    margin: 0;
+    color: #777169;
+    font: 600 11px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.summer-builder-step-head p strong {
+    color: var(--summer-teal);
+    font-size: 16px;
+}
+
+.summer-checkout-step {
+    display: grid;
+    gap: 0;
+}
+
+.summer-checkout-step-head > div {
+    width: 100%;
+}
+
+.summer-builder-step-head .summer-checkout-copy {
+    max-width: 560px;
+    margin: 8px 0 0;
+    color: #777169;
+    font: 500 11px/1.55 Inter, Arial, sans-serif;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.summer-selection-progress {
+    height: 3px;
+    margin-top: 14px;
+    overflow: hidden;
+    background: #d8d0c2;
+}
+
+.summer-selection-progress span {
+    display: block;
+    width: 0;
+    height: 100%;
+    background: #d8d0c2;
+    transition: width 220ms ease, background 220ms ease;
+}
+
+.summer-selection-progress[data-progress-level="1"] span {
+    background: linear-gradient(90deg, #4a2f17 0%, #8e5f25 100%);
+}
+
+.summer-selection-progress[data-progress-level="2"] span {
+    background: linear-gradient(90deg, #4a2f17 0%, #a8752d 58%, #c79a4c 100%);
+}
+
+.summer-selection-progress[data-progress-level="3"] span {
+    background: linear-gradient(90deg, #4a2f17 0%, #9b6726 42%, #d5ad68 78%, #f0d9aa 100%);
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.summer-slot-grid {
+    margin-top: 22px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.summer-scent-slot {
+    position: relative;
+    min-width: 0;
+    min-height: 205px;
+    overflow: hidden;
+    border: 1px solid rgba(168, 117, 45, 0.3);
+    border-radius: 18px;
+    background:
+        linear-gradient(145deg, rgba(255,255,255,0.94), rgba(237, 226, 207, 0.64));
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.summer-scent-slot:hover {
+    transform: translateY(-3px);
+    border-color: rgba(168, 117, 45, 0.68);
+    box-shadow: 0 16px 34px rgba(31, 25, 18, 0.1);
+}
+
+.summer-slot-open {
+    width: 100%;
+    min-height: 205px;
+    padding: 18px 10px 14px;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: 9px;
+    border: 0;
+    color: var(--summer-teal);
+    background: transparent;
+    cursor: pointer;
+}
+
+.summer-slot-open:focus-visible,
+.summer-slot-remove:focus-visible {
+    outline: 3px solid rgba(168, 117, 45, 0.34);
+    outline-offset: -4px;
+}
+
+.summer-empty-bottle {
+    position: relative;
+    width: 150px;
+    height: 138px;
+    display: block;
+}
+
+.summer-empty-bottle img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+}
+
+.summer-slot-plus {
+    width: auto;
+    height: auto;
+    display: block;
+    border: 0;
+    border-radius: 0;
+    color: #d19133;
+    background: transparent;
+    font: 300 30px/1 Inter, Arial, sans-serif;
+}
+
+.summer-slot-label {
+    color: #665f55;
+    font: 700 9px/1.25 Inter, Arial, sans-serif;
+    letter-spacing: 0.11em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.summer-scent-slot.is-filled {
+    border-color: rgba(200, 155, 80, 0.62);
+    background: #fff;
+}
+
+.summer-scent-slot.is-filled .summer-slot-open {
+    align-content: end;
+    gap: 5px;
+}
+
+.summer-slot-product-image {
+    width: 100%;
+    height: 118px;
+    display: block;
+    object-fit: contain;
+}
+
+.summer-slot-product-code {
+    color: #9a7434;
+    font: 800 8px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.summer-slot-product-name {
+    min-height: 28px;
+    display: grid;
+    place-items: center;
+    color: var(--summer-ink);
+    font: 400 14px/1.05 Georgia, "Times New Roman", serif;
+    text-align: center;
+}
+
+.summer-slot-change {
+    color: var(--summer-teal);
+    font: 800 8px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.summer-slot-remove {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 2;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(17, 17, 15, 0.15);
+    border-radius: 50%;
+    color: #655e55;
+    background: rgba(255,255,255,0.92);
+    cursor: pointer;
+    font: 400 18px/1 Inter, Arial, sans-serif;
+}
+
+.summer-slot-help {
+    margin: 12px 0 0;
+    color: #777169;
+    font: 500 10px/1.5 Inter, Arial, sans-serif;
+    text-align: center;
+}
+
+.summer-selection-announcement {
+    min-height: 0;
+    overflow: hidden;
+    color: transparent;
+    font-size: 0;
+}
+
+body.summer-drawer-open {
+    overflow: hidden;
+}
+
+.summer-drawer-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    background: rgba(12, 12, 10, 0.58);
+    backdrop-filter: blur(2px);
+}
+
+.summer-scent-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 9999;
+    width: min(610px, 100vw);
+    height: 100dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    color: var(--summer-ink);
+    background:
+        radial-gradient(circle at 94% 1%, rgba(200, 155, 80, 0.2), transparent 22%),
+        #fbf8f1;
+    box-shadow: -28px 0 70px rgba(12, 12, 10, 0.28);
+}
+
+.summer-drawer-backdrop[hidden],
+.summer-scent-drawer[hidden] {
+    display: none;
+}
+
+.summer-drawer-head {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    padding: 25px 26px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid var(--summer-line);
+    background: rgba(251, 248, 241, 0.94);
+    backdrop-filter: blur(16px);
+}
+
+.summer-drawer-head small {
+    color: #9a7434;
+    font: 800 9px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.summer-drawer-head h2 {
+    margin: 7px 0 0;
+    font: 400 31px/1 Georgia, "Times New Roman", serif;
+}
+
+.summer-drawer-close {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    border: 1px solid var(--summer-line);
+    border-radius: 50%;
+    color: var(--summer-ink);
+    background: #fff;
+    cursor: pointer;
+    font: 300 27px/1 Inter, Arial, sans-serif;
+}
+
+.summer-drawer-close:hover,
+.summer-drawer-close:focus-visible {
+    border-color: var(--summer-teal);
+    color: #fff;
+    background: var(--summer-teal);
+}
+
+.summer-drawer-slots {
+    padding: 17px 26px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 9px;
+    border-bottom: 1px solid var(--summer-line);
+    background: rgba(255,255,255,0.66);
+}
+
+.summer-drawer-slot {
+    min-width: 0;
+    padding: 10px 8px;
+    display: grid;
+    grid-template-columns: 30px minmax(0, 1fr);
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--summer-line);
+    border-radius: 12px;
+    color: #756e65;
+    background: #fff;
+    cursor: pointer;
+    text-align: left;
+}
+
+.summer-drawer-slot.is-active {
+    border-color: var(--summer-teal);
+    box-shadow: inset 0 0 0 1px var(--summer-teal);
+}
+
+.summer-drawer-slot img {
+    width: 30px;
+    height: 42px;
+    object-fit: contain;
+}
+
+.summer-drawer-slot b {
+    display: block;
+    overflow: hidden;
+    color: var(--summer-ink);
+    font: 700 9px/1.2 Inter, Arial, sans-serif;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.summer-drawer-slot span {
+    display: block;
+    margin-top: 3px;
+    font: 600 8px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.summer-drawer-slot-index {
+    width: 30px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border: 1px dashed rgba(168, 117, 45, 0.38);
+    border-radius: 8px;
+    color: var(--summer-teal);
+    font: 700 11px/1 Inter, Arial, sans-serif;
+}
+
+.summer-drawer-filters {
+    padding: 18px 26px 12px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.summer-drawer-filters::-webkit-scrollbar {
+    display: none;
+}
+
+.summer-drawer-filters button {
+    min-height: 36px;
+    padding: 0 14px;
+    flex: 0 0 auto;
+    border: 1px solid var(--summer-line);
+    border-radius: 999px;
+    color: #655f56;
+    background: rgba(255,255,255,0.78);
+    cursor: pointer;
+    font: 800 9px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.summer-drawer-filters button.is-active,
+.summer-drawer-filters button:hover,
+.summer-drawer-filters button:focus-visible {
+    border-color: var(--summer-teal);
+    color: #fff;
+    background: var(--summer-teal);
+}
+
+.summer-drawer-search {
+    margin: 0 26px;
+    min-height: 52px;
+    padding: 0 17px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    border: 1px solid var(--summer-line);
+    border-radius: 13px;
+    color: #797269;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(31, 25, 18, 0.06);
+}
+
+.summer-drawer-search:focus-within {
+    border-color: var(--summer-teal);
+    box-shadow: 0 0 0 3px rgba(168, 117, 45, 0.13);
+}
+
+.summer-drawer-search input {
+    width: 100%;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    color: var(--summer-ink);
+    background: transparent;
+    font: 500 13px/1 Inter, Arial, sans-serif;
+}
+
+.summer-drawer-search input::placeholder {
+    color: #9a948b;
+}
+
+.summer-drawer-result-head {
+    min-height: 48px;
+    padding: 0 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.summer-drawer-result-head p {
+    margin: 0;
+    color: #777169;
+    font: 700 9px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.summer-drawer-result-head button {
+    border: 0;
+    color: var(--summer-teal);
+    background: transparent;
+    cursor: pointer;
+    font: 800 9px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.08em;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-transform: uppercase;
+}
+
+.summer-drawer-products {
+    padding: 0 26px 34px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.summer-drawer-pagination {
+    margin: 0 26px 34px;
+    padding: 18px 0 4px;
+    display: grid;
+    grid-template-columns: 46px auto 46px;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    border-top: 1px solid var(--summer-line);
+}
+
+.summer-drawer-pagination p {
+    margin: 0;
+    color: #777169;
+    font: 700 10px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.08em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.summer-drawer-pagination p strong {
+    color: var(--summer-teal);
+    font-size: 13px;
+}
+
+.summer-drawer-pagination button {
+    width: 46px;
+    height: 58px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    border: 0;
+    color: #9ba0a4;
+    background: transparent;
+    cursor: pointer;
+}
+
+.summer-drawer-pagination button svg {
+    width: 23px;
+    height: 40px;
+    display: block;
+}
+
+.summer-drawer-pagination button:hover:not(:disabled),
+.summer-drawer-pagination button:focus-visible:not(:disabled) {
+    color: var(--summer-teal);
+    transform: translateX(-2px);
+}
+
+.summer-drawer-pagination button:last-child:hover:not(:disabled),
+.summer-drawer-pagination button:last-child:focus-visible:not(:disabled) {
+    transform: translateX(2px);
+}
+
+.summer-drawer-pagination button:focus-visible {
+    outline: 2px solid rgba(168, 117, 45, 0.34);
+    outline-offset: -5px;
+}
+
+.summer-drawer-pagination button:disabled {
+    opacity: 0.24;
+    cursor: not-allowed;
+}
+
+.summer-drawer-product {
+    position: relative;
+    min-width: 0;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 86px minmax(0, 1fr);
+    gap: 11px;
+    align-items: center;
+    border: 1px solid var(--summer-line);
+    border-radius: 14px;
+    color: var(--summer-ink);
+    background: rgba(255,255,255,0.82);
+    cursor: pointer;
+    text-align: left;
+    transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.summer-drawer-product:hover,
+.summer-drawer-product:focus-visible {
+    transform: translateY(-2px);
+    border-color: rgba(168, 117, 45, 0.62);
+    box-shadow: 0 12px 28px rgba(31, 25, 18, 0.09);
+}
+
+.summer-drawer-product:disabled {
+    opacity: 0.42;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.summer-drawer-product img {
+    width: 86px;
+    height: 104px;
+    display: block;
+    object-fit: contain;
+}
+
+.summer-drawer-product-copy {
+    min-width: 0;
+}
+
+.summer-drawer-product-copy small {
+    color: #9a7434;
+    font: 800 8px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+}
+
+.summer-drawer-product-copy strong {
+    margin-top: 7px;
+    display: -webkit-box;
+    overflow: hidden;
+    font: 400 15px/1.13 Georgia, "Times New Roman", serif;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.summer-drawer-product-copy span {
+    margin-top: 7px;
+    display: -webkit-box;
+    overflow: hidden;
+    color: #7c756c;
+    font: 500 9px/1.35 Inter, Arial, sans-serif;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.summer-drawer-product-copy em {
+    margin-top: 8px;
+    display: block;
+    color: var(--summer-teal);
+    font: 800 8px/1 Inter, Arial, sans-serif;
+    font-style: normal;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.summer-drawer-loading,
+.summer-drawer-empty {
+    grid-column: 1 / -1;
+    min-height: 240px;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: 13px;
+    color: #777169;
+    text-align: center;
+}
+
+.summer-drawer-loading span {
+    width: 34px;
+    height: 34px;
+    border: 2px solid rgba(168, 117, 45, 0.22);
+    border-top-color: var(--summer-teal);
+    border-radius: 50%;
+    animation: summer-drawer-spin 800ms linear infinite;
+}
+
+.summer-drawer-loading p,
+.summer-drawer-empty p {
+    margin: 0;
+    font: 500 12px/1.5 Inter, Arial, sans-serif;
+}
+
+@keyframes summer-drawer-spin {
+    to { transform: rotate(360deg); }
+}
+
+.summer-scent-grid {
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.summer-scent-card {
+    position: relative;
+    min-height: 130px;
+    padding: 12px;
+    display: grid;
+    grid-template-columns: 94px 1fr;
+    gap: 15px;
+    align-items: center;
+    border: 1px solid var(--summer-line);
+    background: rgba(255,255,255,0.65);
+    cursor: pointer;
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.summer-scent-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(168, 117, 45, 0.52);
+}
+
+.summer-scent-card:has(input:focus-visible) {
+    outline: 3px solid rgba(168, 117, 45, 0.3);
+    outline-offset: 2px;
+}
+
+.summer-scent-card.is-selected {
+    border-color: var(--summer-teal);
+    background: #fff;
+    box-shadow: 0 13px 30px rgba(168, 117, 45, 0.14);
+}
+
+.summer-scent-card.is-disabled {
+    opacity: 0.48;
+    cursor: not-allowed;
+}
+
+.summer-scent-card input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.summer-scent-card img {
+    width: 94px;
+    height: 104px;
+    object-fit: contain;
+}
+
+.summer-scent-copy {
+    min-width: 0;
+}
+
+.summer-scent-copy small {
+    color: #8d6c32;
+    font: 800 9px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.summer-scent-copy h3 {
+    margin: 7px 0 5px;
+    font: 400 19px/1.1 Georgia, "Times New Roman", serif;
+}
+
+.summer-scent-copy p {
+    margin: 0;
+    color: #777169;
+    font: 400 11px/1.45 Inter, Arial, sans-serif;
+}
+
+.summer-scent-copy a {
+    position: relative;
+    z-index: 2;
+    margin-top: 9px;
+    display: inline-flex;
+    color: var(--summer-teal);
+    font: 700 9px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-underline-offset: 3px;
+}
+
+.summer-scent-check {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(17, 17, 15, 0.28);
+    border-radius: 50%;
+    color: transparent;
+    background: #fff;
+    font: 800 11px/1 Inter, Arial, sans-serif;
+}
+
+.summer-scent-card.is-selected .summer-scent-check {
+    color: #fff;
+    border-color: var(--summer-teal);
+    background: var(--summer-teal);
+}
+
+.summer-builder-summary {
+    margin-top: 22px;
+    padding: 20px;
+    border: 1px solid var(--summer-line);
+    background: #f1e9dc;
+}
+
+.summer-builder-summary h3 {
+    margin: 0 0 10px;
+    font: 400 20px/1.2 Georgia, "Times New Roman", serif;
+}
+
+.summer-builder-summary-list {
+    min-height: 22px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+    list-style: none;
+}
+
+.summer-builder-summary-list li {
+    padding: 7px 9px;
+    color: #fff;
+    background: var(--summer-teal);
+    font: 700 9px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.summer-builder-summary-list .is-empty {
+    padding: 0;
+    color: #746e65;
+    background: none;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.summer-builder-submit {
+    width: 100%;
+    min-height: 62px;
+    margin-top: 18px;
+    border: 1px solid #11110f;
+    border-radius: 14px;
+    color: #fff;
+    background: #11110f;
+    box-shadow: 0 12px 28px rgba(17, 17, 15, 0.18);
+    font: 800 11px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+.summer-builder-submit:hover:not(:disabled),
+.summer-builder-submit:focus-visible:not(:disabled) {
+    transform: translateY(-2px);
+    background: #000;
+    box-shadow: 0 16px 32px rgba(17, 17, 15, 0.26);
+}
+
+.summer-builder-submit:focus-visible {
+    outline: 3px solid rgba(168, 117, 45, 0.34);
+    outline-offset: 3px;
+}
+
+.summer-builder-submit:disabled {
+    color: #8f8b84;
+    border-color: transparent;
+    background: #d2cec6;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+.summer-builder-safety {
+    margin: 11px 0 0;
+    color: #7b756c;
+    font: 500 10px/1.5 Inter, Arial, sans-serif;
+    text-align: center;
+}
+
+.summer-builder-safety strong {
+    color: #8a6324;
+}
+
+.summer-editorial-section {
+    padding: clamp(70px, 10vw, 145px) clamp(24px, 7vw, 120px);
+    display: grid;
+    grid-template-columns: minmax(360px, 0.95fr) minmax(420px, 1.05fr);
+    gap: clamp(45px, 8vw, 130px);
+    align-items: center;
+    color: #fff;
+    background:
+        radial-gradient(circle at 77% 10%, rgba(199, 155, 80, 0.25), transparent 26%),
+        var(--summer-night);
+}
+
+.summer-editorial-image {
+    min-height: 680px;
+    overflow: hidden;
+}
+
+.summer-editorial-image img {
+    width: 100%;
+    height: 100%;
+    min-height: 680px;
+    display: block;
+    object-fit: cover;
+    filter: sepia(0.78) saturate(1.34) hue-rotate(-18deg) brightness(0.94) contrast(1.04);
+}
+
+.summer-editorial-copy small {
+    color: var(--summer-gold-soft);
+    font: 800 10px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+}
+
+.summer-editorial-copy h2 {
+    max-width: 650px;
+    margin: 18px 0 0;
+    font: 400 clamp(44px, 5.2vw, 82px)/0.98 Georgia, "Times New Roman", serif;
+    letter-spacing: -0.04em;
+}
+
+.summer-editorial-copy > p {
+    max-width: 600px;
+    margin: 26px 0 0;
+    color: rgba(255,255,255,0.7);
+    font: 400 16px/1.75 Inter, Arial, sans-serif;
+}
+
+.summer-note-list {
+    margin: 34px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    list-style: none;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.summer-note-list li {
+    min-height: 112px;
+    padding: 22px 12px;
+    display: grid;
+    align-content: center;
+    gap: 7px;
+}
+
+.summer-note-list li + li {
+    border-left: 1px solid rgba(255,255,255,0.2);
+}
+
+.summer-note-list strong {
+    font: 400 18px/1.1 Georgia, "Times New Roman", serif;
+}
+
+.summer-note-list span {
+    color: rgba(255,255,255,0.55);
+    font: 600 9px/1.3 Inter, Arial, sans-serif;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+}
+
+.summer-builder-faq {
+    width: min(960px, calc(100% - 48px));
+    margin: 0 auto;
+    padding: clamp(75px, 9vw, 130px) 0;
+}
+
+.summer-builder-faq > small {
+    color: #8d6c32;
+    font: 800 10px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.summer-builder-faq h2 {
+    margin: 15px 0 32px;
+    font: 400 clamp(38px, 4vw, 62px)/1 Georgia, "Times New Roman", serif;
+}
+
+.summer-builder-faq details {
+    border-top: 1px solid var(--summer-line);
+}
+
+.summer-builder-faq details:last-child {
+    border-bottom: 1px solid var(--summer-line);
+}
+
+.summer-builder-faq summary {
+    padding: 22px 36px 22px 0;
+    position: relative;
+    cursor: pointer;
+    list-style: none;
+    font: 600 15px/1.4 Inter, Arial, sans-serif;
+}
+
+.summer-builder-faq summary::-webkit-details-marker {
+    display: none;
+}
+
+.summer-builder-faq summary::after {
+    content: "+";
+    position: absolute;
+    top: 20px;
+    right: 4px;
+    color: var(--summer-teal);
+    font: 400 22px/1 Georgia, "Times New Roman", serif;
+}
+
+.summer-builder-faq details[open] summary::after {
+    content: "−";
+}
+
+.summer-builder-faq details p {
+    max-width: 780px;
+    margin: -2px 0 24px;
+    color: #69645d;
+    font: 400 14px/1.7 Inter, Arial, sans-serif;
+}
+
+.summer-product-proof {
+    padding: clamp(76px, 9vw, 132px) 0;
+    border-top: 1px solid rgba(168, 117, 45, 0.2);
+    border-bottom: 1px solid rgba(168, 117, 45, 0.2);
+    background:
+        radial-gradient(circle at 50% 0%, rgba(223, 190, 126, 0.18), transparent 38%),
+        #f1eadc;
+}
+
+.summer-product-proof-inner {
+    width: min(1080px, calc(100% - 48px));
+    margin: 0 auto;
+}
+
+.summer-proof-eyebrow {
+    margin: 0 0 14px;
+    color: #8d6327;
+    font: 800 11px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.18em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.summer-product-proof h2 {
+    margin: 0 0 clamp(34px, 5vw, 58px);
+    color: #17140f;
+    font: italic 700 clamp(38px, 5vw, 64px)/1.05 Georgia, "Times New Roman", serif;
+    letter-spacing: -0.025em;
+    text-align: center;
+}
+
+.summer-comparison-table {
+    max-width: 860px;
+    margin: 0 auto;
+    overflow: hidden;
+    border: 1px solid rgba(133, 97, 42, 0.25);
+    border-radius: 18px;
+    background: rgba(255, 253, 248, 0.72);
+    box-shadow: 0 22px 54px rgba(65, 43, 18, 0.08);
+}
+
+.summer-comparison-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.8fr) minmax(90px, 0.65fr) minmax(90px, 0.65fr);
+    min-height: 64px;
+    border-top: 1px solid rgba(133, 97, 42, 0.16);
+}
+
+.summer-comparison-row:first-child {
+    border-top: 0;
+}
+
+.summer-comparison-row > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 20px;
+    border-left: 1px solid rgba(133, 97, 42, 0.16);
+}
+
+.summer-comparison-row > div:first-child {
+    justify-content: flex-start;
+    border-left: 0;
+}
+
+.summer-comparison-header {
+    color: #fff;
+    background: #2b1d0f;
+    font: 800 11px/1.2 Inter, Arial, sans-serif;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.summer-comparison-label {
+    color: #28221b;
+    font: 600 14px/1.4 Inter, Arial, sans-serif;
+}
+
+.summer-comparison-header .summer-comparison-label {
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.summer-comparison-brand {
+    color: #9e6d23;
+    background: rgba(210, 171, 99, 0.1);
+    font: 700 25px/1 Inter, Arial, sans-serif;
+}
+
+.summer-comparison-header .summer-comparison-brand {
+    color: #f2d9a4;
+    background: rgba(255, 255, 255, 0.04);
+    font-size: 13px;
+}
+
+.summer-comparison-standard {
+    color: #aaa297;
+    font: 500 25px/1 Inter, Arial, sans-serif;
+}
+
+.summer-comparison-header .summer-comparison-standard {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 11px;
+}
+
+.summer-stat-grid {
+    margin-top: clamp(34px, 5vw, 58px);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.summer-stat-card {
+    min-height: 265px;
+    padding: 34px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(133, 97, 42, 0.22);
+    border-radius: 18px;
+    background: rgba(255, 253, 248, 0.68);
+    text-align: center;
+}
+
+.summer-stat-card strong {
+    color: #9f6c22;
+    font: 700 clamp(44px, 5vw, 66px)/1 Georgia, "Times New Roman", serif;
+}
+
+.summer-stat-card p {
+    min-height: 48px;
+    margin: 19px 0 17px;
+    color: #241e17;
+    font: 650 14px/1.5 Inter, Arial, sans-serif;
+}
+
+.summer-stat-card span {
+    padding-top: 16px;
+    position: relative;
+    color: #746a5e;
+    font: 500 11px/1.55 Inter, Arial, sans-serif;
+}
+
+.summer-stat-card span::before {
+    content: "";
+    width: 42px;
+    height: 1px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    background: #c09246;
+    transform: translateX(-50%);
+}
+
+.summer-production-faq {
+    width: min(960px, calc(100% - 48px));
+    margin: 0 auto;
+    padding: clamp(76px, 9vw, 126px) 0;
+}
+
+.summer-production-faq .section-title {
+    margin: 0 0 36px;
+    color: #17140f;
+    font: 400 clamp(36px, 4vw, 58px)/1.08 Georgia, "Times New Roman", serif;
+    letter-spacing: -0.025em;
+}
+
+.summer-production-faq .faq-item {
+    border-top: 1px solid var(--summer-line);
+}
+
+.summer-production-faq .faq-item:last-child {
+    border-bottom: 1px solid var(--summer-line);
+}
+
+.summer-production-faq .faq-question {
+    width: 100%;
+    padding: 23px 44px 23px 0;
+    position: relative;
+    border: 0;
+    color: #1b1814;
+    background: transparent;
+    font: 650 15px/1.45 Inter, Arial, sans-serif;
+    text-align: left;
+    cursor: pointer;
+}
+
+.summer-production-faq .faq-question .icon {
+    position: absolute;
+    top: 50%;
+    right: 4px;
+    color: #9f6c22;
+    font: 400 24px/1 Georgia, "Times New Roman", serif;
+    transform: translateY(-50%);
+}
+
+.summer-production-faq .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 280ms ease, opacity 220ms ease;
+}
+
+.summer-production-faq .faq-answer p {
+    max-width: 790px;
+    margin: 0 0 24px;
+    color: #696159;
+    font: 400 14px/1.75 Inter, Arial, sans-serif;
+}
+
+.summer-production-faq .faq-answer p + p {
+    margin-top: -10px;
+}
+
+.summer-production-faq .faq-item.active .faq-answer {
+    max-height: 420px;
+    opacity: 1;
+}
+
+.summer-production-faq .faq-item.active .faq-question .icon {
+    transform: translateY(-50%) rotate(45deg);
+}
+
+/* Production comparison styles copied from the product detail page. */
+.summer-product-proof {
+    padding: clamp(64px, 7vw, 96px) 0;
+    border: 0;
+    background: var(--summer-ivory);
+    font-family: Inter, Arial, sans-serif;
+}
+
+.summer-product-proof-inner {
+    width: min(1180px, calc(100% - 48px));
+}
+
+.summer-product-proof .comparison-title {
+    margin: 0 0 2.5rem;
+    color: #17140f;
+    font: italic 900 2.2rem/1.1 Georgia, "Times New Roman", serif;
+    letter-spacing: 0.05em;
+    text-align: center;
+}
+
+.summer-product-proof .comparison-table-wrapper {
+    max-width: 800px;
+    margin: 0 auto 4rem;
+}
+
+.summer-product-proof .comparison-table {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    box-shadow: none;
+}
+
+.summer-product-proof .comp-row {
+    min-height: 0;
+    display: flex;
+    align-items: stretch;
+    border: 0;
+}
+
+.summer-product-proof .comp-cell {
+    padding: 1rem 1.5rem;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    color: #1a1a1a;
+    background: transparent;
+    font: 400 0.95rem/1.35 Inter, Arial, sans-serif;
+    text-align: center;
+}
+
+.summer-product-proof .comp-row.comp-header .comp-cell {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.summer-product-proof .comp-cell.comp-label {
+    flex: 2;
+    justify-content: flex-start;
+    border-bottom: 1px solid #e7dfd2;
+    font-weight: 500;
+    text-align: left;
+}
+
+.summer-product-proof .comp-cell.comp-standard {
+    border-bottom: 1px solid #e7dfd2;
+    color: #555;
+}
+
+.summer-product-proof .comp-cell.comp-brand {
+    color: #fff;
+    background: #cba245;
+    font-weight: 600;
+}
+
+.summer-product-proof .comp-row.comp-header .comp-brand {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    box-shadow: 0 -10px 20px rgba(212, 175, 55, 0.15);
+}
+
+.summer-product-proof .comp-row:last-child .comp-brand {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.15);
+}
+
+.summer-product-proof .comp-brand span,
+.summer-product-proof .comp-standard span {
+    font-size: 1.2rem;
+}
+
+.summer-product-proof .stats-grid {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 2rem;
+}
+
+.summer-product-proof .modern-stat-card {
+    min-height: 0;
+    padding: 1.25rem 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--summer-line);
+    border-radius: 12px;
+    background: var(--summer-ivory);
+    box-shadow: none;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.summer-product-proof .modern-stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+.summer-product-proof .gold-gradient-text {
+    margin-bottom: 0.2rem;
+    color: #a88728;
+    background: linear-gradient(135deg, #d4af37 0%, #a88728 100%);
+    background-clip: text;
+    font: 700 3.2rem/1.1 Georgia, "Times New Roman", serif;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.summer-product-proof .stat-main-text {
+    min-height: 0;
+    margin: 0 0 0.8rem;
+    color: #1a1a1a;
+    font: 500 1rem/1.5 Inter, Arial, sans-serif;
+}
+
+.summer-product-proof .stat-divider {
+    width: 40px;
+    height: 2px;
+    margin: 0 auto 0.8rem;
+    border-radius: 2px;
+    background: #d4af37;
+}
+
+.summer-product-proof .stat-sub-text {
+    margin: 0;
+    padding: 0;
+    color: #888;
+    font: italic 400 0.75rem/1.4 Inter, Arial, sans-serif;
+}
+
+.summer-product-proof .stat-sub-text::before {
+    content: none;
+}
+
+.summer-production-faq {
+    background: transparent;
+}
+
+.summer-bundle-toast {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 90;
+    width: min(390px, calc(100% - 44px));
+    padding: 18px 20px;
+    color: #fff;
+    background: var(--summer-night);
+    box-shadow: 0 18px 50px rgba(0,0,0,0.28);
+    transform: translateY(30px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 180ms ease, transform 180ms ease;
+}
+
+@media (max-width: 760px) {
+    .summer-product-proof-inner,
+    .summer-production-faq {
+        width: calc(100% - 32px);
+    }
+
+    .summer-product-proof .comp-cell {
+        padding: 0.8rem 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    .summer-product-proof .comp-cell.comp-label {
+        flex: 1.5;
+    }
+
+    .summer-product-proof .comparison-title {
+        font-size: 1.8rem;
+    }
+
+    .summer-product-proof .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.summer-bundle-toast.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.summer-bundle-toast strong {
+    display: block;
+    font: 600 17px/1.2 Georgia, "Times New Roman", serif;
+}
+
+.summer-bundle-toast span {
+    margin-top: 5px;
+    display: block;
+    color: rgba(255,255,255,0.68);
+    font: 400 11px/1.5 Inter, Arial, sans-serif;
+}
+
+@media (max-width: 1100px) {
+    .summer-countdown-bar {
+        grid-template-columns: 1fr auto;
+    }
+
+    .summer-countdown-clock {
+        display: none;
+    }
+
+    .summer-campaign-content {
+        width: min(620px, 64vw);
+    }
+
+    .summer-inline-copy {
+        width: min(44%, 470px);
+    }
+
+    .summer-builder-shell {
+        grid-template-columns: minmax(320px, 0.8fr) minmax(470px, 1.2fr);
+        gap: 42px;
+    }
+
+    .summer-scent-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 820px) {
+    .summer-bundle-flag {
+        padding-inline: 14px;
+    }
+
+    .summer-countdown-bar {
+        min-height: 68px;
+        padding: 10px 16px;
+        gap: 14px;
+    }
+
+    .summer-countdown-copy strong {
+        font-size: 18px;
+    }
+
+    .summer-countdown-cta {
+        padding: 12px;
+        font-size: 9px;
+    }
+
+    .summer-countdown-cta i {
+        margin-left: 5px;
+    }
+
+    .summer-campaign-hero {
+        min-height: 760px;
+        align-items: end;
+    }
+
+    .summer-campaign-image {
+        object-position: 64% center;
+    }
+
+    .summer-campaign-shade {
+        background:
+            linear-gradient(180deg, rgba(43, 29, 15, 0.05) 8%, rgba(43, 29, 15, 0.22) 34%, rgba(43, 29, 15, 0.96) 69%, #2b1d0f 100%);
+    }
+
+    .summer-campaign-content {
+        width: auto;
+        margin: 0;
+        padding: 300px 24px 58px;
+    }
+
+    .summer-campaign-content h1 span {
+        font-size: clamp(50px, 14vw, 74px);
+    }
+
+    .summer-campaign-content h1 em {
+        margin-left: 0;
+        font-size: clamp(43px, 12vw, 66px);
+    }
+
+    .summer-campaign-lede {
+        max-width: 620px;
+        margin-top: 20px;
+    }
+
+    .summer-campaign-price {
+        margin-top: 20px;
+    }
+
+    .summer-campaign-actions {
+        margin-top: 23px;
+    }
+
+    .summer-campaign-facts {
+        margin-top: 24px;
+    }
+
+    .summer-hero-scroll {
+        display: none;
+    }
+
+    .summer-inline-bundle {
+        width: min(calc(100% - 32px), 760px);
+    }
+
+    .summer-inline-visual {
+        min-height: 650px;
+    }
+
+    .summer-inline-visual::after {
+        background:
+            linear-gradient(0deg, rgba(23, 15, 10, 0.97) 0%, rgba(31, 20, 13, 0.76) 34%, rgba(31, 20, 13, 0.06) 72%),
+            linear-gradient(90deg, rgba(23, 15, 10, 0.16), transparent 70%);
+    }
+
+    .summer-inline-visual > img {
+        object-position: 66% center;
+    }
+
+    .summer-inline-copy {
+        top: auto;
+        right: 34px;
+        bottom: 42px;
+        left: 34px;
+        width: auto;
+        transform: none;
+    }
+
+    .summer-inline-copy h2 {
+        font-size: clamp(50px, 9vw, 72px);
+    }
+
+    .summer-inline-selects {
+        grid-template-columns: 1fr;
+    }
+
+    .summer-builder-shell {
+        width: min(100% - 32px, 720px);
+        grid-template-columns: 1fr;
+    }
+
+    .summer-builder-media {
+        position: relative;
+        top: auto;
+    }
+
+    .summer-builder-media-frame {
+        height: min(70vh, 660px);
+        min-height: 560px;
+    }
+
+    .summer-builder-media-frame img {
+        height: 100%;
+        min-height: 0;
+    }
+
+    .summer-scent-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .summer-editorial-section {
+        grid-template-columns: 1fr;
+    }
+
+    .summer-editorial-image,
+    .summer-editorial-image img {
+        min-height: 560px;
+    }
+}
+
+@media (max-width: 560px) {
+    .summer-countdown-copy strong {
+        max-width: 175px;
+        font-size: 16px;
+    }
+
+    .summer-countdown-cta {
+        max-width: 110px;
+        text-align: center;
+    }
+
+    .summer-countdown-cta i {
+        display: none;
+    }
+
+    .summer-campaign-hero {
+        min-height: 720px;
+    }
+
+    .summer-campaign-image {
+        object-position: 67% 30%;
+    }
+
+    .summer-campaign-content {
+        padding: 275px 18px 42px;
+    }
+
+    .summer-campaign-kicker {
+        margin-bottom: 16px;
+        font-size: 9px;
+    }
+
+    .summer-campaign-content h1 span {
+        font-size: 48px;
+    }
+
+    .summer-campaign-content h1 em {
+        font-size: 43px;
+    }
+
+    .summer-campaign-lede {
+        font-size: 14px;
+        line-height: 1.55;
+    }
+
+    .summer-inline-bundle {
+        width: 100%;
+        margin-block: 14px 84px;
+        border-inline: 0;
+        border-radius: 18px;
+    }
+
+    .summer-inline-visual {
+        min-height: 590px;
+    }
+
+    .summer-inline-visual > img {
+        object-position: 69% center;
+    }
+
+    .summer-inline-copy {
+        right: 20px;
+        bottom: 30px;
+        left: 20px;
+    }
+
+    .summer-inline-kicker {
+        margin-bottom: 15px;
+        font-size: 8px;
+    }
+
+    .summer-inline-copy h2 {
+        font-size: 48px;
+    }
+
+    .summer-inline-copy > p:not(.summer-inline-kicker) {
+        max-width: 320px;
+        margin-top: 16px;
+        font-size: 13px;
+    }
+
+    .summer-inline-prices {
+        margin-top: 20px;
+        gap: 8px;
+    }
+
+    .summer-glass-cta {
+        min-width: 230px;
+        margin-top: 24px;
+    }
+
+    .summer-glass-hint {
+        max-width: 260px;
+    }
+
+    .summer-inline-selector {
+        padding: 27px 18px 25px;
+    }
+
+    .summer-inline-selector-head {
+        display: grid;
+        margin-bottom: 23px;
+    }
+
+    .summer-inline-selector-head .summer-inline-saving {
+        justify-self: start;
+    }
+
+    .summer-inline-selector-foot {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .summer-inline-selector-foot button {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .summer-campaign-price {
+        gap: 10px;
+    }
+
+    .summer-campaign-price strong {
+        font-size: 30px;
+    }
+
+    .summer-primary-action,
+    .summer-secondary-action {
+        flex: 1 1 100%;
+    }
+
+    .summer-campaign-facts {
+        gap: 10px 18px;
+    }
+
+    .summer-builder-shell {
+        width: calc(100% - 24px);
+        padding-top: 24px;
+    }
+
+    .summer-builder-media-frame {
+        height: 500px;
+        min-height: 500px;
+    }
+
+    .summer-builder-media-frame img {
+        height: 100%;
+        min-height: 0;
+    }
+
+    .summer-builder-mini-facts {
+        grid-template-columns: 1fr;
+    }
+
+    .summer-builder-mini-facts div + div {
+        border-top: 1px solid var(--summer-line);
+        border-left: 0;
+    }
+
+    .summer-builder-panel h1 {
+        font-size: 45px;
+    }
+
+    .summer-builder-pricing {
+        flex-wrap: wrap;
+    }
+
+    .summer-saving-display {
+        margin-left: 0;
+        padding: 14px 0 0;
+        border-top: 1px solid rgba(168, 117, 45, 0.35);
+        border-left: 0;
+        text-align: left;
+    }
+
+    .summer-price-line {
+        flex-wrap: wrap;
+    }
+
+    .summer-step-pricing .summer-price-line > strong {
+        font-size: 38px;
+    }
+
+    .summer-size-choice-options {
+        grid-template-columns: 1fr;
+        justify-content: start;
+        max-width: 330px;
+        gap: 12px;
+    }
+
+    .summer-builder-flow {
+        margin-top: 24px;
+    }
+
+    .summer-builder-flow-step {
+        padding: 24px 0 26px;
+    }
+
+    .summer-size-choice legend {
+        font-size: 25px;
+    }
+
+    .summer-size-choice-options::before {
+        display: none;
+    }
+
+    .summer-action-steps {
+        padding: 0;
+    }
+
+    .summer-action-steps-heading h2 {
+        font-size: 23px;
+    }
+
+    .summer-action-step-images {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .summer-action-step-images figure {
+        padding: 0;
+    }
+
+    .summer-action-step-images img {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .summer-action-step-images figure + figure::before {
+        top: -12px;
+        bottom: auto;
+        left: 8%;
+        right: 8%;
+        width: auto;
+        height: 1px;
+    }
+
+    .summer-action-explainer ol {
+        grid-template-columns: 1fr;
+    }
+
+    .summer-action-explainer li {
+        padding: 14px 0;
+    }
+
+    .summer-action-explainer li + li {
+        padding-left: 0;
+        border-top: 1px solid var(--summer-line);
+        border-left: 0;
+    }
+
+    .summer-builder-step-head {
+        align-items: start;
+        flex-direction: column;
+        gap: 9px;
+    }
+
+    .summer-slot-grid {
+        gap: 7px;
+    }
+
+    .summer-scent-slot,
+    .summer-slot-open {
+        min-height: 178px;
+    }
+
+    .summer-slot-open {
+        padding: 12px 6px;
+        gap: 6px;
+    }
+
+    .summer-empty-bottle {
+        width: 118px;
+        height: 112px;
+    }
+
+    .summer-slot-plus {
+        font-size: 26px;
+    }
+
+    .summer-slot-product-image {
+        height: 91px;
+    }
+
+    .summer-slot-product-name {
+        font-size: 12px;
+    }
+
+    .summer-drawer-head {
+        padding: 20px 18px 17px;
+    }
+
+    .summer-drawer-head h2 {
+        font-size: 27px;
+    }
+
+    .summer-drawer-slots {
+        padding: 14px 18px;
+        gap: 6px;
+    }
+
+    .summer-drawer-slot {
+        padding: 8px 6px;
+        grid-template-columns: 26px minmax(0, 1fr);
+        gap: 6px;
+    }
+
+    .summer-drawer-slot img,
+    .summer-drawer-slot-index {
+        width: 26px;
+        height: 38px;
+    }
+
+    .summer-drawer-filters {
+        padding-inline: 18px;
+    }
+
+    .summer-drawer-search {
+        margin-inline: 18px;
+    }
+
+    .summer-drawer-result-head {
+        padding-inline: 18px;
+    }
+
+    .summer-drawer-products {
+        padding: 0 18px 28px;
+        grid-template-columns: 1fr;
+    }
+
+    .summer-drawer-pagination {
+        margin: 0 18px 28px;
+        gap: 12px;
+    }
+
+    .summer-drawer-product {
+        grid-template-columns: 96px minmax(0, 1fr);
+    }
+
+    .summer-scent-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .summer-scent-card {
+        grid-template-columns: 82px 1fr;
+    }
+
+    .summer-scent-card img {
+        width: 82px;
+        height: 94px;
+    }
+
+    .summer-editorial-section {
+        padding-inline: 18px;
+    }
+
+    .summer-editorial-image,
+    .summer-editorial-image img {
+        min-height: 480px;
+    }
+
+    .summer-note-list {
+        grid-template-columns: 1fr;
+    }
+
+    .summer-note-list li + li {
+        border-top: 1px solid rgba(255,255,255,0.2);
+        border-left: 0;
+    }
+
+    .summer-builder-faq {
+        width: calc(100% - 32px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .summer-countdown-cta,
+    .summer-primary-action,
+    .summer-secondary-action,
+    .summer-scent-slot,
+    .summer-drawer-product,
+    .summer-scent-card,
+    .summer-builder-submit,
+    .summer-bundle-toast {
+        transition: none;
+    }
+}

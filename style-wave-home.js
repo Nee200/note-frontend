@@ -339,20 +339,27 @@ function renderCart() {
     cartItemsRoot.innerHTML = items.map((item) => {
         const cartId = escapeHtml(item.cartId || "");
         const productId = escapeHtml(item.productId || String(item.id || "").replace(/-\d+$/, ""));
+        const isBundle = Array.isArray(item.bundleSelections) && item.bundleSelections.length === 3;
+        const productHref = isBundle
+            ? "sommerbundle.html"
+            : `product.html?id=${encodeURIComponent(productId)}`;
         const name = escapeHtml(String(item.name || "NØTE. fragrance").replace(/\s*\(\d+ml\)\s*$/i, ""));
         const image = safeImageSource(item.image);
         const quantity = Math.max(1, Number(item.quantity) || 1);
         const linePrice = Number(item.price || 0) * quantity;
         const originalLinePrice = Number(item.originalPrice || 0) * quantity;
         const hasSaving = originalLinePrice > linePrice;
+        const itemDetail = isBundle
+            ? `3 × ${escapeHtml(item.size || "50")} ml · ${formatPrice(item.price)} pro Bundle`
+            : `${escapeHtml(item.size || "50")} ml · ${formatPrice(item.price)} je Flakon`;
         return `
             <article class="wave-cart-item" data-cart-id="${cartId}">
-                <a class="wave-cart-image" href="product.html?id=${encodeURIComponent(productId)}">
+                <a class="wave-cart-image" href="${productHref}">
                     <img src="${image}" alt="${name}">
                 </a>
                 <div class="wave-cart-copy">
-                    <a href="product.html?id=${encodeURIComponent(productId)}">${name}</a>
-                    <small>${escapeHtml(item.size || "50")} ml · ${formatPrice(item.price)} je Flakon</small>
+                    <a href="${productHref}">${name}</a>
+                    <small>${itemDetail}</small>
                     <div class="wave-cart-quantity" aria-label="Menge ändern">
                         <button type="button" data-cart-action="decrease" aria-label="Menge verringern">−</button>
                         <strong>${quantity}</strong>
@@ -424,7 +431,13 @@ async function startCheckout() {
                 credentials: "include",
                 headers: { "Content-Type": "application/json", "X-CSRF-Token": csrfToken },
                 body: JSON.stringify({
-                    items: items.map((item) => ({ id: item.id, quantity: Number(item.quantity) })),
+                    items: items.map((item) => ({
+                        id: item.id,
+                        quantity: Number(item.quantity),
+                        ...(Array.isArray(item.bundleSelections)
+                            ? { bundleSelections: item.bundleSelections }
+                            : {})
+                    })),
                     customerName,
                     customerEmail,
                     couponCode: couponCode || undefined
@@ -439,7 +452,13 @@ async function startCheckout() {
         }
 
         const requestBody = {
-            items: items.map((item) => ({ id: item.id, quantity: Number(item.quantity) }))
+            items: items.map((item) => ({
+                id: item.id,
+                quantity: Number(item.quantity),
+                ...(Array.isArray(item.bundleSelections)
+                    ? { bundleSelections: item.bundleSelections }
+                    : {})
+            }))
         };
         if (couponCode) requestBody.couponCode = couponCode;
         const response = await fetch(`${window.API_BASE_URL}/create-checkout-session`, {

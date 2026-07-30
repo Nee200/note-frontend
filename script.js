@@ -2665,7 +2665,10 @@ async function checkout() {
         const pickupCartItems = cart.map(item => ({
             id: item.id,
             quantity: item.quantity,
-            size: item.size
+            size: item.size,
+            ...(Array.isArray(item.bundleSelections)
+                ? { bundleSelections: item.bundleSelections }
+                : {})
         }));
 
         // Pickup-Flag in sessionStorage speichern, damit success.html es auch ohne URL-Param lesen kann
@@ -2722,7 +2725,10 @@ async function checkout() {
     // Wir senden jetzt den gesamten Warenkorb (items: cart)
     const cartItems = cart.map(item => ({
         id: item.id, // e.g. "1-50"
-        quantity: item.quantity
+        quantity: item.quantity,
+        ...(Array.isArray(item.bundleSelections)
+            ? { bundleSelections: item.bundleSelections }
+            : {})
     }));
 
     const body = { items: cartItems };
