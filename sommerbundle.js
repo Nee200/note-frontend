@@ -311,18 +311,7 @@
 
         const render = () => {
             const ids = getIds();
-            const selectedIds = new Set(ids);
             const remaining = REQUIRED_SCENTS - ids.length;
-
-            selects.forEach((select) => {
-                Array.from(select.options).forEach((option) => {
-                    option.disabled = Boolean(
-                        option.value &&
-                        option.value !== select.value &&
-                        selectedIds.has(option.value)
-                    );
-                });
-            });
 
             if (status) {
                 status.textContent = remaining > 0
@@ -342,7 +331,7 @@
 
         submitButton?.addEventListener("click", () => {
             const ids = getIds();
-            if (ids.length !== REQUIRED_SCENTS || new Set(ids).size !== REQUIRED_SCENTS) return;
+            if (ids.length !== REQUIRED_SCENTS) return;
 
             const names = selects.map((select) => {
                 const option = select.options[select.selectedIndex];
@@ -676,11 +665,6 @@
             const pageStart = currentPage * PRODUCTS_PER_PAGE;
             const pageEnd = Math.min(pageStart + PRODUCTS_PER_PAGE, matches.length);
             const visibleProducts = matches.slice(pageStart, pageEnd);
-            const selectedIds = new Set(
-                selectedProducts
-                    .map((product, index) => index === activeSlotIndex ? null : product?.id)
-                    .filter(Boolean)
-            );
 
             if (resultCount) {
                 resultCount.textContent = isFallbackCatalog
@@ -705,10 +689,8 @@
             }
 
             productsRoot.innerHTML = visibleProducts.map((product) => {
-                const alreadySelected = selectedIds.has(product.id);
                 return `
                     <button class="summer-drawer-product" type="button" data-product-id="${escapeHtml(product.id)}"
-                        ${alreadySelected ? "disabled" : ""}
                         aria-label="${escapeHtml(product.code)} ${escapeHtml(product.displayName)} auswählen">
                         <img src="${escapeHtml(product.image)}"
                             alt="${escapeHtml(product.code)} ${escapeHtml(product.displayName)}" loading="lazy">
