@@ -676,10 +676,11 @@ async function renderSearchSuggestions() {
         }
         const cards = matches.slice(0, 4).map((product) => {
             const variant = product.variants?.[30] || product.variants?.[50] || Object.values(product.variants || {})[0];
+            const publicName = String(product.publicName || product.name || "NØTE. Duft").trim();
             return `
                 <a class="search-suggestion" href="product.html?id=${encodeURIComponent(String(product.id || ""))}">
-                    <img src="${safeImageSource(product.images?.[0])}" alt="${escapeHtml(product.name || "NØTE. Duft")}">
-                    <span><strong>${escapeHtml(product.name || "NØTE. Duft")}</strong><small>${variant ? `ab ${formatPrice(variant.price)}` : "Details ansehen"}</small></span>
+                    <img src="${safeImageSource(product.images?.[0])}" alt="${escapeHtml(publicName)}">
+                    <span><strong>${escapeHtml(publicName)}</strong><small>${variant ? `ab ${formatPrice(variant.price)}` : "Details ansehen"}</small></span>
                 </a>`;
         }).join("");
         searchSuggestions.innerHTML = `${cards}<a class="search-show-all" href="suche.html?q=${encodeURIComponent(searchInput.value.trim())}">Alle Ergebnisse ansehen</a>`;

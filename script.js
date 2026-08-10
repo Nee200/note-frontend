@@ -300,6 +300,15 @@ function stripBrandName(name) {
     return cleaned || 'Duftkomposition';
 }
 
+// Public storefront names are supplied by the backend without changing the
+// internal inspiredBy reference used for catalogue matching and search.
+function getPublicProductName(product) {
+    const configuredName = String(product && product.publicName ? product.publicName : '').trim();
+    if (configuredName) return configuredName;
+    if (product && product.inspiredBy) return stripBrandName(product.inspiredBy);
+    return String(product && product.name ? product.name : '').trim();
+}
+
 function sanitizeProductUrlId(value) {
     return encodeURIComponent(String(value || ''));
 }
@@ -341,6 +350,7 @@ function matchesProductSearch(product, queryRaw) {
 
     return (
         matchesSearchValue(product && product.name, queryNormalized) ||
+        matchesSearchValue(product && product.publicName, queryNormalized) ||
         matchesSearchValue(product && product.description, queryNormalized) ||
         matchesSearchValue(product && product.longDescription, queryNormalized) ||
         matchesSearchValue(product && product.inspiredBy, queryNormalized) ||
@@ -681,9 +691,7 @@ function getProductCardHTML(product, options = {}) {
     const safeProductName = escapeHtml(product.name || '');
     const safeProductCode = escapeHtml(String(product.name || '').replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, ''));
     const hasComparisonImage = safeImage.includes('images_website/bestsellers/');
-    const safeInspiredBy = product.inspiredBy
-        ? `...${escapeHtml(stripBrandName(product.inspiredBy))}&reg;`
-        : safeProductName;
+    const safePublicName = escapeHtml(getPublicProductName(product)) || safeProductName;
     const formattedPrice = price.toFixed(2).replace('.', ',');
     const hasOriginalPrice = Number(originalPrice) > Number(price);
     const formattedOriginalPrice = hasOriginalPrice
@@ -704,7 +712,7 @@ function getProductCardHTML(product, options = {}) {
                      onerror="this.src='logo.webp'">
             </div>
             <div class="product-copy">
-                <h3 class="product-title">${safeInspiredBy}</h3>
+                <h3 class="product-title">${safePublicName}</h3>
                 <div class="product-price">
                     ${hasOriginalPrice ? `<s>${formattedOriginalPrice} &euro;</s>` : ''}
                     <span>ab ${formattedPrice} &euro;</span>
@@ -833,13 +841,14 @@ function getFilteredAndSortedProducts(category) {
         list = list.filter(p => {
             // Fehlertolerante Suche (z.B. "no 5" trifft auch "No. 5")
             const nameMatch = matchesSearchValue(p.name, termNormalized);
+            const publicNameMatch = matchesSearchValue(p.publicName, termNormalized);
             const inspiredMatch = matchesSearchValue(p.inspiredBy, termNormalized);
             const headMatch = matchesSearchValue(p.notes && p.notes.head, termNormalized);
             const heartMatch = matchesSearchValue(p.notes && p.notes.heart, termNormalized);
             const baseMatch = matchesSearchValue(p.notes && p.notes.base, termNormalized);
 
             if (currentNoteFilter === 'all') {
-                return nameMatch || inspiredMatch || headMatch || heartMatch || baseMatch;
+                return nameMatch || publicNameMatch || inspiredMatch || headMatch || heartMatch || baseMatch;
             } else if (currentNoteFilter === 'head') {
                 return headMatch;
             } else if (currentNoteFilter === 'heart') {
@@ -1155,9 +1164,9 @@ function getProductImageUrl(product) {
 function getProductSeoDescription(product) {
     const name = getProductSeoName(product);
     const category = getProductCategoryLabel(product);
-    const inspiredBy = stripBrandName(product && product.inspiredBy ? product.inspiredBy : '');
-    const dupePart = inspiredBy ? ` Duftalternative zu ${inspiredBy}.` : '';
-    return truncateSeoText(`${name} von N\u00d8TE. fragrances: langanhaltender ${category} als Extrait de Parfum mit 40% Duft\u00f6lanteil.${dupePart}`);
+    const publicName = getPublicProductName(product);
+    const publicNamePart = publicName ? ` ${publicName}.` : '';
+    return truncateSeoText(`${name} von N\u00d8TE. fragrances:${publicNamePart} Langanhaltender ${category} als Extrait de Parfum mit 40% Duft\u00f6lanteil.`);
 }
 
 function upsertMeta(selector, createAttributes, content) {
@@ -1236,7 +1245,8 @@ function updateProductSeo(product) {
     if (!product || !product.id) return;
 
     const name = getProductSeoName(product);
-    const title = `N\u00d8TE. ${name} Duftzwilling | Extrait de Parfum`;
+    const publicName = getPublicProductName(product);
+    const title = `N\u00d8TE. ${name}${publicName ? ` \u2014 ${publicName}` : ''} | Extrait de Parfum`;
     const description = getProductSeoDescription(product);
     const canonicalUrl = getProductCanonicalUrl(product);
     const imageUrl = getProductImageUrl(product);
@@ -1744,12 +1754,13 @@ function renderProductDetail(id) {
         `;
     }
 
-    // "Inspired by" – zeige "...Duftname®" (Markenname wird entfernt via stripBrandName)
+    // Display the independent public storefront name. The original inspiredBy
+    // value remains untouched for internal catalogue matching and search.
     const inspiredByContainer = document.querySelector('.inspired-by');
     if (inspiredByContainer) {
-        if (product.inspiredBy) {
-            const cleanName = stripBrandName(product.inspiredBy);
-            inspiredByContainer.innerHTML = `<span class="inspired-by-text">...${escapeHtml(cleanName)}&reg;</span>`;
+        const publicName = getPublicProductName(product);
+        if (publicName) {
+            inspiredByContainer.innerHTML = `<span class="inspired-by-text">${escapeHtml(publicName)}</span>`;
             inspiredByContainer.style.display = '';
         } else {
             inspiredByContainer.style.display = 'none';
@@ -2208,8 +2219,9 @@ function updateCartUI() {
                 : `<div class="item-price">${totalPrice.toFixed(2)} €</div>`;
 
             const cleanName = escapeHtml(String(item.name || '').replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, ''));
-            const inspiredText = product && product.inspiredBy
-                ? `<br><span style="font-family: 'Playfair Display', serif; font-size: 1.3em; color: #1a1a1a; font-weight: normal; font-style: normal;">...${escapeHtml(stripBrandName(product.inspiredBy))}&reg;</span>`
+            const publicName = product ? getPublicProductName(product) : '';
+            const inspiredText = publicName
+                ? `<br><span style="font-family: 'Playfair Display', serif; font-size: 1.3em; color: #1a1a1a; font-weight: normal; font-style: normal;">${escapeHtml(publicName)}</span>`
                 : '';
 
             return `
@@ -2846,12 +2858,11 @@ async function performSearch() {
     resultsContainer.innerHTML = filteredProducts.slice(0, 6).map(product => {
         const defaultVariant = product.variants[30] || product.variants[50];
         const price = defaultVariant ? defaultVariant.price : 0;
-        const inspiredByShort = product.inspiredBy ? product.inspiredBy.split(' - ')[0] : '';
         const safeProductUrlId = sanitizeProductUrlId(product.id);
         const safeImage = safeImageSrc((product.images && product.images.length > 0) ? product.images[0] : 'logo.webp');
         const safeName = escapeHtml(product.name || '');
         const safeCode = escapeHtml(String(product.name || '').replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, ''));
-        const safeTitle = inspiredByShort ? `...${escapeHtml(stripBrandName(inspiredByShort))}&reg;` : safeName;
+        const safeTitle = escapeHtml(getPublicProductName(product)) || safeName;
 
         return `
         <div class="product-card" onclick="window.location.href='product.html?id=${safeProductUrlId}'" style="cursor: pointer;">

@@ -28,6 +28,7 @@ function performSearch() {
 
     const filteredProducts = products.filter(product =>
         product.name.toLowerCase().includes(query) ||
+        (product.publicName && product.publicName.toLowerCase().includes(query)) ||
         product.description.toLowerCase().includes(query) ||
         (product.longDescription && product.longDescription.toLowerCase().includes(query)) ||
         (product.inspiredBy && product.inspiredBy.toLowerCase().includes(query)) ||
@@ -54,11 +55,14 @@ function performSearch() {
         return escapeHtml(raw);
     };
 
-    resultsContainer.innerHTML = filteredProducts.map(product => `
+    resultsContainer.innerHTML = filteredProducts.map(product => {
+        const publicName = product.publicName || product.name;
+        return `
         <div class="search-result-item" onclick="window.location.href='product.html?id=${encodeURIComponent(String(product.id || ''))}'">
-            <img src="${safeImageSrc(product.images && product.images[0])}" alt="${escapeHtml(product.name)}">
-            <h3>${escapeHtml(product.name)}</h3>
+            <img src="${safeImageSrc(product.images && product.images[0])}" alt="${escapeHtml(publicName)}">
+            <h3>${escapeHtml(publicName)}</h3>
             <p>${escapeHtml(product.description)}</p>
         </div>
-    `).join('');
+    `;
+    }).join('');
 }

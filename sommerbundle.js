@@ -53,6 +53,7 @@
             id: "G160",
             name: "No. G160",
             inspiredBy: "California Dream",
+            publicName: "Dreaming of California",
             category: "men",
             notes: { head: "Mandarine", heart: "Birne", base: "Moschus" },
             bestseller: true
@@ -61,6 +62,7 @@
             id: "G298",
             name: "No. G298",
             inspiredBy: "Erba Gold",
+            publicName: "Beyond Golden Light",
             category: "men",
             notes: { head: "Zitrus", heart: "Melone", base: "Vanille" },
             bestseller: true
@@ -69,6 +71,7 @@
             id: "L123",
             name: "No. L123",
             inspiredBy: "Coco Vanille",
+            publicName: "Vanilla Without Limits",
             category: "women",
             notes: { head: "Kokos", heart: "Weiße Blüten", base: "Vanille" },
             bestseller: true
@@ -77,6 +80,7 @@
             id: "G333",
             name: "No. G333",
             inspiredBy: "Cherry Oud",
+            publicName: "Royal Cherry",
             category: "men",
             notes: { head: "Kirsche", heart: "Rose", base: "Oud" },
             newArrival: true
@@ -85,6 +89,7 @@
             id: "G343",
             name: "No. G343",
             inspiredBy: "Bleu Exclusif",
+            publicName: "Blue After Dark Exclusive",
             category: "men",
             notes: { head: "Sandelholz", heart: "Leder", base: "Labdanum" },
             newArrival: true
@@ -93,6 +98,7 @@
             id: "L203",
             name: "No. L203",
             inspiredBy: "Good Girl Blush",
+            publicName: "Blush After Midnight",
             category: "women",
             notes: { head: "Bergamotte", heart: "Pfingstrose", base: "Vanille" },
             newArrival: true
@@ -402,7 +408,7 @@
             || getFallbackBottleImage(category);
         const code = String(product?.name || `No. ${id}`).trim();
         const rawDisplayName = String(product?.inspiredBy || product?.title || code).trim();
-        const displayName = `…${stripBrandName(rawDisplayName)}®`;
+        const displayName = String(product?.publicName || stripBrandName(rawDisplayName)).trim();
         const notes = getProductNotes(product);
 
         return {
