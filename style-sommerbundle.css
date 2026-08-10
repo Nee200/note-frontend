@@ -861,11 +861,16 @@
 .summer-size-choice-options {
     position: relative;
     max-width: 602px;
-    margin-inline: auto;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 279px));
     justify-content: center;
     gap: 44px;
+}
+
+.summer-size-option {
+    position: relative;
+    min-width: 0;
 }
 
 .summer-size-choice-options::before {
@@ -881,6 +886,8 @@
 
 .summer-size-choice-options button {
     position: relative;
+    width: 100%;
+    display: block;
     min-width: 0;
     padding: 0;
     aspect-ratio: 3 / 2;
@@ -915,6 +922,95 @@
     height: 100%;
     display: block;
     object-fit: cover;
+}
+
+.summer-size-gift-badge {
+    position: absolute;
+    top: 20px;
+    left: calc(100% - 17px);
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    color: #fffaf0;
+    pointer-events: none;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.summer-size-gift-badge > b {
+    position: relative;
+    z-index: 2;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    border: 1px solid rgba(242, 211, 151, 0.95);
+    border-radius: 50%;
+    color: #f5d796;
+    background: linear-gradient(145deg, #432232, #291720);
+    box-shadow:
+        0 0 0 3px rgba(248, 238, 216, 0.86),
+        0 5px 14px rgba(51, 28, 35, 0.2);
+    color: transparent;
+    font-size: 0;
+}
+
+.summer-size-gift-badge > b::before,
+.summer-size-gift-badge > b::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 1.5px;
+    border-radius: 999px;
+    background: #f5d796;
+    transform: translate(-50%, -50%);
+}
+
+.summer-size-gift-badge > b::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.summer-size-gift-badge > span {
+    margin-left: 10px;
+    padding: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    color: #8b6020;
+    background: transparent;
+    font: 700 11px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.summer-size-gift-badge strong {
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+}
+
+.summer-size-choice-options button[data-summer-size="50"] .summer-size-check {
+    right: auto;
+    left: 9px;
+}
+
+@media (max-width: 640px) {
+    .summer-size-gift-badge {
+        top: 16px;
+        right: -8px;
+        left: auto;
+        flex-direction: row-reverse;
+    }
+
+    .summer-size-gift-badge > span {
+        margin-right: 10px;
+        margin-left: 0;
+        padding: 0;
+    }
 }
 
 .summer-size-check {
@@ -1331,13 +1427,6 @@
     background: rgba(255,255,255,0.92);
     cursor: pointer;
     font: 400 18px/1 Inter, Arial, sans-serif;
-}
-
-.summer-slot-help {
-    margin: 12px 0 0;
-    color: #777169;
-    font: 500 10px/1.5 Inter, Arial, sans-serif;
-    text-align: center;
 }
 
 .summer-selection-announcement {
@@ -2491,6 +2580,114 @@ body.summer-drawer-open {
     background: transparent;
 }
 
+.summer-inline-gift {
+    width: min(100%, 580px);
+    height: 220px;
+    margin: 0 auto 30px;
+    display: grid;
+    grid-template-columns: 245px minmax(0, 1fr);
+    gap: 26px;
+    animation: summer-inline-gift-in 260ms ease both;
+}
+
+.summer-inline-gift[hidden] {
+    display: none;
+}
+
+@keyframes summer-inline-gift-in {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.summer-inline-gift-visual {
+    min-height: 0;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(175, 127, 55, 0.3);
+    border-radius: 16px;
+    background: #ead8bd;
+    box-shadow: 0 14px 34px rgba(46, 29, 16, 0.12);
+}
+
+.summer-inline-gift-visual img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.summer-inline-gift-visual > span {
+    position: absolute;
+    left: 14px;
+    bottom: 14px;
+    padding: 8px 11px 7px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 999px;
+    color: #fff9ec;
+    background: rgba(47, 21, 35, 0.92);
+    box-shadow: 0 8px 24px rgba(35, 16, 25, 0.24);
+    font: 800 8px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+}
+
+.summer-inline-gift-copy {
+    padding: 14px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: transparent;
+}
+
+.summer-inline-gift-copy > small {
+    color: #9a6928;
+    font: 800 8px/1 Inter, Arial, sans-serif;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.summer-inline-gift-copy h2 {
+    margin: 9px 0 0;
+    color: #261b16;
+    font: 400 clamp(25px, 2.5vw, 31px)/1 Georgia, "Times New Roman", serif;
+    letter-spacing: -0.03em;
+}
+
+.summer-inline-gift-copy > p {
+    margin: 12px 0 0;
+    color: #686057;
+    font: 400 10.5px/1.55 Inter, Arial, sans-serif;
+}
+
+@media (max-width: 640px) {
+    .summer-inline-gift {
+        max-width: 360px;
+        height: auto;
+        margin-bottom: 26px;
+        grid-template-columns: 1fr;
+        gap: 17px;
+    }
+
+    .summer-inline-gift-visual {
+        min-height: 0;
+        aspect-ratio: 16 / 9;
+    }
+
+    .summer-inline-gift-copy {
+        padding: 0 4px;
+    }
+
+    .summer-inline-gift-copy h2 {
+        font-size: clamp(27px, 8vw, 32px);
+    }
+}
+
 .summer-bundle-toast {
     position: fixed;
     right: 22px;
@@ -3117,7 +3314,9 @@ body.summer-drawer-open {
     .summer-drawer-product,
     .summer-scent-card,
     .summer-builder-submit,
+    .summer-inline-gift,
     .summer-bundle-toast {
         transition: none;
+        animation: none;
     }
 }

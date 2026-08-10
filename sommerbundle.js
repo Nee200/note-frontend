@@ -279,19 +279,28 @@
         const existingItem = cart.find((item) => item?.cartId === cartId);
         if (existingItem) {
             existingItem.quantity = Math.max(1, Number(existingItem.quantity) || 1) + 1;
+            if (selection.size === 50) {
+                existingItem.name = "NØTE. Sommerbundle · 3 Düfte + Gratis-Geschenk";
+                existingItem.includesFreeGift = true;
+                existingItem.freeGiftName = "Gratis-Geschenk";
+            }
         } else {
             cart.push({
                 cartId,
                 id: `SUMMERBUNDLE-${selection.size}`,
                 productId: "SUMMERBUNDLE",
-                name: "NØTE. Sommerbundle · 3 Düfte",
+                name: selection.size === 50
+                    ? "NØTE. Sommerbundle · 3 Düfte + Gratis-Geschenk"
+                    : "NØTE. Sommerbundle · 3 Düfte",
                 price: selection.displayPrice,
                 originalPrice: selection.originalDisplayPrice,
                 size: selection.size,
                 quantity: 1,
                 image: "images_website/sommerbundle/note-summerbundle-color-v4.webp",
                 bundleSelections: selectedIds,
-                bundleNames: selectedProducts.map((product) => `${product.code} ${product.displayName}`)
+                bundleNames: selectedProducts.map((product) => `${product.code} ${product.displayName}`),
+                includesFreeGift: selection.size === 50,
+                freeGiftName: selection.size === 50 ? "Gratis-Geschenk" : ""
             });
         }
 
@@ -510,6 +519,7 @@
         const priceNodes = Array.from(document.querySelectorAll("[data-summer-price]"));
         const originalPriceNodes = Array.from(document.querySelectorAll("[data-summer-original-price]"));
         const savingNodes = Array.from(document.querySelectorAll("[data-summer-saving]"));
+        const inlineGift = document.querySelector("[data-summer-gift-inline]");
         const savedIds = readSavedSelection();
         const selectedProducts = Array(REQUIRED_SCENTS).fill(null);
         let catalog = FALLBACK_PRODUCTS.map(normalizeProduct);
@@ -558,6 +568,10 @@
             savingNodes.forEach((node) => {
                 node.textContent = formatPrice(option.saving);
             });
+            if (inlineGift) {
+                inlineGift.hidden = currentSize !== 50;
+                inlineGift.setAttribute("aria-hidden", String(currentSize !== 50));
+            }
         };
 
         const renderProgress = () => {
@@ -830,6 +844,7 @@
                 size: selectedSize.size,
                 displayPrice: selectedSize.displayPrice,
                 originalDisplayPrice: selectedSize.originalDisplayPrice,
+                includesFreeGift: selectedSize.size === 50,
                 savedAt: new Date().toISOString(),
                 campaign: "sommerbundle-2026"
             };
@@ -843,7 +858,9 @@
             addBundleToCart(selection, selected);
             showToast(
                 "Dein Sommerbundle ist im Warenkorb.",
-                `Drei Düfte à ${selectedSize.size} ml wurden hinzugefügt.`
+                selectedSize.size === 50
+                    ? "Drei Düfte à 50 ml und dein Gratis-Geschenk wurden hinzugefügt."
+                    : "Drei Düfte à 30 ml wurden hinzugefügt."
             );
         });
 
