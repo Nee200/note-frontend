@@ -13,7 +13,7 @@
     <meta property="og:description" content="Entdecke langanhaltende Extrait de Parfum Duftzwillinge von N&Oslash;TE. fragrances mit 40% Duft&ouml;lanteil.">
     <meta property="og:url" content="https://www.note-fragrances.de/product.html">
     <meta property="og:image" content="https://www.note-fragrances.de/logo.webp">
-    <link rel="stylesheet" href="style.css?v=20260718-product-gallery-swipe-v6">
+    <link rel="stylesheet" href="style.css?v=20260817-product-details-v3">
     <link rel="stylesheet" href="style-wave-home.css?v=20260730-summer-global-v1">
     <link rel="stylesheet" data-consent-href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;900&display=swap" data-consent-category="optional">
     <link rel="stylesheet" data-consent-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" data-consent-category="optional">
@@ -300,84 +300,121 @@
                         </div>
                     </div>
 
-                    <!-- Accordion Section -->
-                    <div class="product-accordions">
-                        <!-- 1. Duftnoten -->
-                        <div class="accordion-item">
-                            <button class="accordion-header">
-                                <span>Duftnoten</span>
-                                <i class="fas fa-plus"></i>
+                    <!-- Product information accordion -->
+                    <section class="product-accordions" aria-label="Produktinformationen">
+                        <div class="accordion-item active">
+                            <button class="accordion-header" type="button" aria-expanded="true"
+                                aria-controls="accordion-notes">
+                                <span class="accordion-title-group">
+                                    <span class="accordion-title-copy">
+                                        <span class="accordion-title">Die Komposition</span>
+                                        <span class="accordion-subtitle">Kopf &middot; Herz &middot; Basis</span>
+                                    </span>
+                                </span>
+                                <span class="accordion-toggle" aria-hidden="true"></span>
                             </button>
-                            <div class="accordion-content">
-                                <div>
-                                    <strong>Duftkomposition:</strong>
-                                    <ul class="note-list" id="detail-notes"
-                                        style="margin-top: 0.5rem; list-style: none; padding: 0;">
+                            <div class="accordion-content" id="accordion-notes" role="region">
+                                <div class="accordion-content-inner">
+                                    <ul class="note-list" id="detail-notes">
                                         <!-- JS fills notes -->
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <!-- 2. Beschreibung -->
+
                         <div class="accordion-item">
-                            <button class="accordion-header">
-                                <span>Beschreibung</span>
-                                <i class="fas fa-plus"></i>
+                            <button class="accordion-header" type="button" aria-expanded="false"
+                                aria-controls="accordion-description">
+                                <span class="accordion-title-group">
+                                    <span class="accordion-title-copy">
+                                        <span class="accordion-title">Der Charakter</span>
+                                        <span class="accordion-subtitle">Duftbild &amp; Entwicklung</span>
+                                    </span>
+                                </span>
+                                <span class="accordion-toggle" aria-hidden="true"></span>
                             </button>
-                            <div class="accordion-content">
-                                <p id="detail-long-desc"></p>
-                                <p class="accordion-legal-note">
-                                    *Copyright etc. Jegliche Erw&auml;hnung von Namen und/oder Bilder dient nur der
-                                    Beschreibung und soll die blo&szlig;e Identifizierung des Duftes erleichtern. Alle
-                                    dabei erw&auml;hnten Namen und/oder Bilder geh&ouml;ren ihren jeweiligen
-                                    Eigent&uuml;mern. Es soll nur die Beschreibung der Duftrichtung erleichtern. Unsere
-                                    D&uuml;fte sind Keine Duplikate, F&auml;lschungen oder so etwas in der Art. Die
-                                    D&uuml;fte sind eigene Kreationen und keine Nachmache von andere D&uuml;ften.
-                                </p>
+                            <div class="accordion-content" id="accordion-description" role="region">
+                                <div class="accordion-content-inner accordion-description-copy">
+                                    <p id="detail-long-desc"></p>
+                                    <p class="accordion-legal-note">
+                                        *Copyright etc. Jegliche Erw&auml;hnung von Namen und/oder Bilder dient nur der
+                                        Beschreibung und soll die blo&szlig;e Identifizierung des Duftes erleichtern. Alle
+                                        dabei erw&auml;hnten Namen und/oder Bilder geh&ouml;ren ihren jeweiligen
+                                        Eigent&uuml;mern. Es soll nur die Beschreibung der Duftrichtung erleichtern. Unsere
+                                        D&uuml;fte sind Keine Duplikate, F&auml;lschungen oder so etwas in der Art. Die
+                                        D&uuml;fte sind eigene Kreationen und keine Nachmache von andere D&uuml;ften.
+                                    </p>
+                                </div>
                             </div>
                         </div>
+
                         <div class="accordion-item">
-                            <button class="accordion-header">
-                                <span>Inhaltsstoffe</span>
-                                <i class="fas fa-plus"></i>
+                            <button class="accordion-header" type="button" aria-expanded="false"
+                                aria-controls="accordion-ingredients">
+                                <span class="accordion-title-group">
+                                    <span class="accordion-title-copy">
+                                        <span class="accordion-title">Die Formulierung</span>
+                                        <span class="accordion-subtitle">Inhaltsstoffe</span>
+                                    </span>
+                                </span>
+                                <span class="accordion-toggle" aria-hidden="true"></span>
                             </button>
-                            <div class="accordion-content">
-                                <p>Alcohol Denat., Parfum (Fragrance), Aqua (Water), Linalool, Limonene, Citronellol,
-                                    Geraniol, Coumarin, Citral, Benzyl Alcohol, Benzyl Benzoate, Benzyl Salicylate.</p>
+                            <div class="accordion-content" id="accordion-ingredients" role="region">
+                                <div class="accordion-content-inner">
+                                    <p class="ingredient-list">Alcohol Denat., Parfum (Fragrance), Aqua (Water),
+                                        Linalool, Limonene, Citronellol, Geraniol, Coumarin, Citral, Benzyl Alcohol,
+                                        Benzyl Benzoate, Benzyl Salicylate.</p>
+                                </div>
                             </div>
                         </div>
-                        <!-- Vorsicht -->
-                        <div class="accordion-item">
-                            <button class="accordion-header">
-                                <span><i class="fas fa-exclamation-triangle"
-                                        style="color:#e67e22;margin-right:0.4rem;"></i>Vorsicht</span>
-                                <i class="fas fa-plus"></i>
+
+                        <div class="accordion-item accordion-item-caution">
+                            <button class="accordion-header" type="button" aria-expanded="false"
+                                aria-controls="accordion-caution">
+                                <span class="accordion-title-group">
+                                    <span class="accordion-title-copy">
+                                        <span class="accordion-title">Sicher anwenden</span>
+                                        <span class="accordion-subtitle">Wichtige Hinweise</span>
+                                    </span>
+                                </span>
+                                <span class="accordion-toggle" aria-hidden="true"></span>
                             </button>
-                            <div class="accordion-content">
-                                <p>
-                                    Bis zum Trocknen entz&uuml;ndlich.
-                                    Nicht in der N&auml;he von Feuer,
-                                    Flammen oder Hitze verwenden
-                                    und nicht in die Augen spr&uuml;hen.
-                                </p>
-                                <p class="accordion-legal-note" style="margin-top:0.75rem;">
-                                    Hersteller: Note-Fragrances
-                                </p>
+                            <div class="accordion-content" id="accordion-caution" role="region">
+                                <div class="accordion-content-inner">
+                                    <div class="accordion-caution-box">
+                                        <span class="accordion-caution-icon" aria-hidden="true">!</span>
+                                        <div>
+                                            <p>Bis zum Trocknen entz&uuml;ndlich. Nicht in der N&auml;he von Feuer,
+                                                Flammen oder Hitze verwenden und nicht in die Augen spr&uuml;hen.</p>
+                                            <p class="accordion-manufacturer">Hersteller: Note-Fragrances</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                         <div class="accordion-item">
-                            <button class="accordion-header">
-                                <span>Versand & Retoure</span>
-                                <i class="fas fa-plus"></i>
+                            <button class="accordion-header" type="button" aria-expanded="false"
+                                aria-controls="accordion-shipping">
+                                <span class="accordion-title-group">
+                                    <span class="accordion-title-copy">
+                                        <span class="accordion-title">Versand &amp; Retoure</span>
+                                        <span class="accordion-subtitle">Unser Service</span>
+                                    </span>
+                                </span>
+                                <span class="accordion-toggle" aria-hidden="true"></span>
                             </button>
-                            <div class="accordion-content">
-                                <p>Die Lieferzeit betr&auml;gt 1-3 Werktage.
-                                    Kostenloser Versand ab 60&nbsp;&euro; innerhalb Deutschlands. 30 Tage
-                                    R&uuml;ckgaberecht.
-                                </p>
+                            <div class="accordion-content" id="accordion-shipping" role="region">
+                                <div class="accordion-content-inner">
+                                    <ul class="accordion-service-list">
+                                        <li><strong>1&ndash;3 Werktage</strong><span>Lieferzeit</span></li>
+                                        <li><strong>Ab 60&nbsp;&euro;</strong><span>kostenloser Versand</span></li>
+                                        <li><strong>30 Tage</strong><span>R&uuml;ckgaberecht</span></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </section>
 
                 </div>
             </div>
@@ -695,7 +732,7 @@
     </footer>
 
     <script src="legal-encoding-fix.js"></script>
-    <script src="script.js?v=20260817-new-arrivals-v2"></script>
+    <script src="script.js?v=20260817-product-details-v3"></script>
     <script src="style-wave-home.js?v=20260810-public-names-v1"></script>
     <script src="banner-sync.js"></script>
 

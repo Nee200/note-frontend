@@ -3351,49 +3351,141 @@ select:focus {
 
 /* Accordion Styling */
 .product-accordions {
-    margin: 2rem 0;
-    border-top: 1px solid #e0e0e0;
+    --accordion-ink: #161512;
+    --accordion-muted: #777168;
+    --accordion-line: rgba(22, 21, 18, 0.16);
+    --accordion-gold: #b89a59;
+    margin: 2.6rem 0 1rem;
+    border-top: 1px solid var(--accordion-ink);
+    border-bottom: 1px solid var(--accordion-ink);
+    background: transparent;
 }
 
-.accordion-item {
-    border-bottom: 1px solid #e0e0e0;
+.product-accordions .accordion-item {
+    border-bottom: 1px solid var(--accordion-line);
+    background: transparent;
+    transition: background-color 0.25s ease;
 }
 
-.accordion-header {
+.product-accordions .accordion-item:last-child {
+    border-bottom: 0;
+}
+
+.product-accordions .accordion-item.active {
+    background: rgba(255, 255, 255, 0.42);
+}
+
+.product-accordions .accordion-header {
     width: 100%;
-    padding: 1.2rem 1rem 0;
-    background: none;
+    min-height: 74px;
+    padding: 1rem 0.25rem 1rem 0;
+    background: transparent;
     border: none;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
     cursor: pointer;
     text-align: left;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Playfair Display', serif;
+    color: var(--accordion-ink);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.product-accordions .accordion-header:hover {
+    color: #8e713a;
+}
+
+.product-accordions .accordion-header:focus-visible {
+    outline: 1px solid var(--accordion-gold);
+    outline-offset: 4px;
+}
+
+.accordion-title-group {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+}
+
+.accordion-title-copy {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.18rem;
+}
+
+.accordion-title {
+    font-size: 1.08rem;
     font-weight: 500;
-    font-size: 1rem;
-    color: var(--text);
-    transition: color 0.2s;
+    letter-spacing: 0;
 }
 
-.accordion-header:hover {
-    color: var(--primary);
+.accordion-subtitle {
+    color: var(--accordion-muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.59rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 1.35;
+    text-transform: uppercase;
 }
 
-.accordion-header i {
-    transition: transform 0.3s ease;
-    font-size: 0.9rem;
+.accordion-toggle {
+    position: relative;
+    width: 1.1rem;
+    height: 1.1rem;
+    flex: 0 0 1.1rem;
+    color: var(--accordion-ink);
 }
 
-.accordion-item.active .accordion-header i {
-    transform: rotate(45deg) !important;
+.accordion-toggle::before,
+.accordion-toggle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0.9rem;
+    height: 1px;
+    background: currentColor;
+    transform: translate(-50%, -50%);
+    transition: transform 0.28s ease, opacity 0.2s ease;
 }
 
-.accordion-content {
-    max-height: 0;
+.accordion-toggle::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.product-accordions .accordion-item.active .accordion-toggle::after {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.product-accordions .accordion-content {
+    display: grid;
+    grid-template-rows: 0fr;
     overflow: hidden;
-    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
-    padding: 0 0.5rem;
+    visibility: hidden;
+    transition: grid-template-rows 0.34s ease, visibility 0.34s ease;
+}
+
+.product-accordions .accordion-item.active .accordion-content {
+    grid-template-rows: 1fr;
+    visibility: visible;
+}
+
+.accordion-content-inner {
+    min-height: 0;
+    overflow: hidden;
+    padding: 0 0.2rem 0 0;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: opacity 0.2s ease, transform 0.3s ease, padding-bottom 0.34s ease;
+}
+
+.product-accordions .accordion-item.active .accordion-content-inner {
+    padding-bottom: 1.6rem;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* --- New Additions --- */
@@ -3507,58 +3599,246 @@ select:focus {
     overflow: hidden;
 }
 
-.accordion-item.active .accordion-content {
-    max-height: 500px;
-    padding-bottom: 1.5rem;
-    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
-}
-
-.accordion-content p {
+.product-accordions .accordion-content p {
     font-family: 'Inter', sans-serif;
-    font-size: 0.93rem;
-    line-height: 1.7;
-    color: #555;
-    margin: 0 0 0.5rem 0;
-}
-
-/* Small legal / hint text below main content in tabs */
-.accordion-legal-note {
-    font-size: 0.78rem !important;
-    color: #999 !important;
-    font-style: italic;
-    line-height: 1.5 !important;
-    margin-top: 0.75rem !important;
-}
-
-/* Ingredient list in Inhaltsstoffe tab */
-.accordion-content ul,
-.accordion-content .note-list {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.93rem;
-    line-height: 1.7;
-    color: #555;
-}
-
-.accordion-content strong {
-    font-size: 0.93rem;
-    color: #333;
-    font-weight: 600;
-}
-
-.note-list {
-    list-style: none;
-    padding: 0;
+    font-size: 0.84rem;
+    line-height: 1.78;
+    color: #4f4b45;
     margin: 0;
 }
 
-.note-list li {
-    margin-bottom: 0.5rem;
-    font-size: 0.95rem;
+/* Small legal / hint text below main content in tabs */
+.product-accordions .accordion-legal-note {
+    max-width: 62ch;
+    margin-top: 1.2rem !important;
+    padding: 0.9rem 0 0 1rem;
+    border-top: 1px solid rgba(22, 21, 18, 0.09);
+    border-left: 1px solid var(--accordion-gold);
+    color: #8b857b !important;
+    font-size: 0.67rem !important;
+    font-style: normal;
+    line-height: 1.6 !important;
 }
 
-.note-list strong {
+/* Ingredient list in Inhaltsstoffe tab */
+.product-accordions .accordion-content ul,
+.product-accordions .accordion-content .note-list {
+    font-family: 'Inter', sans-serif;
+    color: #514e48;
+}
+
+.product-accordions .accordion-content strong {
+    color: var(--accordion-ink);
     font-weight: 600;
-    color: var(--text);
+}
+
+.product-accordions .note-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.32rem;
+    list-style: none !important;
+    padding: 0.2rem 0 0;
+    margin: 0;
+}
+
+.product-accordions .note-list li {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0.8rem 1rem;
+    border: 0;
+    background: #eee7da;
+    color: #514d46;
+    font-size: 0.78rem;
+    line-height: 1.45;
+    text-align: center;
+}
+
+.product-accordions .note-list li:nth-child(1) {
+    width: 62%;
+    background: #f2ede4;
+}
+
+.product-accordions .note-list li:nth-child(2) {
+    width: 81%;
+    background: #e9e0d2;
+}
+
+.product-accordions .note-list li:nth-child(3) {
+    background: #ded4c3;
+}
+
+.product-accordions .note-list strong {
+    display: inline;
+    margin-right: 0.42rem;
+    color: #7d6335;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.accordion-description-copy > p:first-child {
+    max-width: 62ch;
+}
+
+.product-accordions .ingredient-list {
+    max-width: 66ch;
+    padding: 0.95rem 0 0.95rem 1.1rem;
+    border-left: 2px solid var(--accordion-gold);
+    background: transparent;
+    font-size: 0.78rem;
+    line-height: 1.75;
+}
+
+.accordion-caution-box {
+    display: flex;
+    gap: 0.85rem;
+    padding: 1rem 1.05rem;
+    border-left: 2px solid #a66f23;
+    background: #f5ecdd;
+}
+
+.accordion-caution-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    flex: 0 0 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #a66f23;
+    border-radius: 0;
+    background: #a66f23;
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.product-accordions .accordion-manufacturer {
+    margin-top: 0.55rem;
+    color: #8b6a3b;
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+.accordion-service-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    margin: 0;
+    padding: 0.35rem 0;
+    list-style: none;
+}
+
+.accordion-service-list li {
+    min-width: 0;
+    padding: 0.35rem 0.85rem;
+    border-right: 1px solid var(--accordion-line);
+    background: transparent;
+}
+
+.accordion-service-list li:first-child {
+    padding-left: 0;
+}
+
+.accordion-service-list li:last-child {
+    border-right: 0;
+}
+
+.accordion-service-list strong,
+.accordion-service-list span {
+    display: block;
+}
+
+.accordion-service-list strong {
+    margin-bottom: 0.32rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+}
+
+.accordion-service-list span {
+    color: var(--accordion-muted);
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    line-height: 1.35;
+    text-transform: uppercase;
+}
+
+@media (max-width: 580px) {
+    .product-accordions {
+        margin-top: 1.8rem;
+    }
+
+    .product-accordions .accordion-header {
+        min-height: 72px;
+        padding: 0.9rem 0.15rem 0.9rem 0;
+    }
+
+    .accordion-title {
+        font-size: 1rem;
+    }
+
+    .accordion-subtitle {
+        font-size: 0.66rem;
+    }
+
+    .accordion-toggle {
+        width: 1rem;
+        height: 1rem;
+        flex-basis: 1rem;
+    }
+
+    .accordion-content-inner {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .accordion-service-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .product-accordions .note-list li {
+        padding: 0.78rem 0.55rem;
+        font-size: 0.72rem;
+    }
+
+    .product-accordions .note-list li:nth-child(1) {
+        width: 70%;
+    }
+
+    .product-accordions .note-list li:nth-child(2) {
+        width: 86%;
+    }
+
+    .product-accordions .note-list strong {
+        display: block;
+        margin: 0 0 0.2rem;
+    }
+
+    .accordion-service-list li {
+        padding: 0.3rem 0.5rem;
+    }
+
+    .accordion-service-list strong {
+        font-size: 0.76rem;
+    }
+
+    .accordion-service-list span {
+        font-size: 0.51rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .product-accordions .accordion-content,
+    .product-accordions .accordion-content-inner,
+    .accordion-toggle,
+    .accordion-toggle::before,
+    .accordion-toggle::after {
+        transition: none;
+    }
 }
 
 /* Search Styles */

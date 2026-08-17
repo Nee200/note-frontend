@@ -652,13 +652,25 @@ async function syncStoredCouponState() {
 
 // Accordion Initialisierung
 function initAccordion() {
-    const accordions = document.querySelectorAll('.accordion-header');
-    accordions.forEach(acc => {
-        acc.addEventListener('click', () => {
-            const item = acc.parentElement;
+    const accordions = document.querySelectorAll('.product-accordions .accordion-header');
+    accordions.forEach((header) => {
+        const item = header.closest('.accordion-item');
+        header.setAttribute('aria-expanded', String(item?.classList.contains('active')));
 
-            // Toggle active class
-            item.classList.toggle('active');
+        header.addEventListener('click', () => {
+            if (!item) return;
+
+            const shouldOpen = !item.classList.contains('active');
+            const group = item.closest('.product-accordions');
+
+            group?.querySelectorAll('.accordion-item.active').forEach((openItem) => {
+                if (openItem === item) return;
+                openItem.classList.remove('active');
+                openItem.querySelector('.accordion-header')?.setAttribute('aria-expanded', 'false');
+            });
+
+            item.classList.toggle('active', shouldOpen);
+            header.setAttribute('aria-expanded', String(shouldOpen));
         });
     });
 }
