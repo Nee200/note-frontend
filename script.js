@@ -794,6 +794,35 @@ const BESTSELLER_INSPIRATION_IMAGES = Object.freeze({
 
 const PRODUCT_DETAIL_INFOGRAPHIC_IMAGE = 'images_website/product-details/note-product-infographic-v1.webp';
 
+// Keep the latest supplier release at the front of the Neuheiten page while
+// preserving the established order for all earlier new arrivals.
+const NEW_ARRIVAL_PRIORITY_IDS = Object.freeze([
+    'G349',
+    'G350',
+    'G351',
+    'G352',
+    'G353',
+    'G354',
+    'L212',
+    'L213',
+    'L214',
+    'L215'
+]);
+
+const NEW_ARRIVAL_PRIORITY = new Map(
+    NEW_ARRIVAL_PRIORITY_IDS.map((id, index) => [id, index])
+);
+
+function prioritizeLatestNewArrivals(items) {
+    return items.slice().sort((left, right) => {
+        const leftRank = NEW_ARRIVAL_PRIORITY.get(String(left?.id || '').toUpperCase());
+        const rightRank = NEW_ARRIVAL_PRIORITY.get(String(right?.id || '').toUpperCase());
+        const fallbackRank = Number.MAX_SAFE_INTEGER;
+
+        return (leftRank ?? fallbackRank) - (rightRank ?? fallbackRank);
+    });
+}
+
 function getProductGalleryImages(product) {
     const productImages = Array.isArray(product?.images)
         ? product.images.map(image => String(image || '').trim()).filter(Boolean)
@@ -825,7 +854,9 @@ function getFilteredAndSortedProducts(category) {
     if (category === 'all') {
         list = products;
     } else if (category === 'new') {
-        list = products.filter(product => product.newArrival === true);
+        list = prioritizeLatestNewArrivals(
+            products.filter(product => product.newArrival === true)
+        );
         const selectedGender = document.body ? document.body.dataset.newArrivalView : '';
         if (selectedGender === 'men' || selectedGender === 'women') {
             list = list.filter(product => product.category === selectedGender);
