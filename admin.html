@@ -293,6 +293,69 @@
             cursor: pointer;
         }
 
+        .shipment-modal-title {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            min-width: 0;
+        }
+
+        .shipment-help {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .shipment-help summary {
+            display: grid;
+            place-items: center;
+            width: 22px;
+            height: 22px;
+            box-sizing: border-box;
+            border: 1px solid #9aa3ad;
+            border-radius: 50%;
+            color: #4b5563;
+            background: #fff;
+            font-size: 0.78rem;
+            font-weight: 800;
+            line-height: 1;
+            cursor: pointer;
+            list-style: none;
+            user-select: none;
+        }
+
+        .shipment-help summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .shipment-help summary:focus-visible {
+            outline: 2px solid #1a73e8;
+            outline-offset: 2px;
+        }
+
+        .shipment-help[open] summary {
+            border-color: #2f4054;
+            color: #fff;
+            background: #2f4054;
+        }
+
+        .shipment-help-text {
+            position: absolute;
+            z-index: 5;
+            top: 30px;
+            right: 0;
+            width: min(310px, calc(100vw - 96px));
+            box-sizing: border-box;
+            padding: 0.8rem 0.9rem;
+            border: 1px solid #d8dee6;
+            border-radius: 6px;
+            background: #f8fafc;
+            box-shadow: 0 8px 24px rgba(31, 41, 55, 0.14);
+            color: #4b5563;
+            font-size: 0.82rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
         .email-layout {
             display: flex;
             height: calc(100vh - 140px);
@@ -328,6 +391,131 @@
 
         #tab-products table {
             min-width: 760px;
+        }
+
+        .invoice-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(150px, 1fr));
+            gap: 0.9rem;
+            margin-bottom: 1.2rem;
+        }
+
+        #tab-invoices {
+            --invoice-navy: #344254;
+            --invoice-slate: #667382;
+            --invoice-border: #d9dee4;
+            --invoice-soft: #f5f7f9;
+        }
+
+        .invoice-stat {
+            background: #fff;
+            border: 1px solid var(--invoice-border);
+            border-top: 3px solid var(--invoice-navy);
+            border-radius: 6px;
+            padding: 1rem 1.1rem;
+            box-shadow: 0 1px 3px rgba(31, 41, 55, 0.04);
+        }
+
+        .invoice-stat-label {
+            color: var(--invoice-slate);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .invoice-stat-value {
+            color: #27313c;
+            font-size: 1.45rem;
+            font-weight: 700;
+            margin-top: 0.35rem;
+        }
+
+        .invoice-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            flex-wrap: wrap;
+        }
+
+        .invoice-toolbar input {
+            width: 260px;
+            min-width: 0;
+            max-width: 260px;
+            flex: 0 1 260px;
+            padding: 0.72rem 0.8rem;
+            border: 1px solid #cfd4d8;
+            border-radius: 7px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .invoice-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            border: 1px solid #d9dde0;
+            border-radius: 6px;
+            padding: 0.48rem 0.68rem;
+            background: #fff;
+            color: #30343b;
+            cursor: pointer;
+            font: inherit;
+            font-size: 0.78rem;
+            font-weight: 600;
+            margin: 2px;
+        }
+
+        .invoice-action:hover {
+            border-color: #526174;
+            color: #2f3d4d;
+            background: #f3f5f7;
+        }
+
+        .invoice-modal-icon {
+            color: #526174;
+            margin-right: 8px;
+        }
+
+        .invoice-table-scroll {
+            overflow-x: auto;
+            scrollbar-gutter: stable;
+        }
+
+        .invoice-table {
+            min-width: 880px;
+        }
+
+        #invoice-pending-card .invoice-table {
+            min-width: 840px;
+        }
+
+        .invoice-table th,
+        .invoice-table td {
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+        }
+
+        .invoice-status-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 8px;
+            border-radius: 999px;
+            font-size: 0.73rem;
+            font-weight: 700;
+            background: #edf7f0;
+            color: #207a42;
+        }
+
+        .invoice-pending-pill {
+            background: #fff5df;
+            color: #9a6400;
+        }
+
+        .invoice-error-pill {
+            background: #fdecea;
+            color: #b3261e;
         }
 
         @media (max-width: 1024px) {
@@ -452,6 +640,17 @@
                 width: calc(100% - 22px);
                 padding: 1rem;
             }
+
+            .invoice-summary-grid {
+                grid-template-columns: repeat(2, minmax(130px, 1fr));
+            }
+
+            .invoice-toolbar input {
+                width: 100%;
+                min-width: 100%;
+                max-width: none;
+                flex: 1 1 100%;
+            }
         }
 
         @media (max-width: 640px) {
@@ -503,6 +702,7 @@
             <ul class="sidebar-menu">
                 <li class="active" onclick="switchTab('products')"><i class="fas fa-box"></i> Parfüms (Katalog)</li>
                 <li onclick="switchTab('orders')"><i class="fas fa-shopping-cart"></i> Bestellungen</li>
+                <li id="invoice-nav-item" hidden style="display:none;" onclick="switchTab('invoices')"><i class="fas fa-file-invoice"></i> Rechnungen</li>
                 <li onclick="switchTab('emails')"><i class="fas fa-envelope"></i> E-Mail Templates</li>
                 <li onclick="switchTab('monitoring')"><i class="fas fa-shield-alt"></i> Monitoring</li>
                 <li onclick="switchTab('idmapping')"><i class="fas fa-exchange-alt"></i> ID-Umrechner</li>
@@ -735,7 +935,7 @@
                     <table style="min-width:900px;">
                         <thead>
                             <tr>
-                                <th>Datum</th>
+                                <th>Bestellung</th>
                                 <th>Kunde</th>
                                 <th>Lieferadresse</th>
                                 <th>Artikel</th>
@@ -745,11 +945,92 @@
                         </thead>
                         <tbody id="admin-order-list">
                             <tr>
-                                <td colspan="5" style="text-align:center;color:#888;padding:2rem;">Bestellungen werden
+                                <td colspan="6" style="text-align:center;color:#888;padding:2rem;">Bestellungen werden
                                     geladen...</td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+
+            <!-- Invoices Tab -->
+            <div id="tab-invoices" style="display:none;">
+                <div class="header" style="margin-bottom:1rem;">
+                    <h2>Rechnungen</h2>
+                    <button class="btn" id="invoice-refresh-btn" style="width:auto;" onclick="loadInvoices(true)">
+                        <i class="fas fa-sync-alt"></i> Aktualisieren
+                    </button>
+                </div>
+
+                <div class="invoice-summary-grid">
+                    <div class="invoice-stat">
+                        <div class="invoice-stat-label">Ausgestellt</div>
+                        <div class="invoice-stat-value" id="invoice-stat-issued">-</div>
+                    </div>
+                    <div class="invoice-stat">
+                        <div class="invoice-stat-label">Angaben fehlen</div>
+                        <div class="invoice-stat-value" id="invoice-stat-pending">-</div>
+                    </div>
+                    <div class="invoice-stat">
+                        <div class="invoice-stat-label">Bruttosumme</div>
+                        <div class="invoice-stat-value" id="invoice-stat-gross">-</div>
+                    </div>
+                    <div class="invoice-stat">
+                        <div class="invoice-stat-label">Enthaltene USt.</div>
+                        <div class="invoice-stat-value" id="invoice-stat-tax">-</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="invoice-toolbar" style="margin-bottom:1rem;">
+                        <h3 style="margin:0;margin-right:auto;">PDF-Rechnungen</h3>
+                        <input id="invoice-search" type="search" placeholder="Bestellnummer..."
+                            aria-label="Exakte Bestellnummer suchen" oninput="renderInvoices()">
+                    </div>
+                    <div class="invoice-table-scroll">
+                        <table class="invoice-table">
+                            <thead>
+                                <tr>
+                                    <th>Rechnung</th>
+                                    <th>Bestellnummer</th>
+                                    <th>Kunde</th>
+                                    <th>Leistungsdatum</th>
+                                    <th>Netto</th>
+                                    <th>USt.</th>
+                                    <th>Brutto</th>
+                                    <th>PDF</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-invoice-list">
+                                <tr><td colspan="8" style="text-align:center;color:#888;padding:2rem;">Rechnungen werden geladen...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card" id="invoice-pending-card" hidden>
+                    <div style="display:flex;justify-content:space-between;gap:1rem;align-items:center;margin-bottom:0.8rem;">
+                        <div>
+                            <h3 style="margin:0;">Rechnung noch nicht möglich</h3>
+                            <div style="font-size:0.8rem;color:#777;margin-top:0.25rem;">Bei diesen Bestellungen fehlt noch eine Angabe. Klicke rechts auf „Ergänzen“.</div>
+                        </div>
+                        <span id="invoice-pending-count" class="invoice-status-pill invoice-pending-pill">0</span>
+                    </div>
+                    <div class="invoice-table-scroll">
+                        <table class="invoice-table">
+                            <thead>
+                                <tr>
+                                    <th>Bestellung</th>
+                                    <th>Kunde</th>
+                                    <th>Zahlung</th>
+                                    <th>Betrag</th>
+                                    <th>Was fehlt?</th>
+                                    <th>Aktion</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-invoice-pending-list"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -1094,8 +1375,19 @@
     <div class="modal" id="trackingModal">
         <div class="modal-content" style="max-width:480px;">
             <div class="modal-header">
-                <h3><i class="fas fa-shipping-fast" style="color:#27ae60;margin-right:8px;"></i>Bestellung
-                    abschlie&szlig;en</h3>
+                <div class="shipment-modal-title">
+                    <h3><i class="fas fa-shipping-fast" style="color:#27ae60;margin-right:8px;"></i>Bestellung
+                        abschlie&szlig;en</h3>
+                    <details class="shipment-help" id="shipping-date-help">
+                        <summary aria-label="Information zum Versand- und Leistungsdatum">?</summary>
+                        <div class="shipment-help-text">
+                            Der Zeitpunkt des Klicks auf <strong>„Abschlie&szlig;en &amp; E-Mail senden“</strong>
+                            wird als Versand- und Leistungsdatum gespeichert. Bei best&auml;tigter Zahlung erstellt
+                            das System danach automatisch die PDF-Rechnung. Deshalb die Bestellung am
+                            tats&auml;chlichen Versandtag abschlie&szlig;en.
+                        </div>
+                    </details>
+                </div>
                 <button class="close-btn" onclick="closeTrackingModal()">&times;</button>
             </div>
             <p style="margin:0 0 1.2rem;color:#636e72;font-size:0.92rem;line-height:1.6;">
@@ -1150,6 +1442,61 @@
         </div>
     </div>
 
+    <!-- Invoice completion modal -->
+    <div class="modal" id="invoiceGenerateModal">
+        <div class="modal-content" style="max-width:560px;">
+            <div class="modal-header">
+                <h3 style="margin:0;"><i class="fas fa-file-invoice invoice-modal-icon"></i>Rechnung finalisieren</h3>
+                <button class="close-btn" onclick="closeInvoiceGenerateModal()">&times;</button>
+            </div>
+            <input type="hidden" id="invoice-generator-order-id">
+            <p id="invoice-generator-context" style="margin:0 0 1rem;color:#636e72;font-size:0.88rem;line-height:1.55;"></p>
+            <div class="input-group" style="margin-bottom:1rem;">
+                <label>Leistungs-/Versanddatum</label>
+                <input type="date" id="invoice-generator-service-date">
+                <small style="display:block;color:#777;margin-top:0.35rem;line-height:1.45;">
+                    Bei versendeten Waren ist dies der Tag, an dem die Versendung an den Kunden begonnen hat.
+                </small>
+            </div>
+            <div class="input-group" style="margin-bottom:1rem;">
+                <label>Umsatzsteuersatz in %</label>
+                <input type="number" id="invoice-generator-tax-rate" min="0" max="30" step="0.01" placeholder="Für DE leer lassen (Standard 19 %)">
+                <small id="invoice-generator-tax-warning" style="display:block;color:#9a6400;margin-top:0.35rem;line-height:1.45;"></small>
+            </div>
+            <div class="input-group" style="margin-bottom:0;">
+                <label>Steuerbefreiungshinweis <span style="font-weight:400;color:#888;">(nur bei 0 % erforderlich)</span></label>
+                <input type="text" id="invoice-generator-tax-note" maxlength="300" placeholder="Konkrete Rechtsgrundlage / Steuerhinweis">
+            </div>
+            <div id="invoice-generator-status" style="min-height:1.2rem;margin-top:0.8rem;font-size:0.84rem;"></div>
+            <div style="display:flex;gap:0.8rem;margin-top:1rem;">
+                <button class="btn invoice-primary-button" id="invoice-generator-submit" style="flex:1;" onclick="generatePendingInvoice()">
+                    <i class="fas fa-file-circle-check"></i> PDF-Rechnung erzeugen
+                </button>
+                <button onclick="closeInvoiceGenerateModal()" style="flex:1;padding:0.8rem;border:1px solid #ccc;background:none;border-radius:6px;cursor:pointer;font-family:inherit;">Abbrechen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Authenticated PDF preview -->
+    <div class="modal" id="invoicePreviewModal">
+        <div class="modal-content" style="max-width:1120px;width:calc(100% - 36px);height:calc(100vh - 50px);padding:1rem;box-sizing:border-box;display:flex;flex-direction:column;overflow:hidden;">
+            <div class="modal-header" style="margin-bottom:0.7rem;flex-shrink:0;">
+                <div>
+                    <h3 id="invoice-preview-title" style="margin:0;">Rechnung</h3>
+                    <div id="invoice-preview-meta" style="font-size:0.78rem;color:#777;margin-top:0.2rem;"></div>
+                </div>
+                <div style="display:flex;gap:0.5rem;align-items:center;">
+                    <button class="invoice-action" id="invoice-preview-download" type="button"><i class="fas fa-download"></i> Herunterladen</button>
+                    <button class="close-btn" onclick="closeInvoicePreview()">&times;</button>
+                </div>
+            </div>
+            <div id="invoice-preview-loading" style="display:flex;align-items:center;justify-content:center;flex:1;color:#777;">
+                <i class="fas fa-spinner fa-spin" style="margin-right:8px;"></i> PDF wird geladen...
+            </div>
+            <iframe id="invoice-preview-frame" title="Rechnungsvorschau" style="display:none;flex:1;width:100%;border:1px solid #dfe3e6;border-radius:6px;background:#f2f2f2;"></iframe>
+        </div>
+    </div>
+
     <style>
         .email-tab-item {
             display: flex;
@@ -1172,7 +1519,7 @@
         }
     </style>
 
-    <script src="admin.js?v=20260711-order-name-fix"></script>
+    <script src="admin.js?v=20260826-invoices-v2"></script>
 
     <script src="cookie-consent.js"></script>
 </body>

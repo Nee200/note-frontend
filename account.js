@@ -276,7 +276,7 @@ async function loadOrders() {
             return `
                 <div class="order-card">
                     <div class="order-header">
-                        <span><strong>Bestelldatum:</strong> ${escapeHtml(date)}</span>
+                        <span><strong>Bestellnummer:</strong> ${escapeHtml(order.orderNumber || '-')}<br><small style="color:#888;">Bestelldatum: ${escapeHtml(date)}</small></span>
                         <span><strong>Gesamt:</strong> ${formatCurrency(order.amount)}</span>
                     </div>
                     <div class="order-items">

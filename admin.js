@@ -19,6 +19,11 @@ let selectedIds = new Set(); // Persists selections across search re-renders
 
 let allOrders = [];
 let currentOrderFilter = 'neu';
+let allInvoices = [];
+let pendingInvoices = [];
+let invoicesLoaded = false;
+let invoicePreviewBlobUrl = '';
+let invoiceFeatureEnabled = false;
 let securityMonitorTimer = null;
 let supplierCatalogLoaded = false;
 
@@ -199,17 +204,28 @@ function renderSecurityStatus(payload) {
     const scanTargetText = scanTargets.length
         ? `Scan-Ziele: ${scanTargets.join(', ')}`
         : 'Scan-Ziele: n/a';
+    const npmCriticalHigh = (Number(depTotals.critical) || 0) + (Number(depTotals.high) || 0);
+    const npmModerateLow = (Number(depTotals.moderate) || 0) + (Number(depTotals.low) || 0);
+    const npmState = typeof depLatest.npmOk !== 'boolean'
+        ? 'unknown'
+        : (!depLatest.npmOk
+            ? 'error'
+            : (npmCriticalHigh > 0 ? 'danger' : (npmModerateLow > 0 ? 'warning' : 'success')));
+    const osvFindings = Number(depTotals.osvVulns) || 0;
+    const osvState = typeof depLatest.osvOk !== 'boolean'
+        ? 'unknown'
+        : (!depLatest.osvOk ? 'error' : (osvFindings > 0 ? 'danger' : 'success'));
     const scannerCards = [
         {
             label: 'npm audit',
-            ok: depLatest.npmOk,
+            state: npmState,
             detail: typeof depLatest.npmOk === 'boolean' && !depLatest.npmOk
                 ? (npmFailureText || 'Mindestens ein npm audit Lauf fehlgeschlagen.')
                 : `Critical/High: ${Number(depTotals.critical) || 0}/${Number(depTotals.high) || 0}, Moderate: ${Number(depTotals.moderate) || 0}`
         },
         {
             label: 'OSV Scan',
-            ok: depLatest.osvOk,
+            state: osvState,
             detail: typeof depLatest.osvOk === 'boolean' && !depLatest.osvOk
                 ? (osvFailureText || 'Mindestens ein OSV Scan Lauf fehlgeschlagen.')
                 : `OSV Hits: ${Number(depTotals.osvVulns) || 0}, betroffene Pakete: ${Number(depTotals.osvAffectedPackages) || 0}`
@@ -220,15 +236,19 @@ function renderSecurityStatus(payload) {
         <div style="font-size:0.8rem;color:#777;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.35rem;">Scanner Ampel</div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.5rem;">
             ${scannerCards.map((scanner) => {
-                const hasValue = typeof scanner.ok === 'boolean';
-                const bg = !hasValue ? '#f4f6f8' : (scanner.ok ? '#e8f8f5' : '#fdecea');
-                const color = !hasValue ? '#60707c' : (scanner.ok ? '#0f8f75' : '#b71c1c');
-                const badge = !hasValue ? 'GRAU' : (scanner.ok ? 'GRUEN' : 'ROT');
+                const styles = {
+                    success: { bg: '#e8f8f5', color: '#0f8f75', badge: 'GRÜN' },
+                    warning: { bg: '#fff4df', color: '#a66a00', badge: 'GELB' },
+                    danger: { bg: '#fdecea', color: '#b71c1c', badge: 'ROT' },
+                    error: { bg: '#fdecea', color: '#b71c1c', badge: 'FEHLER' },
+                    unknown: { bg: '#f4f6f8', color: '#60707c', badge: 'GRAU' }
+                };
+                const style = styles[scanner.state] || styles.unknown;
                 return `
-                    <div style="border:1px solid #e6e6e6;border-radius:8px;padding:0.55rem 0.65rem;background:${bg};">
+                    <div style="border:1px solid #e6e6e6;border-radius:8px;padding:0.55rem 0.65rem;background:${style.bg};">
                         <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
                             <div style="font-size:0.85rem;font-weight:700;color:#2d3436;">${escapeHtml(scanner.label)}</div>
-                            <span style="font-size:0.72rem;font-weight:700;color:${color};">${badge}</span>
+                            <span style="font-size:0.72rem;font-weight:700;color:${style.color};">${style.badge}</span>
                         </div>
                         <div style="font-size:0.78rem;color:#666;margin-top:0.2rem;">${escapeHtml(scanner.detail)}</div>
                     </div>
@@ -620,6 +640,7 @@ async function login() {
             if (data && typeof data.adminAuthToken === 'string') {
                 setStoredAdminAuthToken(data.adminAuthToken);
             }
+            setInvoiceFeatureEnabled(data.features && data.features.invoices === true);
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
             startSecurityMonitor();
@@ -670,6 +691,8 @@ async function checkAuth() {
     try {
         const res = await adminFetch('/api/admin/check');
         if (res.ok) {
+            const payload = await res.json().catch(() => ({}));
+            setInvoiceFeatureEnabled(payload.features && payload.features.invoices === true);
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
             startSecurityMonitor();
@@ -682,14 +705,26 @@ async function checkAuth() {
 
 
 var ordersLoaded = false;
+function setInvoiceFeatureEnabled(enabled) {
+    invoiceFeatureEnabled = enabled === true;
+    const navItem = document.getElementById('invoice-nav-item');
+    if (navItem) {
+        navItem.hidden = !invoiceFeatureEnabled;
+        navItem.style.display = invoiceFeatureEnabled ? '' : 'none';
+    }
+}
+
 function switchTab(tab) {
+    if (tab === 'invoices' && !invoiceFeatureEnabled) tab = 'products';
     document.getElementById('tab-products').style.display = tab === 'products' ? 'block' : 'none';
     document.getElementById('tab-orders').style.display = tab === 'orders' ? 'block' : 'none';
+    document.getElementById('tab-invoices').style.display = tab === 'invoices' ? 'block' : 'none';
     document.getElementById('tab-emails').style.display = tab === 'emails' ? 'block' : 'none';
     document.getElementById('tab-monitoring').style.display = tab === 'monitoring' ? 'block' : 'none';
     document.getElementById('tab-idmapping').style.display = tab === 'idmapping' ? 'block' : 'none';
     if (tab === 'monitoring') loadSecurityStatus();
     if (tab === 'orders' && !ordersLoaded) loadOrders();
+    if (tab === 'invoices' && !invoicesLoaded) loadInvoices();
     if (tab === 'emails') initEmailTab();
     if (tab === 'idmapping') {
         initProductIdMappingTool();
@@ -706,6 +741,8 @@ function switchTab(tab) {
 
 function logout() {
     adminFetch('/api/admin/logout', { method: 'POST' }).finally(function () {
+        closeInvoicePreview();
+        setInvoiceFeatureEnabled(false);
         clearStoredAdminAuthToken();
         if (securityMonitorTimer) {
             clearInterval(securityMonitorTimer);
@@ -761,6 +798,8 @@ async function setOrderStatus(orderId, newStatus) {
     if (newStatus === 'abgeschlossen') {
         _pendingAbschliessenOrderId = orderId;
         document.getElementById('tracking-link-input').value = '';
+        const shippingHelp = document.getElementById('shipping-date-help');
+        if (shippingHelp) shippingHelp.open = false;
         document.getElementById('trackingModal').classList.add('open');
         return;
     }
@@ -835,6 +874,8 @@ async function confirmDeleteOrder() {
 
 function closeTrackingModal() {
     document.getElementById('trackingModal').classList.remove('open');
+    const shippingHelp = document.getElementById('shipping-date-help');
+    if (shippingHelp) shippingHelp.open = false;
     _pendingAbschliessenOrderId = null;
 }
 
@@ -903,6 +944,7 @@ function renderOrders() {
     tbody.innerHTML = filteredOrders.map(function (o) {
         var date = new Date(o.date).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
         var amount = o.amount ? (o.amount / 100).toFixed(2) + ' EUR' : '-';
+        var safeOrderNumber = escapeHtml(o.orderNumber || 'Bestellnummer fehlt');
         var safeName = escapeHtml(o.name || (o.address && o.address.name) || '-');
         var safeEmail = escapeHtml(o.email || '');
 
@@ -976,7 +1018,7 @@ function renderOrders() {
         actions += '</div>';
 
         return '<tr>' +
-            '<td style="white-space:nowrap;font-size:0.85rem;">' + date + '</td>' +
+            '<td style="white-space:nowrap;"><strong style="font-size:0.85rem;">' + safeOrderNumber + '</strong><br><span style="font-size:0.76rem;color:#888;">' + date + '</span></td>' +
             '<td><strong>' + safeName + '</strong><br><span style="font-size:0.8rem;color:#888;">' + safeEmail + '</span></td>' +
             '<td style="font-size:0.82rem;line-height:1.5;">' + addr + '</td>' +
             '<td style="font-size:0.82rem;line-height:1.6;">' + items + '</td>' +
@@ -1016,6 +1058,291 @@ async function sendPickupEmail(btnElement, orderId) {
         alert('Verbindungsfehler');
         btnElement.innerHTML = originalHtml;
         btnElement.disabled = false;
+    }
+}
+
+function formatInvoiceMoney(cents, currency) {
+    return new Intl.NumberFormat('de-DE', {
+        style: 'currency',
+        currency: String(currency || 'eur').toUpperCase(),
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    }).format(Number(cents || 0) / 100);
+}
+
+function formatInvoiceDate(value) {
+    if (!value) return '-';
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return '-';
+    return date.toLocaleDateString('de-DE', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        timeZone: 'Europe/Berlin'
+    });
+}
+
+function toDateInputValue(value) {
+    if (!value) return '';
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return '';
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+function matchesExactOrderNumber(orderNumber, searchValue) {
+    const term = String(searchValue || '').trim().replace(/\s+/g, '').toUpperCase();
+    if (!term) return true;
+
+    const normalizedOrderNumber = String(orderNumber || '').trim().replace(/\s+/g, '').toUpperCase();
+    if (normalizedOrderNumber === term) return true;
+
+    const searchedSequence = term.match(/^#?0*(\d+)$/);
+    const orderSequence = normalizedOrderNumber.match(/#?0*(\d+)$/);
+    if (!searchedSequence || !orderSequence) return false;
+
+    return Number(searchedSequence[1]) === Number(orderSequence[1]);
+}
+
+async function loadInvoices(force) {
+    if (invoicesLoaded && !force) {
+        renderInvoices();
+        return;
+    }
+    const tbody = document.getElementById('admin-invoice-list');
+    const pendingTbody = document.getElementById('admin-invoice-pending-list');
+    const pendingCard = document.getElementById('invoice-pending-card');
+    if (tbody) tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#888;padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Rechnungen werden geladen...</td></tr>';
+    if (pendingTbody) pendingTbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#888;padding:1.5rem;">Bestellungen werden geprüft...</td></tr>';
+    if (pendingCard) pendingCard.hidden = true;
+
+    try {
+        const response = await adminFetch('/api/admin/invoices');
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(payload.error || `HTTP ${response.status}`);
+        allInvoices = Array.isArray(payload.invoices) ? payload.invoices : [];
+        pendingInvoices = Array.isArray(payload.pending) ? payload.pending : [];
+        invoicesLoaded = true;
+
+        const summary = payload.summary || {};
+        document.getElementById('invoice-stat-issued').textContent = String(summary.issuedCount || 0);
+        document.getElementById('invoice-stat-pending').textContent = String(summary.pendingCount || 0);
+        document.getElementById('invoice-stat-gross').textContent = formatInvoiceMoney(summary.totalGrossCents || 0, 'eur');
+        document.getElementById('invoice-stat-tax').textContent = formatInvoiceMoney(summary.totalTaxCents || 0, 'eur');
+        document.getElementById('invoice-pending-count').textContent = String(summary.pendingCount || 0);
+
+        renderInvoices();
+    } catch (error) {
+        invoicesLoaded = false;
+        if (tbody) tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:#b3261e;padding:2rem;">${escapeHtml(error.message || 'Rechnungen konnten nicht geladen werden.')}</td></tr>`;
+        if (pendingTbody) pendingTbody.innerHTML = '';
+        if (pendingCard) pendingCard.hidden = true;
+    }
+}
+
+function renderInvoices() {
+    const tbody = document.getElementById('admin-invoice-list');
+    const pendingTbody = document.getElementById('admin-invoice-pending-list');
+    const pendingCard = document.getElementById('invoice-pending-card');
+    if (!tbody || !pendingTbody) return;
+
+    const term = String((document.getElementById('invoice-search') || {}).value || '');
+    const filtered = allInvoices.filter(invoice => matchesExactOrderNumber(invoice.orderReference, term));
+
+    if (!filtered.length) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#888;padding:2rem;">Keine Rechnungen gefunden.</td></tr>';
+    } else {
+        tbody.innerHTML = filtered.map((invoice) => {
+            const customer = invoice.customer || {};
+            const encodedId = encodeURIComponent(String(invoice.id || ''));
+            const encodedNumber = encodeURIComponent(String(invoice.number || 'Rechnung'));
+            const encodedFile = encodeURIComponent(String(invoice.pdfFileName || 'Rechnung.pdf'));
+            return `<tr>
+                <td><strong>${escapeHtml(invoice.number || '-')}</strong><br><span class="invoice-status-pill">Ausgestellt</span></td>
+                <td><strong>${escapeHtml(invoice.orderReference || '-')}</strong></td>
+                <td><strong>${escapeHtml(customer.name || '-')}</strong><br><span style="font-size:0.78rem;color:#777;">${escapeHtml(customer.email || '')}</span></td>
+                <td style="white-space:nowrap;">${formatInvoiceDate(invoice.serviceDate)}</td>
+                <td style="white-space:nowrap;">${formatInvoiceMoney(invoice.totalNetCents, invoice.currency)}</td>
+                <td style="white-space:nowrap;">${formatInvoiceMoney(invoice.totalTaxCents, invoice.currency)}<br><span style="font-size:0.72rem;color:#888;">${(Number(invoice.vatRateBps || 0) / 100).toFixed(2).replace('.', ',')} %</span></td>
+                <td style="white-space:nowrap;font-weight:700;">${formatInvoiceMoney(invoice.totalGrossCents, invoice.currency)}</td>
+                <td style="white-space:nowrap;">
+                    <button class="invoice-action" onclick="openInvoicePreview(decodeURIComponent('${encodedId}'),decodeURIComponent('${encodedNumber}'),decodeURIComponent('${encodedFile}'))"><i class="fas fa-eye"></i> Ansehen</button>
+                    <button class="invoice-action" onclick="downloadInvoice(decodeURIComponent('${encodedId}'),decodeURIComponent('${encodedFile}'))"><i class="fas fa-download"></i> Download</button>
+                </td>
+            </tr>`;
+        }).join('');
+    }
+
+    if (!pendingInvoices.length) {
+        pendingTbody.innerHTML = '';
+        if (pendingCard) pendingCard.hidden = true;
+        return;
+    }
+
+    if (pendingCard) pendingCard.hidden = false;
+
+    const statusLabels = {
+        awaiting_payment: 'Zahlung fehlt',
+        awaiting_service_date: 'Versanddatum fehlt',
+        manual_review: 'Steuerdaten prüfen',
+        error: 'Prüfung fehlgeschlagen',
+        '': 'Noch nicht geprüft'
+    };
+    const paymentLabels = {
+        paid: 'Bezahlt',
+        unpaid: 'Offen',
+        failed: 'Fehlgeschlagen',
+        not_synced: 'Nicht geprüft'
+    };
+    pendingTbody.innerHTML = pendingInvoices.map((item) => {
+        const encodedId = encodeURIComponent(String(item.orderId || ''));
+        const status = item.invoiceStatus || '';
+        const isError = status === 'error';
+        const canComplete = status !== 'awaiting_payment';
+        const hint = item.invoiceError || (statusLabels[status] || 'Angabe fehlt');
+        const pillClass = isError ? 'invoice-error-pill' : 'invoice-pending-pill';
+        const action = canComplete
+            ? `<button class="invoice-action" onclick="openInvoiceGenerateModal(decodeURIComponent('${encodedId}'))"><i class="fas fa-pen-to-square"></i> Ergänzen</button>`
+            : '<span style="font-size:0.76rem;color:#888;">Nach Zahlung automatisch</span>';
+        return `<tr>
+            <td><strong>${escapeHtml(item.orderNumber || 'Bestellnummer fehlt')}</strong><br><span style="font-size:0.72rem;color:#888;">${formatInvoiceDate(item.orderDate)}</span></td>
+            <td><strong>${escapeHtml(item.name || '-')}</strong><br><span style="font-size:0.76rem;color:#777;">${escapeHtml(item.email || '')}</span></td>
+            <td>${escapeHtml(paymentLabels[item.paymentStatus] || item.paymentStatus || 'Nicht geprüft')}<br><span style="font-size:0.72rem;color:#888;">${formatInvoiceDate(item.paidAt)}</span></td>
+            <td style="white-space:nowrap;font-weight:600;">${formatInvoiceMoney(item.amount, item.currency)}</td>
+            <td><span class="invoice-status-pill ${pillClass}">${escapeHtml(statusLabels[status] || 'Prüfen')}</span><div style="font-size:0.74rem;color:#777;margin-top:0.3rem;max-width:260px;">${escapeHtml(hint)}</div></td>
+            <td>${action}</td>
+        </tr>`;
+    }).join('');
+}
+
+function openInvoiceGenerateModal(orderId) {
+    const item = pendingInvoices.find(candidate => String(candidate.orderId) === String(orderId));
+    if (!item) return;
+    document.getElementById('invoice-generator-order-id').value = item.orderId;
+    document.getElementById('invoice-generator-service-date').value = toDateInputValue(item.proposedServiceDate || item.shippedAt);
+    document.getElementById('invoice-generator-tax-rate').value = '';
+    document.getElementById('invoice-generator-tax-note').value = '';
+    document.getElementById('invoice-generator-status').textContent = '';
+    document.getElementById('invoice-generator-context').textContent =
+        `${item.orderNumber || 'Bestellung'} · ${item.name || 'Kunde'} · ${formatInvoiceDate(item.orderDate)} · ${formatInvoiceMoney(item.amount, item.currency)}`;
+    document.getElementById('invoice-generator-tax-warning').textContent = item.country && item.country !== 'DE'
+        ? `Lieferland ${item.country}: Steuersatz und gegebenenfalls Steuerbefreiung müssen vor der Ausstellung steuerlich geprüft und hier ausdrücklich eingetragen werden.`
+        : 'Für Lieferland DE wird bei leerem Feld automatisch der konfigurierte Standard von 19 % verwendet.';
+    document.getElementById('invoiceGenerateModal').classList.add('open');
+}
+
+function closeInvoiceGenerateModal() {
+    document.getElementById('invoiceGenerateModal').classList.remove('open');
+    document.getElementById('invoice-generator-order-id').value = '';
+}
+
+async function generatePendingInvoice() {
+    const orderId = document.getElementById('invoice-generator-order-id').value;
+    const serviceDate = document.getElementById('invoice-generator-service-date').value;
+    const taxRate = document.getElementById('invoice-generator-tax-rate').value.trim();
+    const taxExemptionNote = document.getElementById('invoice-generator-tax-note').value.trim();
+    const status = document.getElementById('invoice-generator-status');
+    const button = document.getElementById('invoice-generator-submit');
+    if (!orderId || !serviceDate) {
+        status.style.color = '#b3261e';
+        status.textContent = 'Bitte das tatsächliche Leistungs-/Versanddatum eintragen.';
+        return;
+    }
+
+    const body = { serviceDate, taxExemptionNote };
+    if (taxRate !== '') body.taxRate = Number(taxRate);
+    button.disabled = true;
+    status.style.color = '#666';
+    status.textContent = 'Zahlung und Rechnungsdaten werden geprüft...';
+    try {
+        const response = await adminFetch(`/api/admin/invoices/orders/${encodeURIComponent(orderId)}/generate`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(payload.error || `HTTP ${response.status}`);
+        closeInvoiceGenerateModal();
+        invoicesLoaded = false;
+        await loadInvoices(true);
+        if (payload.invoice) {
+            await openInvoicePreview(payload.invoice.id, payload.invoice.number, payload.invoice.pdfFileName);
+        }
+    } catch (error) {
+        status.style.color = '#b3261e';
+        status.textContent = error.message || 'Rechnung konnte nicht erzeugt werden.';
+    } finally {
+        button.disabled = false;
+    }
+}
+
+function triggerInvoiceBlobDownload(blob, fileName) {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName || 'Rechnung.pdf';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+async function fetchInvoicePdf(invoiceId, download) {
+    const suffix = download ? '?download=1' : '';
+    const response = await adminFetch(`/api/admin/invoices/${encodeURIComponent(invoiceId)}/pdf${suffix}`);
+    if (!response.ok) {
+        const payload = await response.json().catch(() => ({}));
+        throw new Error(payload.error || `PDF konnte nicht geladen werden (HTTP ${response.status}).`);
+    }
+    return response.blob();
+}
+
+async function downloadInvoice(invoiceId, fileName) {
+    try {
+        const blob = await fetchInvoicePdf(invoiceId, true);
+        triggerInvoiceBlobDownload(blob, fileName);
+    } catch (error) {
+        alert(error.message || 'Rechnung konnte nicht heruntergeladen werden.');
+    }
+}
+
+async function openInvoicePreview(invoiceId, invoiceNumber, fileName) {
+    closeInvoicePreview();
+    const modal = document.getElementById('invoicePreviewModal');
+    const loading = document.getElementById('invoice-preview-loading');
+    const frame = document.getElementById('invoice-preview-frame');
+    document.getElementById('invoice-preview-title').textContent = invoiceNumber || 'Rechnung';
+    document.getElementById('invoice-preview-meta').textContent = fileName || '';
+    document.getElementById('invoice-preview-download').onclick = () => downloadInvoice(invoiceId, fileName);
+    loading.style.display = 'flex';
+    loading.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:8px;"></i> PDF wird geladen...';
+    frame.style.display = 'none';
+    modal.classList.add('open');
+    try {
+        const blob = await fetchInvoicePdf(invoiceId, false);
+        invoicePreviewBlobUrl = URL.createObjectURL(blob);
+        frame.src = invoicePreviewBlobUrl;
+        frame.style.display = 'block';
+        loading.style.display = 'none';
+    } catch (error) {
+        loading.style.display = 'flex';
+        loading.innerHTML = `<span style="color:#b3261e;">${escapeHtml(error.message || 'Vorschau fehlgeschlagen.')}</span>`;
+    }
+}
+
+function closeInvoicePreview() {
+    const modal = document.getElementById('invoicePreviewModal');
+    const frame = document.getElementById('invoice-preview-frame');
+    if (modal) modal.classList.remove('open');
+    if (frame) {
+        frame.removeAttribute('src');
+        frame.style.display = 'none';
+    }
+    if (invoicePreviewBlobUrl) {
+        URL.revokeObjectURL(invoicePreviewBlobUrl);
+        invoicePreviewBlobUrl = '';
     }
 }
 
@@ -1505,7 +1832,7 @@ async function initEmailTab() {
 
 const EMAIL_TEMPLATES = {
     order: {
-        subject: 'Deine Bestellung bei NOTE. fragrances \u2713',
+        subject: 'Deine Bestellung #123 bei NOTE. fragrances \u2713',
         from: 'Von: NOTE. fragrances <info@note-fragrances.de>  \u2022  An: Kunde',
         html: `<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"></head>
 <body style="margin:0;padding:0;background:#e2dfd8;font-family:Arial,sans-serif;">
@@ -1806,7 +2133,7 @@ Object.assign(EMAIL_TEMPLATES, {
         html: renderAdminEmailShell({
             badge: 'Bestellbestaetigung',
             title: 'Vielen Dank, Max!',
-            introHtml: 'Deine Bestellung ist bei uns eingegangen und wird schnellstmoeglich bearbeitet. Wir melden uns, sobald dein Paket auf dem Weg ist.',
+            introHtml: 'Deine Bestellung ist bei uns eingegangen und wird schnellstmoeglich bearbeitet. Wir melden uns, sobald dein Paket auf dem Weg ist.<br><br><strong>Bestellnummer #123</strong>',
             iconHtml: '&#10003;',
             bodyHtml: `<tr><td style="background:#f5f3ee;padding:0 40px;"><div style="border-top:1px solid #dedad3;"></div></td></tr>
 <tr><td style="background:#f5f3ee;padding:28px 40px 0;">
@@ -1844,12 +2171,12 @@ Object.assign(EMAIL_TEMPLATES, {
         })
     },
     shipping: {
-        subject: 'Deine Bestellung ist unterwegs! \ud83d\ude80',
+        subject: 'Deine Bestellung #123 ist unterwegs! \ud83d\ude80',
         from: 'Von: NOTE. fragrances <info@note-fragrances.de>  \u2022  An: Kunde',
         html: renderAdminEmailShell({
             badge: 'Auf dem Weg zu dir',
             title: 'Hallo Max!',
-            introHtml: 'Gute Neuigkeiten - deine Bestellung ist auf dem Weg zu dir!<br><br>Du kannst deinen Duft in den naechsten <strong style="color:#000;">1-3 Werktagen</strong> erwarten.',
+            introHtml: 'Gute Neuigkeiten - deine Bestellung ist auf dem Weg zu dir!<br><br>Du kannst deinen Duft in den naechsten <strong style="color:#000;">1-3 Werktagen</strong> erwarten.<br><br><strong>Bestellnummer #123</strong>',
             iconHtml: '&#128230;',
             ctaHtml: `<table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;border-collapse:collapse;"><tr>
   <td style="background:#1a1a1a;border-radius:2px;padding:14px 32px;">
@@ -1859,27 +2186,27 @@ Object.assign(EMAIL_TEMPLATES, {
         })
     },
     pickup: {
-        subject: 'Dein Parfum ist abholbereit! \u2713',
+        subject: 'Deine Bestellung #123 ist abholbereit! \u2713',
         from: 'Von: NOTE. fragrances <info@note-fragrances.de>  \u2022  An: Kunde (Abholung)',
         html: renderAdminEmailShell({
             badge: 'Abholbereit',
             title: 'Hallo Max!',
-            introHtml: 'Deine Bestellung ist fertig gepackt und liegt zur Abholung bereit.<br><span style="color:#333;">Warnitzer Str. 20, 13057 Berlin</span><br><br>Bitte bringe den Betrag von <strong style="color:#000;">89,90 &euro;</strong> moeglichst passend in Bar mit.',
+            introHtml: 'Deine Bestellung ist fertig gepackt und liegt zur Abholung bereit.<br><span style="color:#333;">Warnitzer Str. 20, 13057 Berlin</span><br><br>Bitte bringe den Betrag von <strong style="color:#000;">89,90 &euro;</strong> moeglichst passend in Bar mit.<br><br><strong>Bestellnummer #123</strong>',
             iconHtml: '&#10003;'
         })
     },
     'pickup-order': {
-        subject: 'Deine Abhol-Bestellung bei NOTE. fragrances \u2713',
+        subject: 'Deine Abhol-Bestellung #123 bei NOTE. fragrances \u2713',
         from: 'Von: NOTE. fragrances <info@note-fragrances.de>  \u2022  An: Kunde (Abhol-Kauf)',
         html: renderAdminEmailShell({
             badge: 'Bestellbestaetigung',
             title: 'Vielen Dank, Max!',
-            introHtml: 'Deine Bestellung zur <strong>Selbstabholung</strong> ist bei uns eingegangen und wird fuer dich bereitgestellt.',
+            introHtml: 'Deine Bestellung zur <strong>Selbstabholung</strong> ist bei uns eingegangen und wird fuer dich bereitgestellt.<br><br><strong>Bestellnummer #123</strong>',
             iconHtml: '&#10003;'
         })
     },
     'pickup-order-internal': {
-        subject: 'Neue Selbstabholung-Bestellung',
+        subject: 'Neue Selbstabholung #123',
         from: 'Von: NOTE. fragrances <info@note-fragrances.de>  \u2022  An: info@note-fragrances.de',
         html: renderAdminEmailShell({
             badge: 'Interne Bestellung',
@@ -1890,6 +2217,7 @@ Object.assign(EMAIL_TEMPLATES, {
 <tr><td style="background:#f5f3ee;padding:28px 40px 0;">
   <p style="margin:0 0 18px;font-size:10px;text-transform:uppercase;letter-spacing:0.18em;color:#aaa;font-weight:600;">Bestelldetails (Intern)</p>
   <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:14px;">
+    <tr><td style="font-size:13px;color:#666;padding:0 0 6px;">Bestellnummer</td><td style="font-size:13px;color:#1a1a1a;text-align:right;font-weight:700;">#123</td></tr>
     <tr><td style="font-size:13px;color:#666;padding:0 0 6px;">Kunde</td><td style="font-size:13px;color:#1a1a1a;text-align:right;">Max Mustermann</td></tr>
     <tr><td style="font-size:13px;color:#666;padding:0 0 6px;">E-Mail</td><td style="font-size:13px;color:#1a1a1a;text-align:right;"><a href="mailto:max@beispiel.de" style="color:#1a1a1a;text-decoration:none;">max@beispiel.de</a></td></tr>
     <tr><td style="font-size:13px;color:#666;padding:0 0 6px;">Bestelltyp</td><td style="font-size:13px;color:#1a1a1a;text-align:right;">Selbstabholung</td></tr>
