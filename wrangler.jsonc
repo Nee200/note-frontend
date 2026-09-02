@@ -2,6 +2,17 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "note-frontend",
   "compatibility_date": "2026-09-02",
+  "workers_dev": true,
+  "routes": [
+    {
+      "pattern": "note-fragrances.de/*",
+      "zone_name": "note-fragrances.de"
+    },
+    {
+      "pattern": "www.note-fragrances.de/*",
+      "zone_name": "note-fragrances.de"
+    }
+  ],
   "assets": {
     "directory": "."
   }
