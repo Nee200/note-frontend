@@ -11,3 +11,6 @@
 
 /images_parfume/*
   Cache-Control: public, max-age=31536000, immutable
+
+https://note-frontend.tony-straehle.workers.dev/*
+  X-Robots-Tag: noindex, nofollow
