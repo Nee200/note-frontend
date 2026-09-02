@@ -1,0 +1,14 @@
+# Repository and deployment metadata are not website assets.
+.git/
+.github/
+.gitignore
+.assetsignore
+wrangler.jsonc
+DEPLOYMENT.md
+
+# Local dependency, log and scratch files.
+node_modules/
+.wrangler/
+*.log
+__tmp_*.js
+tmp_*.js
