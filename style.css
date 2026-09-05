@@ -4749,6 +4749,35 @@ body[data-page="new-arrivals"] .product-grid > .shop-product-card:focus-visible 
     transform: translateY(-4px) scale(1.3);
 }
 
+/* Die neuen Editorial-Ersatzmotive nutzen auch im regulären Katalog die
+   großzügige Bildfläche der Neuheitenkarten. Generische Flakonbilder bleiben
+   unverändert, bis für das jeweilige Produkt ein Editorialmotiv existiert. */
+body[data-default-category="women"] .product-grid .shop-product-card.has-editorial-image .product-code,
+body[data-default-category="men"] .product-grid .shop-product-card.has-editorial-image .product-code {
+    transform: translateY(-6px);
+}
+
+body[data-default-category="women"] .product-grid .shop-product-card.has-editorial-image .product-stage,
+body[data-default-category="men"] .product-grid .shop-product-card.has-editorial-image .product-stage {
+    min-height: 280px;
+    margin: 2px 0 20px;
+    padding: 2px;
+}
+
+body[data-default-category="women"] .product-grid .shop-product-card.has-editorial-image .product-grid-image,
+body[data-default-category="men"] .product-grid .shop-product-card.has-editorial-image .product-grid-image {
+    width: min(100%, 306px);
+    height: 276px;
+    transform: scale(1.3);
+}
+
+body[data-default-category="women"] .product-grid > .shop-product-card.has-editorial-image:hover .product-grid-image,
+body[data-default-category="women"] .product-grid > .shop-product-card.has-editorial-image:focus-visible .product-grid-image,
+body[data-default-category="men"] .product-grid > .shop-product-card.has-editorial-image:hover .product-grid-image,
+body[data-default-category="men"] .product-grid > .shop-product-card.has-editorial-image:focus-visible .product-grid-image {
+    transform: translateY(-4px) scale(1.3);
+}
+
 @media (max-width: 760px) {
     .product-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -4795,6 +4824,31 @@ body[data-page="new-arrivals"] .product-grid > .shop-product-card:focus-visible 
 
     body[data-page="new-arrivals"] .product-grid > .shop-product-card:hover .product-grid-image,
     body[data-page="new-arrivals"] .product-grid > .shop-product-card:focus-visible .product-grid-image {
+        transform: translateY(-3px) scale(1.18);
+    }
+
+    body[data-default-category="women"] .product-grid .shop-product-card.has-editorial-image .product-stage,
+    body[data-default-category="men"] .product-grid .shop-product-card.has-editorial-image .product-stage {
+        min-height: 180px;
+        margin: 4px 0 14px;
+    }
+
+    body[data-default-category="women"] .product-grid .shop-product-card.has-editorial-image .product-code,
+    body[data-default-category="men"] .product-grid .shop-product-card.has-editorial-image .product-code {
+        transform: translateY(-3px);
+    }
+
+    body[data-default-category="women"] .product-grid .shop-product-card.has-editorial-image .product-grid-image,
+    body[data-default-category="men"] .product-grid .shop-product-card.has-editorial-image .product-grid-image {
+        width: min(100%, 190px);
+        height: 180px !important;
+        transform: scale(1.18);
+    }
+
+    body[data-default-category="women"] .product-grid > .shop-product-card.has-editorial-image:hover .product-grid-image,
+    body[data-default-category="women"] .product-grid > .shop-product-card.has-editorial-image:focus-visible .product-grid-image,
+    body[data-default-category="men"] .product-grid > .shop-product-card.has-editorial-image:hover .product-grid-image,
+    body[data-default-category="men"] .product-grid > .shop-product-card.has-editorial-image:focus-visible .product-grid-image {
         transform: translateY(-3px) scale(1.18);
     }
 
@@ -6755,3 +6809,8 @@ footer a[href="suche.html"] {
         padding-right: 0 !important;
     }
 }
+/* Konto: E-Mail-Bestätigung und sichere Wiederherstellung */
+.account-security-panel { padding: 1.25rem; margin: 1rem 0 1.5rem; border: 1px solid #d8ccb6; border-radius: 8px; background: #fbf8f2; }
+.account-security-panel p { margin: 0 0 0.8rem; }
+.account-security-panel input { display: block; width: 100%; padding: 0.8rem; margin: 0.6rem 0 1rem; }
+.account-reset-link { border: 0; background: transparent; padding: 0.8rem 0; text-decoration: underline; cursor: pointer; }

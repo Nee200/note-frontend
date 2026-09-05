@@ -502,7 +502,7 @@ body.has-summer-global-bar .search-panel {
 .drawer-backdrop {
     position: fixed;
     inset: 0;
-    z-index: 80;
+    z-index: 2000;
     display: none;
     background: rgba(0, 0, 0, 0.36);
     backdrop-filter: blur(2px);
@@ -515,7 +515,7 @@ body.has-summer-global-bar .search-panel {
 .cart-drawer {
     position: fixed;
     inset: 0 0 0 auto;
-    z-index: 90;
+    z-index: 2010;
     width: min(430px, 100%);
     display: flex;
     flex-direction: column;
@@ -3618,5 +3618,40 @@ footer a[href="suche.html"] {
     .main-nav a[href="suche.html"],
     .nav-links a[href="suche.html"] {
         display: none !important;
+    }
+}
+
+/* Keep the new Autoduft launch visible in the primary navigation. */
+#main-navigation > a[href="autoduft.html"] {
+    position: relative;
+}
+
+#main-navigation > a[href="autoduft.html"]::before {
+    content: "NEW";
+    position: absolute;
+    z-index: 2;
+    top: -7px;
+    left: 50%;
+    padding: 3px 5px 2px;
+    border: 1px solid rgba(255, 255, 255, 0.34);
+    border-radius: 999px;
+    background: var(--gold);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    color: #151515;
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+}
+
+@media (max-width: 900px) {
+    #main-navigation > a[href="autoduft.html"]::before {
+        top: 50%;
+        right: 10px;
+        left: auto;
+        transform: translateY(-50%);
     }
 }

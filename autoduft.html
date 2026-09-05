@@ -1,0 +1,3078 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <script src="shop-core.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>NØTE. Autoduft – Dein Lieblingsduft für unterwegs</title>
+    <meta name="description" content="Entdecke den NØTE. Autoduft aus blickdichtem Schwarzglas und wähle deine persönliche Duftfüllung.">
+    <link rel="canonical" href="https://www.note-fragrances.de/autoduft.html">
+    <link rel="stylesheet" href="style.css?v=20260817-product-details-v3">
+    <link rel="stylesheet" href="style-wave-home.css?v=20260730-summer-global-v1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --ink: #151515;
+            --ink-soft: #3d3933;
+            --paper: #f8f6f1;
+            --surface: #fffefa;
+            --line: #ded8cc;
+            --line-dark: #bcb3a5;
+            --muted: #746e64;
+            --gold: #c9a846;
+            --gold-dark: #8d7129;
+            --gold-pale: #f4ead0;
+            --success: #456c50;
+            --shadow: 0 22px 70px rgba(37, 30, 18, .13);
+            --serif: "Playfair Display", Georgia, serif;
+            --sans: "Inter", Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: clip;
+        }
+
+        body {
+            margin: 0;
+            color: var(--ink);
+            background: var(--paper);
+            font-family: var(--sans);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: clip;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button:focus-visible,
+        input:focus-visible,
+        a:focus-visible {
+            outline: 3px solid rgba(201, 168, 70, .42);
+            outline-offset: 3px;
+        }
+
+        .promo {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            min-height: 62px;
+            padding: .75rem clamp(1rem, 5vw, 4rem);
+            color: #fff;
+            background:
+                radial-gradient(circle at 75% 0%, rgba(207, 168, 76, .5), transparent 34%),
+                linear-gradient(105deg, #15120f, #2a2118 64%, #907335);
+        }
+
+        .promo-copy small,
+        .promo-copy strong {
+            display: block;
+        }
+
+        .promo-copy small {
+            margin-bottom: .2rem;
+            font-size: .61rem;
+            font-weight: 700;
+            letter-spacing: .17em;
+            text-transform: uppercase;
+        }
+
+        .promo-copy strong {
+            font-family: var(--serif);
+            font-size: clamp(1rem, 1.7vw, 1.4rem);
+            font-weight: 500;
+        }
+
+        .promo-center {
+            color: #e6d39e;
+            font-size: .68rem;
+            font-weight: 700;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+        }
+
+        .promo-link {
+            justify-self: end;
+            padding: .65rem 1rem;
+            border: 1px solid rgba(255, 255, 255, .45);
+            color: #fff;
+            text-decoration: none;
+            font-size: .67rem;
+            font-weight: 700;
+            letter-spacing: .09em;
+            text-transform: uppercase;
+        }
+
+        .page {
+            width: min(1180px, calc(100% - 2rem));
+            margin: 0 auto;
+            padding: clamp(2rem, 5vw, 4.7rem) 0 5rem;
+        }
+
+        .product-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.12fr) minmax(400px, .88fr);
+            gap: clamp(2rem, 5.5vw, 5.2rem);
+            align-items: start;
+        }
+
+        .product-left {
+            min-width: 0;
+        }
+
+        .gallery {
+            position: static;
+        }
+
+        .gallery-stage {
+            display: grid;
+            grid-template-columns: 72px minmax(0, 1fr);
+            gap: .9rem;
+            align-items: start;
+        }
+
+        .gallery-thumbnails {
+            display: grid;
+            gap: .7rem;
+        }
+
+        .gallery-thumb {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1;
+            padding: 0;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            background: #eee7da;
+            cursor: pointer;
+            opacity: .62;
+            transition: border-color .2s, opacity .2s, transform .2s;
+        }
+
+        .gallery-thumb:hover,
+        .gallery-thumb.is-active {
+            border-color: var(--gold-dark);
+            opacity: 1;
+            transform: translateY(-1px);
+        }
+
+        .gallery-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-visual {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1 / 1;
+            border-radius: 22px;
+            background: #efe8db;
+            box-shadow: inset 0 0 0 1px rgba(90, 70, 40, .05);
+        }
+
+        .product-visual > img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity .18s ease, filter .65s ease, transform .65s cubic-bezier(.2, .7, .2, 1);
+        }
+
+        .gallery-control {
+            position: absolute;
+            z-index: 8;
+            top: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            padding: 0;
+            border: 1px solid rgba(255, 255, 255, .24);
+            border-radius: 50%;
+            color: #fff;
+            background: rgba(15, 15, 15, .48);
+            box-shadow: 0 7px 24px rgba(24, 22, 18, .16), inset 0 1px 0 rgba(255, 255, 255, .12);
+            -webkit-backdrop-filter: blur(7px);
+            backdrop-filter: blur(7px);
+            cursor: pointer;
+            line-height: 0;
+            transform: translateY(-50%);
+            transition: color .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+        }
+
+        .gallery-control svg {
+            display: block;
+            width: 18px;
+            height: 18px;
+            flex: 0 0 18px;
+            pointer-events: none;
+        }
+
+        .gallery-control:hover {
+            color: #fff;
+            background: rgba(15, 15, 15, .76);
+            border-color: rgba(255, 255, 255, .38);
+            box-shadow: 0 10px 28px rgba(24, 22, 18, .28);
+            transform: translateY(-50%) scale(1.06);
+        }
+
+        .gallery-control:active {
+            transform: translateY(-50%) scale(.96);
+        }
+
+        .gallery-control.prev { left: .85rem; }
+        .gallery-control.next { right: .85rem; }
+
+        .gallery-zoom {
+            position: absolute;
+            z-index: 9;
+            top: 1rem;
+            right: 1rem;
+            display: inline-grid;
+            place-items: center;
+            width: 34px;
+            height: 34px;
+            padding: 0;
+            border: 1px solid rgba(255, 255, 255, .2);
+            border-radius: 8px;
+            color: #fff;
+            background: rgba(15, 15, 15, .34);
+            box-shadow: 0 5px 16px rgba(20, 16, 10, .1);
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            cursor: pointer;
+            transition: color .24s ease, transform .28s cubic-bezier(.2, .8, .2, 1);
+        }
+
+        .gallery-zoom::after {
+            content: "Bild vergrößern";
+            position: absolute;
+            top: 50%;
+            right: calc(100% + 8px);
+            padding: .42rem .62rem;
+            border: 1px solid rgba(201, 168, 70, .28);
+            border-radius: 999px;
+            color: #fff;
+            background: rgba(21, 21, 21, .86);
+            box-shadow: 0 8px 24px rgba(24, 22, 18, .16);
+            font-size: .62rem;
+            font-weight: 600;
+            letter-spacing: .04em;
+            line-height: 1;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(6px, -50%);
+            transition: opacity .2s ease, transform .28s cubic-bezier(.2, .8, .2, 1);
+        }
+
+        .gallery-zoom svg {
+            position: relative;
+            z-index: 1;
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            transition: transform .28s cubic-bezier(.2, .8, .2, 1), filter .24s ease;
+            animation: gallery-zoom-hint 1.25s ease 1s 1;
+        }
+
+        .gallery-zoom:hover,
+        .gallery-zoom:focus-visible {
+            color: var(--gold);
+            background: rgba(15, 15, 15, .58);
+            box-shadow: 0 8px 20px rgba(20, 16, 10, .18);
+            transform: scale(1.16);
+        }
+
+        .gallery-zoom:hover::after,
+        .gallery-zoom:focus-visible::after {
+            opacity: 1;
+            transform: translate(0, -50%);
+        }
+
+        .gallery-zoom:hover svg,
+        .gallery-zoom:focus-visible svg {
+            transform: scale(1.18);
+            filter: drop-shadow(0 3px 6px rgba(141, 113, 41, .28));
+        }
+
+        .gallery-zoom:active {
+            transform: scale(.92);
+        }
+
+        .gallery-zoom.is-opening svg {
+            animation: gallery-zoom-burst .42s cubic-bezier(.2, .8, .2, 1);
+        }
+
+        @keyframes gallery-zoom-burst {
+            0% { transform: scale(1); opacity: 1; }
+            48% { transform: scale(1.42); opacity: .62; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes gallery-zoom-hint {
+            0%, 100% { transform: scale(1); filter: none; }
+            34% { transform: scale(1.24); filter: drop-shadow(0 3px 7px rgba(141, 113, 41, .32)); }
+            58% { transform: scale(1.08); filter: drop-shadow(0 2px 4px rgba(141, 113, 41, .2)); }
+        }
+
+        .gallery-count {
+            position: absolute;
+            z-index: 8;
+            right: 1rem;
+            bottom: 1rem;
+            padding: .38rem .62rem;
+            border-radius: 999px;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, .18);
+            background: rgba(15, 15, 15, .52);
+            box-shadow: 0 5px 16px rgba(20, 16, 10, .1);
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            font-size: .62rem;
+            letter-spacing: .08em;
+        }
+
+        .image-lightbox[hidden] {
+            display: none;
+        }
+
+        .image-lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 140;
+            display: grid;
+            place-items: center;
+            padding: clamp(1rem, 4vw, 3rem);
+            background: rgba(15, 14, 12, .86);
+            backdrop-filter: blur(12px);
+            opacity: 0;
+            transition: opacity .3s ease;
+        }
+
+        .image-lightbox.is-visible {
+            opacity: 1;
+        }
+
+        .image-lightbox-dialog {
+            position: relative;
+            display: grid;
+            place-items: center;
+            width: min(980px, 100%);
+            height: min(86vh, 980px);
+            opacity: 0;
+            filter: blur(5px);
+            transform: scale(.88) translateY(18px);
+            transition:
+                opacity .3s ease,
+                filter .36s ease,
+                transform .42s cubic-bezier(.16, 1, .3, 1);
+        }
+
+        .image-lightbox.is-visible .image-lightbox-dialog {
+            opacity: 1;
+            filter: blur(0);
+            transform: scale(1) translateY(0);
+        }
+
+        .image-lightbox-image {
+            display: block;
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 18px;
+            object-fit: contain;
+            box-shadow: 0 28px 80px rgba(0, 0, 0, .34);
+            transform: scale(.975);
+            transition: transform .46s cubic-bezier(.16, 1, .3, 1);
+        }
+
+        .image-lightbox.is-visible .image-lightbox-image {
+            transform: scale(1);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .gallery-zoom,
+            .gallery-zoom svg,
+            .image-lightbox,
+            .image-lightbox-dialog,
+            .image-lightbox-image {
+                animation: none !important;
+                transition-duration: .01ms !important;
+            }
+        }
+
+        .image-lightbox-close {
+            position: absolute;
+            z-index: 2;
+            top: .8rem;
+            right: .8rem;
+            display: grid;
+            place-items: center;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            border: 1px solid rgba(21, 21, 21, .12);
+            border-radius: 50%;
+            color: var(--ink);
+            background: rgba(255, 255, 255, .92);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .18);
+            cursor: pointer;
+            line-height: 0;
+        }
+
+        .image-lightbox-close svg {
+            display: block;
+            width: 17px;
+            height: 17px;
+        }
+
+        .product-info {
+            min-width: 0;
+            width: 100%;
+            align-items: stretch;
+        }
+
+        .product-summary-head {
+            text-align: center;
+        }
+
+        .eyebrow {
+            margin: 0 0 .55rem;
+            color: var(--gold-dark);
+            font-size: .68rem;
+            font-weight: 700;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 0;
+            font-family: var(--serif);
+            font-size: clamp(2.25rem, 4vw, 3.55rem);
+            font-weight: 500;
+            letter-spacing: -.025em;
+            line-height: 1;
+        }
+
+        .subtitle {
+            margin: .7rem 0 1rem;
+            color: var(--muted);
+            font-family: var(--serif);
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .7rem;
+            margin-bottom: 1.25rem;
+            color: var(--muted);
+            font-size: .77rem;
+        }
+
+        .stars {
+            color: var(--gold);
+            letter-spacing: .08em;
+        }
+
+        .price-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: .7rem;
+            margin-bottom: .35rem;
+        }
+
+        .tax-note {
+            display: block;
+            text-align: center;
+        }
+
+        .price {
+            color: var(--gold-dark);
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .price-note {
+            color: var(--muted);
+            font-size: .7rem;
+        }
+
+        .product-benefits {
+            display: grid;
+            gap: .62rem;
+            margin: 1.35rem 0 0;
+            padding: .2rem 0 .85rem;
+            list-style: none;
+        }
+
+        .product-benefits li {
+            display: grid;
+            grid-template-columns: 48px 1fr;
+            gap: .82rem;
+            align-items: center;
+            padding: .18rem 0;
+            color: var(--ink-soft);
+        }
+
+        .benefit-icon {
+            display: grid;
+            place-items: center;
+            width: 48px;
+            height: 48px;
+            color: var(--gold-dark);
+            filter: drop-shadow(0 5px 7px rgba(141, 113, 41, .2));
+            animation: benefit-float 3.4s ease-in-out infinite;
+        }
+
+        .product-benefits li:nth-child(2) .benefit-icon {
+            animation-delay: -.9s;
+        }
+
+        .product-benefits li:nth-child(3) .benefit-icon {
+            animation-delay: -1.8s;
+        }
+
+        .benefit-icon svg {
+            width: 29px;
+            height: 29px;
+            transition: transform .26s cubic-bezier(.2, .75, .25, 1), color .2s ease;
+        }
+
+        .product-benefits li:hover .benefit-icon svg {
+            color: #a2822e;
+            transform: scale(1.14) rotate(-5deg);
+        }
+
+        @keyframes benefit-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        .benefit-copy {
+            min-width: 0;
+        }
+
+        .benefit-copy strong,
+        .benefit-copy small {
+            display: block;
+        }
+
+        .benefit-copy strong {
+            margin-bottom: .12rem;
+            color: var(--ink);
+            font-family: var(--serif);
+            font-size: .9rem;
+            font-weight: 600;
+            line-height: 1.15;
+        }
+
+        .benefit-copy small {
+            color: var(--muted);
+            font-size: .7rem;
+            line-height: 1.3;
+        }
+
+        .configurator {
+            width: 100%;
+            margin-top: 0;
+            border: 0;
+            border-radius: 0;
+            background: transparent;
+            box-shadow: none;
+            scroll-margin-top: 112px;
+        }
+
+        .builder-body {
+            padding: 0;
+        }
+
+        .scent-trigger {
+            --hotspot-x: 50%;
+            --hotspot-y: 51%;
+            position: absolute;
+            z-index: 6;
+            inset: 0;
+            display: block;
+            isolation: isolate;
+            overflow: hidden;
+            width: 100%;
+            min-height: 0;
+            padding: 0;
+            border: 0;
+            border-radius: inherit;
+            color: #fff;
+            background: transparent;
+            text-align: left;
+            cursor: pointer;
+            box-shadow: none;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .24s ease;
+        }
+
+        .product-visual.is-interactive .scent-trigger {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .scent-trigger::after {
+            position: absolute;
+            z-index: 1;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 68%, rgba(10, 9, 8, .14) 100%);
+            content: "";
+            transition: opacity .55s ease;
+        }
+
+        .scent-trigger:hover {
+            box-shadow: none;
+            transform: none;
+        }
+
+        .scent-trigger:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 3px;
+        }
+
+        .scent-hotspot {
+            position: absolute;
+            z-index: 3;
+            top: var(--hotspot-y);
+            left: var(--hotspot-x);
+            width: 32px;
+            height: 32px;
+            border: 1px solid rgba(247, 219, 141, .9);
+            border-radius: 50%;
+            background: rgba(26, 19, 12, .27);
+            box-shadow: 0 0 0 0 rgba(224, 185, 78, .45), 0 5px 20px rgba(0, 0, 0, .24);
+            transform: translate(-50%, -50%);
+            transition: opacity .25s ease, transform .25s ease;
+        }
+
+        .scent-hotspot::before,
+        .scent-hotspot::after {
+            position: absolute;
+            border-radius: 50%;
+            content: "";
+        }
+
+        .scent-hotspot::before {
+            inset: 9px;
+            background: #f5d574;
+            box-shadow: 0 0 0 5px rgba(255, 255, 255, .18), 0 3px 12px rgba(0, 0, 0, .28);
+        }
+
+        .scent-hotspot::after {
+            inset: -1px;
+            border: 1px solid rgba(244, 208, 110, .84);
+            animation: scent-hotspot-pulse 2.2s ease-out infinite;
+        }
+
+        .scent-trigger:hover .scent-hotspot {
+            transform: translate(-50%, -50%) scale(1.08);
+        }
+
+        .scent-transition {
+            position: absolute;
+            z-index: 5;
+            inset: 0;
+            overflow: hidden;
+            opacity: 0;
+            background:
+                radial-gradient(circle at var(--hotspot-x) var(--hotspot-y), rgba(228, 185, 72, .3), transparent 11%),
+                rgba(16, 13, 10, .18);
+            pointer-events: none;
+            transition: opacity .18s ease, background .6s ease;
+        }
+
+        .scent-transition-ring {
+            position: absolute;
+            top: var(--hotspot-y);
+            left: var(--hotspot-x);
+            width: 68px;
+            height: 68px;
+            border: 1px solid rgba(244, 210, 116, .92);
+            border-radius: 50%;
+            background: rgba(24, 19, 13, .46);
+            box-shadow: 0 0 0 10px rgba(238, 200, 97, .08), 0 0 38px rgba(226, 181, 57, .42);
+            transform: translate(-50%, -50%);
+            transition: opacity .62s ease, transform .72s cubic-bezier(.3, .7, .2, 1);
+        }
+
+        .scent-transition-motif {
+            position: absolute;
+            top: var(--hotspot-y);
+            left: var(--hotspot-x);
+            width: 94px;
+            height: 94px;
+            border: 1px solid rgba(248, 219, 138, .5);
+            opacity: 0;
+            transform: translate(-50%, -50%) rotate(0deg) scale(.5);
+            transition: opacity .25s ease, transform .72s cubic-bezier(.2, .72, .2, 1);
+        }
+
+        .scent-transition-motif::before,
+        .scent-transition-motif::after {
+            position: absolute;
+            inset: 12px;
+            border: 1px solid rgba(248, 219, 138, .38);
+            content: "";
+            transform: rotate(45deg);
+        }
+
+        .scent-transition-motif::after {
+            inset: 25px;
+            transform: rotate(22.5deg);
+        }
+
+        .scent-transition-copy {
+            position: absolute;
+            top: calc(var(--hotspot-y) + 25%);
+            left: 50%;
+            color: #fff;
+            font-family: var(--serif);
+            font-size: 1.06rem;
+            letter-spacing: .02em;
+            opacity: 0;
+            transform: translate(-50%, 14px);
+            transition: opacity .28s ease .2s, transform .4s ease .16s;
+            white-space: nowrap;
+        }
+
+        .scent-trigger.is-opening {
+            pointer-events: none;
+        }
+
+        .scent-trigger.is-opening::after {
+            opacity: .2;
+        }
+
+        .product-visual.selector-opening #autoduft-main-image {
+            filter: brightness(.58) saturate(.82) blur(1px);
+            transform: scale(1.12);
+        }
+
+        .scent-trigger.is-opening .scent-hotspot {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .scent-trigger.is-opening .scent-transition {
+            opacity: 1;
+            background: rgba(16, 13, 10, .7);
+        }
+
+        .scent-trigger.is-opening .scent-transition-ring {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(8);
+        }
+
+        .scent-trigger.is-opening .scent-transition-motif {
+            opacity: .72;
+            transform: translate(-50%, -50%) rotate(90deg) scale(3.4);
+        }
+
+        .scent-trigger.is-opening .scent-transition-copy {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        @keyframes scent-hotspot-pulse {
+            0% { opacity: .9; transform: scale(.8); }
+            72%, 100% { opacity: 0; transform: scale(1.65); }
+        }
+
+        .scent-mini {
+            display: none;
+            position: absolute;
+            z-index: 3;
+            top: .8rem;
+            right: .8rem;
+            width: 46px;
+            height: 46px;
+            padding: 3px;
+            border: 1px solid rgba(255, 255, 255, .7);
+            border-radius: 50%;
+            object-fit: cover;
+            background: rgba(255, 255, 255, .94);
+            box-shadow: 0 5px 16px rgba(0, 0, 0, .22);
+        }
+
+        .scent-trigger.has-selection .scent-mini {
+            display: block;
+        }
+
+        .add-row {
+            display: none;
+            margin-top: .75rem;
+        }
+
+        .configurator.has-selection .add-row {
+            display: block;
+        }
+
+        .add-btn {
+            width: 100%;
+            min-height: 54px;
+            border: 0;
+            border-radius: 10px;
+            color: #fff;
+            background: var(--ink);
+            font-size: .74rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background .2s, transform .2s;
+        }
+
+        .add-btn:disabled {
+            color: #8a857c;
+            background: #dedad2;
+            cursor: not-allowed;
+        }
+
+        .add-btn:not(:disabled):hover {
+            background: var(--gold-dark);
+            transform: translateY(-1px);
+        }
+
+        .secure-note {
+            margin: .75rem 0 0;
+            color: var(--muted);
+            font-size: .65rem;
+            text-align: center;
+        }
+
+        .split-configurator {
+            --config-gap: 1rem;
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: var(--config-gap);
+            overflow: visible;
+            border: 0;
+            border-radius: 0;
+            background: transparent;
+            box-shadow: none;
+            container-type: inline-size;
+        }
+
+        .config-panel {
+            min-width: 0;
+            min-height: 302px;
+            padding: .25rem 0 .75rem;
+            color: var(--ink);
+            background: transparent;
+            font: inherit;
+            text-align: center;
+        }
+
+        .config-product-panel {
+            border-right: 0;
+        }
+
+        .config-panel-visual {
+            position: relative;
+            display: grid;
+            place-items: center;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            margin-bottom: .8rem;
+            border-radius: 12px;
+            background: transparent;
+        }
+
+        .config-panel-visual img {
+            position: absolute;
+            inset: 0;
+            display: block;
+            width: 100%;
+            height: 100%;
+            max-width: none;
+            object-fit: contain;
+        }
+
+        .config-product-panel .config-panel-visual {
+            background: transparent;
+        }
+
+        .config-product-panel img {
+            border-radius: 12px;
+        }
+
+        .config-panel strong {
+            display: block;
+            font-family: var(--serif);
+            font-size: .95rem;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .config-panel small {
+            display: block;
+            margin-top: .3rem;
+            color: var(--muted);
+            font-size: .61rem;
+            line-height: 1.35;
+        }
+
+        .config-scent-option {
+            position: relative;
+            display: block;
+            width: 100%;
+            margin: 0 0 .8rem;
+            padding: 0;
+            overflow: hidden;
+            border: 0;
+            border-radius: 12px;
+            background: transparent;
+            cursor: pointer;
+            font: inherit;
+            text-align: inherit;
+        }
+
+        .config-scent-option .config-panel-visual {
+            margin-bottom: 0;
+            transition: transform .3s cubic-bezier(.2, .75, .25, 1);
+        }
+
+        .config-scent-option::after {
+            content: "";
+            position: absolute;
+            z-index: 2;
+            top: .65rem;
+            right: .65rem;
+            display: grid;
+            place-items: center;
+            width: 1.65rem;
+            height: 1.65rem;
+            border: 1px solid rgba(255, 255, 255, .32);
+            border-radius: 50%;
+            background-color: rgba(15, 15, 15, .62);
+            background-image:
+                linear-gradient(#fff 0 0),
+                linear-gradient(#fff 0 0);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 10px 1.5px, 1.5px 10px;
+            box-shadow: 0 3px 10px rgba(21, 21, 21, .16);
+            pointer-events: none;
+            transition: transform .24s cubic-bezier(.2, .75, .25, 1), background-color .24s ease, box-shadow .24s ease;
+        }
+
+        .config-scent-option:hover::after,
+        .config-scent-option:focus-visible::after {
+            background-color: rgba(15, 15, 15, .78);
+            box-shadow: 0 5px 14px rgba(21, 21, 21, .22);
+            transform: scale(1.16);
+        }
+
+        .config-scent-option:focus-visible {
+            outline: 2px solid var(--gold-dark);
+            outline-offset: -3px;
+        }
+
+        .config-scent-image {
+            filter: saturate(1.08) contrast(1.01) brightness(1);
+            transition: filter .24s ease, transform .28s cubic-bezier(.2, .7, .2, 1);
+        }
+
+        .config-scent-option:hover .config-panel-visual,
+        .config-scent-option:focus-visible .config-panel-visual {
+            transform: translateY(-3px);
+        }
+
+        .config-scent-option:hover .config-scent-image,
+        .config-scent-option:focus-visible .config-scent-image {
+            filter: saturate(1.48) contrast(1.08) brightness(1.03);
+            transform: scale(1.035);
+        }
+
+        .config-scent-option.is-opening .config-scent-image {
+            filter: brightness(.58) saturate(.8);
+            transform: scale(1.1);
+        }
+
+        .config-plus {
+            position: absolute;
+            z-index: 3;
+            top: 31.5%;
+            top: calc(.25rem + (100cqw - var(--config-gap)) / 4);
+            left: 50%;
+            display: block;
+            width: auto;
+            height: auto;
+            border: 0;
+            color: var(--ink);
+            background: transparent;
+            box-shadow: none;
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 1.65rem;
+            font-weight: 500;
+            line-height: 1;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .config-plus::before,
+        .config-plus::after {
+            content: none;
+        }
+
+        .split-configurator .add-row {
+            display: block;
+            grid-column: 1 / -1;
+            margin: 0;
+            padding: .25rem 0 0;
+            border-top: 0;
+            background: transparent;
+        }
+
+        .split-configurator .add-btn {
+            min-height: 48px;
+        }
+
+        .configurator.has-selection .config-scent-image {
+            filter: none;
+        }
+
+        .autoduft-trust-badges {
+            margin-top: 1.25rem;
+        }
+
+        .autoduft-trust-badges .shipping-info {
+            justify-content: center;
+            margin-bottom: .45rem;
+        }
+
+        .autoduft-trust-badges .stock-status {
+            margin-top: 0;
+        }
+
+        .autoduft-trust-badges .delivery-timeline {
+            margin-top: 1.1rem;
+        }
+
+        .autoduft-trust-badges .delivery-steps {
+            gap: 0;
+        }
+
+        .accordions {
+            display: block;
+            width: 100%;
+            min-width: 0;
+            align-self: stretch;
+            margin-top: 2rem;
+            border-top: 1px solid var(--line);
+        }
+
+        .accordions details {
+            display: block;
+            width: 100%;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .accordions summary {
+            display: flex;
+            width: 100%;
+            min-height: 54px;
+            box-sizing: border-box;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem .1rem;
+            font-family: var(--serif);
+            font-size: .92rem;
+            cursor: pointer;
+            list-style: none;
+        }
+
+        .accordions summary::after {
+            content: "";
+            flex: 0 0 auto;
+            width: .72rem;
+            height: .72rem;
+            margin-left: 1rem;
+            background:
+                linear-gradient(currentColor 0 0) center / 100% 1px no-repeat,
+                linear-gradient(currentColor 0 0) center / 1px 100% no-repeat;
+            transition: transform .35s cubic-bezier(.2, .75, .25, 1),
+                        background-size .35s cubic-bezier(.2, .75, .25, 1);
+        }
+
+        .accordions details[open] summary::after {
+            background-size: 100% 1px, 1px 0;
+            transform: rotate(180deg);
+        }
+
+        .accordions details.is-closing summary::after {
+            background-size: 100% 1px, 1px 100%;
+            transform: rotate(0);
+        }
+
+        .accordion-content {
+            overflow: hidden;
+            opacity: 1;
+            transform: translateY(0);
+            transition: height .36s cubic-bezier(.2, .75, .25, 1),
+                        opacity .24s ease,
+                        transform .36s cubic-bezier(.2, .75, .25, 1);
+        }
+
+        .accordions details p {
+            margin: -.25rem 0 1rem;
+            color: var(--muted);
+            font-size: .78rem;
+            line-height: 1.65;
+        }
+
+        .modal[hidden],
+        .cart-drawer[hidden],
+        .backdrop[hidden] {
+            display: none;
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: grid;
+            place-items: center;
+            padding: 1rem;
+            background: rgba(18, 17, 15, .66);
+            backdrop-filter: blur(7px);
+            opacity: 0;
+            transition: opacity .14s ease;
+        }
+
+        .modal.is-visible {
+            opacity: 1;
+        }
+
+        .modal-dialog {
+            display: flex;
+            flex-direction: column;
+            width: min(630px, 100%);
+            height: min(700px, calc(100vh - 2rem));
+            max-height: min(700px, calc(100vh - 2rem));
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, .5);
+            border-radius: 16px;
+            background: var(--surface);
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(10px) scale(.99);
+            transition: opacity .14s ease, transform .16s cubic-bezier(.2, .75, .2, 1);
+        }
+
+        .modal.is-visible .modal-dialog {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-head {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: .55rem .75rem;
+            padding: .65rem .75rem .5rem;
+        }
+
+        .modal-head-art {
+            grid-column: 1 / -1;
+            width: 100%;
+            height: 108px;
+            border-radius: 11px;
+            object-fit: cover;
+            object-position: center 64%;
+            box-shadow: inset 0 0 0 1px rgba(75, 54, 20, .08);
+        }
+
+        .modal-head h2 {
+            margin: 0;
+            font-family: var(--serif);
+            font-size: 1.22rem;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            display: grid;
+            place-items: center;
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            border: 1px solid var(--line);
+            border-radius: 50%;
+            color: var(--ink);
+            background: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .search-wrap {
+            position: relative;
+            width: min(360px, calc(100% - 1.5rem));
+            margin: .05rem auto 0;
+            padding: 0;
+        }
+
+        .search-wrap svg {
+            position: absolute;
+            top: 50%;
+            left: .78rem;
+            color: var(--muted);
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        .search-input {
+            width: 100%;
+            height: 38px;
+            padding: 0 .75rem 0 2.3rem;
+            border: 1px solid var(--line);
+            border-radius: 9px;
+            font-size: .76rem;
+            color: var(--ink);
+            background: #f6f3ed;
+        }
+
+        .tabs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: .4rem;
+            padding: .5rem 1rem .65rem;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .tab {
+            min-height: 35px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            color: var(--ink);
+            background: #fff;
+            font-size: .64rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .tab.is-active {
+            border-color: var(--ink);
+            color: #fff;
+            background: var(--ink);
+        }
+
+        .catalog-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: .55rem 1rem 0;
+            color: var(--muted);
+            font-size: .6rem;
+        }
+
+        .scent-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            flex: 1 1 auto;
+            align-content: start;
+            gap: .5rem;
+            min-height: 0;
+            overflow-y: auto;
+            padding: .55rem 1rem 1rem;
+            overscroll-behavior: contain;
+        }
+
+        .scent-card {
+            position: relative;
+            min-width: 0;
+            padding: .4rem;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            color: var(--ink);
+            background: #fff;
+            text-align: left;
+            cursor: pointer;
+            transition: border-color .2s, box-shadow .2s, transform .2s;
+        }
+
+        .modal.is-visible .scent-card {
+            animation: scent-card-reveal .22s both;
+            animation-delay: calc(var(--card-index, 0) * 18ms + 25ms);
+        }
+
+        @keyframes scent-card-reveal {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scent-card:hover {
+            border-color: #bda35b;
+            box-shadow: 0 10px 24px rgba(51, 40, 22, .1);
+            transform: translateY(-2px);
+        }
+
+        .scent-card.is-selected {
+            border-color: var(--gold-dark);
+            box-shadow: inset 0 0 0 1px var(--gold-dark);
+        }
+
+        .scent-card img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 7px;
+            object-fit: cover;
+            background: #f0ece4;
+        }
+
+        .scent-code {
+            display: block;
+            margin-top: .4rem;
+            color: var(--gold-dark);
+            font-size: .54rem;
+            font-weight: 700;
+            letter-spacing: .11em;
+            text-transform: uppercase;
+        }
+
+        .scent-name {
+            display: block;
+            min-height: 2.5em;
+            margin-top: .2rem;
+            font-family: var(--serif);
+            font-size: .75rem;
+            line-height: 1.25;
+        }
+
+        .scent-desc {
+            display: -webkit-box;
+            overflow: hidden;
+            margin-top: .25rem;
+            color: var(--muted);
+            font-size: .55rem;
+            line-height: 1.45;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+
+        .selected-mark {
+            position: absolute;
+            top: .65rem;
+            right: .65rem;
+            display: none;
+            place-items: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            color: #fff;
+            background: var(--success);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .17);
+            font-size: .7rem;
+        }
+
+        .scent-card.is-selected .selected-mark {
+            display: grid;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            padding: 3rem 1rem;
+            color: var(--muted);
+            text-align: center;
+        }
+
+        .backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 110;
+            background: rgba(18, 17, 15, .5);
+            backdrop-filter: blur(4px);
+        }
+
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 120;
+            width: min(430px, 100%);
+            height: 100dvh;
+            padding: 1.4rem;
+            background: var(--surface);
+            box-shadow: -22px 0 60px rgba(0, 0, 0, .19);
+            transform: translateX(0);
+        }
+
+        .drawer-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .drawer-head h2 {
+            margin: 0;
+            font-family: var(--serif);
+            font-size: 1.55rem;
+        }
+
+        .drawer-success {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            margin: 1rem 0;
+            padding: .75rem;
+            border-radius: 9px;
+            color: #365441;
+            background: #e8f0e9;
+            font-size: .75rem;
+        }
+
+        .drawer-success .check {
+            display: grid;
+            place-items: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            color: #fff;
+            background: var(--success);
+            font-size: .68rem;
+        }
+
+        .drawer-item {
+            display: grid;
+            grid-template-columns: 82px 1fr auto;
+            gap: .8rem;
+            align-items: start;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .drawer-item img {
+            width: 82px;
+            height: 82px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .drawer-item strong,
+        .drawer-item span {
+            display: block;
+        }
+
+        .drawer-item strong {
+            font-family: var(--serif);
+            font-size: 1rem;
+        }
+
+        .drawer-item span {
+            margin-top: .3rem;
+            color: var(--muted);
+            font-size: .69rem;
+            line-height: 1.4;
+        }
+
+        .drawer-total {
+            display: flex;
+            justify-content: space-between;
+            margin: 1.2rem 0;
+            font-size: .85rem;
+        }
+
+        .checkout {
+            width: 100%;
+            min-height: 52px;
+            border: 0;
+            border-radius: 9px;
+            color: #fff;
+            background: var(--ink);
+            font-size: .74rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .checkout:disabled {
+            cursor: wait;
+            opacity: .62;
+        }
+
+        .checkout-status {
+            min-height: 1.35em;
+            margin: .7rem 0 0;
+            color: var(--muted);
+            font-size: .69rem;
+            line-height: 1.45;
+        }
+
+        .toast {
+            position: fixed;
+            right: 1rem;
+            bottom: 1rem;
+            z-index: 130;
+            max-width: min(380px, calc(100vw - 2rem));
+            padding: .85rem 1rem;
+            border-radius: 10px;
+            color: #fff;
+            background: #24211d;
+            box-shadow: var(--shadow);
+            font-size: .72rem;
+            transform: translateY(130%);
+            transition: transform .25s ease;
+        }
+
+        .toast.is-visible {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 900px) {
+            .promo {
+                grid-template-columns: 1fr auto;
+            }
+
+            .promo-center {
+                display: none;
+            }
+
+            .product-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .product-left {
+                display: contents;
+            }
+
+            .gallery {
+                grid-row: 1;
+                position: static;
+            }
+
+            .product-info {
+                grid-row: 2;
+                max-width: 680px;
+                margin: 0 auto;
+            }
+
+            .product-left > .accordions {
+                grid-row: 3;
+                max-width: 680px;
+                margin: 0 auto;
+            }
+
+            .scent-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 620px) {
+            .promo {
+                min-height: 54px;
+            }
+
+            .promo-copy strong {
+                font-size: .92rem;
+            }
+
+            .promo-link {
+                display: none;
+            }
+
+            .page {
+                width: min(100% - 1.25rem, 1180px);
+                padding-top: 1.3rem;
+            }
+
+            .product-layout {
+                gap: 1.45rem;
+            }
+
+            .gallery-stage {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-thumbnails {
+                grid-template-columns: repeat(4, 60px);
+                grid-row: 2;
+                justify-content: center;
+            }
+
+            .product-visual {
+                border-radius: 14px;
+            }
+
+            .configurator {
+                border-radius: 16px;
+            }
+
+            .modal {
+                align-items: end;
+                padding: 0;
+            }
+
+            .modal-dialog {
+                height: 91dvh;
+                max-height: 91dvh;
+                border-radius: 18px 18px 0 0;
+            }
+
+            .modal-head,
+            .tabs,
+            .catalog-meta,
+            .scent-grid {
+                padding-right: .85rem;
+                padding-left: .85rem;
+            }
+
+            .search-wrap {
+                width: calc(100% - 1.7rem);
+                padding: 0;
+            }
+
+            .search-wrap svg {
+                left: .78rem;
+            }
+
+            .scent-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .scent-desc {
+                display: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important;
+            }
+
+            .scent-hotspot::after,
+            .benefit-icon {
+                animation: none !important;
+            }
+        }
+
+        /*
+         * Header und Footer entsprechen bewusst der aktuellen Startseite.
+         * Die ältere Produkt-CSS enthält für beide Bereiche noch historische
+         * Varianten; diese lokalen Regeln halten die Produktseite davon unabhängig.
+         */
+        body.autoduft-page .summer-global-countdown-bar {
+            position: relative;
+            inset: auto;
+            z-index: 45;
+        }
+
+        body.autoduft-page .site-header {
+            position: relative;
+            top: auto;
+            z-index: 40;
+            margin-top: 0;
+        }
+
+        body.autoduft-page .search-panel {
+            position: absolute;
+            top: 152px;
+        }
+
+        body.autoduft-page .pre-footer-band {
+            min-height: 180px;
+            margin-top: 48px;
+            background: var(--paper);
+        }
+
+        body.autoduft-page .newsletter-section {
+            position: static !important;
+            display: grid !important;
+            place-items: center;
+            margin-top: 0 !important;
+            padding: 54px 20px 88px !important;
+            background: #101010 !important;
+        }
+
+        body.autoduft-page .newsletter-section::before {
+            content: none !important;
+        }
+
+        body.autoduft-page .newsletter-card {
+            width: min(520px, 100%);
+            padding: 36px;
+            border: 1px solid var(--gold);
+            border-radius: 18px;
+            background: transparent;
+            text-align: center;
+            box-shadow: 0 22px 72px rgba(0, 0, 0, .32);
+        }
+
+        body.autoduft-page .newsletter-card p {
+            margin: 0 0 10px;
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+        }
+
+        body.autoduft-page .newsletter-card h2 {
+            margin: 0;
+            color: #fff;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(34px, 4vw, 48px);
+            font-weight: 400;
+        }
+
+        body.autoduft-page .newsletter-card form {
+            display: flex;
+            margin-top: 26px;
+        }
+
+        body.autoduft-page .newsletter-card input,
+        body.autoduft-page .newsletter-card button {
+            min-height: 48px;
+            font: inherit;
+        }
+
+        body.autoduft-page .newsletter-card input {
+            flex: 1;
+            min-width: 0;
+            padding: 0 16px;
+            border: 1px solid var(--gold) !important;
+            border-radius: 999px 0 0 999px !important;
+            background: #101010 !important;
+            color: #fff !important;
+            box-shadow: none !important;
+        }
+
+        body.autoduft-page .newsletter-card button {
+            padding: 0 20px;
+            border: 1px solid var(--gold);
+            border-radius: 0 999px 999px 0;
+            background: var(--gold);
+            color: #111;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        body.autoduft-page .footer {
+            padding: 40px 0 !important;
+            border-top: 0 !important;
+            background: #101010 !important;
+            color: #fff !important;
+            font-size: 1rem;
+            text-align: left;
+        }
+
+        body.autoduft-page .footer-col h4,
+        body.autoduft-page .footer-bottom-flex .copyright {
+            font-family: Inter, Arial, sans-serif;
+            line-height: normal;
+        }
+
+        body.autoduft-page .footer-col a,
+        body.autoduft-page .footer-col p {
+            font-family: Inter, Arial, sans-serif;
+        }
+
+        body.autoduft-page .footer-payments {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+            border-top: 0 !important;
+        }
+
+        @media (max-width: 620px) {
+            body.autoduft-page .summer-global-countdown-bar {
+                min-height: var(--summer-global-bar-height);
+            }
+
+            body.autoduft-page .site-header {
+                top: auto;
+                margin-top: 0;
+            }
+
+            body.autoduft-page .search-panel {
+                top: 126px;
+            }
+
+            body.autoduft-page .pre-footer-band {
+                min-height: 150px;
+                margin-top: 28px;
+            }
+
+            body.autoduft-page .newsletter-section {
+                margin-top: 0 !important;
+                padding: 42px 14px 64px !important;
+            }
+
+            body.autoduft-page .newsletter-card {
+                max-width: none !important;
+                padding: 26px 18px !important;
+                border-radius: 14px !important;
+            }
+
+            body.autoduft-page .newsletter-card form {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            body.autoduft-page .newsletter-card input,
+            body.autoduft-page .newsletter-card button {
+                width: 100%;
+                border-radius: 999px !important;
+            }
+        }
+
+        @media (min-width: 621px) and (max-width: 980px) {
+            body.autoduft-page .search-panel {
+                top: 140px;
+            }
+        }
+    </style>
+</head>
+
+<body class="autoduft-page">
+    <a class="summer-global-countdown-bar" href="sommerbundle.html" data-summer-global-bar
+        aria-label="Sommerbundle entdecken und bis zu 35,97 Euro sparen">
+        <span class="summer-global-copy">
+            <small>Nur f&uuml;r kurze Zeit</small>
+            <strong>Spare bis zu 35,97 &euro; im Sommerbundle</strong>
+        </span>
+        <span class="summer-global-clock" aria-label="Angebot endet in">
+            <span><b data-global-countdown-days>02</b><small>Tage</small></span>
+            <i aria-hidden="true">:</i>
+            <span><b data-global-countdown-hours>12</b><small>Std.</small></span>
+            <i aria-hidden="true">:</i>
+            <span><b data-global-countdown-minutes>00</b><small>Min.</small></span>
+            <i aria-hidden="true">:</i>
+            <span><b data-global-countdown-seconds>00</b><small>Sek.</small></span>
+        </span>
+        <span class="summer-global-cta">Bundle entdecken <i aria-hidden="true">&rarr;</i></span>
+    </a>
+
+    <header class="site-header footer-tone-header">
+        <a class="brand logo-container" href="index.html" aria-label="Zur Startseite">
+            <span class="logo-main">N&Oslash;TE.</span>
+            <span class="logo-sub">fragrances</span>
+        </a>
+        <nav class="main-nav" id="main-navigation" aria-label="Hauptnavigation">
+            <a href="neuheiten.html">Neuheiten</a>
+            <a href="suche.html">Kollektion</a>
+            <a href="index.html#bestseller">Bestseller</a>
+            <a href="autoduft.html" aria-current="page">Autoduft</a>
+            <a href="frauenduefte.html">Frauend&uuml;fte</a>
+            <a href="herrenduefte.html">Herrend&uuml;fte</a>
+            <a href="index.html#faq">FAQ</a>
+            <a href="kontakt.html">Kontakt</a>
+        </nav>
+        <div class="header-actions nav-icons" aria-label="Shop Aktionen">
+            <button class="icon-button mobile-menu-toggle" type="button" aria-label="Men&uuml; &ouml;ffnen"
+                aria-expanded="false" aria-controls="main-navigation" data-mobile-menu-toggle>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.5" stroke-linecap="round">
+                    <line x1="4" y1="7" x2="20" y2="7"></line>
+                    <line x1="4" y1="12" x2="20" y2="12"></line>
+                    <line x1="4" y1="17" x2="20" y2="17"></line>
+                </svg>
+            </button>
+            <button class="icon-button" type="button" aria-label="Suche &ouml;ffnen" aria-expanded="false"
+                aria-controls="site-search-panel" data-search-open>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+            <a href="account.html" class="icon-button" aria-label="Mein Konto">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </a>
+            <button class="icon-button cart-icon" type="button" aria-label="Warenkorb &ouml;ffnen" id="header-cart">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                <span class="cart-count" id="cart-count">0</span>
+            </button>
+        </div>
+    </header>
+    <div class="search-panel" id="site-search-panel" aria-hidden="true" data-search-panel>
+        <form class="search-panel-inner" action="suche.html" method="get">
+            <input name="q" type="search" placeholder="Suche..." autocomplete="off" aria-label="Duft suchen">
+        </form>
+        <button class="panel-close" type="button" aria-label="Suche schlie&szlig;en" data-search-close>&times;</button>
+    </div>
+    <main class="page">
+        <section class="product-layout" aria-labelledby="product-title">
+            <div class="product-left">
+                <div class="gallery">
+                    <div class="gallery-stage">
+                    <div class="gallery-thumbnails" role="list" aria-label="Produktbilder">
+                        <button class="gallery-thumb is-active" type="button"
+                            data-gallery-src="images_website/autoduft/note-autoduft-wood-core-product-v1.png"
+                            data-gallery-alt="NØTE. Autoduft mit Ornamentkappe, Holzkern und blickdichtem Schwarzglas" aria-label="Studioaufnahme anzeigen" aria-current="true">
+                            <img src="images_website/autoduft/note-autoduft-wood-core-product-v1.png" alt="">
+                        </button>
+                        <button class="gallery-thumb" type="button"
+                            data-gallery-src="images_website/autoduft/note-autoduft-oriental-spa-wood-core-v1.png"
+                            data-gallery-alt="NØTE. Autoduft mit Holzkern am Rückspiegel in orientalischer Spa-Atmosphäre" aria-label="Autoduft im Fahrzeug anzeigen">
+                            <img src="images_website/autoduft/note-autoduft-oriental-spa-wood-core-v1.png" alt="">
+                        </button>
+                        <button class="gallery-thumb" type="button"
+                            data-gallery-src="images_website/autoduft/note-autoduft-hand-scale-v3.png"
+                            data-gallery-alt="NØTE. Autoduft in einer Hand als realistische Größenreferenz" aria-label="Größenvergleich in der Hand anzeigen">
+                            <img src="images_website/autoduft/note-autoduft-hand-scale-v3.png" alt="">
+                        </button>
+                        <button class="gallery-thumb" type="button"
+                            data-gallery-src="images_website/autoduft/note-autoduft-exploded-wood-core-v2.png"
+                            data-gallery-alt="Explosionsansicht des NØTE. Autodufts mit hochwertigem Schwarzglas, natürlichem Holzkern und filigranem Ornament-Design" aria-label="Explosionsansicht anzeigen">
+                            <img src="images_website/autoduft/note-autoduft-exploded-wood-core-v2.png" alt="">
+                        </button>
+                    </div>
+                    <div class="product-visual">
+                        <img id="autoduft-main-image" src="images_website/autoduft/note-autoduft-wood-core-product-v1.png" alt="NØTE. Autoduft mit Ornamentkappe, Holzkern und blickdichtem Schwarzglas">
+                        <button class="gallery-zoom" id="open-image-lightbox" type="button" aria-label="Produktbild vergrößern">
+                            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M8.5 3.5h-5v5M15.5 3.5h5v5M20.5 15.5v5h-5M8.5 20.5h-5v-5"></path>
+                            </svg>
+                        </button>
+                        <button class="gallery-control prev" type="button" data-gallery-step="-1" aria-label="Vorheriges Produktbild">
+                            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m14.5 6.5-5.5 5.5 5.5 5.5"></path></svg>
+                        </button>
+                        <button class="gallery-control next" type="button" data-gallery-step="1" aria-label="Nächstes Produktbild">
+                            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9.5 6.5 5.5 5.5-5.5 5.5"></path></svg>
+                        </button>
+                        <span class="gallery-count" id="gallery-counter">1 / 4</span>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="accordions">
+                    <details>
+                        <summary>So funktioniert der Autoduft</summary>
+                        <div class="accordion-content">
+                            <p>Ornamentkappe mit Holzkern abnehmen, den Flakon kurz und vorsichtig kippen, damit sich der Holzkern sparsam mit Duft benetzt. Anschließend die Kappe wieder fest aufsetzen und den Autoduft sicher am Rückspiegel befestigen.</p>
+                        </div>
+                    </details>
+                    <details>
+                        <summary>Lieferumfang</summary>
+                        <div class="accordion-content">
+                            <p>Enthalten sind ein Autoduft-Flakon aus blickdichtem Schwarzglas, eine Ornamentkappe mit Holzkern, die schwarze Aufhängung und eine Duftfüllung deiner Wahl.</p>
+                        </div>
+                    </details>
+                    <details>
+                        <summary>Sicherheit & Hinweise</summary>
+                        <div class="accordion-content">
+                            <p>Nur bestimmungsgemäß verwenden und die Hinweise auf dem Produkt beachten. Nicht trinken. Kontakt mit Augen, Haut, Textilien und Oberflächen vermeiden. Außerhalb der Reichweite von Kindern und Haustieren aufbewahren.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <div class="product-info">
+                <div class="product-summary-head">
+                    <h1 id="product-title">Autoduft</h1>
+                    <p class="subtitle">Dein Lieblingsduft für unterwegs.</p>
+                    <div class="rating"><span class="stars" aria-hidden="true">★★★★★</span><span>Noch keine Bewertungen</span></div>
+
+                    <div class="price-row">
+                        <span class="price">19,99 €</span>
+                    </div>
+                    <span class="price-note tax-note">inkl. MwSt., zzgl. Versand</span>
+                </div>
+
+                <ul class="product-benefits" aria-label="Produktvorteile">
+                    <li>
+                        <span class="benefit-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2s6 6.2 6 12a6 6 0 1 1-12 0c0-5.8 6-12 6-12Z"></path></svg>
+                        </span>
+                        <span class="benefit-copy"><strong>Dein Lieblingsduft</strong><small>Mit jedem Duft der NØTE.-Kollektion befüllbar</small></span>
+                    </li>
+                    <li>
+                        <span class="benefit-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16v10H4z"></path><path d="M8 17v3m8-3v3M7 11h10"></path></svg>
+                        </span>
+                        <span class="benefit-copy"><strong>Edles Schwarzglas</strong><small>Ornamentkappe mit echtem Holzkern</small></span>
+                    </li>
+                    <li>
+                        <span class="benefit-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 8h9.5a2.5 2.5 0 1 0-2.2-3.7"></path><path d="M4 12h14a2.5 2.5 0 1 1-2.2 3.7"></path><path d="M4 16h6"></path></svg>
+                        </span>
+                        <span class="benefit-copy"><strong>Langanhaltender Wohlfühlduft</strong><small>Hüllt deinen Innenraum in einen angenehm gleichmäßigen Duft</small></span>
+                    </li>
+                </ul>
+
+                <section class="configurator" id="konfigurator" aria-label="Duft für den Autoduft auswählen">
+                    <div class="split-configurator">
+                        <div class="config-panel config-product-panel">
+                            <span class="config-panel-visual">
+                    <img src="images_website/autoduft/note-autoduft-configurator-frontal-pale-v4.png" alt="NØTE. Autoduft aus blickdichtem Schwarzglas mit Ornamentkappe, Holzkern und Aufhängung">
+                            </span>
+                            <strong>Dein Autoduft</strong>
+                            <small>Schwarzglas · Holzkern · Aufhängung</small>
+                        </div>
+
+                        <span class="config-plus" aria-hidden="true">&amp;</span>
+
+                        <div class="config-panel config-scent-panel">
+                            <button class="config-scent-option" id="open-selector" type="button" aria-haspopup="dialog" aria-label="Duftfüllung auswählen">
+                                <span class="config-panel-visual">
+                                    <img class="config-scent-image" id="selected-mini" src="images_website/autoduft/note-autoduft-botanical-selector-color-v3.png" alt="">
+                                </span>
+                            </button>
+                            <strong id="selected-scent-title">Deine Duftfüllung</strong>
+                            <small id="selected-scent-description">Wähle deinen Lieblingsduft</small>
+                        </div>
+
+                        <div class="add-row">
+                            <button class="add-btn" id="add-btn" type="button">Duftfüllung auswählen</button>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="trust-badges autoduft-trust-badges" aria-label="Versand und Lieferzeit">
+                    <div class="shipping-info justify-center">
+                        <i class="fas fa-truck icon-truck" aria-hidden="true"></i>
+                        <span>Kostenloser Versand ab 60&nbsp;&euro;</span>
+                    </div>
+                    <div class="stock-status">&#9679; Vorr&auml;tig &ndash; 1&ndash;3 Werktage Lieferzeit</div>
+
+                    <div class="delivery-timeline">
+                        <div class="delivery-steps">
+                            <div class="delivery-step">
+                                <div class="delivery-icon-circle"><i class="fas fa-shopping-bag" aria-hidden="true"></i></div>
+                                <div class="delivery-step-title">Bestellt</div>
+                                <div class="delivery-step-date" id="delivery-ordered-date">Heute</div>
+                            </div>
+                            <div class="delivery-step">
+                                <div class="delivery-icon-circle"><i class="fas fa-truck" aria-hidden="true"></i></div>
+                                <div class="delivery-step-title">Versendet</div>
+                                <div class="delivery-step-date" id="delivery-shipped-range">Wird berechnet</div>
+                            </div>
+                            <div class="delivery-step">
+                                <div class="delivery-icon-circle"><i class="fas fa-box" aria-hidden="true"></i></div>
+                                <div class="delivery-step-title">Zugestellt</div>
+                                <div class="delivery-step-date" id="delivery-delivered-range">Wird berechnet</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="product-reviews-section container section" id="product-reviews-section">
+        <div class="reviews-list-card reviews-list-card-only">
+            <div class="reviews-list-header">
+                <p class="reviews-eyebrow">Kundenbewertungen</p>
+                <h3>Aktuelle Bewertungen</h3>
+                <p>Sobald die ersten echten Bewertungen zum Autoduft da sind, erscheinen sie hier.</p>
+            </div>
+            <div class="reviews-empty-state">Noch keine Bewertungen vorhanden.</div>
+        </div>
+    </section>
+
+    <section class="recommended-products-section container section" style="padding-top: 2rem;">
+        <h3 style="font-family: 'Inter', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 2rem; text-align: center;">Produkte, die dir auch gefallen könnten</h3>
+        <div class="product-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 2rem;">
+            <a class="product-card shop-product-card has-comparison-image" href="product.html?id=G333" aria-label="NØTE. G333 ansehen">
+                <span class="product-code">N&Oslash;TE. G333</span>
+                <div class="product-stage">
+                    <img src="images_website/bestsellers/g333-comparison-v1.webp" alt="NØTE. G333 Royal Cherry" class="product-grid-image" loading="lazy">
+                </div>
+                <div class="product-copy">
+                    <h3 class="product-title">Royal Cherry</h3>
+                    <div class="product-price"><span>ab 34,99 &euro;</span></div>
+                </div>
+            </a>
+            <a class="product-card shop-product-card has-comparison-image" href="product.html?id=G343" aria-label="NØTE. G343 ansehen">
+                <span class="product-code">N&Oslash;TE. G343</span>
+                <div class="product-stage">
+                    <img src="images_website/bestsellers/g343-comparison-v1.webp" alt="NØTE. G343 Blue After Dark Exclusive" class="product-grid-image" loading="lazy">
+                </div>
+                <div class="product-copy">
+                    <h3 class="product-title">Blue After Dark Exclusive</h3>
+                    <div class="product-price"><span>ab 34,99 &euro;</span></div>
+                </div>
+            </a>
+            <a class="product-card shop-product-card has-comparison-image" href="product.html?id=L203" aria-label="NØTE. L203 ansehen">
+                <span class="product-code">N&Oslash;TE. L203</span>
+                <div class="product-stage">
+                    <img src="images_website/bestsellers/l203-comparison-v1.webp" alt="NØTE. L203 Blush After Midnight" class="product-grid-image" loading="lazy">
+                </div>
+                <div class="product-copy">
+                    <h3 class="product-title">Blush After Midnight</h3>
+                    <div class="product-price"><span>ab 34,99 &euro;</span></div>
+                </div>
+            </a>
+            <a class="product-card shop-product-card is-bestseller has-comparison-image" href="product.html?id=L62" aria-label="NØTE. L62 ansehen">
+                <span class="product-badge-bestseller">Bestseller</span>
+                <span class="product-code">N&Oslash;TE. L62</span>
+                <div class="product-stage">
+                    <img src="images_website/bestsellers/l62-comparison-transparent-v2.webp" alt="NØTE. L62 Whispers of Devotion" class="product-grid-image" loading="lazy">
+                </div>
+                <div class="product-copy">
+                    <h3 class="product-title">Whispers of Devotion</h3>
+                    <div class="product-price"><span>ab 34,99 &euro;</span></div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="comparison-section container section" style="padding-top: 2rem;">
+        <h2 class="comparison-title" style="text-align: center; font-style: italic; font-weight: 900; font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 2.5rem; letter-spacing: 0.05em;">N&Oslash;TE. vs. Standard</h2>
+
+        <div class="comparison-table-wrapper" style="max-width: 800px; margin: 0 auto 4rem;">
+            <div class="comparison-table">
+                <div class="comp-row comp-header">
+                    <div class="comp-cell comp-label"></div>
+                    <div class="comp-cell comp-brand">N&Oslash;TE.</div>
+                    <div class="comp-cell comp-standard">Standard</div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-cell comp-label">Made in Germany</div>
+                    <div class="comp-cell comp-brand"><i class="fas fa-check-circle" aria-label="Ja"></i></div>
+                    <div class="comp-cell comp-standard"><i class="fas fa-times" aria-label="Nein" style="color: #999;"></i></div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-cell comp-label">40% Duft&ouml;l-Anteil</div>
+                    <div class="comp-cell comp-brand"><i class="fas fa-check-circle" aria-label="Ja"></i></div>
+                    <div class="comp-cell comp-standard"><i class="fas fa-times" aria-label="Nein" style="color: #999;"></i></div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-cell comp-label">L&auml;ngere Haltbarkeit</div>
+                    <div class="comp-cell comp-brand"><i class="fas fa-check-circle" aria-label="Ja"></i></div>
+                    <div class="comp-cell comp-standard"><i class="fas fa-times" aria-label="Nein" style="color: #999;"></i></div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-cell comp-label">Sauberer Duftverlauf ohne aufdringliche Spitze</div>
+                    <div class="comp-cell comp-brand"><i class="fas fa-check-circle" aria-label="Ja"></i></div>
+                    <div class="comp-cell comp-standard"><i class="fas fa-times" aria-label="Nein" style="color: #999;"></i></div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-cell comp-label">Konsequenter Fokus auf Duft statt Markenaufschlag</div>
+                    <div class="comp-cell comp-brand"><i class="fas fa-check-circle" aria-label="Ja"></i></div>
+                    <div class="comp-cell comp-standard"><i class="fas fa-times" aria-label="Nein" style="color: #999;"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 2rem; max-width: 100%; width: 100%; margin: 0 auto;">
+            <div class="stat-card modern-stat-card">
+                <div class="stat-number gold-gradient-text">97%</div>
+                <p class="stat-main-text">best&auml;tigen einen au&szlig;ergew&ouml;hnlich lang anhaltenden Duft</p>
+                <div class="stat-divider"></div>
+                <p class="stat-sub-text">Basierend auf unabh&auml;ngigem Kunden-Feedback</p>
+            </div>
+            <div class="stat-card modern-stat-card">
+                <div class="stat-number gold-gradient-text">+40%</div>
+                <p class="stat-main-text">pures Duft&ouml;l f&uuml;r maximale Intensit&auml;t und Sillage</p>
+                <div class="stat-divider"></div>
+                <p class="stat-sub-text">Im Vergleich zu herk&ouml;mmlichen Eau de Parfums (10-20%)</p>
+            </div>
+            <div class="stat-card modern-stat-card">
+                <div class="stat-number gold-gradient-text">94%</div>
+                <p class="stat-main-text">w&uuml;rden ihren hochpreisigen Designer-Duft durch N&Oslash;TE. ersetzen</p>
+                <div class="stat-divider"></div>
+                <p class="stat-sub-text">Auf Basis eines unabh&auml;ngigen Duft-Blindtests</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section container section" style="padding-top: 1rem; padding-bottom: 4rem;">
+        <h2 class="section-title">H&Auml;UFIG GESTELLTE FRAGEN</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-question" type="button">Was zeichnet N&Oslash;TE. fragrances aus? <span class="icon">+</span></button>
+                <div class="faq-answer">
+                    <p>Unsere D&uuml;fte verbinden einen besonders hohen Duft&ouml;lanteil mit sorgf&auml;ltig komponierten Duftnoten und einem langanhaltenden, intensiven Dufterlebnis.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" type="button">Warum sind N&Oslash;TE. D&uuml;fte so beliebt? <span class="icon">+</span></button>
+                <div class="faq-answer">
+                    <p>Sie stehen f&uuml;r hohe Qualit&auml;t, ausdrucksstarke Duftcharaktere und eine exzellente Haltbarkeit &ndash; ohne Kompromisse bei Intensit&auml;t und Eleganz.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" type="button">Welches sind die beliebtesten N&Oslash;TE. D&uuml;fte? <span class="icon">+</span></button>
+                <div class="faq-answer">
+                    <p>Bei den Damend&uuml;ften sind aktuell <strong>N&Oslash;TE. L190</strong> (Choose Your Freedom) und <strong>N&Oslash;TE. L95</strong> (A Touch of Scandal) unsere gefragtesten D&uuml;fte &ndash; beide stehen f&uuml;r feminine Eleganz und au&szlig;ergew&ouml;hnliche Langlebigkeit auf der Haut.</p>
+                    <p style="margin-top:10px;">Bei den Herrend&uuml;ften begeistern vor allem <strong>N&Oslash;TE. No. G299</strong> (Pure Fields of Gold) und <strong>N&Oslash;TE. G105</strong> (Diplomatic Aura) &ndash; kraftvolle Kompositionen, die durch ihren hohen Duft&ouml;lanteil stundenlang pr&auml;sent bleiben.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" type="button">Wie w&auml;hle ich einen Duft f&uuml;r meinen Autoduft? <span class="icon">+</span></button>
+                <div class="faq-answer">
+                    <p>Im Konfigurator kannst du nach Nummer, Name oder Duftcharakter suchen und deine Wunschf&uuml;llung mit einem Klick direkt zum Autoduft hinzuf&uuml;gen.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" type="button">Wie finde ich den richtigen Duft f&uuml;r mich? <span class="icon">+</span></button>
+                <div class="faq-answer">
+                    <p>Orientiere dich an den Duftnoten und der Duftfamilie &ndash; jede Produktseite beschreibt den Charakter des Dufts detailliert. Wenn du unsicher bist, hilft unser Kundenservice gerne weiter.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" type="button">Wie lange dauert der Versand? <span class="icon">+</span></button>
+                <div class="faq-answer">
+                    <p>Der Versand erfolgt in der Regel innerhalb von 1&ndash;3 Werktagen. Ab einem Bestellwert von 60&nbsp;&euro; ist der Versand innerhalb Deutschlands kostenlos.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" type="button">Wie lange h&auml;lt der Duft auf der Haut? <span class="icon">+</span></button>
+                <div class="faq-answer">
+                    <p>Unsere Extraits de Parfum enthalten einen hohen &Ouml;lanteil, wodurch der Duft den ganzen Tag (10h+) h&auml;lt.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pre-footer-band" aria-label="Wellen &Uuml;bergang">
+        <div class="wave-layer" aria-hidden="true"></div>
+    </section>
+
+    <section class="newsletter-section">
+        <div class="newsletter-card">
+            <p>Exklusive Vorteile</p>
+            <h2>5% auf deine erste Bestellung</h2>
+            <span>Registriere dich und erhalte 5% Rabatt sowie Zugang zu neuen D&uuml;ften und Angeboten.</span>
+            <form id="newsletter-form">
+                <input type="email" name="email" placeholder="deine@email.de" aria-label="E-Mail Adresse"
+                    autocomplete="email" required>
+                <button type="submit">Jetzt sichern</button>
+            </form>
+            <small id="newsletter-status" role="status" aria-live="polite">Kein Spam. Jederzeit abmeldbar.</small>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-header-logo">
+                <a href="index.html" class="logo-container">
+                    <span class="logo-main">N&Oslash;TE.</span>
+                    <span class="logo-sub">fragrances</span>
+                </a>
+            </div>
+
+            <div class="footer-grid-layout">
+                <div class="footer-col">
+                    <h4>RECHTLICHES</h4>
+                    <a href="agb.html">AGB</a>
+                    <a href="impressum.html">IMPRESSUM</a>
+                    <a href="widerrufsrecht.html">WIDERRUFSRECHT</a>
+                    <a href="datenschutz.html">DATENSCHUTZERKL&Auml;RUNG</a>
+                    <a href="versand.html">VERSANDBEDINGUNGEN</a>
+                    <a href="#" id="cookie-settings">COOKIE-EINSTELLUNGEN</a>
+                </div>
+                <div class="footer-col">
+                    <h4>SHOP</h4>
+                    <a href="suche.html">KOLLEKTION</a>
+                    <a href="index.html#bestseller">BESTSELLER</a>
+                    <a href="frauenduefte.html">FRAUEND&Uuml;FTE</a>
+                    <a href="herrenduefte.html">HERREND&Uuml;FTE</a>
+                    <a href="autoduft.html">AUTODUFT</a>
+                </div>
+                <div class="footer-col">
+                    <h4>&Uuml;BER UNS</h4>
+                    <p>Entdecke exklusive Extrait de Parfums mit &uuml;ber 40% Duft&ouml;lanteil. Langanhaltend, intensiv und kompromisslos in Qualit&auml;t und Charakter.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>KUNDENSERVICE</h4>
+                    <a href="mailto:info@note-fragrances.de">info@note-fragrances.de</a>
+                </div>
+            </div>
+
+            <div class="footer-social" aria-label="Social Media">
+                <a href="https://www.instagram.com/notefragrances.official/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="footer-social-link">
+                    <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61589001575584#" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="footer-social-link">
+                    <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.9 3.78-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.44 2.9h-2.34V22c4.78-.79 8.43-4.94 8.43-9.94Z"/></svg>
+                </a>
+                <a href="https://www.tiktok.com/@note_fragrances?_r=1&amp;_t=ZG-99EEx46ZinB" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="footer-social-link">
+                    <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.05-2.82h-3.1v12.4a2.6 2.6 0 0 1-2.6 2.5 2.6 2.6 0 0 1-2.6-2.6 2.6 2.6 0 0 1 3.2-2.53V9.6a5.7 5.7 0 0 0-.6-.03 5.7 5.7 0 1 0 5.7 5.7V9.01a7.4 7.4 0 0 0 4.3 1.37V7.28a4.28 4.28 0 0 1-3.25-1.46Z"/></svg>
+                </a>
+                <a href="https://youtube.com/@notefragrances?si=VEkVaydTkBtw10oe" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="footer-social-link">
+                    <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.12C19.52 3.56 12 3.56 12 3.56s-7.52 0-9.4.52A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.12c1.88.52 9.4.52 9.4.52s7.52 0 9.4-.52a3 3 0 0 0 2.1-2.12A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.24 3.6-6.24 3.6Z"/></svg>
+                </a>
+            </div>
+
+            <div class="footer-bottom-flex">
+                <p class="copyright">&copy; 2026 N&Oslash;TE. fragrances. Alle Rechte vorbehalten.</p>
+                <div class="footer-payments">
+                    <div class="pay-card" title="Mastercard"><img src="images_website/payments/mastercard.svg" alt="Mastercard"></div>
+                    <div class="pay-card" title="Visa"><img src="images_website/payments/visa.svg" alt="Visa"></div>
+                    <div class="pay-card" title="American Express" style="background:#006FCF;"><img src="images_website/payments/amex.svg" alt="Amex"></div>
+                    <div class="pay-card" title="PayPal"><img src="images_website/payments/paypal.svg" alt="PayPal"></div>
+                    <div class="pay-card" title="Apple Pay"><img src="images_website/payments/apple-pay.svg" alt="Apple Pay"></div>
+                    <div class="pay-card" title="Google Pay"><img src="images_website/payments/google-pay.svg" alt="Google Pay"></div>
+                    <div class="pay-card" title="Klarna" style="background:#FFB3C7;"><span style="color:#0b0529;font-family:Helvetica,Arial,sans-serif;font-weight:800;font-size:14px;">Klarna.</span></div>
+                    <div class="pay-card pay-card-text" title="Bancontact"><span>Bancontact</span></div>
+                    <div class="pay-card pay-card-text" title="EPS"><span>eps</span></div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="image-lightbox" id="image-lightbox" role="dialog" aria-modal="true" aria-label="Vergrößerte Produktansicht" hidden>
+        <div class="image-lightbox-dialog">
+            <img class="image-lightbox-image" id="image-lightbox-image" src="" alt="">
+            <button class="image-lightbox-close" id="close-image-lightbox" type="button" aria-label="Vergrößerte Ansicht schließen">
+                <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                    <path d="M6 6l12 12M18 6L6 18"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="modal" id="scent-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+        <div class="modal-dialog">
+            <div class="modal-head">
+                <img class="modal-head-art" src="images_website/autoduft/note-autoduft-modal-wellness-header-v1.png" alt="">
+                <h2 id="modal-title">Duftfüllung auswählen</h2>
+                <button class="close-btn" id="close-modal" type="button" aria-label="Duftauswahl schließen">×</button>
+            </div>
+
+            <div class="search-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7.5"></circle><path d="m16.5 16.5 4 4"></path></svg>
+                <input class="search-input" id="scent-search" type="search" placeholder="Nach Nummer, Name oder Charakter suchen …" autocomplete="off">
+            </div>
+
+            <div class="tabs" role="tablist" aria-label="Duftkategorien">
+                <button class="tab is-active" type="button" role="tab" aria-selected="true" data-category="all">Alle</button>
+                <button class="tab" type="button" role="tab" aria-selected="false" data-category="men">Herren</button>
+                <button class="tab" type="button" role="tab" aria-selected="false" data-category="women">Frauen</button>
+            </div>
+
+            <div class="catalog-meta"><span id="result-count">8 Düfte</span><span>Ein Klick übernimmt die Auswahl</span></div>
+            <div class="scent-grid" id="scent-grid"></div>
+        </div>
+    </div>
+
+    <div class="backdrop" id="drawer-backdrop" hidden></div>
+    <aside class="cart-drawer" id="cart-drawer" aria-labelledby="drawer-title" hidden>
+        <div class="drawer-head">
+            <h2 id="drawer-title">Warenkorb <span id="drawer-count">1</span></h2>
+            <button class="close-btn" id="close-drawer" type="button" aria-label="Warenkorb schließen">×</button>
+        </div>
+        <div class="drawer-success"><span class="check">✓</span><span id="drawer-success-text">Deine Konfiguration wurde in den Warenkorb gelegt.</span></div>
+        <div id="drawer-items"></div>
+        <div class="drawer-total"><span>Zwischensumme</span><strong id="drawer-total">0,00 €</strong></div>
+        <button class="checkout" type="button" id="checkout-button">Sicher zur Kasse</button>
+        <p class="checkout-status" id="checkout-status" role="status" aria-live="polite"></p>
+        <p class="secure-note">Sichere Zahlung über Stripe. Versandkosten werden im Checkout berechnet.</p>
+    </aside>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="cookie-consent.js?v=20260902" defer></script>
+    <script>
+        const API_BASE_URL = window.NoteApi.base;
+        const AUTODUFT_PRODUCT_ID = 'AUTODUFT';
+        const AUTODUFT_PRICE = 19.99;
+        const AUTODUFT_IMAGE = 'images_website/autoduft/note-autoduft-wood-core-product-v1.png';
+
+        const scents = [
+            {
+                id: 'G351',
+                name: 'Orange in Full Bloom',
+                category: 'men',
+                description: 'Strahlende Zitrusfrische, helle Blüten und weiches Holz.',
+                image: 'images_website/new-arrivals/g351-notes-5pct-v1.webp'
+            },
+            {
+                id: 'L214',
+                name: 'Garden by the Nile',
+                category: 'women',
+                description: 'Grüne Mango, Lotus und elegante Hölzer.',
+                image: 'images_website/new-arrivals/l214-notes-5pct-v1.webp'
+            },
+            {
+                id: 'G333',
+                name: 'Royal Cherry',
+                category: 'men',
+                description: 'Dunkel, fruchtig und holzig mit ausdrucksstarker Tiefe.',
+                image: 'images_website/new-arrivals/g333-notes-5pct-v1.webp'
+            },
+            {
+                id: 'L212',
+                name: 'Pure Musk Embrace',
+                category: 'women',
+                description: 'Weicher Moschus, weiße Blüten und cremiges Holz.',
+                image: 'images_website/new-arrivals/l212-notes-5pct-v1.webp'
+            },
+            {
+                id: 'G343',
+                name: 'Blue After Dark Exclusive',
+                category: 'men',
+                description: 'Dicht, amber-aromatisch und markant holzig.',
+                image: 'images_website/new-arrivals/g343-notes-5pct-v1.webp'
+            },
+            {
+                id: 'L203',
+                name: 'Blush After Midnight',
+                category: 'women',
+                description: 'Floral, vanillig und pudrig-elegant.',
+                image: 'images_website/new-arrivals/l203-notes-5pct-v1.webp'
+            },
+            {
+                id: 'G352',
+                name: 'Leather Across the Savannah',
+                category: 'men',
+                description: 'Warmer Lederduft mit Kardamom, Rose und dunkler Tiefe.',
+                image: 'images_website/new-arrivals/g352-notes-5pct-v1.webp'
+            },
+            {
+                id: 'L62',
+                name: 'Whispers of Devotion',
+                category: 'women',
+                description: 'Feminin, weich und elegant mit warmer Signatur.',
+                image: 'images_website/bestsellers/l62-comparison-transparent-v2.webp'
+            }
+        ];
+
+        const galleryButtons = Array.from(document.querySelectorAll('[data-gallery-src]'));
+        const galleryMainImage = document.getElementById('autoduft-main-image');
+        const galleryCounter = document.getElementById('gallery-counter');
+        let activeGalleryIndex = 0;
+
+        function showGalleryImage(index) {
+            activeGalleryIndex = (index + galleryButtons.length) % galleryButtons.length;
+            const activeButton = galleryButtons[activeGalleryIndex];
+            galleryMainImage.style.opacity = '0';
+            window.setTimeout(() => {
+                galleryMainImage.src = activeButton.dataset.gallerySrc;
+                galleryMainImage.alt = activeButton.dataset.galleryAlt;
+                galleryMainImage.style.opacity = '1';
+            }, 120);
+            galleryButtons.forEach((button, buttonIndex) => {
+                const isActive = buttonIndex === activeGalleryIndex;
+                button.classList.toggle('is-active', isActive);
+                button.setAttribute('aria-current', isActive ? 'true' : 'false');
+            });
+            galleryCounter.textContent = `${activeGalleryIndex + 1} / ${galleryButtons.length}`;
+        }
+
+        galleryButtons.forEach((button, index) => {
+            button.addEventListener('click', () => showGalleryImage(index));
+        });
+        document.querySelectorAll('[data-gallery-step]').forEach((button) => {
+            button.addEventListener('click', () => showGalleryImage(activeGalleryIndex + Number(button.dataset.galleryStep)));
+        });
+
+        let pageScrollState = null;
+
+        function lockPageScroll() {
+            if (pageScrollState) return;
+
+            pageScrollState = {
+                x: window.scrollX,
+                y: window.scrollY,
+                htmlOverflow: document.documentElement.style.overflow,
+                bodyOverflow: document.body.style.overflow,
+                bodyPosition: document.body.style.position,
+                bodyTop: document.body.style.top,
+                bodyLeft: document.body.style.left,
+                bodyRight: document.body.style.right,
+                bodyWidth: document.body.style.width
+            };
+
+            document.documentElement.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${pageScrollState.y}px`;
+            document.body.style.left = `-${pageScrollState.x}px`;
+            document.body.style.right = '0';
+            document.body.style.width = '100%';
+        }
+
+        function unlockPageScroll() {
+            if (!pageScrollState) return;
+
+            const previousState = pageScrollState;
+            pageScrollState = null;
+            document.documentElement.style.overflow = previousState.htmlOverflow;
+            document.body.style.overflow = previousState.bodyOverflow;
+            document.body.style.position = previousState.bodyPosition;
+            document.body.style.top = previousState.bodyTop;
+            document.body.style.left = previousState.bodyLeft;
+            document.body.style.right = previousState.bodyRight;
+            document.body.style.width = previousState.bodyWidth;
+            window.scrollTo({ left: previousState.x, top: previousState.y, behavior: 'instant' });
+        }
+
+        const imageLightbox = document.getElementById('image-lightbox');
+        const imageLightboxImage = document.getElementById('image-lightbox-image');
+        const openImageLightboxButton = document.getElementById('open-image-lightbox');
+        const closeImageLightboxButton = document.getElementById('close-image-lightbox');
+
+        function openImageLightbox() {
+            openImageLightboxButton.classList.remove('is-opening');
+            void openImageLightboxButton.offsetWidth;
+            openImageLightboxButton.classList.add('is-opening');
+            window.setTimeout(() => openImageLightboxButton.classList.remove('is-opening'), 440);
+            imageLightboxImage.src = galleryMainImage.src;
+            imageLightboxImage.alt = galleryMainImage.alt;
+            imageLightbox.hidden = false;
+            lockPageScroll();
+            window.requestAnimationFrame(() => {
+                window.requestAnimationFrame(() => imageLightbox.classList.add('is-visible'));
+            });
+            closeImageLightboxButton.focus();
+        }
+
+        function closeImageLightbox() {
+            imageLightbox.classList.remove('is-visible');
+            window.setTimeout(() => {
+                imageLightbox.hidden = true;
+                imageLightboxImage.src = '';
+                openImageLightboxButton.focus({ preventScroll: true });
+                unlockPageScroll();
+            }, 220);
+        }
+
+        openImageLightboxButton.addEventListener('click', openImageLightbox);
+        closeImageLightboxButton.addEventListener('click', closeImageLightbox);
+        imageLightbox.addEventListener('click', (event) => {
+            if (event.target === imageLightbox) closeImageLightbox();
+        });
+
+        function initDeliveryTimeline() {
+            const orderedEl = document.getElementById('delivery-ordered-date');
+            const shippedEl = document.getElementById('delivery-shipped-range');
+            const deliveredEl = document.getElementById('delivery-delivered-range');
+            const timeline = document.querySelector('.autoduft-trust-badges .delivery-timeline');
+
+            if (!orderedEl || !shippedEl || !deliveredEl || !timeline) return;
+
+            const today = new Date();
+            const addDays = (baseDate, days) => {
+                const date = new Date(baseDate);
+                date.setDate(date.getDate() + days);
+                return date;
+            };
+            const formatDayMonth = (date) => `${date.getDate()}. ${date.toLocaleString('de-DE', { month: 'long' })}`;
+
+            orderedEl.textContent = 'Heute';
+            shippedEl.textContent = `${formatDayMonth(addDays(today, 1))} – ${formatDayMonth(addDays(today, 3))}`;
+            deliveredEl.textContent = `${formatDayMonth(addDays(today, 3))} – ${formatDayMonth(addDays(today, 5))}`;
+
+            window.requestAnimationFrame(() => timeline.classList.add('delivery-timeline-visible'));
+        }
+
+        initDeliveryTimeline();
+
+        function initProductAccordions() {
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+            document.querySelectorAll('.accordions details').forEach((detail) => {
+                const summary = detail.querySelector('summary');
+                const content = detail.querySelector('.accordion-content');
+                if (!summary || !content) return;
+
+                summary.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    if (detail.dataset.animating === 'true') return;
+
+                    const opening = !detail.open;
+                    if (reducedMotion.matches) {
+                        detail.open = opening;
+                        return;
+                    }
+
+                    detail.dataset.animating = 'true';
+                    detail.classList.toggle('is-closing', !opening);
+                    if (opening) {
+                        detail.open = true;
+                        const expandedHeight = content.scrollHeight;
+                        content.style.height = '0px';
+                        content.style.opacity = '0';
+                        content.style.transform = 'translateY(-7px)';
+                        content.getBoundingClientRect();
+                        window.requestAnimationFrame(() => {
+                            content.style.height = `${expandedHeight}px`;
+                            content.style.opacity = '1';
+                            content.style.transform = 'translateY(0)';
+                        });
+                    } else {
+                        content.style.height = `${content.getBoundingClientRect().height}px`;
+                        content.style.opacity = '1';
+                        content.style.transform = 'translateY(0)';
+                        content.getBoundingClientRect();
+                        window.requestAnimationFrame(() => {
+                            content.style.height = '0px';
+                            content.style.opacity = '0';
+                            content.style.transform = 'translateY(-7px)';
+                        });
+                    }
+
+                    window.setTimeout(() => {
+                        if (!opening) detail.open = false;
+                        content.style.height = '';
+                        content.style.opacity = '';
+                        content.style.transform = '';
+                        detail.classList.remove('is-closing');
+                        delete detail.dataset.animating;
+                    }, opening ? 380 : 320);
+                });
+            });
+        }
+
+        initProductAccordions();
+
+        const modal = document.getElementById('scent-modal');
+        const openSelector = document.getElementById('open-selector');
+        const closeModalButton = document.getElementById('close-modal');
+        const searchInput = document.getElementById('scent-search');
+        const scentGrid = document.getElementById('scent-grid');
+        const resultCount = document.getElementById('result-count');
+        const selectedMini = document.getElementById('selected-mini');
+        const selectedScentTitle = document.getElementById('selected-scent-title');
+        const selectedScentDescription = document.getElementById('selected-scent-description');
+        const addButton = document.getElementById('add-btn');
+        const drawer = document.getElementById('cart-drawer');
+        const drawerBackdrop = document.getElementById('drawer-backdrop');
+        const drawerItems = document.getElementById('drawer-items');
+        const drawerTotal = document.getElementById('drawer-total');
+        const drawerCount = document.getElementById('drawer-count');
+        const drawerSuccessText = document.getElementById('drawer-success-text');
+        const checkoutButton = document.getElementById('checkout-button');
+        const checkoutStatus = document.getElementById('checkout-status');
+        const toast = document.getElementById('toast');
+
+        let activeCategory = 'all';
+        let selectedScent = null;
+        let toastTimer = null;
+
+        const normalize = (value) => String(value || '')
+            .toLocaleLowerCase('de-DE')
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '');
+
+        function renderScents() {
+            const query = normalize(searchInput.value);
+            const filtered = scents.filter((scent) => {
+                const inCategory = activeCategory === 'all' || scent.category === activeCategory;
+                const haystack = normalize(`${scent.id} ${scent.name} ${scent.description}`);
+                return inCategory && haystack.includes(query);
+            });
+
+            resultCount.textContent = `${filtered.length} ${filtered.length === 1 ? 'Duft' : 'Düfte'}`;
+
+            if (!filtered.length) {
+                scentGrid.innerHTML = '<div class="empty-state">Kein Duft passt zu deiner Suche.</div>';
+                return;
+            }
+
+            scentGrid.innerHTML = filtered.map((scent, index) => `
+                <button class="scent-card${selectedScent && selectedScent.id === scent.id ? ' is-selected' : ''}"
+                    type="button" data-scent-id="${scent.id}" style="--card-index: ${index}" aria-label="Duftnote ${scent.id} ${scent.name} auswählen">
+                    <span class="selected-mark" aria-hidden="true">✓</span>
+                    <img src="${scent.image}" alt="" loading="lazy">
+                    <span class="scent-code">${scent.id} Duftnote</span>
+                    <strong class="scent-name">${scent.name}</strong>
+                    <span class="scent-desc">${scent.description}</span>
+                </button>
+            `).join('');
+
+            scentGrid.querySelectorAll('[data-scent-id]').forEach((card) => {
+                card.addEventListener('click', () => selectScent(card.dataset.scentId));
+            });
+        }
+
+        function openModal() {
+            modal.hidden = false;
+            lockPageScroll();
+            renderScents();
+            window.requestAnimationFrame(() => {
+                window.requestAnimationFrame(() => modal.classList.add('is-visible'));
+            });
+            window.setTimeout(() => searchInput.focus(), 150);
+        }
+
+        let selectorOpening = false;
+
+        function animateSelectorOpen() {
+            if (selectorOpening) return;
+
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                openModal();
+                return;
+            }
+
+            selectorOpening = true;
+            openSelector.classList.add('is-opening');
+            openSelector.setAttribute('aria-busy', 'true');
+
+            window.setTimeout(() => {
+                openSelector.classList.remove('is-opening');
+                openSelector.removeAttribute('aria-busy');
+                selectorOpening = false;
+                openModal();
+            }, 80);
+        }
+
+        function closeModal() {
+            modal.classList.remove('is-visible');
+            window.setTimeout(() => {
+                modal.hidden = true;
+                openSelector.focus({ preventScroll: true });
+                unlockPageScroll();
+            }, 150);
+        }
+
+        function selectScent(id) {
+            selectedScent = scents.find((scent) => scent.id === id) || null;
+            if (!selectedScent) return;
+
+            selectedMini.src = selectedScent.image;
+            selectedMini.alt = '';
+            selectedScentTitle.textContent = `${selectedScent.id} Duftnote`;
+            selectedScentDescription.textContent = selectedScent.name;
+            openSelector.classList.add('has-selection');
+            document.getElementById('konfigurator').classList.add('has-selection');
+            addButton.textContent = 'Autoduft in den Warenkorb · 19,99 €';
+            closeModal();
+            showToast(`${selectedScent.id} wurde als Duftnote für deinen Autoduft gewählt.`);
+        }
+
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add('is-visible');
+            window.clearTimeout(toastTimer);
+            toastTimer = window.setTimeout(() => toast.classList.remove('is-visible'), 2800);
+        }
+
+        const formatPrice = (value) => new Intl.NumberFormat('de-DE', {
+            style: 'currency',
+            currency: 'EUR'
+        }).format(Number(value) || 0);
+
+        const escapeHtml = (value) => String(value || '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+
+        function readCart() {
+            try {
+                const stored = window.NoteCart.read();
+                return Array.isArray(stored)
+                    ? stored.filter((item) => item && Number(item.quantity) > 0)
+                    : [];
+            } catch (error) {
+                return [];
+            }
+        }
+
+        function writeCart(items) {
+            window.NoteStore.local.setItem('cart', JSON.stringify(items));
+            updateCartCount(items);
+            window.dispatchEvent(new CustomEvent('note:cart-changed'));
+        }
+
+        function updateCartCount(items = readCart()) {
+            const count = items.reduce((sum, item) => sum + Math.max(0, Number(item.quantity) || 0), 0);
+            document.getElementById('cart-count').textContent = String(count);
+            drawerCount.textContent = String(count);
+        }
+
+        function addConfiguredAutoduftToCart() {
+            if (!selectedScent) return null;
+
+            const items = readCart();
+            const cartId = `${AUTODUFT_PRODUCT_ID}-${selectedScent.id}`;
+            let item = items.find((entry) => String(entry.cartId || '') === cartId);
+
+            if (item) {
+                item.quantity = Math.max(1, Number(item.quantity) || 1) + 1;
+            } else {
+                item = {
+                    cartId,
+                    id: cartId,
+                    productId: AUTODUFT_PRODUCT_ID,
+                    productType: 'autoduft',
+                    name: 'NØTE. Autoduft',
+                    scentId: selectedScent.id,
+                    scentName: selectedScent.name,
+                    size: 'Duftfüllung',
+                    price: AUTODUFT_PRICE,
+                    originalPrice: null,
+                    quantity: 1,
+                    image: AUTODUFT_IMAGE
+                };
+                items.push(item);
+            }
+
+            writeCart(items);
+            return item;
+        }
+
+        function renderDrawer(items) {
+            const totalQuantity = items.reduce((sum, item) => sum + Math.max(0, Number(item.quantity) || 0), 0);
+            const subtotal = items.reduce((sum, item) => sum + (Number(item.price) || 0) * (Number(item.quantity) || 0), 0);
+
+            drawerCount.textContent = String(totalQuantity);
+            drawerTotal.textContent = formatPrice(subtotal);
+            checkoutButton.disabled = items.length === 0;
+
+            drawerItems.innerHTML = items.map((item) => {
+                const quantity = Math.max(1, Number(item.quantity) || 1);
+                const lineTotal = (Number(item.price) || 0) * quantity;
+                const isAutoduft = item.productType === 'autoduft' || String(item.productId || '') === AUTODUFT_PRODUCT_ID;
+                const detail = isAutoduft
+                    ? `Duftfüllung: ${escapeHtml(item.scentId || '')} Duftnote · ${escapeHtml(item.scentName || '')}`
+                    : `${escapeHtml(item.size || '')}${String(item.size || '').match(/^\d+$/) ? ' ml' : ''}`;
+                const image = String(item.image || AUTODUFT_IMAGE).replace(/[^a-zA-Z0-9_./-]/g, '') || AUTODUFT_IMAGE;
+
+                return `
+                    <div class="drawer-item">
+                        <img src="${image}" alt="${escapeHtml(item.name || 'Produkt')}">
+                        <div>
+                            <strong>${escapeHtml(item.name || 'NØTE. Produkt')}</strong>
+                            <span>${detail}</span>
+                            <span>Menge: ${quantity}</span>
+                        </div>
+                        <b>${formatPrice(lineTotal)}</b>
+                    </div>`;
+            }).join('');
+        }
+
+        function openDrawer({ added = false } = {}) {
+            const items = readCart();
+            if (!items.length) {
+                showToast('Dein Warenkorb ist noch leer. Wähle zuerst eine Duftfüllung.');
+                return;
+            }
+
+            drawerSuccessText.textContent = added
+                ? 'Deine Konfiguration wurde in den Warenkorb gelegt.'
+                : 'Dein Warenkorb ist bereit.';
+            checkoutStatus.textContent = '';
+            renderDrawer(items);
+            drawer.hidden = false;
+            drawerBackdrop.hidden = false;
+            lockPageScroll();
+            document.getElementById('close-drawer').focus();
+        }
+
+        function closeDrawer() {
+            drawer.hidden = true;
+            drawerBackdrop.hidden = true;
+            addButton.focus({ preventScroll: true });
+            unlockPageScroll();
+        }
+
+        async function getCsrfToken() {
+            const response = await window.NoteApi.fetch(`${API_BASE_URL}/api/csrf-token`, { credentials: 'include' });
+            const payload = await response.json().catch(() => ({}));
+            if (!response.ok || !payload.csrfToken) {
+                throw new Error('Der sichere Checkout konnte nicht vorbereitet werden.');
+            }
+            return payload.csrfToken;
+        }
+
+        async function startCheckout() {
+            const items = readCart();
+            if (!items.length) return;
+
+            checkoutButton.disabled = true;
+            checkoutStatus.textContent = 'Sicherer Checkout wird vorbereitet …';
+
+            try {
+                const csrfToken = await getCsrfToken();
+                const requestBody = {
+                    items: items.map((item) => ({
+                        id: String(item.id || ''),
+                        quantity: Math.max(1, Number(item.quantity) || 1),
+                        ...(Array.isArray(item.bundleSelections)
+                            ? { bundleSelections: item.bundleSelections }
+                            : {})
+                    }))
+                };
+                const couponCode = String(window.NoteStore.local.getItem('couponCode') || '').trim();
+                if (couponCode) requestBody.couponCode = couponCode;
+
+                const response = await window.NoteApi.fetch(`${API_BASE_URL}/create-checkout-session`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-Token': csrfToken
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+                const payload = await response.json().catch(() => ({}));
+                if (!response.ok) throw new Error(payload.error || 'Checkout konnte nicht gestartet werden.');
+
+                if (payload.safeMode) {
+                    checkoutStatus.textContent = `Checkout-Prüfung erfolgreich: ${formatPrice((payload.totalCents || 0) / 100)} inklusive Versand.`;
+                    return;
+                }
+
+                if (!payload.url) throw new Error('Keine Checkout-Adresse erhalten.');
+                window.NoteStore.session.setItem('stripe_checkout_pending', '1');
+                window.location.assign(payload.url);
+            } catch (error) {
+                checkoutStatus.textContent = error.message || 'Checkout konnte nicht gestartet werden.';
+            } finally {
+                checkoutButton.disabled = false;
+            }
+        }
+
+        openSelector.addEventListener('click', animateSelectorOpen);
+        closeModalButton.addEventListener('click', closeModal);
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) closeModal();
+        });
+
+        document.querySelectorAll('[data-category]').forEach((tab) => {
+            tab.addEventListener('click', () => {
+                activeCategory = tab.dataset.category;
+                document.querySelectorAll('[data-category]').forEach((item) => {
+                    const isActive = item === tab;
+                    item.classList.toggle('is-active', isActive);
+                    item.setAttribute('aria-selected', String(isActive));
+                });
+                renderScents();
+            });
+        });
+
+        searchInput.addEventListener('input', renderScents);
+
+        addButton.addEventListener('click', () => {
+            if (selectedScent) {
+                addConfiguredAutoduftToCart();
+                openDrawer({ added: true });
+            }
+            else animateSelectorOpen();
+        });
+        document.getElementById('header-cart').addEventListener('click', () => {
+            openDrawer();
+        });
+        document.getElementById('close-drawer').addEventListener('click', closeDrawer);
+        drawerBackdrop.addEventListener('click', closeDrawer);
+        checkoutButton.addEventListener('click', startCheckout);
+        updateCartCount();
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key !== 'Escape') return;
+            if (!imageLightbox.hidden) closeImageLightbox();
+            else if (!modal.hidden) closeModal();
+            else if (!drawer.hidden) closeDrawer();
+        });
+
+        const mobileMenuButton = document.querySelector('[data-mobile-menu-toggle]');
+        const mainNavigation = document.getElementById('main-navigation');
+        mobileMenuButton?.addEventListener('click', () => {
+            const shouldOpen = !mainNavigation.classList.contains('is-open');
+            mainNavigation.classList.toggle('is-open', shouldOpen);
+            mobileMenuButton.setAttribute('aria-expanded', String(shouldOpen));
+            mobileMenuButton.setAttribute('aria-label', shouldOpen ? 'Menü schließen' : 'Menü öffnen');
+        });
+        mainNavigation?.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', () => {
+                mainNavigation.classList.remove('is-open');
+                mobileMenuButton?.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        const searchPanel = document.querySelector('[data-search-panel]');
+        const searchOpen = document.querySelector('[data-search-open]');
+        const searchClose = document.querySelector('[data-search-close]');
+        function setSearchOpen(open) {
+            searchPanel?.classList.toggle('is-open', open);
+            searchPanel?.setAttribute('aria-hidden', String(!open));
+            searchOpen?.setAttribute('aria-expanded', String(open));
+            if (open) searchPanel?.querySelector('input')?.focus();
+        }
+        searchOpen?.addEventListener('click', () => setSearchOpen(true));
+        searchClose?.addEventListener('click', () => setSearchOpen(false));
+
+        document.querySelectorAll('.faq-question').forEach((question) => {
+            question.addEventListener('click', () => {
+                const item = question.closest('.faq-item');
+                const willOpen = !item.classList.contains('active');
+                item.classList.toggle('active', willOpen);
+                question.setAttribute('aria-expanded', String(willOpen));
+            });
+        });
+
+        document.getElementById('newsletter-form')?.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const form = event.currentTarget;
+            const input = form.querySelector('input[type="email"]');
+            const button = form.querySelector('button[type="submit"]');
+            const status = document.getElementById('newsletter-status');
+            const email = String(input?.value || '').trim();
+            if (!email || !input.checkValidity()) {
+                input?.reportValidity();
+                return;
+            }
+            button.disabled = true;
+            status.textContent = 'Anmeldung wird gesendet …';
+            try {
+                const csrfToken = await getCsrfToken();
+                const response = await window.NoteApi.fetch(`${API_BASE_URL}/api/newsletter`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
+                    body: JSON.stringify({ email })
+                });
+                const payload = await response.json().catch(() => ({}));
+                if (!response.ok) throw new Error(payload.error || 'Anmeldung fehlgeschlagen.');
+                status.textContent = payload.message || 'Bitte bestätige deine Anmeldung per E-Mail.';
+                form.reset();
+            } catch (error) {
+                status.textContent = error.message || 'Anmeldung fehlgeschlagen.';
+            } finally {
+                button.disabled = false;
+            }
+        });
+
+        document.getElementById('cookie-settings')?.addEventListener('click', (event) => {
+            event.preventDefault();
+            window.NOTE_openCookieResetDialog?.();
+        });
+
+
+
+        renderScents();
+    </script>
+</body>
+
+</html>

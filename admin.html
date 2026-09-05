@@ -2,6 +2,7 @@
 <html lang="de">
 
 <head>
+    <script src="shop-core.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>NØTE - Admin Dashboard</title>
@@ -686,10 +687,10 @@
         <div class="login-box">
             <h1>Admin Bereich</h1>
             <div class="input-group">
-                <label>Master Passwort</label>
-                <input type="password" id="admin-pw" placeholder="Passwort...">
+                <label for="admin-username">Benutzername</label><input id="admin-username" autocomplete="username" value="owner" required><label for="admin-pw">Passwort</label>
+                <input type="password" id="admin-pw" autocomplete="current-password" placeholder="Passwort...">
             </div>
-            <button class="btn" onclick="login()">Einloggen</button>
+            <div class="input-group"><label for="admin-otp">Authenticator-Code</label><input id="admin-otp" autocomplete="one-time-code" inputmode="numeric" maxlength="6" pattern="[0-9]{6}"></div><button class="btn" onclick="login()">Einloggen</button>
             <p id="login-err" style="color: red; display: none; font-size: 0.9rem; margin-top: 10px;">Falsches Passwort!
             </p>
         </div>
@@ -700,12 +701,12 @@
         <div class="sidebar">
             <div class="sidebar-logo">NØTE. Admin</div>
             <ul class="sidebar-menu">
-                <li class="active" onclick="switchTab('products')"><i class="fas fa-box"></i> Parfüms (Katalog)</li>
-                <li onclick="switchTab('orders')"><i class="fas fa-shopping-cart"></i> Bestellungen</li>
-                <li id="invoice-nav-item" hidden style="display:none;" onclick="switchTab('invoices')"><i class="fas fa-file-invoice"></i> Rechnungen</li>
-                <li onclick="switchTab('emails')"><i class="fas fa-envelope"></i> E-Mail Templates</li>
-                <li onclick="switchTab('monitoring')"><i class="fas fa-shield-alt"></i> Monitoring</li>
-                <li onclick="switchTab('idmapping')"><i class="fas fa-exchange-alt"></i> ID-Umrechner</li>
+                <li class="active" data-tab="products" onclick="switchTab('products')"><i class="fas fa-box"></i> Parfüms (Katalog)</li>
+                <li data-tab="orders" onclick="switchTab('orders')"><i class="fas fa-shopping-cart"></i> Bestellungen</li>
+                <li id="invoice-nav-item" hidden style="display:none;" data-tab="invoices" onclick="switchTab('invoices')"><i class="fas fa-file-invoice"></i> Rechnungen</li>
+                <li data-tab="emails" onclick="switchTab('emails')"><i class="fas fa-envelope"></i> E-Mail Templates</li>
+                <li data-tab="monitoring" onclick="switchTab('monitoring')"><i class="fas fa-shield-alt"></i> Monitoring</li>
+                <li data-tab="idmapping" onclick="switchTab('idmapping')"><i class="fas fa-exchange-alt"></i> ID-Umrechner</li>
                 <li style="margin-top: auto; color: #d63031;" onclick="logout()"><i class="fas fa-sign-out-alt"></i>
                     Abmelden</li>
             </ul>
@@ -793,12 +794,12 @@
 
                 <div class="order-tabs"
                     style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; overflow-x: auto; padding-bottom: 0.5rem;">
-                    <button class="order-tab order-tab-neu active" onclick="filterOrders('neu')">&#128680; Neu</button>
-                    <button class="order-tab order-tab-bearbeitung" onclick="filterOrders('in_bearbeitung')">&#9881; In
+                    <button class="order-tab order-tab-neu active" data-order-filter="neu" onclick="filterOrders('neu')">&#128680; Neu</button>
+                    <button class="order-tab order-tab-bearbeitung" data-order-filter="in_bearbeitung" onclick="filterOrders('in_bearbeitung')">&#9881; In
                         Bearbeitung</button>
-                    <button class="order-tab order-tab-abgeschlossen" onclick="filterOrders('abgeschlossen')">&#10003;
+                    <button class="order-tab order-tab-abgeschlossen" data-order-filter="abgeschlossen" onclick="filterOrders('abgeschlossen')">&#10003;
                         Abgeschlossen</button>
-                    <button class="order-tab order-tab-archiv" onclick="filterOrders('archiv')">&#128190;
+                    <button class="order-tab order-tab-archiv" data-order-filter="archiv" onclick="filterOrders('archiv')">&#128190;
                         Archiv</button>
                 </div>
 
@@ -985,7 +986,7 @@
                     <div class="invoice-toolbar" style="margin-bottom:1rem;">
                         <h3 style="margin:0;margin-right:auto;">PDF-Rechnungen</h3>
                         <input id="invoice-search" type="search" placeholder="Bestellnummer..."
-                            aria-label="Exakte Bestellnummer suchen" oninput="renderInvoices()">
+                            aria-label="Exakte Bestellnummer suchen" oninput="searchInvoices()">
                     </div>
                     <div class="invoice-table-scroll">
                         <table class="invoice-table">
@@ -1149,8 +1150,8 @@
                 <div class="card" id="security-health-card" style="margin-bottom:1.2rem;">
                     <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;">
                         <div>
-                            <div style="font-size:0.8rem;color:#777;text-transform:uppercase;letter-spacing:0.08em;">Security Health</div>
-                            <div id="security-health-score" style="font-size:2rem;font-weight:700;line-height:1.1;">--%</div>
+                            <div style="font-size:0.8rem;color:#777;text-transform:uppercase;letter-spacing:0.08em;">Betriebszustand</div>
+                            <div id="security-health-score" style="font-size:2rem;font-weight:700;line-height:1.1;">Unbekannt</div>
                             <div id="security-health-meta" style="font-size:0.85rem;color:#666;">Noch keine Daten</div>
                         </div>
                         <button class="btn" style="width:auto;padding:0.55rem 1rem;font-size:0.9rem;background:#2d3436;" onclick="loadSecurityStatus(true)">
@@ -1422,17 +1423,17 @@
     <div class="modal" id="deleteOrderModal">
         <div class="modal-content" style="max-width:460px;">
             <div class="modal-header">
-                <h3><i class="fas fa-trash-alt" style="color:#c62828;margin-right:8px;"></i>Bestellung loeschen</h3>
+                <h3>Offene Bestellung stornieren</h3>
                 <button class="close-btn" onclick="closeDeleteOrderModal()">&times;</button>
             </div>
             <p style="margin:0 0 1.2rem;color:#636e72;font-size:0.92rem;line-height:1.6;">
-                Willst du diese Bestellung wirklich loeschen?
+                Möchtest du diese noch unbezahlte Bestellung stornieren?
                 <br>
-                <strong style="color:#c62828;">Diese Aktion kann nicht rueckgaengig gemacht werden.</strong>
+                <strong>Die Bestellung bleibt als Nachweis im Archiv erhalten.</strong>
             </p>
             <div style="margin-top:1.5rem;display:flex;gap:0.8rem;">
                 <button class="btn" onclick="confirmDeleteOrder()" style="flex:1;background:#c62828;">
-                    <span style="font-weight:700;">&times;</span>&nbsp;Ja, loeschen
+                    Ja, stornieren
                 </button>
                 <button onclick="closeDeleteOrderModal()"
                     style="flex:1;padding:0.8rem;border:1px solid #ccc;background:none;border-radius:4px;cursor:pointer;font-family:inherit;">
@@ -1522,6 +1523,7 @@
     <script src="admin.js?v=20260826-invoices-v2"></script>
 
     <script src="cookie-consent.js"></script>
+<script src="admin-actions.js"></script>
 </body>
 
 </html>

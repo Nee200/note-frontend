@@ -1,67 +1,6 @@
-// API_BASE_URL is inherited from script.js
-const AUTH_TOKEN_STORAGE_KEY = 'user_auth_token';
-
-function getStoredAuthToken() {
-    try {
-        return String(localStorage.getItem(AUTH_TOKEN_STORAGE_KEY) || '').trim();
-    } catch (error) {
-        return '';
-    }
-}
-
-function setStoredAuthToken(token) {
-    const normalized = String(token || '').trim();
-    try {
-        if (normalized) {
-            localStorage.setItem(AUTH_TOKEN_STORAGE_KEY, normalized);
-        } else {
-            localStorage.removeItem(AUTH_TOKEN_STORAGE_KEY);
-        }
-    } catch (error) {
-        // no-op
-    }
-}
-
-async function ensureAccountCsrfToken() {
-    if (typeof ensureCsrfTokenCookie === 'function') {
-        const token = await ensureCsrfTokenCookie();
-        if (token) return token;
-    }
-
-    try {
-        const response = await fetch(API_BASE_URL + '/api/csrf-token', {
-            method: 'GET',
-            credentials: 'include'
-        });
-        if (!response.ok) return '';
-        const data = await response.json().catch(() => null);
-        return data && typeof data.csrfToken === 'string' ? data.csrfToken : '';
-    } catch (error) {
-        return '';
-    }
-}
-
-async function accountFetch(path, options = {}) {
-    const requestOptions = { ...options };
-    requestOptions.credentials = 'include';
-    const headers = new Headers(options.headers || {});
-    const method = String(requestOptions.method || 'GET').toUpperCase();
-    const bearerToken = getStoredAuthToken();
-
-    if (bearerToken && !headers.has('Authorization')) {
-        headers.set('Authorization', `Bearer ${bearerToken}`);
-    }
-
-    if (!['GET', 'HEAD', 'OPTIONS'].includes(method) && !headers.has('X-CSRF-Token')) {
-        const csrfToken = await ensureAccountCsrfToken();
-        if (csrfToken) {
-            headers.set('X-CSRF-Token', csrfToken);
-        }
-    }
-
-    requestOptions.headers = headers;
-    return fetch(API_BASE_URL + path, requestOptions);
-}
+// Cookie sessions are managed by the shared API client.
+function setStoredAuthToken() {}
+function accountFetch(path, options = {}) { return window.NoteApi.fetch(window.NoteApi.base + path, options); }
 
 function escapeHtml(value) {
     return String(value || '')
@@ -72,16 +11,7 @@ function escapeHtml(value) {
         .replace(/'/g, '&#39;');
 }
 
-function formatCurrency(amount) {
-    const numericAmount = Number(amount);
-    const normalizedAmount = numericAmount > 999 ? numericAmount / 100 : numericAmount;
-
-    if (!Number.isFinite(normalizedAmount)) {
-        return 'N/A';
-    }
-
-    return `${normalizedAmount.toFixed(2).replace('.', ',')} €`;
-}
+function formatCurrency(amount) { return window.NoteMoney.format(amount); }
 
 function getSafeReturnUrl() {
     const params = new URLSearchParams(window.location.search);
@@ -179,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 setStoredAuthToken(data && data.authToken ? data.authToken : '');
 
-                successDiv.textContent = 'Registrierung erfolgreich. Du bist jetzt eingeloggt.';
+                successDiv.textContent = 'Konto erstellt. Bitte bestätige deine E-Mail-Adresse über den Link in deiner E-Mail.';
                 successDiv.style.display = 'block';
                 registerForm.reset();
                 closeRegisterModal();
@@ -219,6 +149,7 @@ async function checkLoginStatus() {
         document.getElementById('user-name-display').textContent = data.user.name || 'Kunde';
         document.getElementById('user-email-display').textContent = data.user.email;
 
+        window.dispatchEvent(new CustomEvent('note:account-loaded', { detail: data.user }));
         renderAddresses(data.user.addresses || []);
         loadOrders();
     } catch (error) {
@@ -239,15 +170,14 @@ async function logout() {
     }
 }
 
-async function loadOrders() {
+async function loadOrders(page = 1) {
     const ordersList = document.getElementById('orders-list');
 
     try {
-        const response = await accountFetch('/api/user/orders');
+        const response = await accountFetch('/api/user/orders?page=' + page);
 
-        if (!response.ok) {
-            throw new Error('Orders could not be loaded');
-        }
+        if (response.status === 403) { ordersList.textContent = 'Bestätige deine E-Mail-Adresse, um deine Bestellungen zu sehen.'; return; }
+        if (!response.ok) throw new Error('Orders could not be loaded');
 
         const data = await response.json();
         const orders = Array.isArray(data.orders) ? data.orders : [];
@@ -288,6 +218,11 @@ async function loadOrders() {
                 </div>
             `;
         }).join('');
+        const navigation = document.createElement('nav'); navigation.setAttribute('aria-label', 'Bestellseiten');
+        for (const [label, target, disabled] of [['Zurück', page - 1, page <= 1], ['Weiter', page + 1, !data.hasMore]]) {
+            const button = document.createElement('button'); button.textContent = label; button.disabled = disabled; button.addEventListener('click', () => loadOrders(target)); navigation.append(button);
+        }
+        ordersList.append(navigation);
     } catch (error) {
         console.error('Error loading orders:', error);
         ordersList.innerHTML = '<p style="color: red;">Fehler beim Laden der Bestellungen.</p>';

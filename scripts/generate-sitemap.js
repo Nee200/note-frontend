@@ -7,6 +7,8 @@ const OUTPUT_PATH = path.resolve(__dirname, '..', 'sitemap.xml');
 
 const staticPages = [
     { loc: '/', changefreq: 'weekly', priority: '1.0' },
+    { loc: '/sommerbundle.html', changefreq: 'weekly', priority: '0.9' },
+    { loc: '/autoduft.html', changefreq: 'weekly', priority: '0.9' },
     { loc: '/suche.html', changefreq: 'weekly', priority: '0.8' },
     { loc: '/neuheiten.html', changefreq: 'weekly', priority: '0.9' },
     { loc: '/duftzwillinge.html', changefreq: 'weekly', priority: '0.9' },

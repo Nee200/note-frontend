@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const originalPrice = Number(variantButton.dataset.originalPrice || 0);
         let cart = [];
         try {
-            const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const storedCart = window.NoteCart.read();
             if (Array.isArray(storedCart)) cart = storedCart;
         } catch (error) {
             cart = [];
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof window.writeCart === 'function') {
             window.writeCart(cart);
         } else {
-            localStorage.setItem('cart', JSON.stringify(cart));
+            window.NoteStore.local.setItem('cart', JSON.stringify(cart));
         }
         window.dispatchEvent(new CustomEvent('note:cart-updated'));
 

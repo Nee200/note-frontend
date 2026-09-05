@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "note-frontend",
+  "main": "worker.mjs",
   "compatibility_date": "2026-09-02",
   "workers_dev": true,
   "routes": [
@@ -13,7 +14,11 @@
       "zone_name": "note-fragrances.de"
     }
   ],
+  "build": { "command": "npm run build" },
+  "vars": { "API_ORIGIN": "https://note-backend-5gy0.onrender.com" },
   "assets": {
-    "directory": "."
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*", "/create-checkout-session", "/create-pickup-order"]
   }
 }

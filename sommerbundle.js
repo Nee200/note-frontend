@@ -2,10 +2,9 @@
     "use strict";
 
     const BUNDLE_SELECTION_KEY = "note_summer_bundle_v1";
-    const COUNTDOWN_KEY = "note_summer_bundle_countdown_v1";
     const REQUIRED_SCENTS = 3;
     const PRODUCTS_PER_PAGE = 50;
-    const REMOTE_PRODUCTS_URL = "https://note-backend-5gy0.onrender.com/api/products";
+    const REMOTE_PRODUCTS_URL = window.NoteApi.base + '/api/products';
     const SIZE_OPTIONS = Object.freeze({
         30: Object.freeze({
             size: 30,
@@ -176,49 +175,7 @@
         return String(Math.max(0, value)).padStart(2, "0");
     }
 
-    function getCountdownEnd() {
-        const defaultEnd = Date.now() + ((2 * 24 + 12) * 60 * 60 * 1000);
 
-        try {
-            const stored = Number(sessionStorage.getItem(COUNTDOWN_KEY));
-            if (Number.isFinite(stored) && stored > Date.now()) return stored;
-            sessionStorage.setItem(COUNTDOWN_KEY, String(defaultEnd));
-        } catch (_error) {
-            return defaultEnd;
-        }
-
-        return defaultEnd;
-    }
-
-    function initCountdown() {
-        const root = document.querySelector("[data-summer-countdown]");
-        if (!root) return;
-
-        const fields = {
-            days: root.querySelector("[data-countdown-days]"),
-            hours: root.querySelector("[data-countdown-hours]"),
-            minutes: root.querySelector("[data-countdown-minutes]"),
-            seconds: root.querySelector("[data-countdown-seconds]")
-        };
-        const end = getCountdownEnd();
-
-        const update = () => {
-            const distance = Math.max(0, end - Date.now());
-            const totalSeconds = Math.floor(distance / 1000);
-            const days = Math.floor(totalSeconds / 86400);
-            const hours = Math.floor((totalSeconds % 86400) / 3600);
-            const minutes = Math.floor((totalSeconds % 3600) / 60);
-            const seconds = totalSeconds % 60;
-
-            if (fields.days) fields.days.textContent = pad(days);
-            if (fields.hours) fields.hours.textContent = pad(hours);
-            if (fields.minutes) fields.minutes.textContent = pad(minutes);
-            if (fields.seconds) fields.seconds.textContent = pad(seconds);
-        };
-
-        update();
-        window.setInterval(update, 1000);
-    }
 
     function getToast() {
         let toast = document.querySelector("[data-summer-toast]");
@@ -256,7 +213,7 @@
 
     function readSavedSelection() {
         try {
-            const stored = JSON.parse(localStorage.getItem(BUNDLE_SELECTION_KEY) || "{}");
+            const stored = JSON.parse(window.NoteStore.local.getItem(BUNDLE_SELECTION_KEY) || "{}");
             return Array.isArray(stored.ids) ? stored.ids.slice(0, REQUIRED_SCENTS) : [];
         } catch (_error) {
             return [];
@@ -270,7 +227,7 @@
         let cart = [];
 
         try {
-            const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
+            const storedCart = window.NoteCart.read();
             if (Array.isArray(storedCart)) cart = storedCart;
         } catch (_error) {
             cart = [];
@@ -304,7 +261,7 @@
             });
         }
 
-        localStorage.setItem("cart", JSON.stringify(cart));
+        window.NoteStore.local.setItem("cart", JSON.stringify(cart));
         window.dispatchEvent(new CustomEvent("note:cart-changed"));
         window.dispatchEvent(new CustomEvent("note:open-cart"));
     }
@@ -363,7 +320,7 @@
             };
 
             try {
-                localStorage.setItem(BUNDLE_SELECTION_KEY, JSON.stringify(selection));
+                window.NoteStore.local.setItem(BUNDLE_SELECTION_KEY, JSON.stringify(selection));
             } catch (_error) {
                 // Die Bundle-Seite öffnet auch ohne Browser-Speicher.
             }
@@ -443,7 +400,7 @@
 
     function readCachedProducts() {
         try {
-            const cached = JSON.parse(sessionStorage.getItem("note_products_v3") || "[]");
+            const cached = JSON.parse(window.NoteStore.session.getItem("note_products_v3") || "[]");
             return Array.isArray(cached) && cached.length ? cached : null;
         } catch (_error) {
             return null;
@@ -455,7 +412,7 @@
         const timeout = window.setTimeout(() => controller.abort(), timeoutMs);
 
         try {
-            const response = await fetch(url, { signal: controller.signal, credentials: "omit" });
+            const response = await window.NoteApi.fetch(url, { signal: controller.signal, credentials: "omit" });
             if (!response.ok) throw new Error(`Produkt-API antwortet mit ${response.status}`);
             const products = await response.json();
             if (!Array.isArray(products) || !products.length) throw new Error("Leerer Produktkatalog");
@@ -469,16 +426,13 @@
         const cached = readCachedProducts();
         if (cached) return cached;
 
-        const isLocal = ["localhost", "127.0.0.1"].includes(window.location.hostname);
-        const endpoints = isLocal
-            ? ["http://localhost:4242/api/products", REMOTE_PRODUCTS_URL]
-            : ["/api/products", REMOTE_PRODUCTS_URL];
+        const endpoints = [REMOTE_PRODUCTS_URL];
 
         for (const endpoint of endpoints) {
             try {
                 const products = await fetchProducts(endpoint);
                 try {
-                    sessionStorage.setItem("note_products_v3", JSON.stringify(products));
+                    window.NoteStore.session.setItem("note_products_v3", JSON.stringify(products));
                 } catch (_error) {
                     // Der Katalog funktioniert auch ohne Browser-Cache.
                 }
@@ -850,7 +804,7 @@
             };
 
             try {
-                localStorage.setItem(BUNDLE_SELECTION_KEY, JSON.stringify(selection));
+                window.NoteStore.local.setItem(BUNDLE_SELECTION_KEY, JSON.stringify(selection));
             } catch (_error) {
                 // Der Warenkorb funktioniert auch ohne gespeicherte Vorauswahl.
             }
@@ -882,8 +836,6 @@
             renderAll();
         });
     }
-
-    initCountdown();
     initInlineBundleBuilder();
     initBundleBuilder();
 })();

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <script src="shop-core.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>NØTE. Hero & Neuheiten – Designstudie V3</title>
+    <meta name="description" content="Entdecke NØTE. fragrances: intensive Extrait de Parfums mit 40% Duftölanteil, ausgewählte Duftzwillinge und schneller Versand.">
+    <meta name="author" content="NØTE. fragrances">
+    <meta name="theme-color" content="#101010">
+    <link rel="canonical" href="https://www.note-fragrances.de/">
+    <link rel="stylesheet" href="style-editorial-v2.css?v=1">
+    <link rel="stylesheet" href="style-hero-neuheiten-v3.css?v=47">
+</head>
+
+<body class="hybrid-v3-page">
+    <div class="top-banner" aria-label="Shop Vorteile">
+        <div class="top-banner-track">
+            <div class="top-banner-sequence">
+                <span>Schneller Versand: 1-3 Werktage</span>
+                <span>Kostenloser Versand ab 60 EUR</span>
+                <span>40% Duftölanteil</span>
+                <span>Made in Berlin</span>
+                <span>Schneller Versand: 1-3 Werktage</span>
+                <span>Kostenloser Versand ab 60 EUR</span>
+                <span>40% Duftölanteil</span>
+                <span>Made in Berlin</span>
+                <span>Schneller Versand: 1-3 Werktage</span>
+                <span>Kostenloser Versand ab 60 EUR</span>
+                <span>40% Duftölanteil</span>
+                <span>Made in Berlin</span>
+            </div>
+            <div class="top-banner-sequence" aria-hidden="true">
+                <span>Schneller Versand: 1-3 Werktage</span>
+                <span>Kostenloser Versand ab 60 EUR</span>
+                <span>40% Duftölanteil</span>
+                <span>Made in Berlin</span>
+                <span>Schneller Versand: 1-3 Werktage</span>
+                <span>Kostenloser Versand ab 60 EUR</span>
+                <span>40% Duftölanteil</span>
+                <span>Made in Berlin</span>
+                <span>Schneller Versand: 1-3 Werktage</span>
+                <span>Kostenloser Versand ab 60 EUR</span>
+                <span>40% Duftölanteil</span>
+                <span>Made in Berlin</span>
+            </div>
+        </div>
+    </div>
+
+    <header class="site-header footer-tone-header">
+        <a class="brand logo-container" href="index.html" aria-label="Zur Startseite">
+            <span class="logo-main">N&Oslash;TE.</span>
+            <span class="logo-sub">fragrances</span>
+        </a>
+        <nav class="main-nav" id="main-navigation" aria-label="Hauptnavigation">
+            <a href="#neuheiten">Neuheiten</a>
+            <a href="suche.html">Kollektion</a>
+            <a href="#bestseller">Bestseller</a>
+            <a href="autoduft.html">Autoduft</a>
+            <a href="frauenduefte.html">Frauendüfte</a>
+            <a href="herrenduefte.html">Herrendüfte</a>
+            <a href="#faq">FAQ</a>
+            <a href="kontakt.html">Kontakt</a>
+        </nav>
+        <div class="header-actions nav-icons" aria-label="Shop Aktionen">
+            <button class="icon-button mobile-menu-toggle" type="button" aria-label="Menü öffnen"
+                aria-expanded="false" aria-controls="main-navigation" data-mobile-menu-toggle>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.5" stroke-linecap="round">
+                    <line x1="4" y1="7" x2="20" y2="7"></line>
+                    <line x1="4" y1="12" x2="20" y2="12"></line>
+                    <line x1="4" y1="17" x2="20" y2="17"></line>
+                </svg>
+            </button>
+            <button class="icon-button" type="button" aria-label="Suche öffnen" aria-expanded="false"
+                aria-controls="preview-search-panel" data-search-open>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+            <a href="account.html" class="icon-button" aria-label="Mein Konto">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </a>
+            <button class="icon-button cart-icon" type="button" aria-label="Warenkorb öffnen" data-cart-open>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                <span class="cart-count">0</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="search-panel" id="preview-search-panel" aria-hidden="true" data-search-panel>
+        <form class="search-panel-inner" action="suche.html" method="get">
+            <input id="preview-search" name="q" type="search" placeholder="Suche..."
+                autocomplete="off" aria-label="Duft suchen">
+        </form>
+    </div>
+
+    <div class="drawer-backdrop" data-drawer-backdrop></div>
+    <aside class="cart-drawer" aria-hidden="true" aria-label="Warenkorb" data-cart-drawer>
+        <div class="cart-drawer-header">
+            <h2>Warenkorb <span>0</span></h2>
+            <button class="panel-close" type="button" aria-label="Warenkorb schließen" data-cart-close>&times;</button>
+        </div>
+        <div class="cart-drawer-body" data-cart-items></div>
+        <div class="cart-drawer-footer" data-cart-footer>
+            <div class="cart-drawer-summary">
+                <span>Zwischensumme</span>
+                <strong data-cart-total>0,00 €</strong>
+            </div>
+            <button class="btn btn-dark cart-checkout-button" type="button" data-cart-checkout>Sicher zur Kasse</button>
+            <p class="cart-drawer-status" role="status" aria-live="polite" data-cart-status></p>
+        </div>
+    </aside>
+
+    <main>
+        <section class="hero-section hero-hybrid-v3" data-hero-editorial>
+            <div class="hybrid-hero-copy">
+                <p class="hero-editorial-eyebrow"><span></span> NØTE. fragrances · Berlin</p>
+                <h1><span>Simply well</span><em>scented.</em></h1>
+                <p class="hero-editorial-lede">
+                    Extrait de Parfum mit 40% Duftölanteil. Klar komponiert,
+                    intensiv im Ausdruck und gemacht für eine Präsenz, die bleibt.
+                </p>
+                <div class="hero-actions">
+                    <a class="btn hero-editorial-cta" href="suche.html">Kollektion entdecken</a>
+                </div>
+                <div class="hero-editorial-facts" aria-label="Produktvorteile">
+                    <span>40% Duftölanteil</span>
+                    <span>Extrait de Parfum</span>
+                    <span>Made in Berlin</span>
+                </div>
+            </div>
+
+            <a class="hybrid-drop-seal" href="neuheiten.html" aria-label="Alle Neuheiten entdecken">
+                <strong>NEW<br>DROP</strong>
+            </a>
+
+            <div class="hybrid-hero-visual" aria-label="NØTE. Neuheiten auf einer warm beleuchteten Steinbühne">
+                <img class="hybrid-stage-image" src="images_website/hero-new-arrivals-studio-v2.png"
+                    alt="Warme Steinbühne im Licht" fetchpriority="high">
+                <span class="hybrid-new-badge">NEU</span>
+            </div>
+
+            <a class="hero-scroll-cue" href="#bestseller" aria-label="Zu den Bestsellern scrollen">
+                <span>Mehr entdecken</span>
+                <i aria-hidden="true"></i>
+            </a>
+        </section>
+
+        <section class="new-arrivals-showcase" id="neuheiten" aria-labelledby="new-arrivals-title">
+            <div class="new-arrivals-intro">
+                <p class="new-arrivals-kicker">Neuheiten</p>
+                <h2 id="new-arrivals-title">Neue Düfte.<br>Neue Geschichten.</h2>
+                <p class="new-arrivals-copy">Entdecke unsere neuesten Kreationen – ausdrucksstark komponiert und gemacht für unvergessliche Eindrücke.</p>
+                <a class="new-arrivals-all" href="neuheiten.html">Alle Neuheiten</a>
+                <span class="new-arrivals-rule" aria-hidden="true"></span>
+            </div>
+
+            <div class="new-arrivals-rail-shell">
+                <button class="new-arrivals-arrow new-arrivals-arrow-prev" type="button" data-new-arrivals-prev
+                    aria-label="Vorherige Neuheiten anzeigen"><span aria-hidden="true"></span></button>
+                <div class="new-arrivals-track" data-new-arrivals-track role="region"
+                    aria-label="Neuheiten horizontal durchblättern" tabindex="0">
+                <article class="new-drop-card">
+                    <div class="new-drop-media new-drop-media-warm">
+                        <span>NEU</span>
+                        <img src="images_website/new-arrivals/g333-notes-5pct-v1.webp"
+                            alt="NØTE. G333 Cherry Oud mit seinen prägenden Duftnoten">
+                    </div>
+                    <div class="new-drop-info">
+                        <p>No. G333</p>
+                        <h3>Cherry Oud</h3>
+                        <span>Kirsche · Rose · Oud</span>
+                        <i aria-hidden="true"></i>
+                        <small>Extrait de Parfum<br>30 ml</small>
+                        <div class="new-drop-price"><s>34,99 €</s><strong>19,99 €</strong></div>
+                        <button class="new-drop-cart" type="button" data-new-arrival-cart data-product-id="G333"
+                            data-product-name="No. G333" data-product-image="images_website/new-arrivals/g333-notes-5pct-v1.webp"
+                            aria-label="Variante für No. G333 wählen" aria-expanded="false" aria-controls="variant-picker-G333">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h15l-2 9H8L6 4H3"></path><circle cx="9" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg>
+                        </button>
+                        <div class="new-drop-variant-picker" id="variant-picker-G333" role="dialog" aria-label="Größe für No. G333 wählen" hidden>
+                            <span>Größe wählen</span>
+                            <button type="button" data-add-variant data-size="30" data-price="19.99" data-original-price="34.99"><b>30 ml</b><span><s>34,99 €</s><em>19,99 €</em></span></button>
+                            <button type="button" data-add-variant data-size="50" data-price="24.99" data-original-price="44.99"><b>50 ml</b><span><s>44,99 €</s><em>24,99 €</em></span></button>
+                        </div>
+                    </div>
+                    <a class="new-drop-card-link" href="product.html?id=G333" aria-label="No. G333 Cherry Oud ansehen"></a>
+                </article>
+
+                <article class="new-drop-card new-drop-card-featured">
+                    <div class="new-drop-media new-drop-media-dark">
+                        <span>NEU</span>
+                        <img src="images_website/new-arrivals/g343-notes-5pct-v1.webp"
+                            alt="NØTE. G343 Bleu Exclusif mit seinen prägenden Duftnoten">
+                    </div>
+                    <div class="new-drop-info">
+                        <p>No. G343</p>
+                        <h3>Bleu Exclusif</h3>
+                        <span>Sandelholz · Leder · Labdanum</span>
+                        <i aria-hidden="true"></i>
+                        <small>Extrait de Parfum<br>30 ml</small>
+                        <div class="new-drop-price"><s>34,99 €</s><strong>19,99 €</strong></div>
+                        <button class="new-drop-cart" type="button" data-new-arrival-cart data-product-id="G343"
+                            data-product-name="No. G343" data-product-image="images_website/new-arrivals/g343-notes-5pct-v1.webp"
+                            aria-label="Variante für No. G343 wählen" aria-expanded="false" aria-controls="variant-picker-G343">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h15l-2 9H8L6 4H3"></path><circle cx="9" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg>
+                        </button>
+                        <div class="new-drop-variant-picker" id="variant-picker-G343" role="dialog" aria-label="Größe für No. G343 wählen" hidden>
+                            <span>Größe wählen</span>
+                            <button type="button" data-add-variant data-size="30" data-price="19.99" data-original-price="34.99"><b>30 ml</b><span><s>34,99 €</s><em>19,99 €</em></span></button>
+                            <button type="button" data-add-variant data-size="50" data-price="24.99" data-original-price="44.99"><b>50 ml</b><span><s>44,99 €</s><em>24,99 €</em></span></button>
+                        </div>
+                    </div>
+                    <a class="new-drop-card-link" href="product.html?id=G343" aria-label="No. G343 Bleu Exclusif ansehen"></a>
+                </article>
+
+                <article class="new-drop-card">
+                    <div class="new-drop-media new-drop-media-soft">
+                        <span>NEU</span>
+                        <img src="images_website/new-arrivals/l203-notes-5pct-v1.webp"
+                            alt="NØTE. L203 Good Girl Blush mit seinen prägenden Duftnoten">
+                    </div>
+                    <div class="new-drop-info">
+                        <p>No. L203</p>
+                        <h3>Good Girl Blush</h3>
+                        <span>Bergamotte · Pfingstrose · Vanille</span>
+                        <i aria-hidden="true"></i>
+                        <small>Extrait de Parfum<br>30 ml</small>
+                        <div class="new-drop-price"><s>34,99 €</s><strong>19,99 €</strong></div>
+                        <button class="new-drop-cart" type="button" data-new-arrival-cart data-product-id="L203"
+                            data-product-name="No. L203" data-product-image="images_website/new-arrivals/l203-notes-5pct-v1.webp"
+                            aria-label="Variante für No. L203 wählen" aria-expanded="false" aria-controls="variant-picker-L203">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h15l-2 9H8L6 4H3"></path><circle cx="9" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg>
+                        </button>
+                        <div class="new-drop-variant-picker" id="variant-picker-L203" role="dialog" aria-label="Größe für No. L203 wählen" hidden>
+                            <span>Größe wählen</span>
+                            <button type="button" data-add-variant data-size="30" data-price="19.99" data-original-price="34.99"><b>30 ml</b><span><s>34,99 €</s><em>19,99 €</em></span></button>
+                            <button type="button" data-add-variant data-size="50" data-price="24.99" data-original-price="44.99"><b>50 ml</b><span><s>44,99 €</s><em>24,99 €</em></span></button>
+                        </div>
+                    </div>
+                    <a class="new-drop-card-link" href="product.html?id=L203" aria-label="No. L203 Good Girl Blush ansehen"></a>
+                </article>
+                </div>
+                <button class="new-arrivals-arrow new-arrivals-arrow-next" type="button" data-new-arrivals-next
+                    aria-label="Weitere Neuheiten anzeigen"><span aria-hidden="true"></span></button>
+            </div>
+        </section>
+
+        <section class="collection-section reveal-section" id="kollektion">
+            <div class="section-heading reveal-item">
+                <p>Kollektion</p>
+                <h2>Wähle deine Duftwelt.</h2>
+            </div>
+            <div class="category-grid reveal-group">
+                <a class="category-card category-women reveal-item" href="frauenduefte.html">
+                    <img src="images_parfume/Frauenduefte_webp.webp" alt="Frauendüfte">
+                    <div>
+                        <h3>Frauendüfte</h3>
+                    </div>
+                </a>
+                <a class="category-card category-men reveal-item" href="herrenduefte.html">
+                    <img src="images_parfume/Herrenduefte_note.webp" alt="Herrendüfte">
+                    <div>
+                        <h3>Herrendüfte</h3>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section class="bestseller-section reveal-section" id="bestseller">
+            <div class="section-heading reveal-item">
+                <p>Bestseller</p>
+                <h2>Favoriten mit Charakter.</h2>
+            </div>
+            <div class="bestseller-group reveal-section">
+                <div class="bestseller-group-heading reveal-item">
+                    <h3><a href="frauenduefte.html">Frauendüfte</a></h3>
+                    <a class="view-all-link" href="frauenduefte.html">Alle ansehen <span aria-hidden="true"></span></a>
+                </div>
+                <div class="product-rail reveal-group">
+                    <a class="product-card reveal-item" href="product.html?id=L37" aria-label="NØTE. L37 ansehen">
+                        <span class="product-code">N&Oslash;TE. L37</span>
+                        <div class="product-stage">
+                            <img src="images_parfume/parfume_frau_webp.webp" alt="N&Oslash;TE. L37">
+                        </div>
+                        <div class="product-copy">
+                            <h3>&hellip;Chance Eau Tendre&reg;</h3>
+                            <div class="product-price">
+                                <s>34.99 &euro;</s>
+                                <span>ab 19.99 &euro;</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="product-card reveal-item" href="product.html?id=L93" aria-label="NØTE. L93 ansehen">
+                        <span class="product-code">N&Oslash;TE. L93</span>
+                        <div class="product-stage">
+                            <img src="images_parfume/parfume_frau_webp.webp" alt="N&Oslash;TE. L93">
+                        </div>
+                        <div class="product-copy">
+                            <h3>&hellip;La Belle&reg;</h3>
+                            <div class="product-price">
+                                <s>34.99 &euro;</s>
+                                <span>ab 19.99 &euro;</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="product-card reveal-item" href="product.html?id=L95" aria-label="NØTE. L95 ansehen">
+                        <span class="product-code">N&Oslash;TE. L95</span>
+                        <div class="product-stage">
+                            <img src="images_parfume/parfume_frau_webp.webp" alt="N&Oslash;TE. L95">
+                        </div>
+                        <div class="product-copy">
+                            <h3>&hellip;Scandal Le Parfum&reg;</h3>
+                            <div class="product-price">
+                                <s>34.99 &euro;</s>
+                                <span>ab 19.99 &euro;</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="bestseller-group reveal-section">
+                <div class="bestseller-group-heading reveal-item">
+                    <h3><a href="herrenduefte.html">Herrendüfte</a></h3>
+                    <a class="view-all-link" href="herrenduefte.html">Alle ansehen <span aria-hidden="true"></span></a>
+                </div>
+                <div class="product-rail reveal-group">
+                    <a class="product-card reveal-item" href="product.html?id=G81" aria-label="NØTE. G81 ansehen">
+                        <span class="product-code">N&Oslash;TE. G81</span>
+                        <div class="product-stage">
+                            <img src="images_parfume/parfume_mann_webp.webp" alt="N&Oslash;TE. G81">
+                        </div>
+                        <div class="product-copy">
+                            <h3>&hellip;Fahrenheit&reg;</h3>
+                            <div class="product-price">
+                                <s>34.99 &euro;</s>
+                                <span>ab 19.99 &euro;</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="product-card reveal-item" href="product.html?id=G105" aria-label="NØTE. G105 ansehen">
+                        <span class="product-code">N&Oslash;TE. G105</span>
+                        <div class="product-stage">
+                            <img src="images_parfume/parfume_mann_webp.webp" alt="N&Oslash;TE. G105">
+                        </div>
+                        <div class="product-copy">
+                            <h3>&hellip;Ambassador&reg;</h3>
+                            <div class="product-price">
+                                <s>34.99 &euro;</s>
+                                <span>ab 19.99 &euro;</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="product-card reveal-item" href="product.html?id=G133" aria-label="NØTE. G133 ansehen">
+                        <span class="product-code">N&Oslash;TE. G133</span>
+                        <div class="product-stage">
+                            <img src="images_parfume/parfume_mann_webp.webp" alt="N&Oslash;TE. G133">
+                        </div>
+                        <div class="product-copy">
+                            <h3>&hellip;Le Male Elixier&reg;</h3>
+                            <div class="product-price">
+                                <s>34.99 &euro;</s>
+                                <span>ab 19.99 &euro;</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="promise-section promise-story-section reveal-section">
+            <div class="promise-copy promise-story-intro reveal-item">
+                <p>Warum N&Oslash;TE fragrances</p>
+                <h2>Duftzwillinge mit Extrait-Charakter.</h2>
+                <span>
+                    Unsere Düfte orientieren sich an beliebten Duftprofilen, setzen aber auf einen hohen
+                    Duftölanteil,
+                    klare Produktinformationen und eine hochwertige Inszenierung ohne unnötigen Markenaufschlag.
+                </span>
+            </div>
+            <div class="promise-story">
+                <article class="story-scene story-scene-left reveal-item" data-story-scene>
+                    <div class="story-media">
+                        <img src="images_website/promise-spray-base.webp" alt="N&Oslash;TE Parfum vor dem Sprühen" loading="lazy">
+                        <div class="spray-frame-stack" aria-hidden="true" data-spray-frames>
+                            <img class="spray-frame" src="images_website/spray_frames/spray-frame-01.webp?v=4" alt="" loading="lazy">
+                            <img class="spray-frame" src="images_website/spray_frames/spray-frame-02.webp?v=4" alt="" loading="lazy">
+                            <img class="spray-frame" src="images_website/spray_frames/spray-frame-03.webp?v=4" alt="" loading="lazy">
+                            <img class="spray-frame" src="images_website/spray_frames/spray-frame-04.webp?v=4" alt="" loading="lazy">
+                            <img class="spray-frame" src="images_website/spray_frames/spray-frame-05.webp?v=4" alt="" loading="lazy">
+                            <img class="spray-frame" src="images_website/spray_frames/spray-frame-06.webp?v=4" alt="" loading="lazy">
+                            <img class="spray-frame" src="images_website/spray_frames/spray-frame-07.webp?v=4" alt="" loading="lazy">
+                            <img class="spray-frame" src="images_website/spray_frames/spray-frame-08.webp?v=4" alt="" loading="lazy">
+                            <img class="spray-frame" src="images_website/spray_frames/spray-frame-09.webp?v=4" alt="" loading="lazy">
+                            <img class="spray-frame" src="images_website/spray_frames/spray-frame-10.webp?v=4" alt="" loading="lazy">
+                        </div>
+                        <span class="story-anchor story-anchor-spray" aria-hidden="true"></span>
+                    </div>
+                    <span class="story-connector" aria-hidden="true"></span>
+                    <div class="story-callout">
+                        <small>01 / Extrait</small>
+                        <h3>Duftölanteil</h3>
+                        <strong>40%+</strong>
+                        <p>Aus dem Zerstäuber wird sichtbar, was N&Oslash;TE ausmacht: ein dichter, präsenter Duft
+                            mit Extrait-Charakter.</p>
+                    </div>
+                </article>
+                <article class="story-scene story-scene-right reveal-item" data-story-scene>
+                    <div class="story-media">
+                        <img src="images_website/promise-germany-v2.webp" alt="N&Oslash;TE Duftkomposition im Qualit&auml;tslabor" loading="lazy">
+                        <span class="story-anchor story-anchor-germany" aria-hidden="true"></span>
+                    </div>
+                    <span class="story-connector" aria-hidden="true"></span>
+                    <div class="story-callout">
+                        <small>02 / Komposition</small>
+                        <h3>Perfekt abgestimmt</h3>
+                        <strong>Qualit&auml;t im Detail</strong>
+                        <p>Ausgewogene Duftnoten und eine sorgf&auml;ltige Komposition, die sich harmonisch und
+                            hochwertig entfaltet.</p>
+                    </div>
+                </article>
+                <article class="story-scene story-scene-left story-scene-lower reveal-item" data-story-scene>
+                    <div class="story-media">
+                        <img src="images_website/promise-botanicals.webp" alt="Botanische Duftnoten und faire Auswahl" loading="lazy">
+                        <span class="story-anchor story-anchor-botanicals" aria-hidden="true"></span>
+                    </div>
+                    <span class="story-connector" aria-hidden="true"></span>
+                    <div class="story-callout">
+                        <small>03 / Fair gedacht</small>
+                        <h3>Klar im Fokus</h3>
+                        <strong>ehrlich positioniert</strong>
+                        <p>Der Fokus liegt auf Duft, Haltbarkeit und Alltagstauglichkeit statt auf unnötigem
+                            Markenaufschlag.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="faq-section container section reveal-section" id="faq">
+            <h2 class="section-title reveal-item">HÄUFIG GESTELLTE FRAGEN</h2>
+            <div class="faq-container reveal-item">
+                <div class="faq-item">
+                    <button class="faq-question" type="button">Was sind Duftzwillinge? <span
+                            class="icon">+</span></button>
+                    <div class="faq-answer">
+                        <p>Duftzwillinge sind hochwertige Parfums, die olfaktorisch bekannten Markendüften
+                            ähneln, jedoch unter eigenem Namen vertrieben werden. Sie bieten ein ähnliches
+                            Dufterlebnis zu einem günstigeren Preis.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" type="button">Warum sind Duftzwillinge so beliebt? <span
+                            class="icon">+</span></button>
+                    <div class="faq-answer">
+                        <p>Sie sind beliebt, weil sie hohe Qualität und exzellente Haltbarkeit zu einem Bruchteil
+                            des Preises von Designerdüften bieten. Man zahlt für den Duft, nicht für die
+                            Marke.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" type="button">Welches sind die beliebtesten Duftzwillinge? <span
+                            class="icon">+</span></button>
+                    <div class="faq-answer">
+                        <p>Bei den Damendüften sind aktuell <strong>N&Oslash;TE. L190</strong> (&hellip;Libre&reg;)
+                            und <strong>N&Oslash;TE. L95</strong> (&hellip;Scandal Le Parfum&reg;) unsere gefragtesten
+                            Düfte.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" type="button">Welches Parfum hat einen Zwilling? <span
+                            class="icon">+</span></button>
+                    <div class="faq-answer">
+                        <p>Wir führen Zwillinge zu vielen bekannten Nischen- und Designerdüften. Den
+                            jeweiligen Vergleichsduft findest du direkt auf der Produktseite.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" type="button">Wie finde ich den richtigen Duftzwilling? <span
+                            class="icon">+</span></button>
+                    <div class="faq-answer">
+                        <p>Orientiere dich an den Duftnoten und der Duftfamilie. Jede Produktseite beschreibt den
+                            Charakter des Dufts detailliert.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" type="button">Wie lange dauert der Versand? <span
+                            class="icon">+</span></button>
+                    <div class="faq-answer">
+                        <p>Der Versand erfolgt in der Regel innerhalb von 1-3 Werktagen. Ab einem Bestellwert von
+                            60&nbsp;EUR ist der Versand innerhalb Deutschlands kostenlos.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" type="button">Wie lange hält der Duft auf der Haut? <span
+                            class="icon">+</span></button>
+                    <div class="faq-answer">
+                        <p>Unsere Extraits de Parfum enthalten einen hohen Ölanteil, wodurch der Duft besonders
+                            intensiv und langanhaltend ist.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-bar reveal-section" aria-label="Shop Vorteile">
+            <div class="container features-grid reveal-group">
+                <div class="feature-item reveal-item">
+                    <div class="feature-icon-wrapper">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="1" y="3" width="15" height="13"></rect>
+                            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                        </svg>
+                    </div>
+                    <h3>SCHNELL UND SICHER</h3>
+                    <p>Deutschlandweit kostenloser Versand ab 60&euro;.</p>
+                </div>
+                <div class="feature-item reveal-item">
+                    <div class="feature-icon-wrapper">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                            </path>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                    </div>
+                    <h3>STRESSFREIE RETOURE</h3>
+                    <p>Bei Nichtgefallen, kannst du deine Bestellung retournieren.</p>
+                </div>
+                <div class="feature-item reveal-item">
+                    <div class="feature-icon-wrapper">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                        </svg>
+                    </div>
+                    <h3>HÖCHSTER ÖLANTEIL</h3>
+                    <p>Extrait de Parfum mit über 40% Duftölanteil für maximale Haltbarkeit.</p>
+                </div>
+                <div class="feature-item reveal-item">
+                    <div class="feature-icon-wrapper">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s-7-5.2-7-12a7 7 0 0 1 14 0c0 6.8-7 12-7 12z"></path>
+                            <circle cx="12" cy="10" r="2.5"></circle>
+                        </svg>
+                    </div>
+                    <h3>MADE IN BERLIN</h3>
+                    <p>In Berlin entwickelt und mit Anspruch an Qualität und Charakter umgesetzt.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pre-footer-band" aria-label="Wellen Übergang">
+            <div class="wave-layer" aria-hidden="true"></div>
+        </section>
+
+        <section class="newsletter-section reveal-section">
+            <div class="newsletter-card reveal-item">
+                <p>Exklusive Vorteile</p>
+                <h2>5% auf deine erste Bestellung</h2>
+                <span>Registriere dich und erhalte 5% Rabatt sowie Zugang zu neuen Düften und Angeboten.</span>
+                <form data-newsletter-form>
+                    <input type="email" name="email" placeholder="deine@email.de" aria-label="E-Mail Adresse" autocomplete="email" required>
+                    <button type="submit">Jetzt sichern</button>
+                </form>
+                <small data-newsletter-status role="status" aria-live="polite">Kein Spam. Jederzeit abmeldbar.</small>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-header-logo">
+                <a href="index.html" class="logo-container">
+                    <span class="logo-main">N&Oslash;TE.</span>
+                    <span class="logo-sub">fragrances</span>
+                </a>
+            </div>
+
+            <div class="footer-grid-layout">
+                <div class="footer-col">
+                    <h4>RECHTLICHES</h4>
+                    <a href="agb.html">AGB</a>
+                    <a href="impressum.html">IMPRESSUM</a>
+                    <a href="widerrufsrecht.html">WIDERRUFSRECHT</a>
+                    <a href="datenschutz.html">DATENSCHUTZERKLÄRUNG</a>
+                    <a href="versand.html">VERSANDBEDINGUNGEN</a>
+                    <a href="#" onclick="window.NOTE_openCookieResetDialog?.(); return false;">COOKIE-EINSTELLUNGEN</a>
+                </div>
+                <div class="footer-col">
+                    <h4>SHOP</h4>
+                    <a href="suche.html">KOLLEKTION</a>
+                    <a href="#bestseller">BESTSELLER</a>
+                    <a href="frauenduefte.html">FRAUENDÜFTE</a>
+                    <a href="herrenduefte.html">HERRENDÜFTE</a>
+                    <a href="autoduft.html">AUTODUFT</a>
+                </div>
+                <div class="footer-col">
+                    <h4>ÜBER UNS</h4>
+                    <p>Entdecke exklusive Extrait de Parfums mit über 40% Duftölanteil. Langanhaltend,
+                        intensiv und kompromisslos in Qualität und Charakter.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>KUNDENSERVICE</h4>
+                    <a href="mailto:info@note-fragrances.de">info@note-fragrances.de</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom-flex">
+                <p class="copyright">&copy; 2026 N&Oslash;TE. fragrances. Alle Rechte vorbehalten.</p>
+
+                <div class="footer-payments" style="display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap;">
+                    <div class="pay-card" title="Mastercard" style="background: #fff; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 4px; padding: 4px 8px; display: flex; align-items: center; justify-content: center; height: 32px; box-sizing: border-box;"><img src="images_website/payments/mastercard.svg" alt="Mastercard" style="height: 20px; width: auto; object-fit: contain; flex-shrink: 0; display: block;"></div>
+                    <div class="pay-card" title="Visa" style="background: #fff; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 4px; padding: 4px 6px; display: flex; align-items: center; justify-content: center; height: 32px; box-sizing: border-box;"><img src="images_website/payments/visa.svg" alt="Visa" style="height: 24px; min-width: 40px; object-fit: contain; flex-shrink: 0; display: block;"></div>
+                    <div class="pay-card" title="American Express" style="background: #006FCF; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 4px; padding: 2px 4px; display: flex; align-items: center; justify-content: center; height: 32px; box-sizing: border-box;"><img src="images_website/payments/amex.svg" alt="Amex" style="height: 26px; width: auto; object-fit: contain; flex-shrink: 0; display: block;"></div>
+                    <div class="pay-card" title="PayPal" style="background: #fff; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 4px; padding: 4px 8px; display: flex; align-items: center; justify-content: center; height: 32px; box-sizing: border-box;"><img src="images_website/payments/paypal.svg" alt="PayPal" style="height: 18px; width: auto; object-fit: contain; flex-shrink: 0; display: block;"></div>
+                    <div class="pay-card" title="Apple Pay" style="background: #fff; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 4px; padding: 4px 8px; display: flex; align-items: center; justify-content: center; height: 32px; box-sizing: border-box;"><img src="images_website/payments/apple-pay.svg" alt="Apple Pay" style="height: 16px; width: auto; object-fit: contain; flex-shrink: 0; display: block;"></div>
+                    <div class="pay-card" title="Google Pay" style="background: #fff; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 4px; padding: 4px 8px; display: flex; align-items: center; justify-content: center; height: 32px; box-sizing: border-box;"><img src="images_website/payments/google-pay.svg" alt="Google Pay" style="height: 16px; width: auto; object-fit: contain; flex-shrink: 0; display: block;"></div>
+                    <div class="pay-card" title="Klarna" style="background: #FFB3C7; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 4px; padding: 4px 10px; display: flex; align-items: center; justify-content: center; height: 32px; box-sizing: border-box;"><span style="color: #0b0529; font-family: Helvetica, Arial, sans-serif; font-weight: 800; font-size: 14px; letter-spacing: -0.5px; line-height: 1; display: inline-block;">Klarna.</span></div>
+                    <div class="pay-card" title="Bancontact" style="background: #fff; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 4px; padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 32px; box-sizing: border-box;"><img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 40'%3E%3Cpath d='M8,22 Q20,22 30,12 L8,12 Z' fill='%2302528E'/%3E%3Cpath d='M52,12 Q40,12 30,22 L52,22 Z' fill='%23F6A800'/%3E%3Ctext x='30' y='32' font-family='Arial, sans-serif' font-weight='700' font-size='9.5' fill='%2302528E' text-anchor='middle'%3EBancontact%3C/text%3E%3C/svg%3E" alt="Bancontact" style="height: 22px; width: auto; object-fit: contain; flex-shrink: 0; display: block;"></div>
+                    <div class="pay-card" title="EPS" style="background: #fff; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 4px; padding: 0 8px; display: flex; align-items: center; justify-content: center; height: 32px; box-sizing: border-box;"><img src="data:image/svg+xml;utf8,%3Csvg viewBox='0 0 76 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13 16 V12 A6 6 0 0 1 25 12 V16' fill='none' stroke='%23C6005E' stroke-width='2.5' stroke-linecap='round'/%3E%3Crect x='8' y='16' width='22' height='15' rx='3' fill='%23C6005E'/%3E%3Ctext x='19' y='28.5' font-family='Arial, sans-serif' font-weight='900' font-style='italic' font-size='13' fill='%23fff' text-anchor='middle'%3Ee%3C/text%3E%3Ctext x='32' y='29' font-family='Arial, sans-serif' font-weight='900' font-size='18' fill='%23666'%3Eps%3C/text%3E%3Ctext x='33' y='36' font-family='Arial, sans-serif' font-size='5' fill='%23888'%3Eüberweisung%3C/text%3E%3C/svg%3E" alt="EPS" style="height: 24px; width: auto; object-fit: contain; flex-shrink: 0; display: block;"></div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="cookie-consent.js?v=20260711" defer></script>
+    <script src="style-editorial-v2.js?v=2" defer></script>
+    <script src="style-hero-neuheiten-v3.js?v=6" defer></script>
+</body>
+
+</html>

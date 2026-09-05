@@ -3,7 +3,7 @@
     const OPTIONAL_SELECTOR = '[data-consent-category="optional"]';
 
     function getStoredConsent() {
-        return localStorage.getItem(CONSENT_KEY);
+        return window.NoteStore.local.getItem(CONSENT_KEY);
     }
 
     function dispatchConsentEvent(consent) {
@@ -41,7 +41,7 @@
     }
 
     function dismissBanner(banner, consent) {
-        localStorage.setItem(CONSENT_KEY, consent);
+        window.NoteStore.local.setItem(CONSENT_KEY, consent);
         applyConsent(consent);
 
         banner.style.transition = 'transform 0.35s ease, opacity 0.35s ease';
@@ -149,9 +149,9 @@
     }
 
     function resetConsent() {
-        localStorage.removeItem(CONSENT_KEY);
+        window.NoteStore.local.removeItem(CONSENT_KEY);
         applyConsent(null);
-        localStorage.removeItem('nl_dismissed');
+        window.NoteStore.local.removeItem('nl_dismissed');
         window.location.reload();
     }
 
