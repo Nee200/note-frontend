@@ -73,6 +73,24 @@ window.NoteImageGallery = function ({ lock, unlock, mainImage = document.getElem
     openButton.addEventListener('click', open);
     closeButton.addEventListener('click', close);
     const isBackdrop = target => target === lightbox || target.classList.contains('image-lightbox-dialog');
+    function consumeReleaseClick() {
+        // Touch browsers can synthesize a click after pointerup, when the overlay
+        // is already hidden. Keep that release from activating the page beneath.
+        const cleanup = () => {
+            document.removeEventListener('click', consume, true);
+            document.removeEventListener('pointerdown', cleanup, true);
+            clearTimeout(timer);
+        };
+        const consume = event => {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            cleanup();
+        };
+        const timer = setTimeout(cleanup, 700);
+        document.addEventListener('click', consume, true);
+        // A new press is a separate, intentional interaction.
+        document.addEventListener('pointerdown', cleanup, true);
+    }
     let backdropPress;
     lightbox.addEventListener('pointerdown', event => {
         backdropPress = event.isPrimary && isBackdrop(event.target) ? { id: event.pointerId, x: event.clientX, y: event.clientY } : null;
@@ -82,6 +100,7 @@ window.NoteImageGallery = function ({ lock, unlock, mainImage = document.getElem
         backdropPress = null;
         if (start && start.id === event.pointerId && isBackdrop(event.target) && Math.hypot(event.clientX - start.x, event.clientY - start.y) < 12) {
             event.preventDefault();
+            consumeReleaseClick();
             close();
         }
     });
