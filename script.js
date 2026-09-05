@@ -736,7 +736,8 @@ function getProductGalleryImages(product) {
         return [...new Set(productImages)];
     }
 
-    const inspirationImage = BESTSELLER_INSPIRATION_IMAGES[String(product?.id || '')];
+    const hasNaturalPrimaryImage = /^images_website\/new-arrivals\/[gl]\d+-notes-v3-natural-v\d+\.webp$/i.test(productImages[0] || '');
+    const inspirationImage = hasNaturalPrimaryImage ? null : BESTSELLER_INSPIRATION_IMAGES[String(product?.id || '')];
     const galleryImages = inspirationImage
         ? [inspirationImage, ...productImages.filter(image => image !== inspirationImage)]
         : (productImages.length ? [...productImages] : ['logo.webp']);

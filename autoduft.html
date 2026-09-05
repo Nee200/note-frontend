@@ -187,10 +187,13 @@
         }
 
         .product-visual > img {
+            display: block;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: opacity .18s ease, filter .65s ease, transform .65s cubic-bezier(.2, .7, .2, 1);
+            touch-action: pan-y pinch-zoom;
+            user-select: none;
+            -webkit-user-drag: none;
         }
 
         .gallery-control {
@@ -361,7 +364,6 @@
             place-items: center;
             padding: clamp(1rem, 4vw, 3rem);
             background: rgba(15, 14, 12, .86);
-            backdrop-filter: blur(12px);
             opacity: 0;
             transition: opacity .3s ease;
         }
@@ -375,20 +377,17 @@
             display: grid;
             place-items: center;
             width: min(980px, 100%);
-            height: min(86vh, 980px);
+            height: min(86dvh, 980px);
             opacity: 0;
-            filter: blur(5px);
-            transform: scale(.88) translateY(18px);
+            transform: translateY(6px);
             transition:
                 opacity .3s ease,
-                filter .36s ease,
-                transform .42s cubic-bezier(.16, 1, .3, 1);
+                transform .18s ease;
         }
 
         .image-lightbox.is-visible .image-lightbox-dialog {
             opacity: 1;
-            filter: blur(0);
-            transform: scale(1) translateY(0);
+            transform: translateY(0);
         }
 
         .image-lightbox-image {
@@ -396,12 +395,13 @@
             width: auto;
             height: auto;
             max-width: 100%;
-            max-height: 100%;
+            max-height: min(86dvh, 980px);
             border-radius: 18px;
             object-fit: contain;
             box-shadow: 0 28px 80px rgba(0, 0, 0, .34);
-            transform: scale(.975);
-            transition: transform .46s cubic-bezier(.16, 1, .3, 1);
+            touch-action: pan-y pinch-zoom;
+            user-select: none;
+            -webkit-user-drag: none;
         }
 
         .image-lightbox.is-visible .image-lightbox-image {
@@ -1150,9 +1150,7 @@
             line-height: 1.65;
         }
 
-        .modal[hidden],
-        .cart-drawer[hidden],
-        .backdrop[hidden] {
+        .modal[hidden] {
             display: none;
         }
 
@@ -1402,130 +1400,6 @@
             padding: 3rem 1rem;
             color: var(--muted);
             text-align: center;
-        }
-
-        .backdrop {
-            position: fixed;
-            inset: 0;
-            z-index: 110;
-            background: rgba(18, 17, 15, .5);
-            backdrop-filter: blur(4px);
-        }
-
-        .cart-drawer {
-            position: fixed;
-            top: 0;
-            right: 0;
-            z-index: 120;
-            width: min(430px, 100%);
-            height: 100dvh;
-            padding: 1.4rem;
-            background: var(--surface);
-            box-shadow: -22px 0 60px rgba(0, 0, 0, .19);
-            transform: translateX(0);
-        }
-
-        .drawer-head {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--line);
-        }
-
-        .drawer-head h2 {
-            margin: 0;
-            font-family: var(--serif);
-            font-size: 1.55rem;
-        }
-
-        .drawer-success {
-            display: flex;
-            align-items: center;
-            gap: .6rem;
-            margin: 1rem 0;
-            padding: .75rem;
-            border-radius: 9px;
-            color: #365441;
-            background: #e8f0e9;
-            font-size: .75rem;
-        }
-
-        .drawer-success .check {
-            display: grid;
-            place-items: center;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            color: #fff;
-            background: var(--success);
-            font-size: .68rem;
-        }
-
-        .drawer-item {
-            display: grid;
-            grid-template-columns: 82px 1fr auto;
-            gap: .8rem;
-            align-items: start;
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--line);
-        }
-
-        .drawer-item img {
-            width: 82px;
-            height: 82px;
-            border-radius: 10px;
-            object-fit: cover;
-        }
-
-        .drawer-item strong,
-        .drawer-item span {
-            display: block;
-        }
-
-        .drawer-item strong {
-            font-family: var(--serif);
-            font-size: 1rem;
-        }
-
-        .drawer-item span {
-            margin-top: .3rem;
-            color: var(--muted);
-            font-size: .69rem;
-            line-height: 1.4;
-        }
-
-        .drawer-total {
-            display: flex;
-            justify-content: space-between;
-            margin: 1.2rem 0;
-            font-size: .85rem;
-        }
-
-        .checkout {
-            width: 100%;
-            min-height: 52px;
-            border: 0;
-            border-radius: 9px;
-            color: #fff;
-            background: var(--ink);
-            font-size: .74rem;
-            font-weight: 700;
-            letter-spacing: .08em;
-            text-transform: uppercase;
-        }
-
-        .checkout:disabled {
-            cursor: wait;
-            opacity: .62;
-        }
-
-        .checkout-status {
-            min-height: 1.35em;
-            margin: .7rem 0 0;
-            color: var(--muted);
-            font-size: .69rem;
-            line-height: 1.45;
         }
 
         .toast {
@@ -1917,7 +1791,7 @@
                     <circle cx="12" cy="7" r="4"></circle>
                 </svg>
             </a>
-            <button class="icon-button cart-icon" type="button" aria-label="Warenkorb &ouml;ffnen" id="header-cart">
+            <button class="icon-button cart-icon" type="button" aria-label="Warenkorb &ouml;ffnen" id="header-cart" data-cart-open>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
                     stroke-linecap="round" stroke-linejoin="round">
                     <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
@@ -2349,7 +2223,14 @@
 
     <div class="image-lightbox" id="image-lightbox" role="dialog" aria-modal="true" aria-label="Vergrößerte Produktansicht" hidden>
         <div class="image-lightbox-dialog">
-            <img class="image-lightbox-image" id="image-lightbox-image" src="" alt="">
+            <img class="image-lightbox-image" id="image-lightbox-image" alt="" draggable="false" decoding="async">
+            <button class="gallery-control prev" type="button" data-lightbox-step="-1" aria-label="Vorheriges Bild in Großansicht">
+                <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m14 6-6 6 6 6"></path></svg>
+            </button>
+            <button class="gallery-control next" type="button" data-lightbox-step="1" aria-label="Nächstes Bild in Großansicht">
+                <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m10 6 6 6-6 6"></path></svg>
+            </button>
+            <span class="gallery-count" id="lightbox-counter" aria-live="polite">1 / 4</span>
             <button class="image-lightbox-close" id="close-image-lightbox" type="button" aria-label="Vergrößerte Ansicht schließen">
                 <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
                     <path d="M6 6l12 12M18 6L6 18"></path>
@@ -2382,697 +2263,58 @@
         </div>
     </div>
 
-    <div class="backdrop" id="drawer-backdrop" hidden></div>
-    <aside class="cart-drawer" id="cart-drawer" aria-labelledby="drawer-title" hidden>
-        <div class="drawer-head">
-            <h2 id="drawer-title">Warenkorb <span id="drawer-count">1</span></h2>
-            <button class="close-btn" id="close-drawer" type="button" aria-label="Warenkorb schließen">×</button>
+    <div class="drawer-backdrop" data-drawer-backdrop></div>
+    <aside class="cart-drawer" aria-hidden="true" aria-label="Warenkorb" data-cart-drawer>
+        <div class="cart-drawer-header">
+            <h2>Warenkorb <span>0</span></h2>
+            <button class="panel-close" type="button" aria-label="Warenkorb schließen" data-cart-close>&times;</button>
         </div>
-        <div class="drawer-success"><span class="check">✓</span><span id="drawer-success-text">Deine Konfiguration wurde in den Warenkorb gelegt.</span></div>
-        <div id="drawer-items"></div>
-        <div class="drawer-total"><span>Zwischensumme</span><strong id="drawer-total">0,00 €</strong></div>
-        <button class="checkout" type="button" id="checkout-button">Sicher zur Kasse</button>
-        <p class="checkout-status" id="checkout-status" role="status" aria-live="polite"></p>
-        <p class="secure-note">Sichere Zahlung über Stripe. Versandkosten werden im Checkout berechnet.</p>
+        <div class="cart-shipping-progress">
+            <div class="cart-shipping-copy">
+                <span data-cart-shipping-message>Noch 60,00 € bis zum kostenlosen Versand</span>
+                <strong data-cart-shipping-percent>0%</strong>
+            </div>
+            <div class="cart-shipping-track" aria-hidden="true"><span data-cart-shipping-bar></span></div>
+        </div>
+        <div class="cart-drawer-body" data-cart-items></div>
+        <div class="cart-drawer-footer" data-cart-footer>
+            <div class="cart-delivery-toggle" aria-label="Lieferart">
+                <button class="is-active" type="button" data-cart-delivery="shipping">Postversand</button>
+                <button type="button" data-cart-delivery="pickup">Abholung</button>
+            </div>
+            <div class="cart-pickup-fields" data-cart-pickup hidden>
+                <input type="text" autocomplete="name" placeholder="Vor- und Nachname" data-cart-pickup-name>
+                <input type="email" autocomplete="email" placeholder="E-Mail-Adresse" data-cart-pickup-email>
+                <small>Bezahlung bei Abholung vor Ort.</small>
+            </div>
+            <form class="cart-coupon-form" data-cart-coupon-form>
+                <input type="text" autocomplete="off" placeholder="Gutscheincode" aria-label="Gutscheincode" data-cart-coupon>
+                <button type="submit">Einlösen</button>
+            </form>
+            <p class="cart-coupon-message" role="status" aria-live="polite" data-cart-coupon-message></p>
+            <div class="cart-drawer-totals">
+                <div><span>Zwischensumme</span><strong data-cart-subtotal>0,00 €</strong></div>
+                <div data-cart-discount-row hidden><span>Rabatt</span><strong data-cart-discount>−0,00 €</strong></div>
+                <div><span>Versand</span><strong data-cart-shipping>0,00 €</strong></div>
+                <div class="cart-total-row"><span>Gesamtsumme</span><strong data-cart-total>0,00 €</strong></div>
+            </div>
+            <div class="cart-upsell" data-cart-upsell></div>
+            <button class="btn btn-dark cart-checkout-button" type="button" data-cart-checkout>Sicher zur Kasse</button>
+            <p class="cart-drawer-status" role="status" aria-live="polite" data-cart-status></p>
+            <p class="cart-legal-note">Sicher bezahlen über Stripe. Es gelten unsere <a href="agb.html">AGB</a> und <a href="datenschutz.html">Datenschutzhinweise</a>.</p>
+            <div class="cart-payment-labels" aria-label="Zahlungsarten">
+                <span>Visa</span><span>Mastercard</span><span>PayPal</span><span>Klarna.</span>
+            </div>
+        </div>
     </aside>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
     <script src="cookie-consent.js?v=20260902" defer></script>
-    <script>
-        const API_BASE_URL = window.NoteApi.base;
-        const AUTODUFT_PRODUCT_ID = 'AUTODUFT';
-        const AUTODUFT_PRICE = 19.99;
-        const AUTODUFT_IMAGE = 'images_website/autoduft/note-autoduft-wood-core-product-v1.png';
+    <script src="autoduft-gallery.js" defer></script>
+    <script src="style-wave-home.js" defer></script>
+    <script src="autoduft-page.js" defer></script>
 
-        const scents = [
-            {
-                id: 'G351',
-                name: 'Orange in Full Bloom',
-                category: 'men',
-                description: 'Strahlende Zitrusfrische, helle Blüten und weiches Holz.',
-                image: 'images_website/new-arrivals/g351-notes-5pct-v1.webp'
-            },
-            {
-                id: 'L214',
-                name: 'Garden by the Nile',
-                category: 'women',
-                description: 'Grüne Mango, Lotus und elegante Hölzer.',
-                image: 'images_website/new-arrivals/l214-notes-5pct-v1.webp'
-            },
-            {
-                id: 'G333',
-                name: 'Royal Cherry',
-                category: 'men',
-                description: 'Dunkel, fruchtig und holzig mit ausdrucksstarker Tiefe.',
-                image: 'images_website/new-arrivals/g333-notes-5pct-v1.webp'
-            },
-            {
-                id: 'L212',
-                name: 'Pure Musk Embrace',
-                category: 'women',
-                description: 'Weicher Moschus, weiße Blüten und cremiges Holz.',
-                image: 'images_website/new-arrivals/l212-notes-5pct-v1.webp'
-            },
-            {
-                id: 'G343',
-                name: 'Blue After Dark Exclusive',
-                category: 'men',
-                description: 'Dicht, amber-aromatisch und markant holzig.',
-                image: 'images_website/new-arrivals/g343-notes-5pct-v1.webp'
-            },
-            {
-                id: 'L203',
-                name: 'Blush After Midnight',
-                category: 'women',
-                description: 'Floral, vanillig und pudrig-elegant.',
-                image: 'images_website/new-arrivals/l203-notes-5pct-v1.webp'
-            },
-            {
-                id: 'G352',
-                name: 'Leather Across the Savannah',
-                category: 'men',
-                description: 'Warmer Lederduft mit Kardamom, Rose und dunkler Tiefe.',
-                image: 'images_website/new-arrivals/g352-notes-5pct-v1.webp'
-            },
-            {
-                id: 'L62',
-                name: 'Whispers of Devotion',
-                category: 'women',
-                description: 'Feminin, weich und elegant mit warmer Signatur.',
-                image: 'images_website/bestsellers/l62-comparison-transparent-v2.webp'
-            }
-        ];
-
-        const galleryButtons = Array.from(document.querySelectorAll('[data-gallery-src]'));
-        const galleryMainImage = document.getElementById('autoduft-main-image');
-        const galleryCounter = document.getElementById('gallery-counter');
-        let activeGalleryIndex = 0;
-
-        function showGalleryImage(index) {
-            activeGalleryIndex = (index + galleryButtons.length) % galleryButtons.length;
-            const activeButton = galleryButtons[activeGalleryIndex];
-            galleryMainImage.style.opacity = '0';
-            window.setTimeout(() => {
-                galleryMainImage.src = activeButton.dataset.gallerySrc;
-                galleryMainImage.alt = activeButton.dataset.galleryAlt;
-                galleryMainImage.style.opacity = '1';
-            }, 120);
-            galleryButtons.forEach((button, buttonIndex) => {
-                const isActive = buttonIndex === activeGalleryIndex;
-                button.classList.toggle('is-active', isActive);
-                button.setAttribute('aria-current', isActive ? 'true' : 'false');
-            });
-            galleryCounter.textContent = `${activeGalleryIndex + 1} / ${galleryButtons.length}`;
-        }
-
-        galleryButtons.forEach((button, index) => {
-            button.addEventListener('click', () => showGalleryImage(index));
-        });
-        document.querySelectorAll('[data-gallery-step]').forEach((button) => {
-            button.addEventListener('click', () => showGalleryImage(activeGalleryIndex + Number(button.dataset.galleryStep)));
-        });
-
-        let pageScrollState = null;
-
-        function lockPageScroll() {
-            if (pageScrollState) return;
-
-            pageScrollState = {
-                x: window.scrollX,
-                y: window.scrollY,
-                htmlOverflow: document.documentElement.style.overflow,
-                bodyOverflow: document.body.style.overflow,
-                bodyPosition: document.body.style.position,
-                bodyTop: document.body.style.top,
-                bodyLeft: document.body.style.left,
-                bodyRight: document.body.style.right,
-                bodyWidth: document.body.style.width
-            };
-
-            document.documentElement.style.overflow = 'hidden';
-            document.body.style.overflow = 'hidden';
-            document.body.style.position = 'fixed';
-            document.body.style.top = `-${pageScrollState.y}px`;
-            document.body.style.left = `-${pageScrollState.x}px`;
-            document.body.style.right = '0';
-            document.body.style.width = '100%';
-        }
-
-        function unlockPageScroll() {
-            if (!pageScrollState) return;
-
-            const previousState = pageScrollState;
-            pageScrollState = null;
-            document.documentElement.style.overflow = previousState.htmlOverflow;
-            document.body.style.overflow = previousState.bodyOverflow;
-            document.body.style.position = previousState.bodyPosition;
-            document.body.style.top = previousState.bodyTop;
-            document.body.style.left = previousState.bodyLeft;
-            document.body.style.right = previousState.bodyRight;
-            document.body.style.width = previousState.bodyWidth;
-            window.scrollTo({ left: previousState.x, top: previousState.y, behavior: 'instant' });
-        }
-
-        const imageLightbox = document.getElementById('image-lightbox');
-        const imageLightboxImage = document.getElementById('image-lightbox-image');
-        const openImageLightboxButton = document.getElementById('open-image-lightbox');
-        const closeImageLightboxButton = document.getElementById('close-image-lightbox');
-
-        function openImageLightbox() {
-            openImageLightboxButton.classList.remove('is-opening');
-            void openImageLightboxButton.offsetWidth;
-            openImageLightboxButton.classList.add('is-opening');
-            window.setTimeout(() => openImageLightboxButton.classList.remove('is-opening'), 440);
-            imageLightboxImage.src = galleryMainImage.src;
-            imageLightboxImage.alt = galleryMainImage.alt;
-            imageLightbox.hidden = false;
-            lockPageScroll();
-            window.requestAnimationFrame(() => {
-                window.requestAnimationFrame(() => imageLightbox.classList.add('is-visible'));
-            });
-            closeImageLightboxButton.focus();
-        }
-
-        function closeImageLightbox() {
-            imageLightbox.classList.remove('is-visible');
-            window.setTimeout(() => {
-                imageLightbox.hidden = true;
-                imageLightboxImage.src = '';
-                openImageLightboxButton.focus({ preventScroll: true });
-                unlockPageScroll();
-            }, 220);
-        }
-
-        openImageLightboxButton.addEventListener('click', openImageLightbox);
-        closeImageLightboxButton.addEventListener('click', closeImageLightbox);
-        imageLightbox.addEventListener('click', (event) => {
-            if (event.target === imageLightbox) closeImageLightbox();
-        });
-
-        function initDeliveryTimeline() {
-            const orderedEl = document.getElementById('delivery-ordered-date');
-            const shippedEl = document.getElementById('delivery-shipped-range');
-            const deliveredEl = document.getElementById('delivery-delivered-range');
-            const timeline = document.querySelector('.autoduft-trust-badges .delivery-timeline');
-
-            if (!orderedEl || !shippedEl || !deliveredEl || !timeline) return;
-
-            const today = new Date();
-            const addDays = (baseDate, days) => {
-                const date = new Date(baseDate);
-                date.setDate(date.getDate() + days);
-                return date;
-            };
-            const formatDayMonth = (date) => `${date.getDate()}. ${date.toLocaleString('de-DE', { month: 'long' })}`;
-
-            orderedEl.textContent = 'Heute';
-            shippedEl.textContent = `${formatDayMonth(addDays(today, 1))} – ${formatDayMonth(addDays(today, 3))}`;
-            deliveredEl.textContent = `${formatDayMonth(addDays(today, 3))} – ${formatDayMonth(addDays(today, 5))}`;
-
-            window.requestAnimationFrame(() => timeline.classList.add('delivery-timeline-visible'));
-        }
-
-        initDeliveryTimeline();
-
-        function initProductAccordions() {
-            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-            document.querySelectorAll('.accordions details').forEach((detail) => {
-                const summary = detail.querySelector('summary');
-                const content = detail.querySelector('.accordion-content');
-                if (!summary || !content) return;
-
-                summary.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    if (detail.dataset.animating === 'true') return;
-
-                    const opening = !detail.open;
-                    if (reducedMotion.matches) {
-                        detail.open = opening;
-                        return;
-                    }
-
-                    detail.dataset.animating = 'true';
-                    detail.classList.toggle('is-closing', !opening);
-                    if (opening) {
-                        detail.open = true;
-                        const expandedHeight = content.scrollHeight;
-                        content.style.height = '0px';
-                        content.style.opacity = '0';
-                        content.style.transform = 'translateY(-7px)';
-                        content.getBoundingClientRect();
-                        window.requestAnimationFrame(() => {
-                            content.style.height = `${expandedHeight}px`;
-                            content.style.opacity = '1';
-                            content.style.transform = 'translateY(0)';
-                        });
-                    } else {
-                        content.style.height = `${content.getBoundingClientRect().height}px`;
-                        content.style.opacity = '1';
-                        content.style.transform = 'translateY(0)';
-                        content.getBoundingClientRect();
-                        window.requestAnimationFrame(() => {
-                            content.style.height = '0px';
-                            content.style.opacity = '0';
-                            content.style.transform = 'translateY(-7px)';
-                        });
-                    }
-
-                    window.setTimeout(() => {
-                        if (!opening) detail.open = false;
-                        content.style.height = '';
-                        content.style.opacity = '';
-                        content.style.transform = '';
-                        detail.classList.remove('is-closing');
-                        delete detail.dataset.animating;
-                    }, opening ? 380 : 320);
-                });
-            });
-        }
-
-        initProductAccordions();
-
-        const modal = document.getElementById('scent-modal');
-        const openSelector = document.getElementById('open-selector');
-        const closeModalButton = document.getElementById('close-modal');
-        const searchInput = document.getElementById('scent-search');
-        const scentGrid = document.getElementById('scent-grid');
-        const resultCount = document.getElementById('result-count');
-        const selectedMini = document.getElementById('selected-mini');
-        const selectedScentTitle = document.getElementById('selected-scent-title');
-        const selectedScentDescription = document.getElementById('selected-scent-description');
-        const addButton = document.getElementById('add-btn');
-        const drawer = document.getElementById('cart-drawer');
-        const drawerBackdrop = document.getElementById('drawer-backdrop');
-        const drawerItems = document.getElementById('drawer-items');
-        const drawerTotal = document.getElementById('drawer-total');
-        const drawerCount = document.getElementById('drawer-count');
-        const drawerSuccessText = document.getElementById('drawer-success-text');
-        const checkoutButton = document.getElementById('checkout-button');
-        const checkoutStatus = document.getElementById('checkout-status');
-        const toast = document.getElementById('toast');
-
-        let activeCategory = 'all';
-        let selectedScent = null;
-        let toastTimer = null;
-
-        const normalize = (value) => String(value || '')
-            .toLocaleLowerCase('de-DE')
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '');
-
-        function renderScents() {
-            const query = normalize(searchInput.value);
-            const filtered = scents.filter((scent) => {
-                const inCategory = activeCategory === 'all' || scent.category === activeCategory;
-                const haystack = normalize(`${scent.id} ${scent.name} ${scent.description}`);
-                return inCategory && haystack.includes(query);
-            });
-
-            resultCount.textContent = `${filtered.length} ${filtered.length === 1 ? 'Duft' : 'Düfte'}`;
-
-            if (!filtered.length) {
-                scentGrid.innerHTML = '<div class="empty-state">Kein Duft passt zu deiner Suche.</div>';
-                return;
-            }
-
-            scentGrid.innerHTML = filtered.map((scent, index) => `
-                <button class="scent-card${selectedScent && selectedScent.id === scent.id ? ' is-selected' : ''}"
-                    type="button" data-scent-id="${scent.id}" style="--card-index: ${index}" aria-label="Duftnote ${scent.id} ${scent.name} auswählen">
-                    <span class="selected-mark" aria-hidden="true">✓</span>
-                    <img src="${scent.image}" alt="" loading="lazy">
-                    <span class="scent-code">${scent.id} Duftnote</span>
-                    <strong class="scent-name">${scent.name}</strong>
-                    <span class="scent-desc">${scent.description}</span>
-                </button>
-            `).join('');
-
-            scentGrid.querySelectorAll('[data-scent-id]').forEach((card) => {
-                card.addEventListener('click', () => selectScent(card.dataset.scentId));
-            });
-        }
-
-        function openModal() {
-            modal.hidden = false;
-            lockPageScroll();
-            renderScents();
-            window.requestAnimationFrame(() => {
-                window.requestAnimationFrame(() => modal.classList.add('is-visible'));
-            });
-            window.setTimeout(() => searchInput.focus(), 150);
-        }
-
-        let selectorOpening = false;
-
-        function animateSelectorOpen() {
-            if (selectorOpening) return;
-
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                openModal();
-                return;
-            }
-
-            selectorOpening = true;
-            openSelector.classList.add('is-opening');
-            openSelector.setAttribute('aria-busy', 'true');
-
-            window.setTimeout(() => {
-                openSelector.classList.remove('is-opening');
-                openSelector.removeAttribute('aria-busy');
-                selectorOpening = false;
-                openModal();
-            }, 80);
-        }
-
-        function closeModal() {
-            modal.classList.remove('is-visible');
-            window.setTimeout(() => {
-                modal.hidden = true;
-                openSelector.focus({ preventScroll: true });
-                unlockPageScroll();
-            }, 150);
-        }
-
-        function selectScent(id) {
-            selectedScent = scents.find((scent) => scent.id === id) || null;
-            if (!selectedScent) return;
-
-            selectedMini.src = selectedScent.image;
-            selectedMini.alt = '';
-            selectedScentTitle.textContent = `${selectedScent.id} Duftnote`;
-            selectedScentDescription.textContent = selectedScent.name;
-            openSelector.classList.add('has-selection');
-            document.getElementById('konfigurator').classList.add('has-selection');
-            addButton.textContent = 'Autoduft in den Warenkorb · 19,99 €';
-            closeModal();
-            showToast(`${selectedScent.id} wurde als Duftnote für deinen Autoduft gewählt.`);
-        }
-
-        function showToast(message) {
-            toast.textContent = message;
-            toast.classList.add('is-visible');
-            window.clearTimeout(toastTimer);
-            toastTimer = window.setTimeout(() => toast.classList.remove('is-visible'), 2800);
-        }
-
-        const formatPrice = (value) => new Intl.NumberFormat('de-DE', {
-            style: 'currency',
-            currency: 'EUR'
-        }).format(Number(value) || 0);
-
-        const escapeHtml = (value) => String(value || '')
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#039;');
-
-        function readCart() {
-            try {
-                const stored = window.NoteCart.read();
-                return Array.isArray(stored)
-                    ? stored.filter((item) => item && Number(item.quantity) > 0)
-                    : [];
-            } catch (error) {
-                return [];
-            }
-        }
-
-        function writeCart(items) {
-            window.NoteStore.local.setItem('cart', JSON.stringify(items));
-            updateCartCount(items);
-            window.dispatchEvent(new CustomEvent('note:cart-changed'));
-        }
-
-        function updateCartCount(items = readCart()) {
-            const count = items.reduce((sum, item) => sum + Math.max(0, Number(item.quantity) || 0), 0);
-            document.getElementById('cart-count').textContent = String(count);
-            drawerCount.textContent = String(count);
-        }
-
-        function addConfiguredAutoduftToCart() {
-            if (!selectedScent) return null;
-
-            const items = readCart();
-            const cartId = `${AUTODUFT_PRODUCT_ID}-${selectedScent.id}`;
-            let item = items.find((entry) => String(entry.cartId || '') === cartId);
-
-            if (item) {
-                item.quantity = Math.max(1, Number(item.quantity) || 1) + 1;
-            } else {
-                item = {
-                    cartId,
-                    id: cartId,
-                    productId: AUTODUFT_PRODUCT_ID,
-                    productType: 'autoduft',
-                    name: 'NØTE. Autoduft',
-                    scentId: selectedScent.id,
-                    scentName: selectedScent.name,
-                    size: 'Duftfüllung',
-                    price: AUTODUFT_PRICE,
-                    originalPrice: null,
-                    quantity: 1,
-                    image: AUTODUFT_IMAGE
-                };
-                items.push(item);
-            }
-
-            writeCart(items);
-            return item;
-        }
-
-        function renderDrawer(items) {
-            const totalQuantity = items.reduce((sum, item) => sum + Math.max(0, Number(item.quantity) || 0), 0);
-            const subtotal = items.reduce((sum, item) => sum + (Number(item.price) || 0) * (Number(item.quantity) || 0), 0);
-
-            drawerCount.textContent = String(totalQuantity);
-            drawerTotal.textContent = formatPrice(subtotal);
-            checkoutButton.disabled = items.length === 0;
-
-            drawerItems.innerHTML = items.map((item) => {
-                const quantity = Math.max(1, Number(item.quantity) || 1);
-                const lineTotal = (Number(item.price) || 0) * quantity;
-                const isAutoduft = item.productType === 'autoduft' || String(item.productId || '') === AUTODUFT_PRODUCT_ID;
-                const detail = isAutoduft
-                    ? `Duftfüllung: ${escapeHtml(item.scentId || '')} Duftnote · ${escapeHtml(item.scentName || '')}`
-                    : `${escapeHtml(item.size || '')}${String(item.size || '').match(/^\d+$/) ? ' ml' : ''}`;
-                const image = String(item.image || AUTODUFT_IMAGE).replace(/[^a-zA-Z0-9_./-]/g, '') || AUTODUFT_IMAGE;
-
-                return `
-                    <div class="drawer-item">
-                        <img src="${image}" alt="${escapeHtml(item.name || 'Produkt')}">
-                        <div>
-                            <strong>${escapeHtml(item.name || 'NØTE. Produkt')}</strong>
-                            <span>${detail}</span>
-                            <span>Menge: ${quantity}</span>
-                        </div>
-                        <b>${formatPrice(lineTotal)}</b>
-                    </div>`;
-            }).join('');
-        }
-
-        function openDrawer({ added = false } = {}) {
-            const items = readCart();
-            if (!items.length) {
-                showToast('Dein Warenkorb ist noch leer. Wähle zuerst eine Duftfüllung.');
-                return;
-            }
-
-            drawerSuccessText.textContent = added
-                ? 'Deine Konfiguration wurde in den Warenkorb gelegt.'
-                : 'Dein Warenkorb ist bereit.';
-            checkoutStatus.textContent = '';
-            renderDrawer(items);
-            drawer.hidden = false;
-            drawerBackdrop.hidden = false;
-            lockPageScroll();
-            document.getElementById('close-drawer').focus();
-        }
-
-        function closeDrawer() {
-            drawer.hidden = true;
-            drawerBackdrop.hidden = true;
-            addButton.focus({ preventScroll: true });
-            unlockPageScroll();
-        }
-
-        async function getCsrfToken() {
-            const response = await window.NoteApi.fetch(`${API_BASE_URL}/api/csrf-token`, { credentials: 'include' });
-            const payload = await response.json().catch(() => ({}));
-            if (!response.ok || !payload.csrfToken) {
-                throw new Error('Der sichere Checkout konnte nicht vorbereitet werden.');
-            }
-            return payload.csrfToken;
-        }
-
-        async function startCheckout() {
-            const items = readCart();
-            if (!items.length) return;
-
-            checkoutButton.disabled = true;
-            checkoutStatus.textContent = 'Sicherer Checkout wird vorbereitet …';
-
-            try {
-                const csrfToken = await getCsrfToken();
-                const requestBody = {
-                    items: items.map((item) => ({
-                        id: String(item.id || ''),
-                        quantity: Math.max(1, Number(item.quantity) || 1),
-                        ...(Array.isArray(item.bundleSelections)
-                            ? { bundleSelections: item.bundleSelections }
-                            : {})
-                    }))
-                };
-                const couponCode = String(window.NoteStore.local.getItem('couponCode') || '').trim();
-                if (couponCode) requestBody.couponCode = couponCode;
-
-                const response = await window.NoteApi.fetch(`${API_BASE_URL}/create-checkout-session`, {
-                    method: 'POST',
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-Token': csrfToken
-                    },
-                    body: JSON.stringify(requestBody)
-                });
-                const payload = await response.json().catch(() => ({}));
-                if (!response.ok) throw new Error(payload.error || 'Checkout konnte nicht gestartet werden.');
-
-                if (payload.safeMode) {
-                    checkoutStatus.textContent = `Checkout-Prüfung erfolgreich: ${formatPrice((payload.totalCents || 0) / 100)} inklusive Versand.`;
-                    return;
-                }
-
-                if (!payload.url) throw new Error('Keine Checkout-Adresse erhalten.');
-                window.NoteStore.session.setItem('stripe_checkout_pending', '1');
-                window.location.assign(payload.url);
-            } catch (error) {
-                checkoutStatus.textContent = error.message || 'Checkout konnte nicht gestartet werden.';
-            } finally {
-                checkoutButton.disabled = false;
-            }
-        }
-
-        openSelector.addEventListener('click', animateSelectorOpen);
-        closeModalButton.addEventListener('click', closeModal);
-        modal.addEventListener('click', (event) => {
-            if (event.target === modal) closeModal();
-        });
-
-        document.querySelectorAll('[data-category]').forEach((tab) => {
-            tab.addEventListener('click', () => {
-                activeCategory = tab.dataset.category;
-                document.querySelectorAll('[data-category]').forEach((item) => {
-                    const isActive = item === tab;
-                    item.classList.toggle('is-active', isActive);
-                    item.setAttribute('aria-selected', String(isActive));
-                });
-                renderScents();
-            });
-        });
-
-        searchInput.addEventListener('input', renderScents);
-
-        addButton.addEventListener('click', () => {
-            if (selectedScent) {
-                addConfiguredAutoduftToCart();
-                openDrawer({ added: true });
-            }
-            else animateSelectorOpen();
-        });
-        document.getElementById('header-cart').addEventListener('click', () => {
-            openDrawer();
-        });
-        document.getElementById('close-drawer').addEventListener('click', closeDrawer);
-        drawerBackdrop.addEventListener('click', closeDrawer);
-        checkoutButton.addEventListener('click', startCheckout);
-        updateCartCount();
-
-        document.addEventListener('keydown', (event) => {
-            if (event.key !== 'Escape') return;
-            if (!imageLightbox.hidden) closeImageLightbox();
-            else if (!modal.hidden) closeModal();
-            else if (!drawer.hidden) closeDrawer();
-        });
-
-        const mobileMenuButton = document.querySelector('[data-mobile-menu-toggle]');
-        const mainNavigation = document.getElementById('main-navigation');
-        mobileMenuButton?.addEventListener('click', () => {
-            const shouldOpen = !mainNavigation.classList.contains('is-open');
-            mainNavigation.classList.toggle('is-open', shouldOpen);
-            mobileMenuButton.setAttribute('aria-expanded', String(shouldOpen));
-            mobileMenuButton.setAttribute('aria-label', shouldOpen ? 'Menü schließen' : 'Menü öffnen');
-        });
-        mainNavigation?.querySelectorAll('a').forEach((link) => {
-            link.addEventListener('click', () => {
-                mainNavigation.classList.remove('is-open');
-                mobileMenuButton?.setAttribute('aria-expanded', 'false');
-            });
-        });
-
-        const searchPanel = document.querySelector('[data-search-panel]');
-        const searchOpen = document.querySelector('[data-search-open]');
-        const searchClose = document.querySelector('[data-search-close]');
-        function setSearchOpen(open) {
-            searchPanel?.classList.toggle('is-open', open);
-            searchPanel?.setAttribute('aria-hidden', String(!open));
-            searchOpen?.setAttribute('aria-expanded', String(open));
-            if (open) searchPanel?.querySelector('input')?.focus();
-        }
-        searchOpen?.addEventListener('click', () => setSearchOpen(true));
-        searchClose?.addEventListener('click', () => setSearchOpen(false));
-
-        document.querySelectorAll('.faq-question').forEach((question) => {
-            question.addEventListener('click', () => {
-                const item = question.closest('.faq-item');
-                const willOpen = !item.classList.contains('active');
-                item.classList.toggle('active', willOpen);
-                question.setAttribute('aria-expanded', String(willOpen));
-            });
-        });
-
-        document.getElementById('newsletter-form')?.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const form = event.currentTarget;
-            const input = form.querySelector('input[type="email"]');
-            const button = form.querySelector('button[type="submit"]');
-            const status = document.getElementById('newsletter-status');
-            const email = String(input?.value || '').trim();
-            if (!email || !input.checkValidity()) {
-                input?.reportValidity();
-                return;
-            }
-            button.disabled = true;
-            status.textContent = 'Anmeldung wird gesendet …';
-            try {
-                const csrfToken = await getCsrfToken();
-                const response = await window.NoteApi.fetch(`${API_BASE_URL}/api/newsletter`, {
-                    method: 'POST',
-                    credentials: 'include',
-                    headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
-                    body: JSON.stringify({ email })
-                });
-                const payload = await response.json().catch(() => ({}));
-                if (!response.ok) throw new Error(payload.error || 'Anmeldung fehlgeschlagen.');
-                status.textContent = payload.message || 'Bitte bestätige deine Anmeldung per E-Mail.';
-                form.reset();
-            } catch (error) {
-                status.textContent = error.message || 'Anmeldung fehlgeschlagen.';
-            } finally {
-                button.disabled = false;
-            }
-        });
-
-        document.getElementById('cookie-settings')?.addEventListener('click', (event) => {
-            event.preventDefault();
-            window.NOTE_openCookieResetDialog?.();
-        });
-
-
-
-        renderScents();
-    </script>
 </body>
 
 </html>

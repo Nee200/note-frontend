@@ -171,7 +171,7 @@ async function loadStorefrontProducts() {
 }
 
 async function syncBestsellerCardPrices() {
-    const cards = Array.from(document.querySelectorAll(".bestseller-section .product-card[href*='product?id=']"));
+    const cards = Array.from(document.querySelectorAll(".bestseller-section .product-card[href*='id=']"));
     if (!cards.length) return;
 
     try {
@@ -180,7 +180,14 @@ async function syncBestsellerCardPrices() {
 
         cards.forEach((card) => {
             const productId = new URL(card.href, window.location.href).searchParams.get("id");
-            const variant = productsById.get(String(productId || ""))?.variants?.["30"];
+            const product = productsById.get(String(productId || ""));
+            const variant = product?.variants?.["30"];
+            if (/^images_website\/new-arrivals\/[gl]\d+-notes-v3-natural-v\d+\.webp$/i.test(product?.images?.[0] || '')) {
+                const image = card.querySelector('img');
+                if (image) image.src = window.NoteAssets?.image(product.images[0]) || product.images[0];
+                card.classList.add('has-editorial-image');
+                card.classList.remove('has-comparison-image');
+            }
             if (!variant) return;
 
             const oldPrice = card.querySelector(".product-price s");
@@ -248,7 +255,9 @@ async function syncCartProductImages(items) {
             if (Array.isArray(item.bundleSelections)) return;
             const productId = String(item.productId || String(item.id || "").replace(/-\d+$/, ""));
             const product = productsById.get(productId);
-            const firstImage = BESTSELLER_CART_IMAGE_BY_ID[productId] || product?.images?.[0];
+            const primaryImage = product?.images?.[0];
+            const firstImage = /^images_website\/new-arrivals\/[gl]\d+-notes-v3-natural-v\d+\.webp$/i.test(primaryImage || '')
+                ? primaryImage : BESTSELLER_CART_IMAGE_BY_ID[productId] || primaryImage;
             if (firstImage && item.image !== firstImage) {
                 item.image = firstImage;
                 cartChanged = true;
@@ -406,7 +415,7 @@ function changeCartItem(cartId, action) {
     const items = readCart();
     const item = items.find((entry) => String(entry.cartId || "") === cartId);
     if (!item) return;
-    if (action === "increase") item.quantity = Number(item.quantity || 0) + 1;
+    if (action === "increase") item.quantity = Math.min(20, Number(item.quantity || 0) + 1);
     if (action === "decrease") item.quantity = Number(item.quantity || 0) - 1;
     const nextItems = action === "remove" ? items.filter((entry) => entry !== item) : items.filter((entry) => Number(entry.quantity) > 0);
     writeCart(nextItems);
