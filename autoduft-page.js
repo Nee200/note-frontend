@@ -4,64 +4,10 @@ const API_BASE_URL = window.NoteApi.base;
         const AUTODUFT_PRICE = 19.99;
         const AUTODUFT_IMAGE = 'images_website/autoduft/note-autoduft-wood-core-product-v1.png';
 
-        const scents = [
-            {
-                id: 'G351',
-                name: 'Orange in Full Bloom',
-                category: 'men',
-                description: 'Strahlende Zitrusfrische, helle Blüten und weiches Holz.',
-                image: 'images_website/new-arrivals/g351-notes-5pct-v1.webp'
-            },
-            {
-                id: 'L214',
-                name: 'Garden by the Nile',
-                category: 'women',
-                description: 'Grüne Mango, Lotus und elegante Hölzer.',
-                image: 'images_website/new-arrivals/l214-notes-5pct-v1.webp'
-            },
-            {
-                id: 'G333',
-                name: 'Royal Cherry',
-                category: 'men',
-                description: 'Dunkel, fruchtig und holzig mit ausdrucksstarker Tiefe.',
-                image: 'images_website/new-arrivals/g333-notes-5pct-v1.webp'
-            },
-            {
-                id: 'L212',
-                name: 'Pure Musk Embrace',
-                category: 'women',
-                description: 'Weicher Moschus, weiße Blüten und cremiges Holz.',
-                image: 'images_website/new-arrivals/l212-notes-5pct-v1.webp'
-            },
-            {
-                id: 'G343',
-                name: 'Blue After Dark Exclusive',
-                category: 'men',
-                description: 'Dicht, amber-aromatisch und markant holzig.',
-                image: 'images_website/new-arrivals/g343-notes-5pct-v1.webp'
-            },
-            {
-                id: 'L203',
-                name: 'Blush After Midnight',
-                category: 'women',
-                description: 'Floral, vanillig und pudrig-elegant.',
-                image: 'images_website/new-arrivals/l203-notes-5pct-v1.webp'
-            },
-            {
-                id: 'G352',
-                name: 'Leather Across the Savannah',
-                category: 'men',
-                description: 'Warmer Lederduft mit Kardamom, Rose und dunkler Tiefe.',
-                image: 'images_website/new-arrivals/g352-notes-5pct-v1.webp'
-            },
-            {
-                id: 'L62',
-                name: 'Whispers of Devotion',
-                category: 'women',
-                description: 'Feminin, weich und elegant mit warmer Signatur.',
-                image: 'images_website/bestsellers/l62-comparison-transparent-v2.webp'
-            }
-        ];
+        let scents = [];
+        let scentsLoaded = false;
+        let scentsLoading = false;
+        let scentsError = false;
 
         let pageScrollState = null;
         const scrollOwners = new Set();
@@ -213,6 +159,23 @@ const API_BASE_URL = window.NoteApi.base;
             .replace(/[\u0300-\u036f]/g, '');
 
         function renderScents() {
+            scentGrid.setAttribute('aria-busy', String(scentsLoading));
+            if (!scentsLoaded) {
+                resultCount.textContent = scentsLoading ? 'Düfte werden geladen …' : 'Duftauswahl';
+                scentGrid.replaceChildren();
+                const status = document.createElement('div');
+                status.className = 'empty-state';
+                status.textContent = scentsError ? 'Die Düfte konnten nicht geladen werden. ' : 'Düfte werden geladen …';
+                if (scentsError) {
+                    const retry = document.createElement('button');
+                    retry.type = 'button';
+                    retry.textContent = 'Erneut laden';
+                    retry.addEventListener('click', loadScents);
+                    status.append(retry);
+                }
+                scentGrid.append(status);
+                return;
+            }
             const query = normalize(searchInput.value);
             const filtered = scents.filter((scent) => {
                 const inCategory = activeCategory === 'all' || scent.category === activeCategory;
@@ -227,26 +190,70 @@ const API_BASE_URL = window.NoteApi.base;
                 return;
             }
 
-            scentGrid.innerHTML = filtered.map((scent, index) => `
-                <button class="scent-card${selectedScent && selectedScent.id === scent.id ? ' is-selected' : ''}"
-                    type="button" data-scent-id="${scent.id}" style="--card-index: ${index}" aria-label="Duftnote ${scent.id} ${scent.name} auswählen">
+            const cards = document.createDocumentFragment();
+            filtered.forEach((scent, index) => {
+                const card = document.createElement('button');
+                card.className = 'scent-card' + (selectedScent?.id === scent.id ? ' is-selected' : '');
+                card.type = 'button';
+                card.dataset.scentId = scent.id;
+                card.style.setProperty('--card-index', Math.min(index, 8));
+                card.setAttribute('aria-label', `Duftnote ${scent.id} ${scent.name} auswählen`);
+                card.innerHTML = `
                     <span class="selected-mark" aria-hidden="true">✓</span>
-                    <img src="${scent.image}" alt="" loading="lazy">
-                    <span class="scent-code">${scent.id} Duftnote</span>
-                    <strong class="scent-name">${scent.name}</strong>
-                    <span class="scent-desc">${scent.description}</span>
-                </button>
-            `).join('');
-
-            scentGrid.querySelectorAll('[data-scent-id]').forEach((card) => {
-                card.addEventListener('click', () => selectScent(card.dataset.scentId));
+                    <img alt="" loading="lazy" decoding="async">
+                    <span class="scent-code"></span>
+                    <strong class="scent-name"></strong>
+                    <span class="scent-desc"></span>`;
+                card.querySelector('img').src = scent.image;
+                card.querySelector('.scent-code').textContent = `${scent.id} Duftnote`;
+                card.querySelector('.scent-name').textContent = scent.name;
+                card.querySelector('.scent-desc').textContent = scent.description;
+                card.addEventListener('click', () => selectScent(scent.id));
+                cards.append(card);
             });
+            scentGrid.replaceChildren(cards);
+        }
+
+        function scentImage(value) {
+            try {
+                const mapped = window.NoteAssets?.image(value) || value;
+                const url = new URL(mapped, window.location.href);
+                if (url.origin === window.location.origin && /\.(?:webp|png|jpe?g|avif)$/i.test(url.pathname)) return url.href;
+            } catch { /* Fall back to the shop logo for malformed catalog image paths. */ }
+            return window.NoteAssets?.image('logo.webp') || 'logo.webp';
+        }
+
+        async function loadScents() {
+            if (scentsLoaded || scentsLoading) return;
+            scentsLoading = true;
+            scentsError = false;
+            renderScents();
+            try {
+                const products = await loadStorefrontProducts();
+                scents = products
+                    .filter(product => /^[GL]\d{1,4}$/.test(String(product.id || '')) && ['men', 'women'].includes(product.category))
+                    .map(product => ({
+                        id: product.id,
+                        name: String(product.publicName || product.name || product.id),
+                        category: product.category,
+                        description: String(product.description || ''),
+                        image: scentImage(product.images?.[0])
+                    }))
+                    .sort((left, right) => left.id.localeCompare(right.id, 'de', { numeric: true }));
+                scentsLoaded = true;
+            } catch {
+                scentsError = true;
+            } finally {
+                scentsLoading = false;
+                renderScents();
+            }
         }
 
         function openModal() {
             modal.hidden = false;
             lockPageScroll();
             renderScents();
+            loadScents();
             window.requestAnimationFrame(() => {
                 window.requestAnimationFrame(() => modal.classList.add('is-visible'));
             });
