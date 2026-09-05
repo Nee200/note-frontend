@@ -400,7 +400,7 @@
 
     function readCachedProducts() {
         try {
-            const cached = JSON.parse(window.NoteStore.session.getItem("note_products_v3") || "[]");
+            const cached = JSON.parse(window.NoteStore.session.getItem("note_products_v4") || "[]");
             return Array.isArray(cached) && cached.length ? cached : null;
         } catch (_error) {
             return null;
@@ -432,7 +432,7 @@
             try {
                 const products = await fetchProducts(endpoint);
                 try {
-                    window.NoteStore.session.setItem("note_products_v3", JSON.stringify(products));
+                    window.NoteStore.session.setItem("note_products_v4", JSON.stringify(products));
                 } catch (_error) {
                     // Der Katalog funktioniert auch ohne Browser-Cache.
                 }

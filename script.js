@@ -61,7 +61,7 @@ function normalizeNewArrivalPrices(items) {
 
 function hydrateProductsFromCache() {
     try {
-        const cachedProducts = window.NoteStore.session.getItem('note_products_v3');
+        const cachedProducts = window.NoteStore.session.getItem('note_products_v4');
         if (!cachedProducts) return false;
         const parsed = JSON.parse(cachedProducts);
         if (!Array.isArray(parsed)) return false;
@@ -80,7 +80,7 @@ async function fetchAndStoreProducts() {
     const data = await res.json();
     if (Array.isArray(data)) {
         products = normalizeNewArrivalPrices(data);
-        window.NoteStore.session.setItem('note_products_v3', JSON.stringify(products));
+        window.NoteStore.session.setItem('note_products_v4', JSON.stringify(products));
     }
     return products;
 }
