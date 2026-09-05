@@ -6,6 +6,17 @@ import puppeteer from 'puppeteer';
 import { preview } from '../scripts/preview.mjs';
 import { root } from '../scripts/build.mjs';
 
+const scentCatalog = [
+    ...[['G', 'men', 344], ['L', 'women', 214]].flatMap(([prefix, category, count]) =>
+        Array.from({ length: count }, (_, index) => ({
+            id: `${prefix}${index + 1}`, name: `Testduft ${prefix}${index + 1}`, category,
+            publicName: `Duft ${prefix}${index + 1}`, description: 'Frisch und blumig',
+            newArrival: false, images: ['logo.webp'], variants: { 30: { price: 34.99 } }
+        }))),
+    { id: 'AUTODUFT', name: 'Autoduft', category: 'car-fragrance' },
+    { id: 'G999', name: 'Kein Parfum', category: 'accessory' }
+];
+
 async function swipe(page, imageSelector, direction) {
     const rect = await page.$eval(imageSelector, e => { const r = e.getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, height: r.height }; });
     const x = rect.x + rect.width * (direction < 0 ? .75 : .25), y = rect.y + rect.height / 2;
@@ -24,6 +35,7 @@ test('Autoduft uses the shared cart and supports decoded gallery navigation on t
     try {
         for (const mobile of [true, false]) {
             const page = await browser.newPage(), errors = [], badImages = [];
+            let catalogAvailable = false;
             await page.setViewport({ width: mobile ? 390 : 1366, height: mobile ? 844 : 900, isMobile: mobile, hasTouch: mobile });
             await page.evaluateOnNewDocument(() => {
                 localStorage.setItem('cookie_consent', 'necessary');
@@ -34,18 +46,35 @@ test('Autoduft uses the shared cart and supports decoded gallery navigation on t
             await page.setRequestInterception(true);
             page.on('request', request => {
                 const url = new URL(request.url());
-                if (url.pathname === '/api/products') return request.respond({ status: 200, contentType: 'application/json', headers: { 'Access-Control-Allow-Origin': `http://127.0.0.1:${server.address().port}`, 'Access-Control-Allow-Credentials': 'true' }, body: '[]' });
+                if (url.pathname === '/api/products') return request.respond({ status: catalogAvailable ? 200 : 503, contentType: 'application/json', headers: { 'Access-Control-Allow-Origin': `http://127.0.0.1:${server.address().port}`, 'Access-Control-Allow-Credentials': 'true' }, body: JSON.stringify(catalogAvailable ? scentCatalog : {}) });
                 if (!['127.0.0.1', 'localhost'].includes(url.hostname)) return request.abort();
                 return request.continue();
             });
             await page.goto(`http://127.0.0.1:${server.address().port}/autoduft.html`, { waitUntil: 'load' });
             await page.click('#open-selector');
             await page.waitForSelector('#scent-modal.is-visible');
-            await page.click('[data-scent-id="G351"]');
+            await page.waitForSelector('#scent-grid .empty-state button');
+            catalogAvailable = true;
+            await page.click('#scent-grid .empty-state button');
+            await page.waitForFunction(() => document.querySelectorAll('.scent-card').length === 558);
+            assert.equal(await page.$eval('#result-count', e => e.textContent), '558 Düfte');
+            assert.deepEqual(await page.$$eval('.scent-card', cards => cards.slice(0, 3).map(card => card.dataset.scentId)), ['G1', 'G2', 'G3']);
+            await page.click('[data-category="women"]');
+            assert.equal(await page.$$eval('.scent-card', cards => cards.length), 214);
+            await page.type('#scent-search', 'L214');
+            assert.equal(await page.$$eval('.scent-card', cards => cards.length), 1);
+            assert.equal(await page.$eval('.scent-name', e => e.textContent), 'Duft L214');
+            await page.click('[data-category="men"]');
+            assert.equal(await page.$$eval('.scent-card', cards => cards.length), 0);
+            await page.click('[data-category="all"]');
+            await page.$eval('#scent-search', e => { e.value = ''; e.dispatchEvent(new Event('input', { bubbles: true })); });
+            const scentId = mobile ? 'L214' : 'G1';
+            await page.type('#scent-search', scentId);
+            await page.click(`[data-scent-id="${scentId}"]`);
             await page.waitForFunction(() => document.querySelector('#scent-modal').hidden);
             await page.click('#add-btn');
             await page.waitForFunction(() => document.querySelector('[data-cart-drawer]').getAttribute('aria-hidden') === 'false');
-            const item = '[data-cart-id="AUTODUFT-G351"]';
+            const item = `[data-cart-id="AUTODUFT-${scentId}"]`;
             await page.waitForSelector(item);
             await page.waitForFunction(() => { const r = document.querySelector('[data-cart-drawer]').getBoundingClientRect(); return r.left >= -1 && r.right <= innerWidth + 1; });
             await page.click(item + ' [data-cart-action="increase"]');
