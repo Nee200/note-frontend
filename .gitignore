@@ -1,4 +1,11 @@
 node_modules/
+.env
+.env.*
+.dev.vars
+.dev.vars.*
+dist/
+.build-cache/
+.wrangler-dry-run/
 .wrangler/
 .DS_Store
 *.log

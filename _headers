@@ -4,12 +4,9 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(self "https://js.stripe.com" "https://checkout.stripe.com")
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' https://checkout.stripe.com; script-src 'self' 'unsafe-inline' https://js.stripe.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: blob: https:; connect-src 'self' https://note-backend-5gy0.onrender.com; frame-src blob: https://js.stripe.com https://hooks.stripe.com https://checkout.stripe.com; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' https://checkout.stripe.com; script-src 'self' https://js.stripe.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob:; connect-src 'self'; frame-src blob: https://js.stripe.com https://hooks.stripe.com https://checkout.stripe.com; upgrade-insecure-requests
 
-/images_website/*
-  Cache-Control: public, max-age=31536000, immutable
-
-/images_parfume/*
+/assets/*
   Cache-Control: public, max-age=31536000, immutable
 
 https://note-frontend.tony-straehle.workers.dev/*

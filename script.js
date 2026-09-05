@@ -1,124 +1,12 @@
-const API_BASE_URL = (() => {
-    const localHosts = new Set(['localhost', '127.0.0.1']);
-    if (localHosts.has(window.location.hostname)) {
-        return 'http://localhost:4242';
-    }
-    return 'https://note-backend-5gy0.onrender.com';
-})();
-// Ans Window haengen, damit style-wave-home.js es wiederverwenden kann
-// (verhindert "Identifier has already been declared", wenn beide Skripte geladen werden).
+const API_BASE_URL = window.NoteApi.base;
 window.API_BASE_URL = API_BASE_URL;
-
-const CSRF_COOKIE_NAME = 'csrf_token';
-const nativeFetch = window.fetch.bind(window);
-let csrfBootstrapPromise = null;
-let csrfTokenMemory = '';
-
-function getCookieValue(name) {
-    const prefix = `${name}=`;
-    const entry = document.cookie.split('; ').find(part => part.startsWith(prefix));
-    return entry ? decodeURIComponent(entry.slice(prefix.length)) : '';
-}
-
-function getReadableCsrfToken() {
-    return getCookieValue(CSRF_COOKIE_NAME) || csrfTokenMemory;
-}
-
-function getStoredUserAuthToken() {
-    try {
-        return String(localStorage.getItem('user_auth_token') || '').trim();
-    } catch (error) {
-        return '';
-    }
-}
-
-function isApiRequestUrl(url) {
-    return typeof url === 'string' && (url.startsWith(API_BASE_URL) || url.startsWith('/'));
-}
-
-async function ensureCsrfTokenCookie() {
-    let token = getReadableCsrfToken();
-    if (token) return token;
-
-    if (!csrfBootstrapPromise) {
-        csrfBootstrapPromise = nativeFetch(API_BASE_URL + '/api/csrf-token', {
-            method: 'GET',
-            credentials: 'include'
-        })
-            .then(async (response) => {
-                if (!response.ok) return;
-                const payload = await response.json().catch(() => null);
-                if (payload && typeof payload.csrfToken === 'string' && payload.csrfToken.trim()) {
-                    csrfTokenMemory = payload.csrfToken.trim();
-                }
-            })
-            .catch(() => {
-                // handled by caller
-            })
-            .finally(() => {
-                csrfBootstrapPromise = null;
-            });
-    }
-
-    await csrfBootstrapPromise;
-    return getReadableCsrfToken();
-}
-
-window.fetch = async function patchedFetch(resource, options = {}) {
-    const requestUrl = typeof resource === 'string' ? resource : resource && resource.url;
-    const requestMethod = String(
-        options.method || (resource && resource.method) || 'GET'
-    ).toUpperCase();
-    const apiRequest = isApiRequestUrl(requestUrl);
-
-    if (apiRequest && !options.credentials) {
-        options = {
-            ...options,
-            credentials: 'include'
-        };
-    }
-
-    if (apiRequest) {
-        const headers = new Headers(resource && resource.headers ? resource.headers : undefined);
-        if (options.headers) {
-            new Headers(options.headers).forEach((value, key) => headers.set(key, value));
-        }
-        if (!headers.has('Authorization')) {
-            const authToken = getStoredUserAuthToken();
-            if (authToken) {
-                headers.set('Authorization', `Bearer ${authToken}`);
-            }
-        }
-        options = {
-            ...options,
-            headers
-        };
-    }
-
-    if (!['GET', 'HEAD', 'OPTIONS'].includes(requestMethod) && apiRequest) {
-        const csrfToken = await ensureCsrfTokenCookie();
-        if (csrfToken) {
-            const headers = new Headers(resource && resource.headers ? resource.headers : undefined);
-            if (options.headers) {
-                new Headers(options.headers).forEach((value, key) => headers.set(key, value));
-            }
-            headers.set('X-CSRF-Token', csrfToken);
-            options = {
-                ...options,
-                credentials: options.credentials || 'include',
-                headers
-            };
-        }
-    }
-
-    return nativeFetch(resource, options);
-};
+const ensureCsrfTokenCookie = () => window.NoteApi.csrf();
 
 function persistCouponState() {
-    localStorage.setItem('discount', String(currentDiscount || 0));
-    localStorage.setItem('couponCode', currentCouponCode);
-    localStorage.setItem('couponLabel', currentCouponLabel);
-    localStorage.setItem('couponFreeShipping', currentCouponFreeShipping ? '1' : '0');
+    window.NoteStore.local.setItem('discount', String(currentDiscount || 0));
+    window.NoteStore.local.setItem('couponCode', currentCouponCode);
+    window.NoteStore.local.setItem('couponLabel', currentCouponLabel);
+    window.NoteStore.local.setItem('couponFreeShipping', currentCouponFreeShipping ? '1' : '0');
 }
 
 function clearCouponState() {
@@ -126,10 +14,10 @@ function clearCouponState() {
     currentCouponCode = '';
     currentCouponLabel = '';
     currentCouponFreeShipping = false;
-    localStorage.removeItem('discount');
-    localStorage.removeItem('couponCode');
-    localStorage.removeItem('couponLabel');
-    localStorage.removeItem('couponFreeShipping');
+    window.NoteStore.local.removeItem('discount');
+    window.NoteStore.local.removeItem('couponCode');
+    window.NoteStore.local.removeItem('couponLabel');
+    window.NoteStore.local.removeItem('couponFreeShipping');
 }
 
 window.addEventListener('note:coupon-removed', () => {
@@ -142,7 +30,7 @@ async function syncUserLoginIndicator() {
     if (!userIcons.length) return;
 
     try {
-        const response = await fetch(API_BASE_URL + '/api/user', {
+        const response = await window.NoteApi.fetch(API_BASE_URL + '/api/user', {
             credentials: 'include'
         });
         const isLoggedIn = response.ok;
@@ -173,7 +61,7 @@ function normalizeNewArrivalPrices(items) {
 
 function hydrateProductsFromCache() {
     try {
-        const cachedProducts = sessionStorage.getItem('note_products_v3');
+        const cachedProducts = window.NoteStore.session.getItem('note_products_v3');
         if (!cachedProducts) return false;
         const parsed = JSON.parse(cachedProducts);
         if (!Array.isArray(parsed)) return false;
@@ -185,14 +73,14 @@ function hydrateProductsFromCache() {
 }
 
 async function fetchAndStoreProducts() {
-    const res = await fetch(API_BASE_URL + '/api/products');
+    const res = await window.NoteApi.fetch(API_BASE_URL + '/api/products');
     if (!res.ok) {
         throw new Error('Failed to load products');
     }
     const data = await res.json();
     if (Array.isArray(data)) {
         products = normalizeNewArrivalPrices(data);
-        sessionStorage.setItem('note_products_v3', JSON.stringify(products));
+        window.NoteStore.session.setItem('note_products_v3', JSON.stringify(products));
     }
     return products;
 }
@@ -358,11 +246,11 @@ function matchesProductSearch(product, queryRaw) {
     );
 }
 
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
-let currentDiscount = parseFloat(localStorage.getItem('discount')) || 0;
-let currentCouponCode = localStorage.getItem('couponCode') || '';
-let currentCouponLabel = localStorage.getItem('couponLabel') || '';
-let currentCouponFreeShipping = localStorage.getItem('couponFreeShipping') === '1';
+let cart = window.NoteCart.read();
+let currentDiscount = parseFloat(window.NoteStore.local.getItem('discount')) || 0;
+let currentCouponCode = window.NoteStore.local.getItem('couponCode') || '';
+let currentCouponLabel = window.NoteStore.local.getItem('couponLabel') || '';
+let currentCouponFreeShipping = window.NoteStore.local.getItem('couponFreeShipping') === '1';
 const STRIPE_PENDING_CHECKOUT_KEY = 'stripe_checkout_pending';
 let couponStateSynced = false;
 let currentDeliveryMethod = 'shipping';
@@ -400,23 +288,23 @@ function syncCartPricesFromCatalog() {
         }
     });
 
-    if (changed) localStorage.setItem('cart', JSON.stringify(cart));
+    if (changed) window.NoteStore.local.setItem('cart', JSON.stringify(cart));
 }
 
 if (currentDiscount > 0 && !currentCouponCode) {
     currentDiscount = 0;
     currentCouponLabel = '';
     currentCouponFreeShipping = false;
-    localStorage.removeItem('discount');
-    localStorage.removeItem('couponCode');
-    localStorage.removeItem('couponLabel');
-    localStorage.removeItem('couponFreeShipping');
+    window.NoteStore.local.removeItem('discount');
+    window.NoteStore.local.removeItem('couponCode');
+    window.NoteStore.local.removeItem('couponLabel');
+    window.NoteStore.local.removeItem('couponFreeShipping');
 }
 
 function clearCartState() {
     cart = [];
     clearCouponState();
-    localStorage.removeItem('cart');
+    window.NoteStore.local.removeItem('cart');
     updateCartUI();
 }
 
@@ -426,22 +314,22 @@ function handleCheckoutReturnState() {
     const isCancelPage = path.endsWith('/cancel.html') || path.endsWith('cancel.html');
 
     if (isCancelPage) {
-        sessionStorage.removeItem(STRIPE_PENDING_CHECKOUT_KEY);
+        window.NoteStore.session.removeItem(STRIPE_PENDING_CHECKOUT_KEY);
         return;
     }
 
     if (!isSuccessPage) return;
 
     const params = new URLSearchParams(window.location.search || '');
-    const isPickup = params.get('pickup') === 'true' || sessionStorage.getItem('isPickupOrder') === 'true';
-    const hadStripePending = sessionStorage.getItem(STRIPE_PENDING_CHECKOUT_KEY) === '1';
+    const isPickup = params.get('pickup') === 'true' || window.NoteStore.session.getItem('isPickupOrder') === 'true';
+    const hadStripePending = window.NoteStore.session.getItem(STRIPE_PENDING_CHECKOUT_KEY) === '1';
 
     if (isPickup || hadStripePending) {
         clearCartState();
     }
 
-    sessionStorage.removeItem('isPickupOrder');
-    sessionStorage.removeItem(STRIPE_PENDING_CHECKOUT_KEY);
+    window.NoteStore.session.removeItem('isPickupOrder');
+    window.NoteStore.session.removeItem(STRIPE_PENDING_CHECKOUT_KEY);
 }
 
 function initBrandVideoAutoplay() {
@@ -547,7 +435,8 @@ async function init() {
 
     if (needsProductsForInitialRender) {
         try {
-            await ensureProductsLoaded();
+            const isLocalPreview = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+            await ensureProductsLoaded({ forceRefresh: isLocalPreview });
             // Die Neuheiten-Seite darf nicht mit einem älteren Session-Cache leer
             // gerendert werden. Falls der Cache noch keine Neuheiten kennt, warten
             // wir einmal auf die aktuellen API-Daten, bevor die Karten entstehen.
@@ -627,7 +516,7 @@ async function syncStoredCouponState() {
     if (!currentCouponCode) return;
 
     try {
-        const res = await fetch(API_BASE_URL + '/api/validate-coupon', {
+        const res = await window.NoteApi.fetch(API_BASE_URL + '/api/validate-coupon', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ code: currentCouponCode })
@@ -703,6 +592,7 @@ function getProductCardHTML(product, options = {}) {
     const safeProductName = escapeHtml(product.name || '');
     const safeProductCode = escapeHtml(String(product.name || '').replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, ''));
     const hasComparisonImage = safeImage.includes('images_website/bestsellers/');
+    const hasEditorialImage = /^images_website\/new-arrivals\/[gl]\d+-notes-v3-natural-v\d+\.webp$/i.test(safeImage);
     const safePublicName = escapeHtml(getPublicProductName(product)) || safeProductName;
     const formattedPrice = price.toFixed(2).replace('.', ',');
     const hasOriginalPrice = Number(originalPrice) > Number(price);
@@ -711,7 +601,7 @@ function getProductCardHTML(product, options = {}) {
         : '';
 
     return `
-        <a class="product-card shop-product-card${isCuratedBestseller(product) ? ' is-bestseller' : ''}${hasComparisonImage ? ' has-comparison-image' : ''}" href="product.html?id=${safeProductUrlId}" aria-label="N&Oslash;TE. ${safeProductCode} ansehen">
+        <a class="product-card shop-product-card${isCuratedBestseller(product) ? ' is-bestseller' : ''}${hasComparisonImage ? ' has-comparison-image' : ''}${hasEditorialImage ? ' has-editorial-image' : ''}" href="product.html?id=${safeProductUrlId}" aria-label="N&Oslash;TE. ${safeProductCode} ansehen">
             ${isCuratedBestseller(product) ? '<span class="product-badge-bestseller">Bestseller</span>' : ''}
             <span class="product-code">N&Oslash;TE. ${safeProductCode}</span>
             <div class="product-stage">
@@ -1354,7 +1244,7 @@ function previewReviewInputStars(value) {
 
 async function fetchCurrentReviewUser() {
     try {
-        const response = await fetch(API_BASE_URL + '/api/user', {
+        const response = await window.NoteApi.fetch(API_BASE_URL + '/api/user', {
             credentials: 'include'
         });
         if (!response.ok) return null;
@@ -1535,13 +1425,13 @@ function updateReviewFormState() {
     }
 }
 
-async function loadProductReviews(productId) {
+async function loadProductReviews(productId, page = 1) {
     currentReviewProductId = productId;
 
     try {
         const [user, reviewResponse] = await Promise.all([
             fetchCurrentReviewUser(),
-            fetch(API_BASE_URL + `/api/products/${encodeURIComponent(productId)}/reviews`, {
+            window.NoteApi.fetch(API_BASE_URL + `/api/products/${encodeURIComponent(productId)}/reviews?page=${page}`, {
                 credentials: 'include'
             })
         ]);
@@ -1552,7 +1442,13 @@ async function loadProductReviews(productId) {
         updateReviewSummary(payload.summary || {});
         renderReviewList(payload.reviews || []);
 
-        const ownReview = (payload.reviews || []).find((review) => review.isOwnReview);
+        document.getElementById('reviews-pagination')?.remove();
+        const navigation = document.createElement('nav'); navigation.id = 'reviews-pagination'; navigation.setAttribute('aria-label', 'Bewertungsseiten');
+        for (const [label, target, disabled] of [['Zurück', page - 1, page <= 1], ['Weiter', page + 1, !payload.hasMore]]) {
+            const button = document.createElement('button'); button.textContent = label; button.disabled = disabled; button.addEventListener('click', () => loadProductReviews(productId, target)); navigation.append(button);
+        }
+        document.getElementById('reviews-list')?.after(navigation);
+        const ownReview = payload.ownReview || (payload.reviews || []).find((review) => review.isOwnReview);
         fillReviewFormFromOwnReview(ownReview || null);
         updateReviewFormState();
     } catch (error) {
@@ -1631,7 +1527,7 @@ function initReviewForm() {
         setReviewFormMessage('Bewertung wird gespeichert...');
 
         try {
-            const response = await fetch(API_BASE_URL + `/api/products/${encodeURIComponent(currentReviewProductId)}/reviews`, {
+            const response = await window.NoteApi.fetch(API_BASE_URL + `/api/products/${encodeURIComponent(currentReviewProductId)}/reviews`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -1691,86 +1587,7 @@ function renderProductDetail(id) {
     setReviewFormMessage('');
     loadProductReviews(product.id);
 
-    // Social Proof Logic (Live Data from Server)
-    const viewingCountEl = document.getElementById('viewing-count');
-    const cartAddedCountEl = document.getElementById('cart-added-count');
-    const socialProofContainer = document.getElementById('social-proof-container');
 
-    if (viewingCountEl && cartAddedCountEl && socialProofContainer) {
-        // Animation Helper
-        const animateValue = (element, start, end, duration, prefix, suffix) => {
-            if (start === end) {
-                element.innerHTML = `${prefix}<strong>${end}</strong>${suffix}`;
-                return;
-            }
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                const current = Math.floor(progress * (end - start) + start);
-                element.innerHTML = `${prefix}<strong>${current}</strong>${suffix}`;
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
-            };
-            window.requestAnimationFrame(step);
-        };
-
-        // State to keep track of current displayed values
-        let currentViewers = 0;
-        let currentCarts = 0;
-        let isFirstLoad = true;
-
-        // Function to fetch live stats
-        const fetchLiveStats = () => {
-            fetch(API_BASE_URL + '/api/view-product', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ productId: product.id })
-            })
-                .then(res => res.json())
-                .then(data => {
-                    // Stable offset based on product ID characters
-                    let stableOffset = 0;
-                    for (let i = 0; i < product.id.length; i++) {
-                        stableOffset += product.id.charCodeAt(i);
-                    }
-                    stableOffset = (stableOffset % 30) + 15; // Between 15 and 44
-
-                    const targetViewers = data.viewers + stableOffset;
-                    const targetCarts = Math.max(2, Math.floor(targetViewers * 0.2) + data.carts);
-
-                    if (isFirstLoad) {
-                        // Start animation from 0 or slightly below target
-                        // Animation duration 2 seconds for dramatic effect
-                        animateValue(viewingCountEl, 0, targetViewers, 2000, '', ' Leute sehen sich gerade das Produkt an');
-                        animateValue(cartAddedCountEl, 0, targetCarts, 2000, 'davon ', ' im Warenkorb');
-                        isFirstLoad = false;
-                    } else {
-                        // Smooth transition if value changes
-                        if (currentViewers !== targetViewers) {
-                            animateValue(viewingCountEl, currentViewers, targetViewers, 1000, '', ' Leute sehen sich gerade das Produkt an');
-                        }
-                        if (currentCarts !== targetCarts) {
-                            animateValue(cartAddedCountEl, currentCarts, targetCarts, 1000, 'davon ', ' im Warenkorb');
-                        }
-                    }
-
-                    currentViewers = targetViewers;
-                    currentCarts = targetCarts;
-
-                    socialProofContainer.style.display = 'flex';
-                })
-                .catch(err => console.error('Error fetching live stats:', err));
-        };
-
-        // Initial fetch
-        fetchLiveStats();
-
-        // Poll every 10 seconds
-        if (window.productStatsInterval) clearInterval(window.productStatsInterval);
-        window.productStatsInterval = setInterval(fetchLiveStats, 10000);
-    }
 
     // Initial Rendern mit Default Größe (50ml)
     updateDetailPrice(product, currentSelectedSize);
@@ -2210,6 +2027,10 @@ function resolveCartProductId(item) {
 function openCartItemProduct(productId) {
     const id = String(productId || '').trim();
     if (!id) return;
+    if (id === 'AUTODUFT') {
+        window.location.href = 'autoduft.html';
+        return;
+    }
     window.location.href = `product.html?id=${encodeURIComponent(id)}`;
 }
 
@@ -2224,7 +2045,7 @@ function updateCartUI() {
     if (headerCount) headerCount.innerText = totalItems;
 
     // Save state
-    localStorage.setItem('cart', JSON.stringify(cart));
+    window.NoteStore.local.setItem('cart', JSON.stringify(cart));
     persistCouponState();
 
     // Neues Header-System (style-wave-home.js) ueber Aenderung informieren,
@@ -2274,7 +2095,9 @@ function updateCartUI() {
                 </button>
                 <div class="cart-item-info">
                     <div class="cart-item-title" style="line-height: 1.3;">${cleanName}${inspiredText}</div>
-                    <div class="cart-item-variant">${item.size}ml</div>
+                    <div class="cart-item-variant">${item.productType === 'autoduft'
+                        ? `${escapeHtml(item.scentId || '')} Duftnote · ${escapeHtml(item.scentName || 'Gewählte Duftfüllung')}`
+                        : `${escapeHtml(item.size)}ml`}</div>
                     <div class="quantity-control">
                         <button class="qty-btn" onclick="changeQuantity(decodeURIComponent('${safeCartItemId}'), -1)">−</button>
                         <span class="qty-display">${item.quantity}</span>
@@ -2385,7 +2208,7 @@ function updateCartUI() {
 
 window.addEventListener('note:cart-updated-by-drawer', () => {
     try {
-        const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');
+        const storedCart = window.NoteCart.read();
         cart = Array.isArray(storedCart) ? storedCart : [];
         updateCartUI();
     } catch (error) {
@@ -2448,63 +2271,19 @@ function updateUpsell() {
 
     container.innerHTML = `
         <div class="upsell-card">
-            <img src="${(pick.images && pick.images.length > 0) ? pick.images[0] : 'logo.webp'}"
+            <img src="${safeImageSrc(pick.images?.[0] || 'logo.webp')}"
                  class="upsell-img"
-                 alt="${pick.name}"
+                 alt="${escapeHtml(pick.name)}"
                  onerror="this.src='logo.webp'">
             <div class="upsell-info">
                 <div class="upsell-title">${pick.name}${pick.bestseller ? ' <span class="upsell-bs-badge">Bestseller</span>' : ''}</div>
                 <div class="upsell-price">ab ${price.toFixed(2)} €</div>
             </div>
-            <button class="upsell-add-btn" onclick="window.location.href='product.html?id=${pick.id}'">Ansehen</button>
+            <button class="upsell-add-btn" onclick="window.location.href='product.html?id=${sanitizeProductUrlId(pick.id)}'">Ansehen</button>
         </div>
     `;
 }
 
-// Timer Logik – persistiert via localStorage seitenübergreifend
-let timerInterval;
-const TIMER_KEY = 'cartTimerEnd';
-const TIMER_DURATION_MS = 10 * 60 * 1000; // 10 Minuten
-
-function startCartTimer() {
-    const timerEl = document.getElementById('cart-timer');
-    if (!timerEl) return;
-
-    // Alte sessionStorage-Version bereinigen (Migration von alter Implementierung)
-    sessionStorage.removeItem(TIMER_KEY);
-
-    // Ablaufzeit aus localStorage lesen oder neu starten
-    let endTime = parseInt(localStorage.getItem(TIMER_KEY), 10);
-    if (!endTime || endTime <= Date.now()) {
-        // Kein gültiger Timer vorhanden → neu starten
-        endTime = Date.now() + TIMER_DURATION_MS;
-        localStorage.setItem(TIMER_KEY, endTime);
-    }
-
-    // Sofort die richtige Zeit anzeigen (kein "10:00" Flash)
-    const initRemaining = Math.max(0, endTime - Date.now());
-    const initMin = Math.floor(initRemaining / 60000);
-    const initSec = Math.floor((initRemaining % 60000) / 1000);
-    timerEl.innerText = `${initMin.toString().padStart(2, '0')}:${initSec.toString().padStart(2, '0')}`;
-
-    clearInterval(timerInterval);
-    timerInterval = setInterval(() => {
-        const remaining = Math.max(0, endTime - Date.now());
-        const minutes = Math.floor(remaining / 60000);
-        const seconds = Math.floor((remaining % 60000) / 1000);
-
-        timerEl.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-
-        if (remaining <= 0) {
-            clearInterval(timerInterval);
-            timerEl.innerText = '00:00';
-            localStorage.removeItem(TIMER_KEY);
-        }
-    }, 500);
-}
-
-// Start Timer beim Laden
-startCartTimer();
 
 
 // Gutschein anwenden
@@ -2522,7 +2301,7 @@ async function applyCoupon() {
     btn.innerText = '…';
 
     try {
-        const res = await fetch(API_BASE_URL + '/api/validate-coupon', {
+        const res = await window.NoteApi.fetch(API_BASE_URL + '/api/validate-coupon', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ code })
@@ -2716,10 +2495,10 @@ async function checkout() {
         }));
 
         // Pickup-Flag in sessionStorage speichern, damit success.html es auch ohne URL-Param lesen kann
-        sessionStorage.setItem('isPickupOrder', 'true');
+        window.NoteStore.session.setItem('isPickupOrder', 'true');
 
         try {
-            const response = await fetch(API_BASE_URL + '/create-pickup-order', {
+            const response = await window.NoteApi.fetch(API_BASE_URL + '/create-pickup-order', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -2755,7 +2534,7 @@ async function checkout() {
 
     // Versuche, die E-Mail des eingeloggten Users zu holen
     try {
-        const userRes = await fetch(API_BASE_URL + '/api/user', { credentials: 'include' });
+        const userRes = await window.NoteApi.fetch(API_BASE_URL + '/api/user', { credentials: 'include' });
         if (userRes.ok) {
             const userData = await userRes.json();
             customerEmail = userData.user.email;
@@ -2784,7 +2563,7 @@ async function checkout() {
     }
 
     try {
-        const response = await fetch(API_BASE_URL + '/create-checkout-session', {
+        const response = await window.NoteApi.fetch(API_BASE_URL + '/create-checkout-session', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -2816,7 +2595,7 @@ async function checkout() {
 
         // 3. Weiterleitung zu Stripe
         if (data.url) {
-            sessionStorage.setItem(STRIPE_PENDING_CHECKOUT_KEY, '1');
+            window.NoteStore.session.setItem(STRIPE_PENDING_CHECKOUT_KEY, '1');
             window.location.href = data.url;
         } else {
             console.error('Keine URL erhalten:', data);

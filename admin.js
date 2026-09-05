@@ -1,18 +1,4 @@
-const API_BASE_URL = (() => {
-    const host = String(window.location.hostname || '').toLowerCase();
-    const localHosts = new Set(['localhost', '127.0.0.1']);
-    const isPrivateIpv4 = /^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[0-1])\.)/.test(host);
-    if (localHosts.has(host) || isPrivateIpv4) {
-        const protocol = window.location.protocol === 'https:' ? 'https:' : 'http:';
-        return `${protocol}//${window.location.hostname}:4242`;
-    }
-    return 'https://note-backend-5gy0.onrender.com';
-})();
-const CSRF_COOKIE_NAME = 'csrf_token';
-const ADMIN_AUTH_TOKEN_STORAGE_KEY = 'admin_auth_token';
-const nativeFetch = window.fetch.bind(window);
-let csrfBootstrapPromise = null;
-let csrfTokenMemory = '';
+const API_BASE_URL = window.NoteApi.base;
 let allProducts = [];
 let editingProductId = null;
 let selectedIds = new Set(); // Persists selections across search re-renders
@@ -27,92 +13,8 @@ let invoiceFeatureEnabled = false;
 let securityMonitorTimer = null;
 let supplierCatalogLoaded = false;
 
-// Central fetch wrapper - always sends cookies cross-origin
-function getCookieValue(name) {
-    const prefix = `${name}=`;
-    const entry = document.cookie.split('; ').find(part => part.startsWith(prefix));
-    return entry ? decodeURIComponent(entry.slice(prefix.length)) : '';
-}
-
-function getReadableCsrfToken() {
-    return getCookieValue(CSRF_COOKIE_NAME) || csrfTokenMemory;
-}
-
-function getStoredAdminAuthToken() {
-    try {
-        return String(sessionStorage.getItem(ADMIN_AUTH_TOKEN_STORAGE_KEY) || '').trim();
-    } catch (error) {
-        return '';
-    }
-}
-
-function setStoredAdminAuthToken(token) {
-    try {
-        const safeToken = String(token || '').trim();
-        if (!safeToken) return;
-        sessionStorage.setItem(ADMIN_AUTH_TOKEN_STORAGE_KEY, safeToken);
-    } catch (error) {
-        // ignore storage issues
-    }
-}
-
-function clearStoredAdminAuthToken() {
-    try {
-        sessionStorage.removeItem(ADMIN_AUTH_TOKEN_STORAGE_KEY);
-    } catch (error) {
-        // ignore storage issues
-    }
-}
-
-async function ensureCsrfTokenCookie() {
-    let token = getReadableCsrfToken();
-    if (token) return token;
-
-    if (!csrfBootstrapPromise) {
-        csrfBootstrapPromise = nativeFetch(API_BASE_URL + '/api/csrf-token', {
-            method: 'GET',
-            credentials: 'include'
-        })
-            .then(async (response) => {
-                if (!response.ok) return;
-                const payload = await response.json().catch(() => null);
-                if (payload && typeof payload.csrfToken === 'string' && payload.csrfToken.trim()) {
-                    csrfTokenMemory = payload.csrfToken.trim();
-                }
-            })
-            .catch(() => {
-                // handled by caller
-            })
-            .finally(() => {
-                csrfBootstrapPromise = null;
-            });
-    }
-
-    await csrfBootstrapPromise;
-    return getReadableCsrfToken();
-}
-
-async function adminFetch(path, options) {
-    options = options || {};
-    options.credentials = 'include';
-    const headers = new Headers(options.headers || {});
-
-    const adminAuthToken = getStoredAdminAuthToken();
-    if (adminAuthToken && !headers.has('Authorization')) {
-        headers.set('Authorization', `Bearer ${adminAuthToken}`);
-    }
-    options.headers = headers;
-
-    const method = String(options.method || 'GET').toUpperCase();
-    if (!['GET', 'HEAD', 'OPTIONS'].includes(method)) {
-        const csrfToken = await ensureCsrfTokenCookie();
-        if (csrfToken) {
-            headers.set('X-CSRF-Token', csrfToken);
-        }
-    }
-
-    return nativeFetch(API_BASE_URL + path, options);
-}
+const adminFetch = (path, options = {}) => window.NoteApi.fetch(API_BASE_URL + path, options);
+const ensureCsrfTokenCookie = () => window.NoteApi.csrf();
 
 function escapeHtml(value) {
     return String(value || '')
@@ -134,168 +36,16 @@ function safeImageSrc(value) {
 }
 
 function renderSecurityStatus(payload) {
-    const scoreEl = document.getElementById('security-health-score');
-    const metaEl = document.getElementById('security-health-meta');
-    const listEl = document.getElementById('security-health-list');
-    const scannerEl = document.getElementById('security-scanner-status');
-    const alertsEl = document.getElementById('security-monitor-alerts');
-    const historyEl = document.getElementById('security-monitor-history');
-    if (!scoreEl || !metaEl || !listEl || !scannerEl || !alertsEl || !historyEl) return;
-
-    if (!payload || !Array.isArray(payload.checks)) {
-        scoreEl.textContent = '--%';
-        metaEl.textContent = 'Keine Sicherheitsdaten verfügbar';
-        listEl.innerHTML = '';
-        scannerEl.innerHTML = '';
-        alertsEl.innerHTML = '';
-        historyEl.innerHTML = '';
-        return;
-    }
-
-    const score = Number(payload.score) || 0;
-    scoreEl.textContent = `${score}%`;
-    scoreEl.style.color = score >= 85 ? '#1abc9c' : (score >= 70 ? '#f39c12' : '#e74c3c');
-    const monitor = payload.monitor || {};
-    const intervalMin = monitor.intervalMs ? Math.max(1, Math.round(Number(monitor.intervalMs) / 60000)) : 0;
-    const dependencyMonitor = payload.dependencyMonitor || {};
-    const depNext = dependencyMonitor.nextRunAt ? new Date(dependencyMonitor.nextRunAt).toLocaleTimeString('de-DE') : 'n/a';
-    const updatedText = payload.updatedAt ? new Date(payload.updatedAt).toLocaleTimeString('de-DE') : 'n/a';
-    const depIntervalHours = dependencyMonitor.intervalMs
-        ? Math.max(1, Math.round(Number(dependencyMonitor.intervalMs) / 3600000))
-        : 24;
-    const depNextDateTime = dependencyMonitor.nextRunAt
-        ? new Date(dependencyMonitor.nextRunAt).toLocaleString('de-DE')
-        : 'n/a';
-    const depStale = dependencyMonitor.isStale === true;
-    const depStatus = depStale ? 'Dependency-Scan veraltet' : 'Dependency-Scan aktuell';
-    metaEl.textContent = `${payload.passed}/${payload.total} Checks OK · ${escapeHtml(payload.environment || 'n/a')} · Update: ${updatedText}${intervalMin ? ` · Auto-Test alle ${intervalMin} min` : ''} · Nächster Dependency-Scan: ${depNext}`;
-
-    metaEl.textContent = `${payload.passed}/${payload.total} Checks OK | ${escapeHtml(payload.environment || 'n/a')} | Update: ${updatedText}${intervalMin ? ` | Auto-Test alle ${intervalMin} min` : ''} | Dependency-Scan alle ${depIntervalHours}h | Naechster Lauf: ${depNextDateTime} | ${depStatus}`;
-
-    listEl.innerHTML = payload.checks.map((check) => {
-        const ok = !!check.ok;
-        const bg = ok ? '#e8f8f5' : '#fdecea';
-        const severity = String(check.severity || '').toLowerCase();
-        const isCritical = !ok && severity === 'critical';
-        const color = ok ? '#0f8f75' : (isCritical ? '#b71c1c' : '#c0392b');
-        const icon = ok ? '&#10003;' : (isCritical ? '&#9940;' : '&#9888;');
-        return `
-            <div style="border:1px solid #e6e6e6;border-radius:8px;padding:0.55rem 0.65rem;background:${bg};">
-                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
-                    <div style="font-size:0.82rem;font-weight:600;color:#2d3436;">${escapeHtml(check.label || check.id || 'Check')}</div>
-                    <span style="font-size:0.75rem;font-weight:700;color:${color};">${icon}</span>
-                </div>
-                <div style="font-size:0.76rem;color:#666;margin-top:0.2rem;">${escapeHtml(check.detail || '')}</div>
-            </div>
-        `;
-    }).join('');
-
-    const depLatest = dependencyMonitor.latest || {};
-    const depTotals = depLatest.totals || {};
-    const npmFailureText = Array.isArray(depLatest.npmFailures) && depLatest.npmFailures.length
-        ? depLatest.npmFailures.join(' | ')
-        : '';
-    const osvFailureText = Array.isArray(depLatest.osvFailures) && depLatest.osvFailures.length
-        ? depLatest.osvFailures.join(' | ')
-        : '';
-    const scanTargets = Array.isArray(depLatest.scans)
-        ? depLatest.scans.map((scan) => String(scan.id || '').trim()).filter(Boolean)
-        : [];
-    const scanTargetText = scanTargets.length
-        ? `Scan-Ziele: ${scanTargets.join(', ')}`
-        : 'Scan-Ziele: n/a';
-    const npmCriticalHigh = (Number(depTotals.critical) || 0) + (Number(depTotals.high) || 0);
-    const npmModerateLow = (Number(depTotals.moderate) || 0) + (Number(depTotals.low) || 0);
-    const npmState = typeof depLatest.npmOk !== 'boolean'
-        ? 'unknown'
-        : (!depLatest.npmOk
-            ? 'error'
-            : (npmCriticalHigh > 0 ? 'danger' : (npmModerateLow > 0 ? 'warning' : 'success')));
-    const osvFindings = Number(depTotals.osvVulns) || 0;
-    const osvState = typeof depLatest.osvOk !== 'boolean'
-        ? 'unknown'
-        : (!depLatest.osvOk ? 'error' : (osvFindings > 0 ? 'danger' : 'success'));
-    const scannerCards = [
-        {
-            label: 'npm audit',
-            state: npmState,
-            detail: typeof depLatest.npmOk === 'boolean' && !depLatest.npmOk
-                ? (npmFailureText || 'Mindestens ein npm audit Lauf fehlgeschlagen.')
-                : `Critical/High: ${Number(depTotals.critical) || 0}/${Number(depTotals.high) || 0}, Moderate: ${Number(depTotals.moderate) || 0}`
-        },
-        {
-            label: 'OSV Scan',
-            state: osvState,
-            detail: typeof depLatest.osvOk === 'boolean' && !depLatest.osvOk
-                ? (osvFailureText || 'Mindestens ein OSV Scan Lauf fehlgeschlagen.')
-                : `OSV Hits: ${Number(depTotals.osvVulns) || 0}, betroffene Pakete: ${Number(depTotals.osvAffectedPackages) || 0}`
-        }
-    ];
-
-    scannerEl.innerHTML = `
-        <div style="font-size:0.8rem;color:#777;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.35rem;">Scanner Ampel</div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.5rem;">
-            ${scannerCards.map((scanner) => {
-                const styles = {
-                    success: { bg: '#e8f8f5', color: '#0f8f75', badge: 'GRÜN' },
-                    warning: { bg: '#fff4df', color: '#a66a00', badge: 'GELB' },
-                    danger: { bg: '#fdecea', color: '#b71c1c', badge: 'ROT' },
-                    error: { bg: '#fdecea', color: '#b71c1c', badge: 'FEHLER' },
-                    unknown: { bg: '#f4f6f8', color: '#60707c', badge: 'GRAU' }
-                };
-                const style = styles[scanner.state] || styles.unknown;
-                return `
-                    <div style="border:1px solid #e6e6e6;border-radius:8px;padding:0.55rem 0.65rem;background:${style.bg};">
-                        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
-                            <div style="font-size:0.85rem;font-weight:700;color:#2d3436;">${escapeHtml(scanner.label)}</div>
-                            <span style="font-size:0.72rem;font-weight:700;color:${style.color};">${style.badge}</span>
-                        </div>
-                        <div style="font-size:0.78rem;color:#666;margin-top:0.2rem;">${escapeHtml(scanner.detail)}</div>
-                    </div>
-                `;
-            }).join('')}
-        </div>
-        <div style="font-size:0.78rem;color:#666;margin-top:0.4rem;">${escapeHtml(scanTargetText)}</div>
-    `;
-
-    const alerts = Array.isArray(monitor.alerts) ? monitor.alerts : [];
-    if (!alerts.length) {
-        alertsEl.innerHTML = '<div style="padding:0.55rem 0.7rem;border-radius:8px;background:#e8f8f5;color:#0f8f75;font-size:0.85rem;font-weight:600;">Keine aktuellen Sicherheitswarnungen aus den Laufzeit-Tests.</div>';
-    } else {
-        alertsEl.innerHTML = `
-            <div style="font-size:0.8rem;color:#777;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.4rem;">Aktive Alarme</div>
-            ${alerts.map((alert) => {
-                const sev = String(alert.severity || 'warning').toLowerCase();
-                const bg = sev === 'critical' ? '#fdecea' : '#fff6e6';
-                const color = sev === 'critical' ? '#b71c1c' : '#b26a00';
-                return `<div style="border:1px solid #f1d2d2;border-radius:8px;background:${bg};padding:0.55rem 0.7rem;margin-bottom:0.35rem;color:${color};font-size:0.84rem;">
-                    <strong>${sev === 'critical' ? 'Kritisch' : 'Warnung'}:</strong> ${escapeHtml(alert.message || 'Unbekannter Alarm')}
-                </div>`;
-            }).join('')}
-        `;
-    }
-
-    const history = Array.isArray(monitor.history) ? monitor.history : [];
-    if (!history.length) {
-        historyEl.innerHTML = '';
-    } else {
-        historyEl.innerHTML = `
-            <div style="font-size:0.8rem;color:#777;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.35rem;">Letzte Testläufe</div>
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.45rem;">
-                ${history.map((run) => {
-                    const runScore = Number(run.score) || 0;
-                    const runFailed = Number(run.failedCount) || 0;
-                    const badge = runScore >= 85 ? '#e8f8f5' : (runScore >= 70 ? '#fff6e6' : '#fdecea');
-                    return `<div style="border:1px solid #e6e6e6;border-radius:8px;padding:0.5rem 0.6rem;background:${badge};font-size:0.8rem;">
-                        <div style="font-weight:700;color:#2d3436;">Score ${runScore}%</div>
-                        <div style="color:#555;">Fehler: ${runFailed}</div>
-                        <div style="color:#666;">Dauer: ${escapeHtml(String(run.durationMs || 0))} ms</div>
-                        <div style="color:#777;">${run.finishedAt ? new Date(run.finishedAt).toLocaleTimeString('de-DE') : ''}</div>
-                    </div>`;
-                }).join('')}
-            </div>
-        `;
-    }
+    const score = document.getElementById('security-health-score');
+    const meta = document.getElementById('security-health-meta');
+    if (!score || !meta) return;
+    score.textContent = payload ? (payload.passed === payload.total ? 'Unauffällig' : 'Prüfung nötig') : 'Unbekannt';
+    score.style.color = payload && payload.passed === payload.total ? '#0f8f75' : '#a66a00';
+    meta.textContent = payload ? payload.scope + ' Stand: ' + new Date(payload.updatedAt).toLocaleString('de-DE') : 'Betriebsdaten konnten nicht abgerufen werden.';
+    document.getElementById('security-health-list').innerHTML = (payload?.checks || []).map(check => '<div class="card"><strong>' + escapeHtml(check.label) + '</strong><p>' + escapeHtml(check.detail) + '</p><b>' + (check.ok ? 'OK' : 'Prüfung nötig') + '</b></div>').join('');
+    document.getElementById('security-scanner-status').textContent = 'Dependency- und Browserprüfungen laufen in CI. Ein aktueller CI-Nachweis wird hier nicht behauptet.';
+    document.getElementById('security-monitor-alerts').textContent = '';
+    document.getElementById('security-monitor-history').textContent = '';
 }
 
 async function loadSecurityStatus(forceDependencyScan) {
@@ -304,7 +54,7 @@ async function loadSecurityStatus(forceDependencyScan) {
     const alertsEl = document.getElementById('security-monitor-alerts');
     const historyEl = document.getElementById('security-monitor-history');
     if (listEl) {
-        listEl.innerHTML = '<div style="font-size:0.85rem;color:#888;">Lade Sicherheitsstatus und Laufzeit-Tests...</div>';
+        listEl.innerHTML = '<div style="font-size:0.85rem;color:#888;">Lade Betriebszustand...</div>';
     }
     if (scannerEl) scannerEl.innerHTML = '';
     if (alertsEl) alertsEl.innerHTML = '';
@@ -335,7 +85,7 @@ async function runAllMonitoringChecks() {
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Checks laufen...';
     }
     if (statusEl) {
-        statusEl.textContent = 'Fuehre Backend-Smoke, Runtime-Security und Dependency/CVE-Scan aus. Das kann ein paar Sekunden dauern...';
+        statusEl.textContent = 'Aktualisiere die Betriebsdaten aus der Datenbank.';
         statusEl.style.color = '#666';
     }
 
@@ -343,7 +93,7 @@ async function runAllMonitoringChecks() {
         await loadSecurityStatus(true);
         if (statusEl) {
             const now = new Date().toLocaleString('de-DE');
-            statusEl.textContent = `Manueller Check abgeschlossen: ${now}. Ergebnisse stehen unten in Security Health, Scanner Ampel und Letzte Testlaeufe.`;
+            statusEl.textContent = `Betriebsdaten aktualisiert: ${now}.`;
             statusEl.style.color = '#0f8f75';
         }
     } catch (error) {
@@ -632,14 +382,11 @@ async function login() {
         const res = await adminFetch('/api/admin/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ password: pw }),
+            body: JSON.stringify({ username: document.getElementById('admin-username').value.trim(), password: pw, otp: document.getElementById('admin-otp').value.trim() }),
             credentials: 'include'
         });
         if (res.ok) {
             const data = await res.json().catch(() => ({}));
-            if (data && typeof data.adminAuthToken === 'string') {
-                setStoredAdminAuthToken(data.adminAuthToken);
-            }
             setInvoiceFeatureEnabled(data.features && data.features.invoices === true);
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
@@ -734,8 +481,7 @@ function switchTab(tab) {
     // Sidebar aktiven Punkt markieren
     document.querySelectorAll('.sidebar-menu li').forEach(li => li.classList.remove('active'));
     document.querySelectorAll('.sidebar-menu li').forEach(li => {
-        const onclick = li.getAttribute('onclick') || '';
-        if (onclick.includes(tab)) li.classList.add('active');
+        if (li.dataset.tab === tab) li.classList.add('active');
     });
 }
 
@@ -743,7 +489,6 @@ function logout() {
     adminFetch('/api/admin/logout', { method: 'POST' }).finally(function () {
         closeInvoicePreview();
         setInvoiceFeatureEnabled(false);
-        clearStoredAdminAuthToken();
         if (securityMonitorTimer) {
             clearInterval(securityMonitorTimer);
             securityMonitorTimer = null;
@@ -756,15 +501,18 @@ function logout() {
     });
 }
 
-async function loadOrders() {
+let ordersPage = 1;
+async function loadOrders(page = 1) {
+    ordersPage = page;
     var tbody = document.getElementById('admin-order-list');
     tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#888;padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Wird geladen...</td></tr>';
     try {
-        var res = await adminFetch('/api/admin/orders', { credentials: 'include' });
+        var res = await adminFetch('/api/admin/orders?status=' + encodeURIComponent(currentOrderFilter) + '&page=' + page, { credentials: 'include' });
         if (res.ok) {
             var data = await res.json();
             ordersLoaded = true;
             allOrders = data.orders;
+            renderOrderPagination(data.page, data.hasMore);
             renderOrders();
         } else if (res.status === 401) {
             tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:orange;padding:2rem;"><i class="fas fa-lock"></i> Nicht autorisiert &ndash; bitte neu einloggen</td></tr>';
@@ -783,11 +531,11 @@ function filterOrders(status) {
     document.querySelectorAll('.order-tab').forEach(btn => btn.classList.remove('active'));
     // Find the right tab by its onclick attribute logic
     document.querySelectorAll('.order-tab').forEach(btn => {
-        if (btn.getAttribute('onclick').includes(status)) {
+        if (btn.dataset.orderFilter === status) {
             btn.classList.add('active');
         }
     });
-    renderOrders();
+    loadOrders();
 }
 
 let _pendingAbschliessenOrderId = null;
@@ -851,8 +599,8 @@ async function confirmDeleteOrder() {
     closeDeleteOrderModal();
 
     try {
-        const res = await adminFetch(`/api/admin/orders/${orderId}`, {
-            method: 'DELETE'
+        const res = await adminFetch(`/api/admin/orders/${orderId}/cancel`, {
+            method: 'POST'
         });
 
         if (res.ok) {
@@ -861,7 +609,7 @@ async function confirmDeleteOrder() {
             return;
         }
 
-        let msg = 'Fehler beim Loeschen der Bestellung';
+        let msg = 'Fehler beim Stornieren der Bestellung';
         try {
             const data = await res.json();
             if (data && data.error) msg = data.error;
@@ -997,7 +745,7 @@ function renderOrders() {
         if (currentOrderFilter === 'neu') {
             actions += `<button class="order-action-btn btn-start" onclick="setOrderStatus(decodeURIComponent('${safeOrderId}'), 'in_bearbeitung')"><i class="fas fa-box-open"></i> In Bearbeitung</button>`;
         } else if (currentOrderFilter === 'in_bearbeitung') {
-            actions += `<button class="order-action-btn btn-done" onclick="setOrderStatus(decodeURIComponent('${safeOrderId}'), 'abgeschlossen')"><i class="fas fa-check"></i> Abschlie&szlig;en</button>`;
+            if (o.paymentStatus === 'paid' && !o.refundedAmountCents && (!o.disputeStatus || o.disputeStatus === 'won')) actions += `<button class="order-action-btn btn-done" onclick="setOrderStatus(decodeURIComponent('${safeOrderId}'), 'abgeschlossen')"><i class="fas fa-check"></i> Abschlie&szlig;en</button>`;
 
             if (isPickup) {
                 if (o.pickupEmailSent) {
@@ -1006,15 +754,16 @@ function renderOrders() {
                     actions += `<button class="order-action-btn btn-pickup" onclick="sendPickupEmail(this, decodeURIComponent('${safeOrderId}'))"><i class="fas fa-envelope"></i> Abhol-Mail</button>`;
                 }
             }
-
-            actions += `<button class="order-action-btn btn-back" onclick="setOrderStatus(decodeURIComponent('${safeOrderId}'), 'neu')"><i class="fas fa-undo"></i> Zur&uuml;ck auf Neu</button>`;
         } else if (currentOrderFilter === 'abgeschlossen') {
-            actions += `<button class="order-action-btn btn-back" onclick="setOrderStatus(decodeURIComponent('${safeOrderId}'), 'in_bearbeitung')"><i class="fas fa-undo"></i> Bearbeiten</button>`;
             actions += `<button class="order-action-btn btn-archive" onclick="setOrderStatus(decodeURIComponent('${safeOrderId}'), 'archiv')"><i class="fas fa-archive"></i> Archivieren</button>`;
         } else {
             actions += `<span class="status-badge" style="background:#ddd;color:#555;"><i class="fas fa-archive"></i> Im Archiv</span>`;
         }
-        actions += `<button class="order-action-btn btn-order-delete" onclick="deleteOrder(decodeURIComponent('${safeOrderId}'))"><span aria-hidden="true" style="font-weight:700;">&times;</span> Loeschen</button>`;
+        if (isPickup && ['', 'unpaid'].includes(o.paymentStatus) && !o.cancelledAt) actions += `<button class="order-action-btn" onclick="confirmCash(decodeURIComponent('${safeOrderId}'))">Barzahlung erfassen</button>`;
+        if (['', 'unpaid', 'failed'].includes(o.paymentStatus) && !o.paidAt && !o.invoice) actions += `<button class="order-action-btn" onclick="deleteOrder(decodeURIComponent('${safeOrderId}'))">Stornieren</button>`;
+        if (['paid', 'refunded', 'partially_refunded'].includes(o.paymentStatus) && o.status !== 'archiv' && o.status !== 'abgeschlossen') actions += `<button class="order-action-btn" onclick="setOrderStatus(decodeURIComponent('${safeOrderId}'), 'archiv')">Archivieren</button>`;
+        actions += '<p>' + escapeHtml(paymentStatusLabel(o.paymentStatus)) + (o.refundedAmountCents ? ' · Erstattung: ' + window.NoteMoney.format(o.refundedAmountCents) : '') + (o.disputeStatus ? ' · Streitfall: ' + escapeHtml(o.disputeStatus) : '') + '</p>';
+        if (o.refundedAmountCents > 0 || o.disputeStatus) actions += `<button class="order-action-btn" onclick="recordFinancialResolution(decodeURIComponent('${safeOrderId}'))">Korrekturbeleg erfassen</button>`;
         actions += '</div>';
 
         return '<tr>' +
@@ -1106,7 +855,9 @@ function matchesExactOrderNumber(orderNumber, searchValue) {
     return Number(searchedSequence[1]) === Number(orderSequence[1]);
 }
 
-async function loadInvoices(force) {
+let invoicePage = 1, invoicePendingPage = 1;
+async function loadInvoices(force, page = invoicePage, pendingPage = invoicePendingPage) {
+    invoicePage = page; invoicePendingPage = pendingPage;
     if (invoicesLoaded && !force) {
         renderInvoices();
         return;
@@ -1119,13 +870,14 @@ async function loadInvoices(force) {
     if (pendingCard) pendingCard.hidden = true;
 
     try {
-        const response = await adminFetch('/api/admin/invoices');
+        const response = await adminFetch('/api/admin/invoices?page=' + page + '&pendingPage=' + pendingPage + '&orderNumber=' + encodeURIComponent(document.getElementById('invoice-search')?.value || ''));
         const payload = await response.json().catch(() => ({}));
         if (!response.ok) throw new Error(payload.error || `HTTP ${response.status}`);
         allInvoices = Array.isArray(payload.invoices) ? payload.invoices : [];
         pendingInvoices = Array.isArray(payload.pending) ? payload.pending : [];
         invoicesLoaded = true;
 
+        renderInvoicePagination(payload);
         const summary = payload.summary || {};
         document.getElementById('invoice-stat-issued').textContent = String(summary.issuedCount || 0);
         document.getElementById('invoice-stat-pending').textContent = String(summary.pendingCount || 0);
@@ -1510,7 +1262,7 @@ async function applyBulkUpdate() {
         var res = await adminFetch('/api/admin/products-bulk', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ids: ids, price30: price30, price50: price50, originalPrice30: orig30, originalPrice50: orig50 })
+            body: JSON.stringify({ ids: ids, applyToAll: ids.length === 0, price30: price30, price50: price50, originalPrice30: orig30, originalPrice50: orig50 })
         });
         if (res.ok) {
             var data = await res.json();

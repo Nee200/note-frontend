@@ -35,69 +35,15 @@ const newsletterForm = document.querySelector("[data-newsletter-form]");
 const newsletterStatus = document.querySelector("[data-newsletter-status]");
 const searchSuggestions = document.querySelector("[data-search-suggestions]");
 
-function mountSummerGlobalCountdown() {
-    if (document.querySelector("[data-summer-global-bar]")) return;
-
-    const bar = document.createElement("a");
-    bar.className = "summer-global-countdown-bar";
-    bar.href = "sommerbundle.html";
-    bar.setAttribute("data-summer-global-bar", "");
-    bar.setAttribute("aria-label", "Sommerbundle entdecken und bis zu 35,97 Euro sparen");
-    bar.innerHTML = `
-        <span class="summer-global-copy">
-            <small>Nur für kurze Zeit</small>
-            <strong>Spare bis zu 35,97 € im Sommerbundle</strong>
-        </span>
-        <span class="summer-global-clock" aria-label="Angebot endet in">
-            <span><b data-global-countdown-days>00</b><small>Tage</small></span>
-            <i aria-hidden="true">:</i>
-            <span><b data-global-countdown-hours>00</b><small>Std.</small></span>
-            <i aria-hidden="true">:</i>
-            <span><b data-global-countdown-minutes>00</b><small>Min.</small></span>
-            <i aria-hidden="true">:</i>
-            <span><b data-global-countdown-seconds>00</b><small>Sek.</small></span>
-        </span>
-        <span class="summer-global-cta">Bundle entdecken <i aria-hidden="true">→</i></span>
-    `;
-
-    document.body.prepend(bar);
-    document.body.classList.add("has-summer-global-bar");
-
-    const countdownKey = "note_summer_bundle_countdown_v1";
-    const defaultEnd = Date.now() + ((2 * 24 + 12) * 60 * 60 * 1000);
-    let end = defaultEnd;
-
-    try {
-        const stored = Number(sessionStorage.getItem(countdownKey));
-        if (Number.isFinite(stored) && stored > Date.now()) {
-            end = stored;
-        } else {
-            sessionStorage.setItem(countdownKey, String(defaultEnd));
-        }
-    } catch (_error) {
-        end = defaultEnd;
-    }
-
-    const fields = {
-        days: bar.querySelector("[data-global-countdown-days]"),
-        hours: bar.querySelector("[data-global-countdown-hours]"),
-        minutes: bar.querySelector("[data-global-countdown-minutes]"),
-        seconds: bar.querySelector("[data-global-countdown-seconds]")
-    };
-    const pad = (value) => String(value).padStart(2, "0");
-    const update = () => {
-        const totalSeconds = Math.floor(Math.max(0, end - Date.now()) / 1000);
-        fields.days.textContent = pad(Math.floor(totalSeconds / 86400));
-        fields.hours.textContent = pad(Math.floor((totalSeconds % 86400) / 3600));
-        fields.minutes.textContent = pad(Math.floor((totalSeconds % 3600) / 60));
-        fields.seconds.textContent = pad(totalSeconds % 60);
-    };
-
-    update();
-    window.setInterval(update, 1000);
+function mountSummerBundleNotice() {
+    if (document.querySelector('[data-summer-global-bar]')) return;
+    const bar = document.createElement('a');
+    bar.className = 'summer-global-countdown-bar'; bar.href = 'sommerbundle.html';
+    bar.setAttribute('data-summer-global-bar', '');
+    bar.innerHTML = '<span class="summer-global-copy"><small>Deine persönliche Auswahl</small><strong>Drei Düfte im Sommerbundle</strong></span><span class="summer-global-cta">Bundle entdecken →</span>';
+    document.body.prepend(bar); document.body.classList.add('has-summer-global-bar');
 }
-
-mountSummerGlobalCountdown();
+mountSummerBundleNotice();
 
 function ensurePrimaryNavigationOrder() {
     document.querySelectorAll(".main-nav, .nav-links").forEach((navigation) => {
@@ -152,9 +98,7 @@ const BESTSELLER_CART_IMAGE_BY_ID = Object.freeze({
 // API_BASE_URL: falls script.js schon geladen wurde, dessen Wert am window
 // wiederverwenden, sonst selbst setzen. (window.API_BASE_URL, kein top-level const,
 //  sonst "Identifier has already been declared" beim Laden beider Skripte.)
-window.API_BASE_URL = window.API_BASE_URL || (["localhost", "127.0.0.1"].includes(window.location.hostname)
-    ? "http://localhost:4242"
-    : "https://note-backend-5gy0.onrender.com");
+window.API_BASE_URL = window.NoteApi.base;
 
 function escapeHtml(value) {
     return String(value || "")
@@ -189,7 +133,7 @@ function renderCartPaymentLogos() {
 
 function readCart() {
     try {
-        const parsed = JSON.parse(localStorage.getItem("cart") || "[]");
+        const parsed = window.NoteCart.read();
         if (!Array.isArray(parsed)) return [];
         return parsed.filter((item) => item && Number(item.quantity) > 0 && Number(item.price) >= 0);
     } catch (error) {
@@ -198,7 +142,7 @@ function readCart() {
 }
 
 function writeCart(items) {
-    localStorage.setItem("cart", JSON.stringify(items));
+    window.NoteStore.local.setItem("cart", JSON.stringify(items));
     renderCart();
     window.dispatchEvent(new CustomEvent("note:cart-updated-by-drawer"));
 }
@@ -210,7 +154,7 @@ function formatPrice(value) {
 async function loadStorefrontProducts() {
     if (storefrontProducts.length) return storefrontProducts;
     if (!storefrontProductsPromise) {
-        storefrontProductsPromise = fetch(`${window.API_BASE_URL}/api/products`, { credentials: "include" })
+        storefrontProductsPromise = window.NoteApi.fetch(`${window.API_BASE_URL}/api/products`, { credentials: "include" })
             .then((response) => {
                 if (!response.ok) throw new Error("Produkte konnten nicht geladen werden.");
                 return response.json();
@@ -257,12 +201,12 @@ syncBestsellerCardPrices();
 
 function getDrawerTotals(items) {
     const subtotal = items.reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 0), 0);
-    const couponCode = String(localStorage.getItem("couponCode") || "").trim();
+    const couponCode = String(window.NoteStore.local.getItem("couponCode") || "").trim();
     const discountRate = couponCode
-        ? Math.max(0, Math.min(Number(localStorage.getItem("discount") || 0), 1))
+        ? Math.max(0, Math.min(Number(window.NoteStore.local.getItem("discount") || 0), 1))
         : 0;
     const discountAmount = subtotal * discountRate;
-    const freeShipping = localStorage.getItem("couponFreeShipping") === "1" || subtotal >= 60;
+    const freeShipping = window.NoteStore.local.getItem("couponFreeShipping") === "1" || subtotal >= 60;
     const shippingCost = drawerDeliveryMethod === "shipping" && !freeShipping ? 6.99 : 0;
     return { subtotal, discountRate, discountAmount, shippingCost, total: subtotal - discountAmount + shippingCost, freeShipping };
 }
@@ -332,7 +276,7 @@ async function syncCartProductImages(items) {
             if (item?.image && image) image.src = item.image;
         });
 
-        if (cartChanged) localStorage.setItem("cart", JSON.stringify(items));
+        if (cartChanged) window.NoteStore.local.setItem("cart", JSON.stringify(items));
     } catch (error) {
         // Das gespeicherte Warenkorbbild bleibt als Offline-Fallback erhalten.
     }
@@ -353,8 +297,8 @@ function renderCart() {
     if (cartDiscount) cartDiscount.textContent = `−${formatPrice(totals.discountAmount)}`;
     if (cartDiscountRow) cartDiscountRow.hidden = totals.discountAmount <= 0;
     if (cartCouponMessage) {
-        const couponCode = String(localStorage.getItem("couponCode") || "").trim();
-        const couponLabel = String(localStorage.getItem("couponLabel") || "").trim();
+        const couponCode = String(window.NoteStore.local.getItem("couponCode") || "").trim();
+        const couponLabel = String(window.NoteStore.local.getItem("couponLabel") || "").trim();
         if (totals.discountRate > 0 && couponCode) {
             cartCouponMessage.textContent = "";
             const couponText = document.createElement("span");
@@ -399,7 +343,10 @@ function renderCart() {
         const cartId = escapeHtml(item.cartId || "");
         const productId = escapeHtml(item.productId || String(item.id || "").replace(/-\d+$/, ""));
         const isBundle = Array.isArray(item.bundleSelections) && item.bundleSelections.length === 3;
-        const productHref = isBundle
+        const isAutoduft = item.productType === "autoduft" || productId === "AUTODUFT";
+        const productHref = isAutoduft
+            ? "autoduft.html"
+            : isBundle
             ? "sommerbundle.html"
             : `product.html?id=${encodeURIComponent(productId)}`;
         const name = escapeHtml(String(item.name || "NØTE. fragrance").replace(/\s*\(\d+ml\)\s*$/i, ""));
@@ -408,7 +355,9 @@ function renderCart() {
         const linePrice = Number(item.price || 0) * quantity;
         const originalLinePrice = Number(item.originalPrice || 0) * quantity;
         const hasSaving = originalLinePrice > linePrice;
-        const itemDetail = isBundle
+        const itemDetail = isAutoduft
+            ? `${escapeHtml(item.scentId || "")} Duftnote · ${escapeHtml(item.scentName || "Gewählte Duftfüllung")}`
+            : isBundle
             ? `3 × ${escapeHtml(item.size || "50")} ml · ${formatPrice(item.price)} pro Bundle`
             : `${escapeHtml(item.size || "50")} ml · ${formatPrice(item.price)} je Flakon`;
         return `
@@ -441,10 +390,10 @@ cartCouponMessage?.addEventListener("click", (event) => {
     const removeButton = event.target.closest("[data-cart-coupon-remove]");
     if (!removeButton) return;
 
-    localStorage.removeItem("discount");
-    localStorage.removeItem("couponCode");
-    localStorage.removeItem("couponLabel");
-    localStorage.removeItem("couponFreeShipping");
+    window.NoteStore.local.removeItem("discount");
+    window.NoteStore.local.removeItem("couponCode");
+    window.NoteStore.local.removeItem("couponLabel");
+    window.NoteStore.local.removeItem("couponFreeShipping");
     if (cartCouponInput) {
         cartCouponInput.value = "";
         cartCouponInput.disabled = false;
@@ -464,7 +413,7 @@ function changeCartItem(cartId, action) {
 }
 
 async function getCsrfToken() {
-    const response = await fetch(`${window.API_BASE_URL}/api/csrf-token`, { credentials: "include" });
+    const response = await window.NoteApi.fetch(`${window.API_BASE_URL}/api/csrf-token`, { credentials: "include" });
     const payload = await response.json().catch(() => ({}));
     if (!response.ok || !payload.csrfToken) throw new Error("Sicherheits-Token konnte nicht geladen werden.");
     return payload.csrfToken;
@@ -477,7 +426,7 @@ async function startCheckout() {
     if (cartStatus) cartStatus.textContent = "Sicherer Checkout wird vorbereitet…";
     try {
         const csrfToken = await getCsrfToken();
-        const couponCode = String(localStorage.getItem("couponCode") || "").trim();
+        const couponCode = String(window.NoteStore.local.getItem("couponCode") || "").trim();
 
         if (drawerDeliveryMethod === "pickup") {
             const customerName = String(document.querySelector("[data-cart-pickup-name]")?.value || "").trim();
@@ -485,7 +434,7 @@ async function startCheckout() {
             if (!customerName || !customerEmail) {
                 throw new Error("Bitte gib für die Abholung deinen Namen und deine E-Mail-Adresse ein.");
             }
-            const pickupResponse = await fetch(`${window.API_BASE_URL}/create-pickup-order`, {
+            const pickupResponse = await window.NoteApi.fetch(`${window.API_BASE_URL}/create-pickup-order`, {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json", "X-CSRF-Token": csrfToken },
@@ -504,7 +453,7 @@ async function startCheckout() {
             });
             const pickupPayload = await pickupResponse.json().catch(() => ({}));
             if (!pickupResponse.ok) throw new Error(pickupPayload.error || "Abholung konnte nicht reserviert werden.");
-            sessionStorage.setItem("isPickupOrder", "true");
+            window.NoteStore.session.setItem("isPickupOrder", "true");
             writeCart([]);
             window.location.assign("success.html?pickup=true");
             return;
@@ -520,7 +469,7 @@ async function startCheckout() {
             }))
         };
         if (couponCode) requestBody.couponCode = couponCode;
-        const response = await fetch(`${window.API_BASE_URL}/create-checkout-session`, {
+        const response = await window.NoteApi.fetch(`${window.API_BASE_URL}/create-checkout-session`, {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json", "X-CSRF-Token": csrfToken },
@@ -533,7 +482,7 @@ async function startCheckout() {
             return;
         }
         if (!payload.url) throw new Error("Keine Checkout-Adresse erhalten.");
-        sessionStorage.setItem("stripe_checkout_pending", "1");
+        window.NoteStore.session.setItem("stripe_checkout_pending", "1");
         window.location.assign(payload.url);
     } catch (error) {
         if (cartStatus) cartStatus.textContent = error.message || "Checkout konnte nicht gestartet werden.";
@@ -549,7 +498,7 @@ async function applyDrawerCoupon(event) {
     cartCouponMessage.textContent = "Gutschein wird geprüft…";
     try {
         const csrfToken = await getCsrfToken();
-        const response = await fetch(`${window.API_BASE_URL}/api/validate-coupon`, {
+        const response = await window.NoteApi.fetch(`${window.API_BASE_URL}/api/validate-coupon`, {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json", "X-CSRF-Token": csrfToken },
@@ -557,17 +506,17 @@ async function applyDrawerCoupon(event) {
         });
         const payload = await response.json().catch(() => ({}));
         if (!response.ok || !payload.valid) throw new Error(payload.error || "Der Gutscheincode ist ungültig oder bereits verbraucht.");
-        localStorage.setItem("discount", String(Number(payload.discount || 0) / 100));
-        localStorage.setItem("couponCode", String(payload.code || code));
-        localStorage.setItem("couponLabel", String(payload.label || `${payload.discount}% Rabatt`));
-        localStorage.setItem("couponFreeShipping", payload.freeShipping ? "1" : "0");
+        window.NoteStore.local.setItem("discount", String(Number(payload.discount || 0) / 100));
+        window.NoteStore.local.setItem("couponCode", String(payload.code || code));
+        window.NoteStore.local.setItem("couponLabel", String(payload.label || `${payload.discount}% Rabatt`));
+        window.NoteStore.local.setItem("couponFreeShipping", payload.freeShipping ? "1" : "0");
         cartCouponMessage.textContent = payload.label || "Gutschein wurde aktiviert.";
         renderCart();
     } catch (error) {
-        localStorage.removeItem("discount");
-        localStorage.removeItem("couponCode");
-        localStorage.removeItem("couponLabel");
-        localStorage.removeItem("couponFreeShipping");
+        window.NoteStore.local.removeItem("discount");
+        window.NoteStore.local.removeItem("couponCode");
+        window.NoteStore.local.removeItem("couponLabel");
+        window.NoteStore.local.removeItem("couponFreeShipping");
         cartCouponMessage.textContent = error.message || "Gutschein konnte nicht geprüft werden.";
         renderCart();
     }
@@ -587,7 +536,7 @@ async function submitWaveNewsletter(event) {
     newsletterStatus.textContent = "Anmeldung wird gesendet…";
     try {
         const csrfToken = await getCsrfToken();
-        const response = await fetch(`${window.API_BASE_URL}/api/newsletter`, {
+        const response = await window.NoteApi.fetch(`${window.API_BASE_URL}/api/newsletter`, {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json", "X-CSRF-Token": csrfToken },

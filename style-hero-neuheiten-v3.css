@@ -309,6 +309,227 @@
     50% { transform: translateX(100%); }
 }
 
+/* Editorial launch teaser: a calm bridge between new arrivals and the collections. */
+.hybrid-v3-page .autoduft-home-teaser {
+    width: min(1240px, calc(100% - 36px));
+    margin: clamp(64px, 6vw, 92px) auto 0;
+}
+
+.hybrid-v3-page .autoduft-home-teaser-link {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(360px, .75fr);
+    min-height: 430px;
+    overflow: hidden;
+    border: 1px solid rgba(201, 168, 76, .42);
+    border-radius: 22px;
+    background: #121212;
+    box-shadow: 0 28px 72px rgba(27, 21, 12, .18);
+    color: #f7f2e9;
+    text-decoration: none;
+    isolation: isolate;
+}
+
+.hybrid-v3-page .autoduft-home-teaser-link::after {
+    content: "";
+    position: absolute;
+    z-index: 3;
+    top: 22px;
+    right: 22px;
+    bottom: 22px;
+    left: 22px;
+    border: 1px solid rgba(238, 214, 151, .16);
+    border-radius: 13px;
+    pointer-events: none;
+}
+
+.hybrid-v3-page .autoduft-home-teaser-media {
+    position: relative;
+    display: block;
+    min-height: 430px;
+    overflow: hidden;
+}
+
+.hybrid-v3-page .autoduft-home-teaser-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 52%, rgba(18, 18, 18, .24) 73%, #121212 100%);
+    pointer-events: none;
+}
+
+.hybrid-v3-page .autoduft-home-teaser-media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 51%;
+    filter: saturate(.92) contrast(1.03);
+    transform: scale(1.01);
+    transition: transform .8s cubic-bezier(.22, 1, .36, 1), filter .5s ease;
+}
+
+.hybrid-v3-page .autoduft-home-teaser-copy {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(52px, 5vw, 78px) clamp(44px, 5vw, 72px) clamp(52px, 5vw, 78px) clamp(24px, 2.6vw, 40px);
+}
+
+.hybrid-v3-page .autoduft-home-teaser-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    color: #d9bc6c;
+    font-size: .7rem;
+    font-weight: 800;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+}
+
+.hybrid-v3-page .autoduft-home-teaser-kicker strong {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    padding: 0 9px;
+    border-radius: 999px;
+    background: #c9a846;
+    color: #121212;
+    font-size: .6rem;
+    letter-spacing: .14em;
+}
+
+.hybrid-v3-page .autoduft-home-teaser-title {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2.45rem, 3.6vw, 3.8rem);
+    font-weight: 400;
+    line-height: .98;
+    letter-spacing: -.035em;
+}
+
+.hybrid-v3-page .autoduft-home-teaser-text {
+    max-width: 410px;
+    margin-top: 22px;
+    color: rgba(247, 242, 233, .72);
+    font-size: .95rem;
+    line-height: 1.65;
+}
+
+.hybrid-v3-page .autoduft-home-teaser-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: min(280px, 100%);
+    min-height: 50px;
+    margin-top: 30px;
+    padding: 0 19px 0 22px;
+    border: 1px solid rgba(218, 187, 102, .76);
+    border-radius: 8px;
+    background: rgba(201, 168, 70, .08);
+    color: #fffaf0;
+    box-sizing: border-box;
+    font-size: .7rem;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    transition: color .24s ease, background .24s ease, transform .24s ease;
+}
+
+.hybrid-v3-page .autoduft-home-teaser-cta i {
+    color: #d9bc6c;
+    font-family: Arial, sans-serif;
+    font-size: 1.2rem;
+    font-style: normal;
+    line-height: 1;
+    transition: color .24s ease, transform .24s ease;
+}
+
+.hybrid-v3-page .autoduft-home-teaser-link:hover .autoduft-home-teaser-media img,
+.hybrid-v3-page .autoduft-home-teaser-link:focus-visible .autoduft-home-teaser-media img {
+    filter: saturate(1) contrast(1.05);
+    transform: scale(1.055);
+}
+
+.hybrid-v3-page .autoduft-home-teaser-link:hover .autoduft-home-teaser-cta,
+.hybrid-v3-page .autoduft-home-teaser-link:focus-visible .autoduft-home-teaser-cta {
+    background: #c9a846;
+    color: #121212;
+    transform: translateY(-2px);
+}
+
+.hybrid-v3-page .autoduft-home-teaser-link:hover .autoduft-home-teaser-cta i,
+.hybrid-v3-page .autoduft-home-teaser-link:focus-visible .autoduft-home-teaser-cta i {
+    color: #121212;
+    transform: translateX(4px);
+}
+
+.hybrid-v3-page .autoduft-home-teaser-link:focus-visible {
+    outline: 3px solid #c9a846;
+    outline-offset: 5px;
+}
+
+@media (max-width: 860px) {
+    .hybrid-v3-page .autoduft-home-teaser-link {
+        grid-template-columns: 1fr;
+    }
+
+    .hybrid-v3-page .autoduft-home-teaser-media {
+        min-height: 310px;
+    }
+
+    .hybrid-v3-page .autoduft-home-teaser-media::after {
+        background: linear-gradient(180deg, transparent 48%, rgba(18, 18, 18, .42) 78%, #121212 100%);
+    }
+
+    .hybrid-v3-page .autoduft-home-teaser-copy {
+        margin-top: -36px;
+        padding: 34px 38px 48px;
+    }
+}
+
+@media (max-width: 620px) {
+    .hybrid-v3-page .autoduft-home-teaser {
+        width: auto;
+        margin: 52px var(--mobile-page-gutter-right) 0 var(--mobile-page-gutter-left);
+    }
+
+    .hybrid-v3-page .autoduft-home-teaser-link {
+        min-height: 0;
+        border-radius: 16px;
+    }
+
+    .hybrid-v3-page .autoduft-home-teaser-link::after {
+        inset: 12px;
+        border-radius: 10px;
+    }
+
+    .hybrid-v3-page .autoduft-home-teaser-media {
+        min-height: 260px;
+    }
+
+    .hybrid-v3-page .autoduft-home-teaser-copy {
+        margin-top: -28px;
+        padding: 28px 26px 40px;
+    }
+
+    .hybrid-v3-page .autoduft-home-teaser-title {
+        font-size: clamp(2.15rem, 11vw, 3rem);
+    }
+
+    .hybrid-v3-page .autoduft-home-teaser-text {
+        margin-top: 18px;
+        font-size: .9rem;
+    }
+
+    .hybrid-v3-page .autoduft-home-teaser-cta {
+        width: 100%;
+    }
+}
+
 .hybrid-v3-page .new-arrivals-showcase {
     display: grid;
     grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
