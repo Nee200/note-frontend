@@ -727,10 +727,13 @@ function prioritizeLatestNewArrivals(items) {
 }
 
 function getProductGalleryImages(product) {
-    const obsoleteInfographic = window.NoteAssets?.image(PRODUCT_DETAIL_INFOGRAPHIC_IMAGE) || PRODUCT_DETAIL_INFOGRAPHIC_IMAGE;
+    // The build embeds /assets/... while the runtime asset map returns assets/....
+    // Compare the same path form so catalog images are filtered in production too.
+    const imageKey = image => (window.NoteAssets?.image(image) || image).replace(/^\/+/, '');
+    const obsoleteInfographic = imageKey(PRODUCT_DETAIL_INFOGRAPHIC_IMAGE);
     const productImages = Array.isArray(product?.images)
         ? product.images.map(image => String(image || '').trim())
-            .filter(image => image && (window.NoteAssets?.image(image) || image) !== obsoleteInfographic)
+            .filter(image => image && imageKey(image) !== obsoleteInfographic)
         : [];
 
     // Neuheiten enthalten ihre bewusst sortierte Dreier-Galerie direkt in den
