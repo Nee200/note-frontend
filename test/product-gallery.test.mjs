@@ -83,6 +83,7 @@ test('Perfume layout preserves purchases and supports enlarged touch, keyboard, 
             await page.waitForFunction(() => getComputedStyle(document.querySelector('#image-lightbox')).opacity === '1');
             if (mobile) await page.touchscreen.tap(5, 5); else await page.mouse.click(5, 5);
             await page.waitForFunction(() => document.querySelector('#image-lightbox').hidden);
+            assert.equal(new URL(page.url()).pathname, '/product.html', 'Closing the overlay must not activate the banner beneath it');
             assert.equal(await page.evaluate(() => document.body.style.position), '');
             await page.click('#open-image-lightbox');
             await page.keyboard.press('Escape');
