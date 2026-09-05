@@ -6,7 +6,8 @@ import { preview } from '../scripts/preview.mjs';
 const product = {
     id: 'G1', name: 'G1', publicName: 'Testduft', category: 'men', description: 'Ein frischer Testduft.',
     longDescription: 'Beschreibung des Testdufts.', notes: { head: 'Bergamotte', heart: 'Lavendel', base: 'Moschus' },
-    images: ['images_website/new-arrivals/g1-notes-v3-natural-v1.webp', 'logo.webp'],
+    newArrival: true,
+    images: ['images_website/new-arrivals/g1-notes-v3-natural-v1.webp', 'logo.webp', 'images_website/product-details/note-product-infographic-v1.webp'],
     variants: { 30: { price: 34.99 }, 50: { price: 44.99 } }, reviewSummary: { average: 0, count: 0 }
 };
 
