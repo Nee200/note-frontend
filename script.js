@@ -694,6 +694,7 @@ const BESTSELLER_INSPIRATION_IMAGES = Object.freeze({
     G322: 'images_website/bestsellers/g322-comparison-transparent-v2.webp'
 });
 
+const PRODUCT_DETAIL_EXPLODED_IMAGE = 'images_website/product-details/note-perfume-exploded-v5.webp';
 const PRODUCT_DETAIL_INFOGRAPHIC_IMAGE = 'images_website/product-details/note-product-infographic-v1.webp';
 
 // Keep the latest supplier release at the front of the Neuheiten page while
@@ -726,14 +727,16 @@ function prioritizeLatestNewArrivals(items) {
 }
 
 function getProductGalleryImages(product) {
+    const obsoleteInfographic = window.NoteAssets?.image(PRODUCT_DETAIL_INFOGRAPHIC_IMAGE) || PRODUCT_DETAIL_INFOGRAPHIC_IMAGE;
     const productImages = Array.isArray(product?.images)
-        ? product.images.map(image => String(image || '').trim()).filter(Boolean)
+        ? product.images.map(image => String(image || '').trim())
+            .filter(image => image && (window.NoteAssets?.image(image) || image) !== obsoleteInfographic)
         : [];
 
     // Neuheiten enthalten ihre bewusst sortierte Dreier-Galerie direkt in den
     // Produktdaten: Vergleich, Einzelflakon und Explosionsbild.
     if (product?.newArrival === true && productImages.length) {
-        return [...new Set(productImages)];
+        return [...new Set([productImages[0], PRODUCT_DETAIL_EXPLODED_IMAGE, ...productImages.slice(1)])];
     }
 
     const hasNaturalPrimaryImage = /^images_website\/new-arrivals\/[gl]\d+-notes-v3-natural-v\d+\.webp$/i.test(productImages[0] || '');
@@ -741,15 +744,7 @@ function getProductGalleryImages(product) {
     const galleryImages = inspirationImage
         ? [inspirationImage, ...productImages.filter(image => image !== inspirationImage)]
         : (productImages.length ? [...productImages] : ['logo.webp']);
-    const infographicPosition = inspirationImage ? 2 : 1;
-
-    galleryImages.splice(
-        Math.min(infographicPosition, galleryImages.length),
-        0,
-        PRODUCT_DETAIL_INFOGRAPHIC_IMAGE
-    );
-
-    return [...new Set(galleryImages)];
+    return [...new Set([galleryImages[0], PRODUCT_DETAIL_EXPLODED_IMAGE, ...galleryImages.slice(1)])];
 }
 
 function getFilteredAndSortedProducts(category) {
@@ -1444,16 +1439,26 @@ async function loadProductReviews(productId, page = 1) {
         renderReviewList(payload.reviews || []);
 
         document.getElementById('reviews-pagination')?.remove();
-        const navigation = document.createElement('nav'); navigation.id = 'reviews-pagination'; navigation.setAttribute('aria-label', 'Bewertungsseiten');
-        for (const [label, target, disabled] of [['Zurück', page - 1, page <= 1], ['Weiter', page + 1, !payload.hasMore]]) {
-            const button = document.createElement('button'); button.textContent = label; button.disabled = disabled; button.addEventListener('click', () => loadProductReviews(productId, target)); navigation.append(button);
+        if (page > 1 || payload.hasMore) {
+            const navigation = document.createElement('nav');
+            navigation.id = 'reviews-pagination';
+            navigation.setAttribute('aria-label', 'Bewertungsseiten');
+            for (const [label, target, disabled] of [['Zurück', page - 1, page <= 1], ['Weiter', page + 1, !payload.hasMore]]) {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.textContent = label;
+                button.disabled = disabled;
+                button.addEventListener('click', () => loadProductReviews(productId, target));
+                navigation.append(button);
+            }
+            document.getElementById('reviews-list')?.after(navigation);
         }
-        document.getElementById('reviews-list')?.after(navigation);
         const ownReview = payload.ownReview || (payload.reviews || []).find((review) => review.isOwnReview);
         fillReviewFormFromOwnReview(ownReview || null);
         updateReviewFormState();
     } catch (error) {
         console.error('Bewertungen konnten nicht geladen werden:', error);
+        document.getElementById('reviews-pagination')?.remove();
         updateReviewSummary({ average: 0, count: 0 });
         renderReviewList([]);
         currentReviewUser = null;
@@ -1602,7 +1607,6 @@ function renderProductDetail(id) {
             .replace(/^\s*[\r\n]+/, '')
             .trim();
     }
-    document.getElementById('detail-desc').innerText = removeBrandSentences(product.description);
     document.getElementById('detail-long-desc').innerText = removeBrandSentences(product.longDescription);
 
     // Duftnoten
@@ -1628,24 +1632,7 @@ function renderProductDetail(id) {
         }
     }
 
-    // Hauptbild
-    const galleryImages = getProductGalleryImages(product);
-    const mainImg = document.getElementById('detail-main-image');
-    const mainImgSrc = safeImageSrc(galleryImages[0]);
-    mainImg.src = mainImgSrc;
-
-    // Thumbnails
-    const thumbContainer = document.getElementById('detail-thumbnails');
-    if (galleryImages.length > 1) {
-        thumbContainer.innerHTML = galleryImages.map((img, index) => `
-            <img src="${safeImageSrc(img)}" alt="${escapeHtml(product.name || 'Produkt')} Ansicht ${index + 1}" class="detail-thumbnail ${index === 0 ? 'active' : ''}"
-                 onclick="changeDetailImage(decodeURIComponent('${encodeURIComponent(String(img || ''))}'), this)" 
-                 onerror="this.style.display='none'">
-        `).join('');
-    } else {
-        thumbContainer.innerHTML = '';
-    }
-    initProductGallerySwipe();
+    window.NotePerfumeGallery(getProductGalleryImages(product), product.name);
 
     // Größenauswahl (Buttons in existierende Gruppe rendern)
     const optionGroup = document.querySelector('.option-group');
@@ -1722,10 +1709,10 @@ function updateDetailPrice(product, size) {
 
     // Originalpreis anzeigen falls vorhanden
     if (Number(variant.originalPrice) > Number(variant.price)) {
-        priceHTML += `<span class="detail-original-price">${variant.originalPrice.toFixed(2)} €</span>`;
+        priceHTML += `<span class="detail-original-price">${variant.originalPrice.toFixed(2).replace('.', ',')} €</span>`;
     }
 
-    priceHTML += `<span class="detail-current-price">${variant.price.toFixed(2)} €</span>`;
+    priceHTML += `<span class="detail-current-price">${variant.price.toFixed(2).replace('.', ',')} €</span>`;
     priceHTML += `<div class="base-price">${basePriceFormatted}</div>`;
     priceHTML += `<div class="tax-info">inkl. MwSt., zzgl. <a href="#shipping">Versand</a></div>`;
 
@@ -1770,197 +1757,6 @@ function initDeliveryTimeline() {
         });
     }
 }
-
-// Bild in Detailansicht wechseln
-function changeDetailImage(src, thumbnail) {
-    document.getElementById('detail-main-image').src = safeImageSrc(src);
-    document.querySelectorAll('.detail-thumbnail').forEach(t => t.classList.remove('active'));
-    if (thumbnail) thumbnail.classList.add('active');
-}
-
-function initProductGallerySwipe() {
-    const wrapper = document.querySelector('.detail-main-image-wrapper');
-    const mainImage = document.getElementById('detail-main-image');
-    if (!wrapper || !mainImage || wrapper.dataset.swipeReady === 'true') return;
-
-    wrapper.dataset.swipeReady = 'true';
-    wrapper.setAttribute('role', 'region');
-    wrapper.setAttribute('aria-label', 'Produktbilder. Nach links oder rechts wischen, um das Bild zu wechseln.');
-
-    const settleDuration = 300;
-    const settleEasing = 'cubic-bezier(0.22, 0.61, 0.36, 1)';
-    let startX = 0;
-    let startY = 0;
-    let currentX = 0;
-    let lastMoveAt = 0;
-    let swipeVelocity = 0;
-    let activePointerId = null;
-    let isTracking = false;
-    let isHorizontal = false;
-    let direction = 0;
-    let previewImage = null;
-    let nextThumbnail = null;
-    let settleTimer = 0;
-
-    const getVisibleThumbnails = () => Array.from(document.querySelectorAll('.detail-thumbnail'))
-        .filter((thumbnail) => thumbnail.style.display !== 'none');
-
-    function removePreview() {
-        if (previewImage) previewImage.remove();
-        previewImage = null;
-        nextThumbnail = null;
-        direction = 0;
-    }
-
-    function resetGalleryPosition() {
-        window.clearTimeout(settleTimer);
-        mainImage.style.transition = '';
-        mainImage.style.transform = '';
-        wrapper.classList.remove('is-gallery-dragging', 'is-gallery-settling');
-        removePreview();
-    }
-
-    function preparePreview(deltaX) {
-        const thumbnails = getVisibleThumbnails();
-        if (thumbnails.length < 2) return false;
-
-        const activeIndex = Math.max(0, thumbnails.findIndex((thumbnail) => thumbnail.classList.contains('active')));
-        const requestedDirection = deltaX < 0 ? 1 : -1;
-        const nextIndex = activeIndex + requestedDirection;
-
-        if (nextIndex < 0 || nextIndex >= thumbnails.length) {
-            removePreview();
-            direction = requestedDirection;
-            return false;
-        }
-
-        const requestedThumbnail = thumbnails[nextIndex];
-        if (previewImage && requestedThumbnail === nextThumbnail) return true;
-
-        removePreview();
-        direction = requestedDirection;
-        nextThumbnail = requestedThumbnail;
-        previewImage = document.createElement('img');
-        previewImage.className = 'detail-gallery-swipe-image';
-        previewImage.src = requestedThumbnail.currentSrc || requestedThumbnail.getAttribute('src');
-        previewImage.alt = '';
-        previewImage.setAttribute('aria-hidden', 'true');
-        previewImage.draggable = false;
-        wrapper.insertBefore(previewImage, mainImage);
-        return true;
-    }
-
-    function moveGallery(deltaX) {
-        const hasNextImage = preparePreview(deltaX);
-        const displayedDelta = hasNextImage ? deltaX : deltaX * 0.22;
-
-        mainImage.style.transform = `translate3d(${displayedDelta}px, 0, 0)`;
-        if (previewImage) {
-            previewImage.style.transform = `translate3d(calc(${direction * 100}% + ${deltaX}px), 0, 0)`;
-        }
-    }
-
-    function settleGallery(commit) {
-        const frameWidth = Math.max(1, wrapper.getBoundingClientRect().width);
-        wrapper.classList.remove('is-gallery-dragging');
-        wrapper.classList.add('is-gallery-settling');
-        mainImage.style.transition = `transform ${settleDuration}ms ${settleEasing}`;
-
-        if (previewImage) {
-            previewImage.style.transition = `transform ${settleDuration}ms ${settleEasing}`;
-        }
-
-        requestAnimationFrame(() => {
-            if (commit && previewImage && nextThumbnail) {
-                mainImage.style.transform = `translate3d(${-direction * frameWidth}px, 0, 0)`;
-                previewImage.style.transform = 'translate3d(0, 0, 0)';
-            } else {
-                mainImage.style.transform = 'translate3d(0, 0, 0)';
-                if (previewImage) {
-                    previewImage.style.transform = `translate3d(${direction * 100}%, 0, 0)`;
-                }
-            }
-        });
-
-        const selectedThumbnail = nextThumbnail;
-        settleTimer = window.setTimeout(() => {
-            if (commit && selectedThumbnail) {
-                changeDetailImage(selectedThumbnail.getAttribute('src'), selectedThumbnail);
-            }
-            resetGalleryPosition();
-        }, settleDuration + 30);
-    }
-
-    wrapper.addEventListener('pointerdown', (event) => {
-        if (!event.isPrimary || (event.pointerType === 'mouse' && event.button !== 0)) return;
-        if (event.pointerType === 'mouse' && !window.matchMedia('(max-width: 900px)').matches) return;
-        if (wrapper.classList.contains('is-gallery-settling')) return;
-
-        startX = event.clientX;
-        startY = event.clientY;
-        currentX = startX;
-        lastMoveAt = performance.now();
-        swipeVelocity = 0;
-        activePointerId = event.pointerId;
-        isTracking = true;
-        isHorizontal = false;
-        mainImage.style.transition = 'none';
-        wrapper.classList.add('is-gallery-dragging');
-        wrapper.setPointerCapture?.(event.pointerId);
-    });
-
-    wrapper.addEventListener('pointermove', (event) => {
-        if (!isTracking || event.pointerId !== activePointerId) return;
-        const now = performance.now();
-        const deltaX = event.clientX - startX;
-        const deltaY = event.clientY - startY;
-        swipeVelocity = Math.abs(event.clientX - currentX) / Math.max(1, now - lastMoveAt);
-        currentX = event.clientX;
-        lastMoveAt = now;
-
-        if (!isHorizontal) {
-            if (Math.max(Math.abs(deltaX), Math.abs(deltaY)) < 7) return;
-            if (Math.abs(deltaY) >= Math.abs(deltaX)) {
-                isTracking = false;
-                wrapper.classList.remove('is-gallery-dragging');
-                mainImage.style.transition = '';
-                if (wrapper.hasPointerCapture?.(event.pointerId)) wrapper.releasePointerCapture(event.pointerId);
-                activePointerId = null;
-                return;
-            }
-            isHorizontal = true;
-        }
-
-        event.preventDefault();
-        moveGallery(deltaX);
-    });
-
-    wrapper.addEventListener('pointerup', (event) => {
-        if (!isTracking || event.pointerId !== activePointerId) return;
-        const deltaX = event.clientX - startX;
-        const threshold = Math.min(72, wrapper.getBoundingClientRect().width * 0.18);
-        const commit = isHorizontal && Boolean(previewImage) &&
-            (Math.abs(deltaX) >= threshold || (Math.abs(deltaX) >= 24 && swipeVelocity >= 0.35));
-
-        isTracking = false;
-        if (wrapper.hasPointerCapture?.(event.pointerId)) wrapper.releasePointerCapture(event.pointerId);
-        activePointerId = null;
-        if (isHorizontal) {
-            settleGallery(commit);
-        } else {
-            resetGalleryPosition();
-        }
-    });
-
-    wrapper.addEventListener('pointercancel', (event) => {
-        if (!isTracking || event.pointerId !== activePointerId) return;
-        isTracking = false;
-        activePointerId = null;
-        settleGallery(false);
-    });
-}
-
-
 
 // Zum Warenkorb hinzufügen
 function addToCart(productId, size = 50) {
@@ -2828,7 +2624,6 @@ window.addToCart = addToCart;
 window.removeFromCart = removeFromCart;
 window.toggleCart = toggleCart;
 window.checkout = checkout;
-window.changeDetailImage = changeDetailImage;
 // window.filterProducts = filterProducts; // removed as not defined
 window.applyCoupon = applyCoupon;
 window.toggleSearch = toggleSearch;
