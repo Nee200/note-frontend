@@ -164,7 +164,7 @@ test('G1–G20 and L1–L20 have WebP assets and the catalog image wins on produ
                 return request.continue();
             });
             await page.goto(`http://127.0.0.1:${server.address().port}/product.html?id=${id}`, { waitUntil: 'load' });
-            await page.waitForFunction(expected => { const image = document.querySelector('#detail-main-image'); return image?.complete && image.naturalWidth > 0 && image.getAttribute('src') === expected; }, {}, image);
+            await page.waitForFunction(expected => { const image = document.querySelector('#detail-main-image'); return image?.complete && image.naturalWidth > 0 && image.getAttribute('src') === window.NoteAssets.image(expected); }, {}, image);
             await page.close();
         }
     } finally { await browser.close(); await new Promise(resolve => server.close(resolve)); }
