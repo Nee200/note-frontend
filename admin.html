@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>NØTE - Admin Dashboard</title>
+    <link rel="stylesheet" href="admin-access.css">
     <link rel="stylesheet" data-consent-href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" data-consent-category="optional">
     <link rel="stylesheet" data-consent-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" data-consent-category="optional">
     <!-- Inline styles for admin to keep it independent and clean -->
@@ -685,14 +686,35 @@
     <!-- Login -->
     <div id="login-screen">
         <div class="login-box">
+            <div id="admin-login-fields">
             <h1>Admin Bereich</h1>
             <div class="input-group">
                 <label for="admin-username">Benutzername</label><input id="admin-username" autocomplete="username" value="owner" required><label for="admin-pw">Passwort</label>
                 <input type="password" id="admin-pw" autocomplete="current-password" placeholder="Passwort...">
             </div>
-            <div class="input-group"><label for="admin-otp">Authenticator-Code</label><input id="admin-otp" autocomplete="one-time-code" inputmode="numeric" maxlength="6" pattern="[0-9]{6}"></div><button class="btn" onclick="login()">Einloggen</button>
+            <div class="input-group"><label for="admin-otp">Authenticator-Code</label><input id="admin-otp" autocomplete="one-time-code" inputmode="numeric" maxlength="6" pattern="[0-9]{6}"><small>Bei der ersten Anmeldung mit Einmalpasswort leer lassen.</small></div><button class="btn" onclick="login()">Einloggen</button>
             <p id="login-err" style="color: red; display: none; font-size: 0.9rem; margin-top: 10px;">Falsches Passwort!
             </p>
+            </div>
+            <section id="admin-setup" hidden aria-labelledby="setup-title">
+                <p class="access-eyebrow" id="setup-step"></p>
+                <h1 id="setup-title">Zugang einrichten</h1>
+                <p id="setup-intro"></p>
+                <form id="setup-password-form" hidden>
+                    <div class="input-group"><label for="setup-password">Neues Passwort</label><input type="password" id="setup-password" autocomplete="new-password" minlength="16" required><small>Mindestens 16 Zeichen. Verwende ein eigenes Passwort.</small></div>
+                    <div class="input-group"><label for="setup-password-repeat">Passwort wiederholen</label><input type="password" id="setup-password-repeat" autocomplete="new-password" minlength="16" required></div>
+                    <button class="btn" type="submit">Weiter zum Authenticator</button>
+                </form>
+                <form id="setup-mfa-form" hidden>
+                    <img id="setup-qr" width="280" height="280" alt="QR-Code für deine Authenticator-App">
+                    <details><summary>Auf demselben Handy einrichten</summary><p>In deiner Authenticator-App ein zeitbasiertes Konto hinzufügen und diesen Schlüssel eingeben:</p><code id="setup-secret"></code></details>
+                    <div class="input-group"><label for="setup-otp">Sechsstelliger Authenticator-Code</label><input id="setup-otp" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required></div>
+                    <button class="btn" type="submit">Einrichtung abschließen</button>
+                </form>
+                <p id="setup-error" role="alert" hidden></p>
+                <button type="button" class="access-link" id="setup-cancel">Einrichtung abbrechen</button>
+                <small>Die Einrichtung ist 30 Minuten möglich. Bei Abbruch oder Ablauf benötigst du eine neue Einladung.</small>
+            </section>
         </div>
     </div>
 
@@ -707,12 +729,32 @@
                 <li data-tab="emails" onclick="switchTab('emails')"><i class="fas fa-envelope"></i> E-Mail Templates</li>
                 <li data-tab="monitoring" onclick="switchTab('monitoring')"><i class="fas fa-shield-alt"></i> Monitoring</li>
                 <li data-tab="idmapping" onclick="switchTab('idmapping')"><i class="fas fa-exchange-alt"></i> ID-Umrechner</li>
+                <li data-tab="access" onclick="switchTab('access')"><i class="fas fa-user-lock"></i> Zugänge</li>
                 <li style="margin-top: auto; color: #d63031;" onclick="logout()"><i class="fas fa-sign-out-alt"></i>
                     Abmelden</li>
             </ul>
         </div>
 
         <div class="main-content">
+            <section id="tab-access" style="display:none;" aria-labelledby="access-title">
+                <div class="header"><h2 id="access-title">Betreiber-Zugang einrichten</h2></div>
+                <div class="card access-card">
+                    <p>Erstelle einen eigenen Zugang mit vollständigem Admin-Zugriff. Der Empfänger legt sein Passwort und seinen Authenticator selbst fest.</p>
+                    <form id="access-invite-form">
+                        <div class="input-group"><label for="access-username">Benutzername</label><input id="access-username" value="betreiber" pattern="[a-zA-Z0-9._-]{3,64}" maxlength="64" required></div>
+                        <button class="btn" type="submit">Einmalpasswort erstellen</button>
+                    </form>
+                    <p id="access-error" role="alert" hidden></p>
+                    <section id="access-invitation" hidden>
+                        <h3>Einladung weitergeben</h3>
+                        <p>Das Einmalpasswort gilt 48 Stunden und wird nur jetzt angezeigt. Gib diese Angaben persönlich an den Empfänger weiter.</p>
+                        <label for="access-invitation-text">Anmeldedaten und Anleitung</label>
+                        <textarea id="access-invitation-text" readonly rows="8"></textarea>
+                        <button type="button" id="access-copy" class="btn">Einladung kopieren</button>
+                    </section>
+                </div>
+                <div class="card access-card"><h3>Zusätzlich eingerichtete Zugänge</h3><p>Bestehende Zugänge aus der Hosting-Konfiguration werden hier nicht aufgeführt.</p><div id="access-list"></div></div>
+            </section>
             <!-- Products Tab -->
             <div id="tab-products">
                 <div class="header">
@@ -1520,6 +1562,7 @@
         }
     </style>
 
+    <script src="admin-access.js"></script>
     <script src="admin.js?v=20260826-invoices-v2"></script>
 
     <script src="cookie-consent.js"></script>
