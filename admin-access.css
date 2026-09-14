@@ -1,0 +1,18 @@
+#login-screen { min-height: 100dvh; height: auto !important; padding: 24px 16px; box-sizing: border-box; }
+#login-screen .login-box { box-sizing: border-box; }
+#admin-setup[hidden], #admin-login-fields[hidden], #admin-setup form[hidden], #access-invitation[hidden] { display: none; }
+#admin-setup small, #admin-login-fields small { display: block; color: #63666c; line-height: 1.5; margin-top: 8px; }
+#admin-setup p { line-height: 1.55; }
+.access-eyebrow { font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: #74684b; }
+#setup-qr { display: block; width: 100%; max-width: 280px; height: auto; margin: 0 auto 16px; }
+#admin-setup details { margin-bottom: 24px; text-align: left; font-size: .875rem; }
+#admin-setup summary { cursor: pointer; }
+#setup-secret { display: block; overflow-wrap: anywhere; user-select: all; padding: 12px; background: #f5f6fa; }
+.access-link { display: block; border: 0; background: none; text-decoration: underline; cursor: pointer; margin: 18px auto 12px; padding: 8px; color: inherit; }
+#setup-error, #access-error { color: #b42318; line-height: 1.5; }
+.access-card { max-width: 720px; padding: 24px; margin-bottom: 24px; box-sizing: border-box; }
+.access-card p { line-height: 1.6; }
+#access-invitation-text { width: 100%; box-sizing: border-box; padding: 12px; resize: vertical; font: inherit; font-size: .9rem; margin: 12px 0; }
+.access-account { border-top: 1px solid #ddd; padding: 16px 0; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.access-account button { width: auto; }
+@media (max-width: 500px) { #login-screen .login-box { padding: 28px 20px; } .access-card { padding: 18px; } }

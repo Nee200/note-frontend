@@ -387,6 +387,7 @@ async function login() {
         });
         if (res.ok) {
             const data = await res.json().catch(() => ({}));
+            if (data.setupRequired) { window.NoteAdminAccess.showSetup(data); return; }
             setInvoiceFeatureEnabled(data.features && data.features.invoices === true);
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
@@ -445,6 +446,7 @@ async function checkAuth() {
             startSecurityMonitor();
             loadProducts();
         }
+        else { await window.NoteAdminAccess.resume(); }
     } catch (e) {
         // Not authorized
     }
@@ -462,6 +464,8 @@ function setInvoiceFeatureEnabled(enabled) {
 }
 
 function switchTab(tab) {
+    document.getElementById('tab-access').style.display = tab === 'access' ? 'block' : 'none';
+    if (tab === 'access') window.NoteAdminAccess.load();
     if (tab === 'invoices' && !invoiceFeatureEnabled) tab = 'products';
     document.getElementById('tab-products').style.display = tab === 'products' ? 'block' : 'none';
     document.getElementById('tab-orders').style.display = tab === 'orders' ? 'block' : 'none';
@@ -486,6 +490,7 @@ function switchTab(tab) {
 }
 
 function logout() {
+    window.NoteAdminAccess.clear();
     adminFetch('/api/admin/logout', { method: 'POST' }).finally(function () {
         closeInvoicePreview();
         setInvoiceFeatureEnabled(false);
