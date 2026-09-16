@@ -156,7 +156,10 @@ const API_BASE_URL = window.NoteApi.base;
         const normalize = (value) => String(value || '')
             .toLocaleLowerCase('de-DE')
             .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '');
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9]+/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
 
         function renderScents() {
             scentGrid.setAttribute('aria-busy', String(scentsLoading));
@@ -179,8 +182,7 @@ const API_BASE_URL = window.NoteApi.base;
             const query = normalize(searchInput.value);
             const filtered = scents.filter((scent) => {
                 const inCategory = activeCategory === 'all' || scent.category === activeCategory;
-                const haystack = normalize(`${scent.id} ${scent.name} ${scent.description}`);
-                return inCategory && haystack.includes(query);
+                return inCategory && scent.searchValues.some(value => value.includes(query));
             });
 
             resultCount.textContent = `${filtered.length} ${filtered.length === 1 ? 'Duft' : 'Düfte'}`;
@@ -237,6 +239,7 @@ const API_BASE_URL = window.NoteApi.base;
                         name: String(product.publicName || product.name || product.id),
                         category: product.category,
                         description: String(product.description || ''),
+                        searchValues: [product.id, product.name, product.publicName, product.description, product.longDescription, product.inspiredBy, ...Object.values(product.notes || {})].map(normalize),
                         image: scentImage(product.images?.[0])
                     }))
                     .sort((left, right) => left.id.localeCompare(right.id, 'de', { numeric: true }));
