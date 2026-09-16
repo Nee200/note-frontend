@@ -16,6 +16,8 @@ const scentCatalog = [
     { id: 'AUTODUFT', name: 'Autoduft', category: 'car-fragrance' },
     { id: 'G999', name: 'Kein Parfum', category: 'accessory' }
 ];
+Object.assign(scentCatalog.find(product => product.id === 'G1'), { inspiredBy: 'Giorgio Armani - Acqua di Giò', notes: { head: 'Bergamotte' } });
+Object.assign(scentCatalog.find(product => product.id === 'L1'), { inspiredBy: 'Chanel No. 5', longDescription: 'Pudrige Eleganz' });
 
 async function swipe(page, imageSelector, direction) {
     const rect = await page.$eval(imageSelector, e => { const r = e.getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, height: r.height }; });
@@ -59,6 +61,13 @@ test('Autoduft uses the shared cart and supports decoded gallery navigation on t
             await page.waitForFunction(() => document.querySelectorAll('.scent-card').length === 558);
             assert.equal(await page.$eval('#result-count', e => e.textContent), '558 Düfte');
             assert.deepEqual(await page.$$eval('.scent-card', cards => cards.slice(0, 3).map(card => card.dataset.scentId)), ['G1', 'G2', 'G3']);
+            for (const [query, expected] of [['Armani', 'G1'], ['  ACQUA DI GIO  ', 'G1'], ['Chanel', 'L1'], ['no 5', 'L1'], ['Bergamotte', 'G1'], ['Pudrige Eleganz', 'L1']]) {
+                await page.$eval('#scent-search', (input, value) => { input.value = value; input.dispatchEvent(new Event('input', { bubbles: true })); }, query);
+                assert.deepEqual(await page.$$eval('.scent-card', cards => cards.map(card => card.dataset.scentId)), [expected]);
+            }
+            await page.click('[data-category="men"]');
+            assert.equal(await page.$$eval('.scent-card', cards => cards.length), 0);
+            await page.$eval('#scent-search', input => { input.value = ''; input.dispatchEvent(new Event('input', { bubbles: true })); });
             await page.click('[data-category="women"]');
             assert.equal(await page.$$eval('.scent-card', cards => cards.length), 214);
             await page.type('#scent-search', 'L214');
