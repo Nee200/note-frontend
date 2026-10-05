@@ -464,6 +464,8 @@ function setInvoiceFeatureEnabled(enabled) {
 }
 
 function switchTab(tab) {
+    document.getElementById('tab-withdrawals').style.display = tab === 'withdrawals' ? 'block' : 'none';
+    if (tab === 'withdrawals') window.NoteAdminWithdrawals.load();
     document.getElementById('tab-access').style.display = tab === 'access' ? 'block' : 'none';
     if (tab === 'access') window.NoteAdminAccess.load();
     if (tab === 'invoices' && !invoiceFeatureEnabled) tab = 'products';
@@ -490,6 +492,7 @@ function switchTab(tab) {
 }
 
 function logout() {
+    window.NoteAdminWithdrawals.clear();
     window.NoteAdminAccess.clear();
     adminFetch('/api/admin/logout', { method: 'POST' }).finally(function () {
         closeInvoicePreview();

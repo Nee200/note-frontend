@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>NØTE - Admin Dashboard</title>
     <link rel="stylesheet" href="admin-access.css">
+    <link rel="stylesheet" href="admin-withdrawals.css">
     <link rel="stylesheet" data-consent-href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" data-consent-category="optional">
     <link rel="stylesheet" data-consent-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" data-consent-category="optional">
     <!-- Inline styles for admin to keep it independent and clean -->
@@ -725,6 +726,7 @@
             <ul class="sidebar-menu">
                 <li class="active" data-tab="products" onclick="switchTab('products')"><i class="fas fa-box"></i> Parfüms (Katalog)</li>
                 <li data-tab="orders" onclick="switchTab('orders')"><i class="fas fa-shopping-cart"></i> Bestellungen</li>
+                <li data-tab="withdrawals" onclick="switchTab('withdrawals')"><i class="fas fa-undo"></i> Widerrufe</li>
                 <li id="invoice-nav-item" hidden style="display:none;" data-tab="invoices" onclick="switchTab('invoices')"><i class="fas fa-file-invoice"></i> Rechnungen</li>
                 <li data-tab="emails" onclick="switchTab('emails')"><i class="fas fa-envelope"></i> E-Mail Templates</li>
                 <li data-tab="monitoring" onclick="switchTab('monitoring')"><i class="fas fa-shield-alt"></i> Monitoring</li>
@@ -736,6 +738,14 @@
         </div>
 
         <div class="main-content">
+            <section id="tab-withdrawals" style="display:none;" aria-labelledby="admin-withdrawal-title">
+                <div class="header"><h2 id="admin-withdrawal-title">Elektronische Widerrufe</h2><button class="btn" type="button" id="admin-withdrawal-refresh">Aktualisieren</button></div>
+                <p>Bearbeite die Erklärung und die Rücksendung anhand der Bestelldaten. Ein Statuswechsel hier löst keine Erstattung und keine Änderung an der Bestellung aus.</p>
+                <p>Bei „Providerstatus manuell prüfen“ im Monitoring den Mailauftrag prüfen und den Versand über den Anbieter klären.</p>
+                <p id="admin-withdrawal-message" role="status"></p>
+                <div id="admin-withdrawal-list"></div>
+                <nav aria-label="Widerrufe durchblättern"><button type="button" class="btn" id="admin-withdrawal-previous" disabled>Zurück</button><span id="admin-withdrawal-page">Seite 1</span><button type="button" class="btn" id="admin-withdrawal-next" disabled>Weiter</button></nav>
+            </section>
             <section id="tab-access" style="display:none;" aria-labelledby="access-title">
                 <div class="header"><h2 id="access-title">Betreiber-Zugang einrichten</h2></div>
                 <div class="card access-card">
@@ -1563,6 +1573,7 @@
     </style>
 
     <script src="admin-access.js"></script>
+    <script src="admin-withdrawals.js"></script>
     <script src="admin.js?v=20260826-invoices-v2"></script>
 
     <script src="cookie-consent.js"></script>
