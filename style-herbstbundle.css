@@ -58,6 +58,9 @@
 .autumn-bundle-page .summer-inline-gift{background:#f4e6d6;border-color:#d9b795}
 .autumn-bundle-page .summer-drawer-head{background:#f7ecdf}
 .autumn-bundle-page .summer-drawer-product.is-selected,.autumn-bundle-page .summer-drawer-product:hover{border-color:#a45935}
+.autumn-bundle-page .pre-footer-band{min-height:220px;margin-top:0;background:transparent}
+.autumn-bundle-page .wave-layer{inset:0;height:100%;background-image:url("images_website/herbstbundle/footer-waves.svg");background-size:100% 100%}
+@media(max-width:620px){.autumn-bundle-page .pre-footer-band{min-height:180px}}
 @media(max-width:1000px){
     .autumn-bundle-page .summer-builder-shell{width:min(720px,calc(100% - 32px));grid-template-columns:minmax(0,1fr);gap:32px}
     .autumn-bundle-page .summer-builder-media{position:relative;top:auto}
