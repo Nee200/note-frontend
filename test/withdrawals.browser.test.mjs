@@ -5,8 +5,29 @@ import path from 'node:path';
 import puppeteer from 'puppeteer';
 import { preview } from '../scripts/preview.mjs';
 import { entries, root } from '../scripts/build.mjs';
+import { digitalWithdrawalEnabled } from '../shop-features.mjs';
+import worker from '../worker.mjs';
 
-test('public pages provide a withdrawal link; mobile two-step form, retry, receipt download and admin handling work under CSP', { timeout: 60000 }, async () => {
+test('inactive withdrawal is absent from the public build and direct page/API access is blocked', { skip: digitalWithdrawalEnabled }, async () => {
+    for (const file of entries) {
+        const html = await fs.readFile(path.join(root, 'dist', file), 'utf8');
+        assert.doesNotMatch(html, /href="\/?widerruf(?:\.html)?["?#]|data-digital-withdrawal|elektronischer-widerruf/, file);
+    }
+    await assert.rejects(fs.access(path.join(root, 'dist/widerruf.html')), { code: 'ENOENT' });
+    const server = await preview(0);
+    try {
+        assert.equal((await fetch('http://127.0.0.1:' + server.address().port + '/widerruf.html')).status, 404);
+        assert.equal((await fetch('http://127.0.0.1:' + server.address().port + '/widerrufsrecht.html')).status, 200);
+    } finally { await new Promise(resolve => server.close(resolve)); }
+    const env = { ASSETS: { fetch() { throw new Error('An inactive page must never reach assets.'); } } };
+    for (const path of ['/widerruf', '/widerruf/', '/widerruf.html?old-tab=1']) {
+        const response = await worker.fetch(new Request('https://shop.example.test' + path), env);
+        assert.equal(response.status, 404); assert.match(response.headers.get('Cache-Control'), /no-store/);
+    }
+    assert.equal((await worker.fetch(new Request('https://shop.example.test/api/withdrawals', { method: 'POST', body: '{}' }), env)).status, 503);
+});
+
+test('public pages provide a withdrawal link; mobile two-step form, retry, receipt download and admin handling work under CSP', { timeout: 60000, skip: !digitalWithdrawalEnabled }, async () => {
     for (const file of entries.filter(name => name !== 'admin.html')) {
         const html = await fs.readFile(path.join(root, 'dist', file), 'utf8');
         assert.match(html, /href="widerruf.html" class="withdrawal-link">Vertrag widerrufen/, file);

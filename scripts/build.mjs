@@ -5,9 +5,10 @@ import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 import { parse, parseFragment, serialize } from 'parse5';
 import { compileEvents, staticHandler } from './event-compiler.mjs';
+import { digitalWithdrawalEnabled } from '../shop-features.mjs';
 
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-export const entries = ['index', 'product', 'herrenduefte', 'frauenduefte', 'duftzwillinge', 'neuheiten', 'sommerbundle', 'autoduft', 'suche', 'account', 'admin', 'kontakt', 'ueber-uns', 'versand', 'agb', 'datenschutz', 'impressum', 'widerrufsrecht', 'widerruf', 'success', 'cancel', 'newsletter-confirmation'].map(name => name + '.html');
+export const entries = ['index', 'product', 'herrenduefte', 'frauenduefte', 'duftzwillinge', 'neuheiten', 'sommerbundle', 'autoduft', 'suche', 'account', 'admin', 'kontakt', 'ueber-uns', 'versand', 'agb', 'datenschutz', 'impressum', 'widerrufsrecht', 'widerruf', 'success', 'cancel', 'newsletter-confirmation'].filter(name => name !== 'widerruf' || digitalWithdrawalEnabled).map(name => name + '.html');
 const dist = path.resolve(root, 'dist'), cache = path.join(root, '.build-cache');
 const hash = data => crypto.createHash('sha256').update(data).digest('hex').slice(0, 20);
 const assets = {}, compiled = new Map(), stats = { originalImageBytes: 0, optimizedImageBytes: 0, images: 0, compiledHandlers: 0 };
@@ -89,6 +90,9 @@ export async function build() {
     const assetRuntime = await emit(mapCode, '.js');
     for (const entry of entries) {
         const document = parse(await fs.readFile(path.join(root, entry), 'utf8')); const nodes = [];
+        if (!digitalWithdrawalEnabled) visit(document, node => {
+            if (attr(node, 'data-digital-withdrawal') !== undefined || (node.tagName === 'a' && /^(?:\/)?widerruf(?:\.html)?(?:[?#].*)?$/.test(attr(node, 'href') || ''))) remove(node);
+        });
         visit(document, node => { nodes.push(node); });
         const head = nodes.find(node => node.tagName === 'head');
         const definitions = []; let eventId = 0;

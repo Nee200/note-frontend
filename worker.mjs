@@ -1,8 +1,13 @@
+import { digitalWithdrawalEnabled } from './shop-features.mjs';
 const isApi = path => path.startsWith('/api/') || ['/create-checkout-session', '/create-pickup-order'].includes(path);
 let manifest;
 export default {
     async fetch(request, env) {
         const url = new URL(request.url);
+        if (!digitalWithdrawalEnabled) {
+            if (/^\/widerruf(?:\.html)?\/?$/.test(url.pathname)) return new Response('Seite nicht verfügbar', { status: 404, headers: { 'Cache-Control': 'private, no-store', 'Content-Type': 'text/plain; charset=utf-8' } });
+            if (url.pathname === '/api/withdrawals') return Response.json({ error: 'Der digitale Widerruf ist derzeit nicht verfügbar. Du kannst deinen Widerruf per E-Mail an info@note-fragrances.de erklären.' }, { status: 503, headers: { 'Cache-Control': 'private, no-store' } });
+        }
         if (isApi(url.pathname)) {
             let origin;
             try { origin = new URL(env.API_ORIGIN); } catch { return new Response('API-Konfiguration ungültig', { status: 503, headers: { 'Cache-Control': 'no-store' } }); }
