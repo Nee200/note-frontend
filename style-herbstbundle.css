@@ -16,6 +16,7 @@
     --summer-gold:#bd783d;--summer-gold-soft:#e3b886;--summer-sand:#ead7c2;
     --summer-ivory:#faf4ec;--summer-line:rgba(85,46,28,.18)
 }
+.autumn-bundle-page .summer-inline-bundle{margin-bottom:clamp(48px,5vw,80px)}
 .autumn-bundle-page .summer-inline-visual{background:#321b14}
 .autumn-bundle-page .summer-inline-kicker{color:#f0c49a}
 .autumn-bundle-page .summer-inline-copy h2 em{color:#f0c49a}
