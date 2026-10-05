@@ -13,6 +13,7 @@ export async function preview(port = 5500) {
     const server = http.createServer(async (request, response) => {
         try {
             const pathname = decodeURIComponent(new URL(request.url, 'http://localhost').pathname);
+            if (/^\/sommerbundle(?:\.html)?\/?$/.test(pathname)) { response.writeHead(302, { Location: '/herbstbundle.html' + new URL(request.url, 'http://localhost').search, 'Cache-Control': 'no-store' }); return response.end(); }
             let name = pathname === '/' ? 'index.html' : pathname.slice(1);
             if (manifest[name]) { response.writeHead(302, { Location: '/' + manifest[name] }); return response.end(); }
             const file = path.resolve(root, name);

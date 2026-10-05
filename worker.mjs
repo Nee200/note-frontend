@@ -4,6 +4,7 @@ let manifest;
 export default {
     async fetch(request, env) {
         const url = new URL(request.url);
+        if (/^\/sommerbundle(?:\.html)?\/?$/.test(url.pathname)) return new Response(null, { status: 302, headers: { Location: url.origin + '/herbstbundle.html' + url.search, 'Cache-Control': 'no-store' } });
         if (!digitalWithdrawalEnabled) {
             if (/^\/widerruf(?:\.html)?\/?$/.test(url.pathname)) return new Response('Seite nicht verfügbar', { status: 404, headers: { 'Cache-Control': 'private, no-store', 'Content-Type': 'text/plain; charset=utf-8' } });
             if (url.pathname === '/api/withdrawals') return Response.json({ error: 'Der digitale Widerruf ist derzeit nicht verfügbar. Du kannst deinen Widerruf per E-Mail an info@note-fragrances.de erklären.' }, { status: 503, headers: { 'Cache-Control': 'private, no-store' } });

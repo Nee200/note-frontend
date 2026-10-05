@@ -62,8 +62,8 @@ a {
     isolation: isolate;
     color: #fff;
     background:
-        radial-gradient(circle at 88% 20%, rgba(228, 200, 143, 0.4), transparent 24%),
-        linear-gradient(108deg, #15120f 0%, #3a2b1d 55%, #ad8040 100%);
+        radial-gradient(circle at 88% 20%, rgba(220, 145, 79, 0.4), transparent 24%),
+        linear-gradient(108deg, #21130f 0%, #573020 55%, #b47543 100%);
     font-family: Arial, sans-serif;
     line-height: 1;
     text-decoration: none;

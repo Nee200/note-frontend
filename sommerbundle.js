@@ -236,8 +236,11 @@
         const existingItem = cart.find((item) => item?.cartId === cartId);
         if (existingItem) {
             existingItem.quantity = Math.max(1, Number(existingItem.quantity) || 1) + 1;
+            existingItem.name = selection.size === 50
+                ? "NØTE. Herbstbundle · 3 Düfte + Gratis-Geschenk"
+                : "NØTE. Herbstbundle · 3 Düfte";
+            existingItem.image = "images_website/herbstbundle/note-autumn-trio-v2.webp";
             if (selection.size === 50) {
-                existingItem.name = "NØTE. Sommerbundle · 3 Düfte + Gratis-Geschenk";
                 existingItem.includesFreeGift = true;
                 existingItem.freeGiftName = "Gratis-Geschenk";
             }
@@ -247,13 +250,13 @@
                 id: `SUMMERBUNDLE-${selection.size}`,
                 productId: "SUMMERBUNDLE",
                 name: selection.size === 50
-                    ? "NØTE. Sommerbundle · 3 Düfte + Gratis-Geschenk"
-                    : "NØTE. Sommerbundle · 3 Düfte",
+                    ? "NØTE. Herbstbundle · 3 Düfte + Gratis-Geschenk"
+                    : "NØTE. Herbstbundle · 3 Düfte",
                 price: selection.displayPrice,
                 originalPrice: selection.originalDisplayPrice,
                 size: selection.size,
                 quantity: 1,
-                image: "images_website/sommerbundle/note-summerbundle-color-v4.webp",
+                image: "images_website/herbstbundle/note-autumn-trio-v2.webp",
                 bundleSelections: selectedIds,
                 bundleNames: selectedProducts.map((product) => `${product.code} ${product.displayName}`),
                 includesFreeGift: selection.size === 50,
@@ -288,7 +291,7 @@
             if (status) {
                 status.textContent = remaining > 0
                     ? `Noch ${remaining} ${remaining === 1 ? "Duft" : "Düfte"} auswählen.`
-                    : "Dein orientalisches Sommer-Trio ist vollständig.";
+                    : "Dein persönliches Herbst-Trio ist vollständig.";
             }
 
             if (submitButton) {
@@ -316,7 +319,7 @@
                 displayPrice: 99,
                 originalDisplayPrice: 134.97,
                 savedAt: new Date().toISOString(),
-                campaign: "sommerbundle-2026"
+                campaign: "herbstbundle-2026"
             };
 
             try {
@@ -325,7 +328,7 @@
                 // Die Bundle-Seite öffnet auch ohne Browser-Speicher.
             }
 
-            window.location.href = "sommerbundle.html";
+            window.location.href = "herbstbundle.html";
         });
 
         render();
@@ -800,7 +803,7 @@
                 originalDisplayPrice: selectedSize.originalDisplayPrice,
                 includesFreeGift: selectedSize.size === 50,
                 savedAt: new Date().toISOString(),
-                campaign: "sommerbundle-2026"
+                campaign: "herbstbundle-2026"
             };
 
             try {
@@ -811,7 +814,7 @@
 
             addBundleToCart(selection, selected);
             showToast(
-                "Dein Sommerbundle ist im Warenkorb.",
+                "Dein Herbstbundle ist im Warenkorb.",
                 selectedSize.size === 50
                     ? "Drei Düfte à 50 ml und dein Gratis-Geschenk wurden hinzugefügt."
                     : "Drei Düfte à 30 ml wurden hinzugefügt."

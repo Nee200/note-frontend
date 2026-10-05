@@ -38,9 +38,9 @@ const searchSuggestions = document.querySelector("[data-search-suggestions]");
 function mountSummerBundleNotice() {
     if (document.querySelector('[data-summer-global-bar]')) return;
     const bar = document.createElement('a');
-    bar.className = 'summer-global-countdown-bar'; bar.href = 'sommerbundle.html';
+    bar.className = 'summer-global-countdown-bar'; bar.href = 'herbstbundle.html';
     bar.setAttribute('data-summer-global-bar', '');
-    bar.innerHTML = '<span class="summer-global-copy"><small>Deine persönliche Auswahl</small><strong>Drei Düfte im Sommerbundle</strong></span><span class="summer-global-cta">Bundle entdecken →</span>';
+    bar.innerHTML = '<span class="summer-global-copy"><small>Deine persönliche Auswahl</small><strong>Drei Düfte im Herbstbundle</strong></span><span class="summer-global-cta">Bundle entdecken →</span>';
     document.body.prepend(bar); document.body.classList.add('has-summer-global-bar');
 }
 mountSummerBundleNotice();
@@ -356,7 +356,7 @@ function renderCart() {
         const productHref = isAutoduft
             ? "autoduft.html"
             : isBundle
-            ? "sommerbundle.html"
+            ? "herbstbundle.html"
             : `product.html?id=${encodeURIComponent(productId)}`;
         const name = escapeHtml(String(item.name || "NØTE. fragrance").replace(/\s*\(\d+ml\)\s*$/i, ""));
         const image = safeImageSource(item.image);

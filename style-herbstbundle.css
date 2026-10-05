@@ -1,0 +1,33 @@
+/* Seasonal skin: reuse the existing bundle layout, controls and prices. */
+.autumn-bundle-page{
+    --summer-ink:#231711;--summer-night:#321b14;--summer-teal:#9c4e2d;
+    --summer-gold:#bd783d;--summer-gold-soft:#e3b886;--summer-sand:#ead7c2;
+    --summer-ivory:#faf4ec;--summer-line:rgba(85,46,28,.18)
+}
+.autumn-bundle-page .summer-inline-visual{background:#321b14}
+.autumn-bundle-page .summer-inline-kicker{color:#f0c49a}
+.autumn-bundle-page .summer-inline-copy h2 em{color:#f0c49a}
+.autumn-bundle-page .summer-inline-prices{border-color:rgba(239,193,146,.3)}
+.autumn-bundle-page .summer-glass-cta{color:#fff6ed;border-color:rgba(246,219,183,.65);background:rgba(78,36,24,.7)}
+.autumn-bundle-page .summer-glass-cta:hover,.autumn-bundle-page .summer-glass-cta:focus-visible{background:#6e3725}
+.autumn-bundle-page .summer-glass-cta i{border-color:rgba(246,219,183,.5);background:rgba(255,255,255,.12)}
+.autumn-bundle-page .summer-builder-shell{border-color:#ddc7b5;background:#fcf8f2;box-shadow:0 24px 72px rgba(64,32,20,.1)}
+.autumn-bundle-page .summer-builder-media-badge{background:rgba(67,34,23,.92);color:#ffead3;border-color:rgba(246,210,164,.6)}
+.autumn-bundle-page .summer-builder-media-frame{height:auto;min-height:0}
+.autumn-bundle-page .summer-builder-media-frame img{height:auto;min-height:0;object-fit:contain}
+.autumn-bundle-page .summer-builder-eyebrow{color:#8d472b}
+.autumn-bundle-page .summer-builder-panel h1{color:#2f1b13}
+.autumn-bundle-page .summer-size-choice-options button.is-active{border-color:#ad6138;background:#f6e7d8}
+.autumn-bundle-page .summer-saving-display{color:#8d472b}
+.autumn-bundle-page .summer-builder-submit{background:#773c29;color:#fff6ed;border-color:#773c29}
+.autumn-bundle-page .summer-builder-submit:hover:not(:disabled){background:#5d2d1e}
+.autumn-bundle-page .summer-builder-submit:focus-visible{outline:3px solid #bd783d;outline-offset:4px}
+.autumn-bundle-page .summer-inline-gift{background:#f4e6d6;border-color:#d9b795}
+.autumn-bundle-page .summer-drawer-head{background:#f7ecdf}
+.autumn-bundle-page .summer-drawer-product.is-selected,.autumn-bundle-page .summer-drawer-product:hover{border-color:#a45935}
+@media(max-width:767px){
+    .autumn-bundle-page .summer-inline-visual{min-height:0}
+    .autumn-bundle-page .summer-inline-visual>img{position:relative;height:auto;object-fit:contain}
+    .autumn-bundle-page .summer-inline-visual::after{background:none}
+    .autumn-bundle-page .summer-inline-copy{position:relative;top:auto;right:auto;bottom:auto;left:auto;width:auto;max-width:none;padding:26px 20px 30px;transform:none}
+}
