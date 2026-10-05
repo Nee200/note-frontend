@@ -65,7 +65,7 @@
     box-sizing:border-box;width:min(100%,480px);height:auto;
     margin:18px auto 24px;padding:12px;
     grid-template-columns:112px minmax(0,1fr);gap:16px;align-items:center;
-    border:1px solid rgba(85,46,28,.12);border-radius:8px;background:rgba(234,215,194,.22)
+    border:0;border-radius:0;background:transparent
 }
 .autumn-bundle-page .summer-inline-gift-visual{aspect-ratio:1;min-height:0;border:0;border-radius:6px;box-shadow:none}
 .autumn-bundle-page .summer-inline-gift-visual>span{display:none}
