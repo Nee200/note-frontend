@@ -7,9 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Vertrag widerrufen - NØTE. fragrances</title>
     <meta name="robots" content="noindex">
-    <link rel="stylesheet" href="withdrawal.css">
-    <link rel="stylesheet" href="style.css?v=20260713-mobile-gutters-v2">
+    <meta name="theme-color" content="#101010">
+    <link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
+    <link rel="icon" type="image/png" sizes="32x32" href="images_website/branding/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="images_website/branding/favicon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="images_website/branding/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images_website/branding/apple-touch-icon.png">
     <link rel="stylesheet" href="style-wave-home.css?v=20260730-summer-global-v1">
+    <link rel="stylesheet" href="withdrawal.css">
     <link rel="stylesheet" data-consent-href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;900&display=swap" data-consent-category="optional">
     <link rel="stylesheet" data-consent-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" data-consent-category="optional"
         integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
@@ -58,16 +63,17 @@
             <span class="logo-sub">fragrances</span>
         </a>
         <nav class="main-nav" id="main-navigation" aria-label="Hauptnavigation">
+            <a href="neuheiten.html">Neuheiten</a>
             <a href="suche.html">Kollektion</a>
             <a href="index.html#bestseller">Bestseller</a>
             <a href="autoduft.html">Autoduft</a>
-            <a href="frauenduefte.html">Frauend&uuml;fte</a>
-            <a href="herrenduefte.html">Herrend&uuml;fte</a>
+            <a href="frauenduefte.html">Frauendüfte</a>
+            <a href="herrenduefte.html">Herrendüfte</a>
             <a href="index.html#faq">FAQ</a>
             <a href="kontakt.html">Kontakt</a>
         </nav>
         <div class="header-actions nav-icons" aria-label="Shop Aktionen">
-            <button class="icon-button mobile-menu-toggle" type="button" aria-label="Men&uuml; &ouml;ffnen"
+            <button class="icon-button mobile-menu-toggle" type="button" aria-label="Menü öffnen"
                 aria-expanded="false" aria-controls="main-navigation" data-mobile-menu-toggle>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="1.5" stroke-linecap="round">
@@ -76,7 +82,7 @@
                     <line x1="4" y1="17" x2="20" y2="17"></line>
                 </svg>
             </button>
-            <button class="icon-button" type="button" aria-label="Suche &ouml;ffnen" aria-expanded="false"
+            <button class="icon-button" type="button" aria-label="Suche öffnen" aria-expanded="false"
                 aria-controls="preview-search-panel" data-search-open>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -91,7 +97,7 @@
                     <circle cx="12" cy="7" r="4"></circle>
                 </svg>
             </a>
-            <button class="icon-button cart-icon" type="button" aria-label="Warenkorb &ouml;ffnen" data-cart-open>
+            <button class="icon-button cart-icon" type="button" aria-label="Warenkorb öffnen" data-cart-open>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
                     stroke-linecap="round" stroke-linejoin="round">
                     <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
@@ -203,6 +209,23 @@
     <noscript><p>Für dieses Formular ist JavaScript erforderlich. Du kannst deinen Widerruf auch per E-Mail an info@note-fragrances.de oder per Post an Deniz Löbel, Warnitzer Str. 20, 13057 Berlin senden.</p></noscript>
 </main>
 
+        <section class="pre-footer-band" aria-label="Wellen Übergang">
+            <div class="wave-layer" aria-hidden="true"></div>
+        </section>
+
+        <section class="newsletter-section">
+            <div class="newsletter-card">
+                <p>Exklusive Vorteile</p>
+                <h2>5% auf deine erste Bestellung</h2>
+                <span>Registriere dich und erhalte 5% Rabatt sowie Zugang zu neuen Düften und Angeboten.</span>
+                <form data-newsletter-form>
+                    <input type="email" name="email" placeholder="deine@email.de" aria-label="E-Mail Adresse" autocomplete="email" required>
+                    <button type="submit">Jetzt sichern</button>
+                </form>
+                <small data-newsletter-status role="status" aria-live="polite">Kein Spam. Jederzeit abmeldbar.</small>
+            </div>
+        </section>
+
     <footer class="footer">
         <div class="container">
             <div class="footer-header-logo">
@@ -226,7 +249,7 @@
                 <div class="footer-col">
                     <h4>SHOP</h4>
                     <a href="suche.html">KOLLEKTION</a>
-                    <a href="#bestseller">BESTSELLER</a>
+                    <a href="index.html#bestseller">BESTSELLER</a>
                     <a href="frauenduefte.html">FRAUENDÜFTE</a>
                     <a href="herrenduefte.html">HERRENDÜFTE</a>
                     <a href="autoduft.html">AUTODUFT</a>
@@ -274,9 +297,7 @@
             </div>
         </div>
     </footer>
-<script src="script.js"></script>
 <script src="style-wave-home.js"></script>
-<script src="banner-sync.js"></script>
 <script src="withdrawal.js"></script>
 <script src="cookie-consent.js"></script>
 </body>

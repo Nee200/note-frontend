@@ -6814,6 +6814,3 @@ footer a[href="suche.html"] {
 .account-security-panel p { margin: 0 0 0.8rem; }
 .account-security-panel input { display: block; width: 100%; padding: 0.8rem; margin: 0.6rem 0 1rem; }
 .account-reset-link { border: 0; background: transparent; padding: 0.8rem 0; text-decoration: underline; cursor: pointer; }
-/* Always available without login or optional-cookie consent. */
-.footer .withdrawal-link,.withdrawal-policy-link{display:inline-block;border:1px solid currentColor;border-radius:4px;padding:9px 13px;margin-bottom:12px;color:inherit;text-transform:none;font-size:14px;font-weight:600;line-height:1.4;text-decoration:none}
-.footer .withdrawal-link:focus-visible,.withdrawal-policy-link:focus-visible{outline:3px solid #d4af37;outline-offset:3px}

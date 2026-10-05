@@ -3655,3 +3655,6 @@ footer a[href="suche.html"] {
         transform: translateY(-50%);
     }
 }
+/* Shared withdrawal entry, also on pages without the legacy stylesheet. */
+.footer .withdrawal-link,.withdrawal-policy-link{display:inline-block;border:1px solid currentColor;border-radius:4px;padding:9px 13px;margin-bottom:12px;color:inherit;text-transform:none;font-size:14px;font-weight:600;line-height:1.4;text-decoration:none}
+.footer .withdrawal-link:focus-visible,.withdrawal-policy-link:focus-visible{outline:3px solid #d4af37;outline-offset:3px}
