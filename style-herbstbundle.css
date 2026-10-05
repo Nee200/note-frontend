@@ -24,8 +24,15 @@
     box-shadow:none
 }
 .autumn-bundle-page .summer-builder-media,.autumn-bundle-page .summer-builder-panel{min-width:0}
-.autumn-bundle-page .summer-size-gift-badge{position:static;margin:14px 0 0;justify-content:center;flex-direction:row;white-space:normal}
-.autumn-bundle-page .summer-size-gift-badge>span{margin:0 0 0 10px;flex-wrap:wrap;font-size:10px;letter-spacing:.08em}
+.autumn-bundle-page .summer-action-steps-heading h2{margin:0;color:#8d472b;font:800 15px/1.4 Inter,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+@media(min-width:641px){
+    .autumn-bundle-page .summer-size-choice-options{box-sizing:border-box;padding-right:110px}
+    .autumn-bundle-page .summer-size-choice-options::before{left:calc((100% - 110px)/2)}
+    .autumn-bundle-page .summer-size-gift-badge>span{display:grid;gap:4px;font-size:10px;letter-spacing:.08em}
+}
+@media(max-width:640px){
+    .autumn-bundle-page .summer-size-gift-badge{right:0}
+}
 .autumn-bundle-page .summer-builder-media-badge{background:rgba(67,34,23,.92);color:#ffead3;border-color:rgba(246,210,164,.6)}
 .autumn-bundle-page .summer-builder-media-frame{height:auto;min-height:0}
 .autumn-bundle-page .summer-builder-media-frame img{height:auto;min-height:0;object-fit:contain}
