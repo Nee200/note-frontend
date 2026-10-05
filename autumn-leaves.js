@@ -10,9 +10,7 @@
         item.className = 'autumn-leaf';
         item.innerHTML = leaf;
         item.style.setProperty('--leaf-left', `${(i * 31 + 5) % 96}%`);
-        item.style.setProperty('--leaf-size', `${18 + i % 4 * 4}px`);
-        item.style.setProperty('--leaf-duration', `${19 + i % 5 * 3}s`);
-        item.style.setProperty('--leaf-delay', `${-i * 2.7}s`);
+        item.style.setProperty('--leaf-size', `${14 + i % 4 * 3}px`);
         item.style.setProperty('--leaf-sway', `${4 + i % 3}s`);
         item.style.color = colors[i % colors.length];
         layer.append(item);
@@ -33,4 +31,18 @@
     document.addEventListener('visibilitychange', update);
     update();
     document.body.append(layer, toggle);
+    let previousHeight = 0;
+    const updateDistance = () => {
+        const height = Math.ceil(Math.max(document.body.getBoundingClientRect().height, window.innerHeight));
+        if (height === previousHeight) return;
+        previousHeight = height;
+        layer.style.setProperty('--leaf-distance', `${height}px`);
+        Array.from(layer.children).forEach((item, i) => {
+            const duration = (height + 144) / (46 + i % 4 * 4);
+            item.style.setProperty('--leaf-duration', `${duration}s`);
+            item.style.setProperty('--leaf-delay', `${-duration * (i + .65) / layer.children.length}s`);
+        });
+    };
+    updateDistance();
+    new ResizeObserver(updateDistance).observe(document.body);
 })();
