@@ -90,7 +90,16 @@
 @media(max-width:767px){
     .autumn-bundle-page .summer-builder-shell{margin:24px auto 48px;padding:20px;gap:28px}
     .autumn-bundle-page .summer-inline-visual{min-height:0}
-    .autumn-bundle-page .summer-inline-visual>img{position:relative;height:auto;object-fit:contain}
+    .autumn-bundle-page .summer-inline-visual>img{position:relative;display:block;height:clamp(170px,40vw,300px);object-fit:cover;object-position:center 75%}
     .autumn-bundle-page .summer-inline-visual::after{background:none}
-    .autumn-bundle-page .summer-inline-copy{position:relative;top:auto;right:auto;bottom:auto;left:auto;width:auto;max-width:none;padding:26px 20px 30px;transform:none}
+    .autumn-bundle-page .summer-inline-copy{position:relative;top:auto;right:auto;bottom:auto;left:auto;width:auto;max-width:none;padding:20px 18px 22px;transform:none}
+    .autumn-bundle-page .summer-inline-kicker{margin-bottom:10px;font-size:8px}
+    .autumn-bundle-page .summer-inline-copy h2{font-size:clamp(30px,6vw,38px);line-height:1.02}
+    .autumn-bundle-page .summer-inline-copy>p:not(.summer-inline-kicker){max-width:380px;margin-top:12px;font-size:12px;line-height:1.5}
+    .autumn-bundle-page .summer-inline-prices{margin-top:14px;gap:6px}
+    .autumn-bundle-page .summer-inline-price{grid-template-columns:62px auto auto;gap:10px}
+    .autumn-bundle-page .summer-inline-price span{white-space:nowrap}
+    .autumn-bundle-page .summer-inline-price strong{font-size:25px}
+    .autumn-bundle-page .summer-inline-price--compact strong{font-size:23px}
+    .autumn-bundle-page .summer-glass-cta{min-height:44px;margin-top:16px;padding:12px 18px;font-size:10px;gap:20px}
 }
