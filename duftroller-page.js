@@ -51,7 +51,8 @@
         document.querySelectorAll('[name="roller-size"]').forEach(input => { input.checked = input.value === size; });
         button.disabled = !available && !failed;
         button.textContent = available ? (scent ? `In den Warenkorb · ${money(value)}` : 'Duftfüllung auswählen') : failed ? 'Erneut laden' : 'Duftauswahl wird geladen …';
-        status.textContent = failed ? 'Die Duftauswahl ist gerade nicht erreichbar. Bitte versuche es erneut.' : scent ? `${size} ml · ${scent.id} · ${scent.name}` : 'Wähle deine Größe und deinen Duft.';
+        status.hidden = !failed;
+        status.textContent = failed ? 'Die Duftauswahl ist gerade nicht erreichbar. Bitte versuche es erneut.' : '';
         if(scent){document.getElementById('selected-mini').src = scent.image;document.getElementById('selected-scent-title').textContent = `NØTE. ${scent.id}`;document.getElementById('selected-scent-description').textContent = scent.name;document.getElementById('open-selector').setAttribute('aria-label',`Duftfüllung ändern: NØTE. ${scent.id}, ${scent.name}`);}
         persist();
     }
@@ -94,7 +95,9 @@
         if(!scent){picker.open();return;}
         const id = `DUFTROLLER-${size}-${scent.id}`, cart = window.NoteCart.read();
         const existing = cart.find(item => item.cartId === id || item.id === id);
-        if(existing && Number(existing.quantity)>=20){status.textContent='Maximal 20 Stück je Größe und Duftfüllung.';return;}
+        if(existing && Number(existing.quantity)>=20){status.hidden=false;status.textContent='Maximal 20 Stück je Größe und Duftfüllung.';return;}
+        status.hidden = true;
+        status.textContent = '';
         const item = {id,cartId:id,productId:'DUFTROLLER',productType:'duftroller',name:'NØTE. Duftroller',size,scentId:scent.id,scentName:scent.name,price:price(),originalPrice:null,image:image(size),quantity:existing?Number(existing.quantity)+1:1};
         if(existing)Object.assign(existing,item);else cart.push(item);
         window.NoteCart.write(cart);window.dispatchEvent(new CustomEvent('note:cart-updated'));

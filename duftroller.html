@@ -124,7 +124,6 @@
                     </div>
                 </div>
 
-
    <div class="accordions">
     <details><summary>Anwendung</summary><div class="accordion-content"><p>Deckel abnehmen und mit der Rollkugel sparsam über die gewünschte Hautstelle fahren, zum Beispiel am Handgelenk. Anschließend den Duftroller wieder fest verschließen.</p></div></details>
     <details><summary>Größen &amp; Lieferumfang</summary><div class="accordion-content"><p>Du erhältst einen gefüllten Duftroller mit deiner gewählten Duftfüllung. 6 ml mit weißem Deckel, 10 ml mit schwarzem Deckel oder 14 ml im facettierten Flakon mit goldfarbenem Deckel.</p><p>Die Produktbilder zeigen die drei Varianten. Im Preis enthalten ist jeweils ein Duftroller.</p></div></details>
@@ -136,7 +135,7 @@
    <div class="product-summary-head">
     <h1 id="product-title">Duftroller</h1>
     <p class="subtitle">Dein Lieblingsduft. Immer dabei.</p>
-    <a class="roller-review-link" href="#roller-reviews" id="roller-review-summary">Noch keine Bewertungen</a>
+    <div class="rating"><span class="stars" aria-hidden="true">★★★★★</span><a class="roller-review-link" href="#roller-reviews" id="roller-review-summary">Noch keine Bewertungen</a></div>
     <div class="price-row"><span class="price" id="roller-price">12,50 €</span></div>
     <p class="roller-unit-price" id="roller-unit-price">2.083,33 € / l · 6 ml</p>
     <span class="price-note tax-note">inkl. MwSt., zzgl. <a href="versand.html">Versand</a></span>
@@ -164,31 +163,27 @@
      </div>
      <div class="add-row"><button class="add-btn roller-add" id="add-btn" type="button" disabled>Duftauswahl wird geladen …</button></div>
     </div>
-    <p class="roller-selection-status" id="roller-selection-status" role="status" aria-live="polite">Wähle deine Größe und deinen Duft.</p>
+    <p class="roller-selection-status" id="roller-selection-status" role="status" aria-live="polite" hidden></p>
    </section>
-   <div class="trust-badges autoduft-trust-badges roller-trust"><div class="shipping-info"><i class="fas fa-truck" aria-hidden="true"></i><span>Kostenloser Versand ab 60 €</span></div><p>Lieferzeit: 1–3 Werktage</p><span>Ein Duftroller · fertig befüllt · deine Duftwahl</span>
-<div class="roller-delivery-timeline" aria-label="Voraussichtliche Lieferung bei Bestellung heute" aria-describedby="roller-delivery-note">
-  <ol class="roller-delivery-steps">
-    <li>
-      <span class="roller-delivery-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l1 13H4L5 8Z"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></svg></span>
-      <strong>Bestellt</strong>
-      <span class="roller-delivery-estimate">Bei Bestellung</span>
-      <time class="roller-delivery-date" id="roller-delivery-ordered">heute</time>
+   <div class="trust-badges autoduft-trust-badges roller-trust"><div class="shipping-info"><i class="fas fa-truck" aria-hidden="true"></i><span>Kostenloser Versand ab 60 €</span></div><p>Lieferzeit: 1–3 Werktage</p>
+<div class="delivery-timeline roller-delivery-timeline" role="group" aria-label="Voraussichtliche Lieferung bei Bestellung heute">
+  <ol class="delivery-steps roller-delivery-steps">
+    <li class="delivery-step">
+      <div class="delivery-icon-circle"><i class="fas fa-shopping-bag" aria-hidden="true"></i></div>
+      <div class="delivery-step-title">Bestellt</div>
+      <time class="delivery-step-date" id="roller-delivery-ordered">Heute</time>
     </li>
-    <li>
-      <span class="roller-delivery-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5h12v12H2V5Zm12 5h4l4 4v3h-8"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg></span>
-      <strong>Versendet</strong>
-      <span class="roller-delivery-estimate">Voraussichtlich</span>
-      <span class="roller-delivery-date" id="roller-delivery-shipped">nächster Werktag</span>
+    <li class="delivery-step">
+      <div class="delivery-icon-circle"><i class="fas fa-truck" aria-hidden="true"></i></div>
+      <div class="delivery-step-title">Versendet</div>
+      <div class="delivery-step-date" id="roller-delivery-shipped">Wird berechnet</div>
     </li>
-    <li>
-      <span class="roller-delivery-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m3 7 9-4 9 4-9 4-9-4Zm0 0v11l9 4 9-4V7M12 11v11M7.5 5l9 4"/></svg></span>
-      <strong>Zugestellt</strong>
-      <span class="roller-delivery-estimate">Voraussichtlich</span>
-      <span class="roller-delivery-date" id="roller-delivery-delivered">in 1–3 Werktagen</span>
+    <li class="delivery-step">
+      <div class="delivery-icon-circle"><i class="fas fa-box" aria-hidden="true"></i></div>
+      <div class="delivery-step-title">Zugestellt</div>
+      <div class="delivery-step-date" id="roller-delivery-delivered">Wird berechnet</div>
     </li>
   </ol>
-  <p class="roller-delivery-note" id="roller-delivery-note">Geschätzt für Deutschland, Mo–Fr. Feiertage können die Termine verschieben.</p>
 </div>
 </div>
   </div>
@@ -205,7 +200,7 @@
      <p class="roller-format">6 <span>ml</span></p>
      <h3>Für neue Lieblinge.</h3>
      <p>Zum Kennenlernen eines neuen Dufts und für die kleinste Tasche. Mit 6 ml hast du deinen Favoriten auch beim Dinner, auf Reisen oder an einem langen Abend bei dir.</p>
-     <div class="roller-portrait-footer"><a href="#konfigurator-roller" data-select-roller="6">Meinen 6-ml-Roller wählen</a><span class="roller-portrait-price" data-roller-price="6">12,50 €</span></div>
+     <div class="roller-portrait-footer"><a href="#konfigurator-roller" data-select-roller="6">6 ml auswählen</a><span class="roller-portrait-price" data-roller-price="6">12,50 €</span></div>
     </div>
    </article>
    <article class="roller-portrait">
@@ -214,7 +209,7 @@
      <p class="roller-format">10 <span>ml</span></p>
      <h3>Für deinen ganzen Tag.</h3>
      <p>Morgens zur Arbeit, später noch verabredet. Die schlanken 10 ml begleiten dich in der Handtasche oder im Rucksack. Einmal kurz auffrischen, und der Abend kann kommen.</p>
-     <div class="roller-portrait-footer"><a href="#konfigurator-roller" data-select-roller="10">Meinen 10-ml-Roller wählen</a><span class="roller-portrait-price" data-roller-price="10">16,00 €</span></div>
+     <div class="roller-portrait-footer"><a href="#konfigurator-roller" data-select-roller="10">10 ml auswählen</a><span class="roller-portrait-price" data-roller-price="10">16,00 €</span></div>
     </div>
    </article>
    <article class="roller-portrait">
@@ -223,19 +218,14 @@
      <p class="roller-format">14 <span>ml</span></p>
      <h3>Weil du ihn liebst.</h3>
      <p>Du hast den Duft gefunden, den du am liebsten jeden Tag trägst. Gönn dir mit 14 ml etwas mehr davon – für dein Morgenritual zu Hause und die schönen Pläne danach.</p>
-     <div class="roller-portrait-footer"><a href="#konfigurator-roller" data-select-roller="14">Meinen 14-ml-Roller wählen</a><span class="roller-portrait-price" data-roller-price="14">19,50 €</span></div>
+     <div class="roller-portrait-footer"><a href="#konfigurator-roller" data-select-roller="14">14 ml auswählen</a><span class="roller-portrait-price" data-roller-price="14">19,50 €</span></div>
     </div>
    </article>
   </div>
-  <p class="roller-collection-tax">Preise inkl. MwSt., zzgl. <a href="versand.html">Versand</a>. Jeweils ein Duftroller inklusive deiner gewählten Duftfüllung.</p>
+
  </section>
  <section class="roller-reviews" id="roller-reviews" aria-labelledby="roller-reviews-title"><p class="eyebrow">KUNDENBEWERTUNGEN</p><h2 id="roller-reviews-title">Erfahrungen mit dem Duftroller</h2><div id="roller-reviews-list"><p>Noch keine Bewertungen. Hier ist Platz für deine Erfahrung.</p></div></section>
- <section class="roller-faq" aria-labelledby="roller-faq-title"><p class="eyebrow">GUT ZU WISSEN</p><h2 id="roller-faq-title">Dein Duftroller, kurz erklärt.</h2><div class="accordions">
- <details><summary>Welche Größe passt zu mir?</summary><div class="accordion-content"><p>6 ml eignet sich zum Kennenlernen eines Dufts und für kleine Taschen. 10 ml begleitet dich durch den Alltag. 14 ml bietet dir mehr von deinem Lieblingsduft. Die Duftfüllung wählst du bei jeder Größe selbst.</p></div></details>
- <details><summary>Wie finde ich meine Duftfüllung?</summary><div class="accordion-content"><p>Öffne die Duftauswahl und suche nach NØTE.-Nummer, Duftname, Marke oder Duftnoten. Mit den Filtern kannst du zwischen Herren- und Frauendüften wechseln. Deine Auswahl wird direkt für den Duftroller übernommen.</p></div></details>
- <details><summary>Ist die Duftfüllung im Preis enthalten?</summary><div class="accordion-content"><p>Ja. Der angezeigte Preis gilt für einen Duftroller in deiner gewählten Größe inklusive Duftfüllung und MwSt., zuzüglich <a href="versand.html">Versand</a>.</p></div></details>
- <details><summary>Kann ich mehrere Düfte bestellen?</summary><div class="accordion-content"><p>Ja. Lege einen Duftroller mit deiner ersten Auswahl in den Warenkorb. Danach kannst du einen anderen Duft oder eine andere Größe auswählen und einen weiteren Duftroller hinzufügen.</p></div></details>
- </div></section>
+
 <div class="roller-shop-tail" id="roller-shop-tail">
   <section class="roller-recommendations" aria-labelledby="roller-recommendations-title">
     <div class="roller-shop-heading">
@@ -257,50 +247,24 @@
 
   <section class="roller-format-comparison" aria-labelledby="roller-format-title">
     <div class="roller-shop-heading">
-      <h2 id="roller-format-title">Rollen oder sprühen?</h2>
-      <p>Ein kleiner Begleiter für unterwegs oder dein Flakon zu Hause.<br class="roller-desktop-break"> Wähle, was zu dir passt.</p>
+      <h2 id="roller-format-title">Rollen oder <em>sprühen?</em></h2>
+      <p>Zwei Arten, deinen Lieblingsduft zu tragen.</p>
     </div>
     <table class="roller-format-table">
       <caption class="sr-only">Duftroller und Parfum-Spray im Vergleich</caption>
-      <thead><tr><td></td><th scope="col">Duftroller</th><th scope="col">Parfum-Spray</th></tr></thead>
+      <thead><tr><td></td>
+       <th scope="col"><span class="roller-format-icon" aria-hidden="true"><svg viewBox="0 0 48 64" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="15" y="22" width="18" height="37" rx="5"/><path d="M16 40h16M16 48h16M18 22V13a6 6 0 0 1 12 0v9"/><path d="M19 8a5 5 0 0 1 10 0"/></svg></span><span>Duftroller</span><small>Dein Duft zum Mitnehmen</small></th>
+       <th scope="col"><span class="roller-format-icon" aria-hidden="true"><svg viewBox="0 0 48 64" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="25" width="34" height="34" rx="5"/><path d="M19 25V12h10v13M19 17h10M24 12V7h8M13 36h22v14H13zM36 8l4-2M37 13h5M36 18l4 2"/></svg></span><span>Parfum-Spray</span><small>Dein tägliches Duftritual</small></th>
+      </tr></thead>
       <tbody>
         <tr><th scope="row">Größen</th><td>6, 10 &amp; 14 ml</td><td>30 &amp; 50 ml</td></tr>
-        <tr><th scope="row">Auftragen</th><td>Mit der Rollkugel direkt auf die Haut</td><td>Mit dem Sprühkopf als feiner Sprühnebel</td></tr>
-        <tr><th scope="row">Deine Auswahl</th><td>Größe und Duftfüllung frei kombinieren</td><td>Duft als einzelnen Parfumflakon wählen</td></tr>
+        <tr><th scope="row">Auftragen</th><td>Mit der Rollkugel punktgenau auf die Haut</td><td>Als feinen Sprühnebel auftragen</td></tr>
+        <tr><th scope="row">Passt zu dir</th><td>Wenn du wenig Platz brauchst und unterwegs nachlegen möchtest.</td><td>Wenn du deinen Duft am liebsten aufsprühen möchtest.</td></tr>
       </tbody>
     </table>
-    <a class="roller-shop-link" href="suche.html">Parfums entdecken <span aria-hidden="true">→</span></a>
+    <a class="roller-shop-link" href="suche.html">Parfums entdecken</a>
   </section>
 
-  <section class="roller-shop-facts" aria-label="Deine Vorteile bei NØTE.">
-    <div class="roller-shop-fact">
-      <span class="roller-fact-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.25"><rect x="3" y="13" width="6" height="15" rx="2"/><path d="M4 13V9h4v4"/><rect x="13" y="10" width="6" height="18" rx="2"/><path d="M14 10V5h4v5"/><rect x="23" y="7" width="6" height="21" rx="2"/><path d="M24 7V2h4v5"/></svg></span>
-      <h3>Drei Größen. Deine Wahl.</h3>
-      <p>6, 10 oder 14 ml – vom kleinen Duftbegleiter bis zum größeren Vorrat.</p>
-    </div>
-    <div class="roller-shop-fact">
-      <span class="roller-fact-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3S7 14 7 20a9 9 0 0 0 18 0c0-6-9-17-9-17Z"/><path d="M11 20a5 5 0 0 0 5 5"/></svg></span>
-      <h3>Mit deinem Lieblingsduft.</h3>
-      <p>Wähle die passende Füllung aus unserem Duftsortiment. Sie ist im Rollerpreis enthalten.</p>
-    </div>
-    <div class="roller-shop-fact">
-      <span class="roller-fact-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h17v17H3V6Zm17 7h5l5 5v5H20"/><circle cx="9" cy="24" r="3"/><circle cx="25" cy="24" r="3"/></svg></span>
-      <h3>Ab 60 € versandkostenfrei.</h3>
-      <p>Innerhalb Deutschlands ab 60 € Warenwert vor Gutscheinen. <a href="versand.html">Alle Versandinfos</a></p>
-    </div>
-  </section>
-
-  <section class="roller-general-faq" aria-labelledby="roller-general-faq-title">
-    <div class="roller-shop-heading">
-      <p class="roller-shop-eyebrow">NOCH EINE FRAGE?</p>
-      <h2 id="roller-general-faq-title">Gut zu wissen.</h2>
-    </div>
-    <div class="accordions">
-      <details><summary>Wie finde ich meinen passenden Duft?</summary><div class="accordion-content"><p>In unserer <a href="suche.html">Duftsuche</a> kannst du nach Nummer, Marke oder Duftname suchen. Für den Duftroller findest du dieselbe Suche direkt in der Duftauswahl. Wenn du Hilfe brauchst, <a href="kontakt.html">schreib uns</a>.</p></div></details>
-      <details><summary>Wie lange dauert der Versand?</summary><div class="accordion-content"><p>Die angegebene Lieferzeit innerhalb Deutschlands beträgt 1–3 Werktage. Wir rechnen dabei von Montag bis Freitag. Die Datumsanzeige auf dieser Seite ist eine Schätzung; Feiertage können sie verschieben. Weitere Angaben findest du in unseren <a href="versand.html">Versandbedingungen</a>.</p></div></details>
-      <details><summary>Wo finde ich Informationen zur Rückgabe?</summary><div class="accordion-content"><p>Alle Angaben zu Widerruf, Fristen und Rücksendungen stehen in unserem <a href="widerrufsrecht.html">Widerrufsrecht</a>. Bei Fragen zu einer Bestellung hilft dir unser <a href="kontakt.html">Kontakt</a> weiter.</p></div></details>
-    </div>
-  </section>
 </div>
 
 </main>

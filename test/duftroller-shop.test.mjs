@@ -30,7 +30,7 @@ async function fixture(t) {
     const tail = findByClass(document, 'roller-shop-tail');
     assert.ok(timeline && tail, 'Timeline and shop tail must be integrated into duftroller.html');
     const html = `<!doctype html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>${styles}</style></head>
-      <body class="autoduft-page duftroller-page"><main class="page roller-page"><div class="roller-trust" style="max-width:480px;margin:auto">${serializeOuter(timeline)}</div>${serializeOuter(tail)}</main><script src="/shop.js"></script></body></html>`;
+      <body class="autoduft-page duftroller-page"><main class="page roller-page"><div class="trust-badges autoduft-trust-badges roller-trust" style="max-width:480px;margin:auto">${serializeOuter(timeline)}</div>${serializeOuter(tail)}</main><script src="/shop.js"></script></body></html>`;
     const server = http.createServer((request, response) => {
         if (request.url === '/shop.js') { response.setHeader('Content-Type', 'text/javascript; charset=utf-8'); return response.end(source); }
         const image = productImages.get(request.url.replace(/^\/(?:assets|images_website\/bestsellers)\//, ''));
@@ -48,10 +48,11 @@ async function fixture(t) {
         args: process.platform === 'linux' ? ['--no-sandbox'] : [] });
     t.after(async () => { await browser.close(); await new Promise(resolve => server.close(resolve)); });
 
-    async function pageFor({ products = catalog, date = '2026-10-09T10:00:00Z', fail = false, width = 390, delay = 0 } = {}) {
+    async function pageFor({ products = catalog, date = '2026-10-09T10:00:00Z', fail = false, width = 390, delay = 0, motion = 'no-preference' } = {}) {
         const page = await browser.newPage(), errors = [], external = [];
         await page.setViewport({ width, height: 844 });
         await page.emulateTimezone('America/Los_Angeles');
+        await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: motion }]);
         page.on('pageerror', error => errors.push(error.message));
         await page.setRequestInterception(true);
         page.on('request', request => {
@@ -76,6 +77,7 @@ async function fixture(t) {
         }, products, date, fail, delay);
         await page.goto(origin, { waitUntil: 'load' });
         await page.waitForFunction(() => document.querySelector('#roller-recommendations-grid').getAttribute('aria-busy') === 'false');
+        await page.waitForSelector('.roller-delivery-timeline.delivery-timeline-visible');
         return { page, errors, external };
     }
     return { pageFor };
@@ -97,11 +99,37 @@ test('delivery estimates use German calendar dates and 1–3 working days across
         assert.equal(await page.$eval('#roller-delivery-ordered', node => node.dateTime), ordered);
         assert.equal(await page.$eval('#roller-delivery-shipped time', node => node.dateTime), first);
         assert.deepEqual(await page.$$eval('#roller-delivery-delivered time', nodes => nodes.map(node => node.dateTime)), [first, last]);
-        assert.match(await page.$eval('#roller-delivery-note', node => node.textContent), /Feiertage/);
-        assert.deepEqual(await page.$$eval('.roller-delivery-estimate', nodes => nodes.slice(1).map(node => node.textContent)), ['Voraussichtlich', 'Voraussichtlich']);
     }
     assert.match(await page.$eval('#roller-delivery-delivered', node => node.textContent), /2027/);
     assert.deepEqual(errors, []);
+});
+
+test('delivery timeline uses the Autoduft animations and respects reduced motion', { timeout: 60000 }, async t => {
+    const { pageFor } = await fixture(t);
+    const { page, errors } = await pageFor();
+    const animation = await page.evaluate(() => ({
+        steps: [...document.querySelectorAll('.roller-delivery-timeline .delivery-step')].map(step => ({ name: getComputedStyle(step).animationName, delay: getComputedStyle(step).animationDelay })),
+        connector: getComputedStyle(document.querySelector('.roller-delivery-timeline .delivery-steps'), '::before').animationName
+    }));
+    assert.deepEqual(animation.steps, [
+        { name: 'delivery-step-in', delay: '0.1s' },
+        { name: 'delivery-step-in', delay: '0.3s' },
+        { name: 'delivery-step-in', delay: '0.5s' }
+    ]);
+    assert.equal(animation.connector, 'delivery-line');
+    await page.waitForFunction(() => getComputedStyle(document.querySelector('.roller-delivery-timeline')).opacity === '1');
+    assert.deepEqual(errors, []);
+
+    const reduced = await pageFor({ motion: 'reduce' });
+    const staticTimeline = await reduced.page.evaluate(() => ({
+        opacity: getComputedStyle(document.querySelector('.roller-delivery-timeline')).opacity,
+        steps: [...document.querySelectorAll('.roller-delivery-timeline .delivery-step')].map(step => ({ name: getComputedStyle(step).animationName, transform: getComputedStyle(step).transform })),
+        connector: getComputedStyle(document.querySelector('.roller-delivery-timeline .delivery-steps'), '::before').animationName
+    }));
+    assert.equal(staticTimeline.opacity, '1');
+    assert.deepEqual(staticTimeline.steps, Array(3).fill({ name: 'none', transform: 'none' }));
+    assert.equal(staticTimeline.connector, 'none');
+    assert.deepEqual(reduced.errors, []);
 });
 
 test('recommendations use real API values, safe DOM, local images and omit unusable prices', { timeout: 60000 }, async t => {
@@ -155,7 +183,7 @@ test('catalog retry retains keyboard focus and the complete shop tail fits phone
         const layout = await page.evaluate(() => ({
             pageWidth: document.documentElement.scrollWidth, viewport: innerWidth,
             columns: getComputedStyle(document.querySelector('#roller-recommendations-grid')).gridTemplateColumns.split(' ').length,
-            clipped: [...document.querySelectorAll('.roller-recommendation-card,.roller-format-table,.roller-delivery-steps,.roller-shop-fact')].some(node => {
+            clipped: [...document.querySelectorAll('.roller-recommendation-card,.roller-format-table,.roller-delivery-timeline')].some(node => {
                 const rect = node.getBoundingClientRect(); return rect.left < 0 || rect.right > innerWidth + 1 || node.scrollWidth > node.clientWidth + 1;
             })
         }));
@@ -163,10 +191,16 @@ test('catalog retry retains keyboard focus and the complete shop tail fits phone
         assert.equal(layout.clipped, false, `No clipped content at ${width}px`);
         assert.equal(layout.columns, width <= 620 ? 2 : 4);
     }
-    await page.focus('.roller-general-faq summary');
-    await page.keyboard.press('Enter');
-    assert.equal(await page.$eval('.roller-general-faq details', node => node.open), true);
-    await page.keyboard.press('Tab');
-    assert.equal(await page.evaluate(() => document.activeElement.getAttribute('href')), 'suche.html');
+    assert.ok(await page.$('.roller-format-table caption'), 'Format comparison keeps an accessible table caption');
+    assert.equal(await page.$$eval('.roller-format-table th[scope="col"]', nodes => nodes.length), 2);
+    assert.equal(await page.$$eval('.roller-format-table th[scope="row"]', nodes => nodes.length), 3);
+    await page.setViewport({ width: 390, height: 844 });
+    const session = await page.createCDPSession();
+    const { nodes } = await session.send('Accessibility.getFullAXTree');
+    await session.detach();
+    assert.equal(nodes.filter(node => node.role?.value === 'table' && node.name?.value === 'Duftroller und Parfum-Spray im Vergleich').length, 1,
+        'Mobile grid styling must preserve the table in the accessibility tree');
+    assert.equal(nodes.filter(node => node.role?.value === 'columnheader').length, 2);
+    assert.equal(nodes.filter(node => node.role?.value === 'rowheader').length, 3);
     assert.deepEqual(errors, []);
 });

@@ -1335,6 +1335,7 @@ h1 {
 
 .scent-card img {
     width: 100%;
+    height: auto;
     aspect-ratio: 1 / 1;
     border-radius: 7px;
     object-fit: cover;

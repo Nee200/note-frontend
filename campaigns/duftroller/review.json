@@ -1,7 +1,7 @@
 {
   "date": "2026-10-10",
   "status": "Bereit zur lokalen Abnahme durch den Besitzer",
-  "previewUrl": "http://127.0.0.1:5500/duftroller.html?v=verfeinert",
+  "previewUrl": "http://127.0.0.1:5500/duftroller.html?v=autoduft-abgleich",
   "published": false,
   "pushPerformed": false,
   "publicationRequiresOwnerApproval": true,
@@ -32,33 +32,22 @@
     "note": "Vier Bilder je Größe: geschlossenes Packshot, offene Aufnahme in einer eigenen Bildwelt, vierteiliges beschriftetes Aufbaubild und redaktionelle Alltagsszene. Neue v2-Motive ersetzen offene/aufgebaute v1-Bilder in der Galerie. Alte Dateien bleiben erhalten. Aufbauten sind schematisch; verborgene Einsatz-Geometrie ist nicht vermessen.",
     "activeGalleryCount": 12,
     "visibleForSelectedSize": 4,
-    "newAssets": 6
+    "newAssets": 0
   },
   "independentReviews": [
     {
-      "role": "Unabhängiges Review Code und Funktion",
-      "scoreOutOf10": 9.5,
-      "scope": "Kaufablauf, Preisbindung, Größen-/Duft-Erhalt, Galerie, dynamische Empfehlungen, API-Retry, Tastaturfokus, Liefertermine und neue Integration",
+      "role": "Code und Funktionen – v6",
+      "scope": "4 Shop-Tests sowie separate Prüfung der gebauten Vorschau: Animation, Reduced Motion, Datumslogik, Empfehlungen, Retry/Fokus, Mengenlimit und Warenkorb",
       "openConfirmedFindings": []
     },
     {
-      "role": "Unabhängiges Gesamt- und Responsive-Review",
-      "scoreOutOf10": 9.5,
-      "scope": "Alle 14 Nutzerkommentare, 320/390/578/1281/1366/1442/1600/1883 px; Header, zwölf Galerieansichten, Modal, drei Warenkorbpositionen mit 48,00 € Summe, Reload, Porträt-CTAs, Versandzeitleiste und letzter Shopabschnitt",
-      "evidence": "../tmp/duftroller/review-v5/review-summary.json",
+      "role": "Autoduft-Vergleich und Responsive-Review – v6",
+      "scope": "Direkter Kartenvergleich bei fünf Breiten; 320/390/578/1442 px Sichtprüfung und Bedienung von Größen, Suche, Galerie, Lightbox, Porträtlinks und Warenkorb",
       "openConfirmedFindings": []
     },
     {
-      "role": "Separates Foto- und Integrationsreview",
-      "scoreOutOf10": 9.5,
-      "rubric": {
-        "productIdentity": 9.5,
-        "imageVariety": 9.6,
-        "readabilityAndIntegration": 9.5,
-        "mobileComposition": 9.5
-      },
-      "scope": "Alle 12 Galeriemotive bei 320/390/1442/1883 px: 48 Zustände plus sechs mobile Aufbau-Lightboxansichten. Produktfotos mit allen sechs Originalreferenzen abgeglichen. Zwei Überlagerungen nach Korrektur erneut geprüft.",
-      "evidence": "../tmp/duftroller/photos-review-v5/metrics.json",
+      "role": "Unabhängiges visuelles Review – v6",
+      "scope": "320/390/578/1442 px, Modale direkt mit Autoduft verglichen; Größenbadge, Aufbauansichten, Sterne, Timeline, Porträtlinks, Formatevergleich und entfernte Inhalte",
       "openConfirmedFindings": []
     }
   ],
@@ -71,13 +60,29 @@
       "note": "Vorherige Produktintegration: 49/49 bestanden; in dieser rein visuellen und Frontend-Revision keine Backendänderungen."
     },
     "frontend": {
-      "passed": 22,
+      "passed": 12,
       "failed": 0,
       "cancelled": 0,
-      "skipped": 1,
-      "skipReason": "Der digitale Widerruf bleibt auf ausdrücklichen Wunsch deaktiviert.",
-      "command": "node --test --test-concurrency=1 frontend/test/*.test.mjs",
-      "durationSeconds": 51.225
+      "skipped": 0,
+      "scope": "Gezielte Tests der geänderten Komponenten und der bestehenden Autoduft-Seite",
+      "suites": [
+        {
+          "file": "test/duftroller-page.test.mjs",
+          "passed": 4
+        },
+        {
+          "file": "test/duftroller-shop.test.mjs",
+          "passed": 4
+        },
+        {
+          "file": "test/autoduft.test.mjs",
+          "passed": 2
+        },
+        {
+          "file": "test/image-gallery-filter.test.mjs",
+          "passed": 2
+        }
+      ]
     },
     "newTestFiles": [
       "test/duftroller-page.test.mjs",
@@ -98,18 +103,14 @@
       "Vier Bilder ausschließlich der gewählten Größe; Pfeile, Touch, Tastatur, Wheel und Lightbox bleiben im Filter; verspätete Decode-Ergebnisse anderer Größen werden verworfen",
       "Gespeicherte Duft-ID bleibt bei initialem 503 erhalten und wird sowohl durch CTA-Retry als auch Dialog-Retry wiederhergestellt",
       "Dialog-Retry hält Tastaturfokus im Dialog; Escape stellt Fokus, Hintergrund und Scrollen wieder her",
-      "API-Preisänderungen aktualisieren Produktkopf und Porträts; Größenoptionen enthalten nur noch ml-Angaben; FAQ enthält keine feste Preiswiederholung",
       "Empfehlungen verwenden echte Katalogpreise und sichere feste Shopbilder; ungültige Preise, API-Ausfall, Bildfehler und Retry getestet.",
-      "Liefertermine in Berliner Zeitzone: Wochenenden, Zeitumstellung und Jahreswechsel getestet; Feiertage ausdrücklich als mögliche Verschiebung genannt."
+      "Duftkarten im tatsächlichen Browser bei 320/390/578/900/1442 px gegen Autoduft verglichen: quadratische Bilder und Kartengrößen innerhalb 1 px, sowohl voller Katalog als auch Einzeltreffer mit langem Namen.",
+      "Autoduft-Animation mit gestaffelten Schritten und bewegter Verbindungslinie; Reduced Motion bleibt statisch.",
+      "Berliner Datumsberechnung für Wochenenden, Zeitumstellung und Jahreswechsel unverändert; zusätzlicher sichtbarer Hinweis auf Wunsch entfernt.",
+      "Normale Auswahl-Statuszeile entfernt; Fehler und 20-Stück-Limit bleiben sichtbar, Retry und erfolgreiche Auswahl/Warenkorbaktion räumen die Meldung auf.",
+      "Vergleich enthält weiterhin eine zugängliche Tabelle mit zwei Spalten- und drei Zeilenüberschriften, auch im mobilen Chromium-Accessibility-Tree."
     ],
-    "testEnvironment": "Lokaler isolierter Server, synthetische Daten und abgefangene Zahlungsschnittstellen. Keine echte Bestellung oder Zahlung ausgelöst.",
-    "finalTargetedRecheck": {
-      "passed": 8,
-      "failed": 0,
-      "command": "node --test --test-concurrency=1 frontend/test/duftroller-page.test.mjs frontend/test/duftroller-shop.test.mjs frontend/test/image-gallery-filter.test.mjs",
-      "durationSeconds": 9.824,
-      "note": "Nach den letzten mobilen Badge- und Pfeilkorrekturen erneut durchgeführt."
-    }
+    "testEnvironment": "Lokaler isolierter Server, synthetische Daten und abgefangene Zahlungsschnittstellen. Keine echte Bestellung oder Zahlung ausgelöst."
   },
   "correctedReviewFindings": [
     "Ungültige gespeicherte Größe konnte einen NaN-Preis erzeugen",
@@ -130,7 +131,10 @@
     "Enger Headerabstand bei 1442 px: eigener kompakter Desktopbereich bis 1600 px.",
     "Größenbadge verdeckte bei 320 px einen Teil des Deckels im Aufbaubild: kompaktere Badge bis 360 px.",
     "Galeriepfeil verdeckte auf kleinen Handys Beschriftungen der Aufbauansichten: eigene Pfeilhöhe für Aufbau-Bilder, einschließlich Lightbox.",
-    "Zu enge Konfigurator-Bildlücke vergrößert; quadratische Bildflächen und frei stehendes & beibehalten."
+    "Zu enge Konfigurator-Bildlücke vergrößert; quadratische Bildflächen und frei stehendes & beibehalten.",
+    "Feste HTML-Bildhöhe von 200 px erzeugte im Duftdialog verzogene Bilder. Gemeinsame CSS-Regel setzt jetzt height:auto; abweichende Duftroller-Schriftgrößen entfernt.",
+    "Eigenständige statische Timeline durch vorhandene Autoduft-Klassen samt Animation ersetzt.",
+    "Kleines sandfarbenes Größenlabel erhält auf dunklen Bildern ausreichend deckenden Hintergrund (.82 statt .48)."
   ],
   "beforePublication": [
     "Der Besitzer prüft und genehmigt die Seite und die Produktmotive.",
@@ -138,12 +142,14 @@
     "Den versionierten Produktdatensatz backend/catalog/duftroller.json gezielt in die bestätigte Produktionsdatenbank übernehmen. backend/scripts/upsert-duftroller.js ist vorbereitet und läuft standardmäßig nur als Trockenlauf.",
     "Frontend und Backend erst nach Freigabe gemeinsam veröffentlichen."
   ],
-  "revision": "Alle 14 Rückmeldungen: beschrifteter Aufbau, abwechslungsreiche Fotos, versetzte Größenporträts und vollständiger Shop-Abschluss",
+  "revision": "v6 – Duftauswahl und Animation wie Autoduft, weniger Zusatztexte, dezente Größenaktionen und neuer Formatevergleich",
   "reviewEvidence": {
-    "folder": "../tmp/duftroller/review-v5/",
-    "results": "../tmp/duftroller/review-v5/review-summary.json",
-    "photoReview": "../tmp/duftroller/photos-review-v5/",
-    "rootScreens": "../tmp/duftroller/v5/"
+    "rootScreens": "../tmp/duftroller/v6/",
+    "visualReview": "../tmp/duftroller/review-v6-visual/",
+    "visualMetrics": "../tmp/duftroller/review-v6-visual/metrics.json",
+    "finalBadgeRetest": "../tmp/duftroller/review-v6-visual/badge-retest.json",
+    "note": "Galerie-Badge nach dem ersten v6-Rundgang auf .82 Deckkraft erhöht und gesondert visuell nachgeprüft. An denselben dunklen Hintergrundstellen nun 6,4–7,4:1 Kontrast; Aufbauansichten bleiben frei.",
+    "responsiveReview": "../tmp/duftroller/review-v6/review-summary.json"
   },
   "reviewHistory": [
     {
@@ -190,22 +196,84 @@
         "command": "node --test --test-concurrency=1 frontend/test/*.test.mjs",
         "durationSeconds": 51.6
       }
+    },
+    {
+      "date": "2026-10-10",
+      "revision": "Alle 14 Rückmeldungen: beschrifteter Aufbau, abwechslungsreiche Fotos, versetzte Größenporträts und vollständiger Shop-Abschluss",
+      "independentReviews": [
+        {
+          "role": "Unabhängiges Review Code und Funktion",
+          "scoreOutOf10": 9.5,
+          "scope": "Kaufablauf, Preisbindung, Größen-/Duft-Erhalt, Galerie, dynamische Empfehlungen, API-Retry, Tastaturfokus, Liefertermine und neue Integration",
+          "openConfirmedFindings": []
+        },
+        {
+          "role": "Unabhängiges Gesamt- und Responsive-Review",
+          "scoreOutOf10": 9.5,
+          "scope": "Alle 14 Nutzerkommentare, 320/390/578/1281/1366/1442/1600/1883 px; Header, zwölf Galerieansichten, Modal, drei Warenkorbpositionen mit 48,00 € Summe, Reload, Porträt-CTAs, Versandzeitleiste und letzter Shopabschnitt",
+          "evidence": "../tmp/duftroller/review-v5/review-summary.json",
+          "openConfirmedFindings": []
+        },
+        {
+          "role": "Separates Foto- und Integrationsreview",
+          "scoreOutOf10": 9.5,
+          "rubric": {
+            "productIdentity": 9.5,
+            "imageVariety": 9.6,
+            "readabilityAndIntegration": 9.5,
+            "mobileComposition": 9.5
+          },
+          "scope": "Alle 12 Galeriemotive bei 320/390/1442/1883 px: 48 Zustände plus sechs mobile Aufbau-Lightboxansichten. Produktfotos mit allen sechs Originalreferenzen abgeglichen. Zwei Überlagerungen nach Korrektur erneut geprüft.",
+          "evidence": "../tmp/duftroller/photos-review-v5/metrics.json",
+          "openConfirmedFindings": []
+        }
+      ],
+      "reviewEvidence": {
+        "folder": "../tmp/duftroller/review-v5/",
+        "results": "../tmp/duftroller/review-v5/review-summary.json",
+        "photoReview": "../tmp/duftroller/photos-review-v5/",
+        "rootScreens": "../tmp/duftroller/v5/"
+      },
+      "frontendTests": {
+        "passed": 22,
+        "failed": 0,
+        "cancelled": 0,
+        "skipped": 1,
+        "skipReason": "Der digitale Widerruf bleibt auf ausdrücklichen Wunsch deaktiviert.",
+        "command": "node --test --test-concurrency=1 frontend/test/*.test.mjs",
+        "durationSeconds": 51.225
+      },
+      "ownerCommentsAddressed": [
+        "1: Vier einzeln getrennte Bauteile mit deutschen Beschriftungen und Hinweislinien für alle drei Größen.",
+        "2: Lieferzeit-Timeline mit Bestellt, Versendet und Zugestellt ergänzt.",
+        "3: Empfehlungen, Formatevergleich, Fakten und allgemeine FAQ nach allen Rollerabschnitten und vor Newsletter/Footer.",
+        "4: Sichtbare Thumbnailbeschriftungen entfernt, barrierefreie Namen erhalten.",
+        "5: Drei neue unterschiedliche Fotowelten zusätzlich zu Packshots und Alltagsszenen.",
+        "6: Schwarze ml-Angabe auf dezenter heller Fläche mit Schatten; auf sehr schmalen Handys verkleinert.",
+        "7: Konkrete Vorteile: präziser Roll-on, ohne Sprühnebel, kompakte Größen.",
+        "8: Größenwahl enthält nur mittig gesetzte ml-Angaben.",
+        "9: Abgewählte Eyebrow oberhalb der Größenporträts entfernt.",
+        "10: Neue Überschrift „Wohin der Tag dich führt.“.",
+        "11: Nutzungsideen statt Kappenfarben: Kennenlernen/kleine Taschen, Alltag, mehr vom Lieblingsduft.",
+        "12: Versetzte Bild-Text-Porträts untereinander; mobil kleinere, abwechselnd ausgerichtete Bilder.",
+        "13: Porträtaktionen als ruhige Schaltflächen ohne Pfeile gestaltet.",
+        "14: Konfigurator-Abstände und Bildproportionen geprüft und verbessert."
+      ]
     }
   ],
   "ownerCommentsAddressed": [
-    "1: Vier einzeln getrennte Bauteile mit deutschen Beschriftungen und Hinweislinien für alle drei Größen.",
-    "2: Lieferzeit-Timeline mit Bestellt, Versendet und Zugestellt ergänzt.",
-    "3: Empfehlungen, Formatevergleich, Fakten und allgemeine FAQ nach allen Rollerabschnitten und vor Newsletter/Footer.",
-    "4: Sichtbare Thumbnailbeschriftungen entfernt, barrierefreie Namen erhalten.",
-    "5: Drei neue unterschiedliche Fotowelten zusätzlich zu Packshots und Alltagsszenen.",
-    "6: Schwarze ml-Angabe auf dezenter heller Fläche mit Schatten; auf sehr schmalen Handys verkleinert.",
-    "7: Konkrete Vorteile: präziser Roll-on, ohne Sprühnebel, kompakte Größen.",
-    "8: Größenwahl enthält nur mittig gesetzte ml-Angaben.",
-    "9: Abgewählte Eyebrow oberhalb der Größenporträts entfernt.",
-    "10: Neue Überschrift „Wohin der Tag dich führt.“.",
-    "11: Nutzungsideen statt Kappenfarben: Kennenlernen/kleine Taschen, Alltag, mehr vom Lieblingsduft.",
-    "12: Versetzte Bild-Text-Porträts untereinander; mobil kleinere, abwechselnd ausgerichtete Bilder.",
-    "13: Porträtaktionen als ruhige Schaltflächen ohne Pfeile gestaltet.",
-    "14: Konfigurator-Abstände und Bildproportionen geprüft und verbessert."
+    "1: Quadratische Duftbilder und Kartenmaße wie Autoduft, mit direktem Browser-Regressionstest.",
+    "2: Vorhandene Autoduft-Symbole, Schritteinblendung und animierte Verbindungslinie übernommen.",
+    "3: Sichtbaren Zusatzhinweis unter Lieferterminen entfernt.",
+    "4: Sichtbare Wiederholung von Größe und Duft unter dem Warenkorbbutton entfernt; echte Fehlermeldungen bleiben möglich.",
+    "5: Zusatzzeile „Ein Duftroller · fertig befüllt · deine Duftwahl“ aus Versandbereich entfernt.",
+    "6: Sterne links neben den Bewertungen, mit derselben rating/stars-Struktur wie Autoduft; keine erfundene Bewertungszahl.",
+    "7: Kleineres sandfarbenes Größenlabel mit dezenter Kontur und Schatten, keine weiße Fläche.",
+    "8: Porträtbuttons durch schlichte unterstrichene Größenlinks ersetzt.",
+    "9: Zusätzliche Preis-/Lieferumfangszeile unter Größenporträts entfernt.",
+    "10: Roller-FAQ entfernt.",
+    "11: Formatevergleich mit Produktsymbolen, zurückhaltenden Spaltenfarben und eigenständigem mobilen Zweispaltenlayout gestaltet.",
+    "12: Zusätzlichen Vorteilsblock entfernt.",
+    "13: Allgemeine FAQ entfernt."
   ]
 }

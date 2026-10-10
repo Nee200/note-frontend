@@ -165,3 +165,57 @@ test('retry inside the scent dialog preserves keyboard focus and Escape dismissa
  assert.equal(await page.evaluate(()=>document.activeElement.id),'open-selector');
  assert.deepEqual(state.errors,[]);
 });
+
+test('Duftroller scent cards keep Autoduft square images and card proportions across viewport sizes', {timeout:120000},async t=>{
+ const {browser,origin}=await setup(t);
+ const comparisonScents=Array.from({length:24},(_,index)=>({
+  id:`${index%2?'L':'G'}${index+1}`,category:index%2?'women':'men',name:`Duft ${index+1}`,
+  publicName:index===0?'Soloduft – Schwarzer Tee im goldenen Abendlicht, begleitet von weißen Blüten, warmer Vanille und einer sanften Note von Sandelholz':index%5===0?'Weiße Blüten nach einem langen Sommerregen':`Duft am Morgen ${index+1}`,
+  description:'Frische Bergamotte, weiche Blüten und warme Holznoten für deinen Tag.',
+  inspiredBy:index%2?'Chanel':'Armani',images:['logo.webp'],variants:{30:{price:34.99},50:{price:44.99}}
+ }));
+ const products=[catalog[0],{id:'AUTODUFT',category:'autoduft',name:'Autoduft',images:['logo.webp'],variants:{default:{price:19.99}}},...comparisonScents];
+ async function measure(page,expectedCount){
+  await page.waitForFunction(count=>document.querySelectorAll('.scent-card').length===count,{},expectedCount);
+  await page.waitForFunction(()=>document.querySelector('.scent-card img').naturalWidth>0);
+  await page.evaluate(async()=>{
+   await document.fonts.ready;
+   await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+   // Measure the finished rendered cards, not their temporary reveal scale/offset.
+   const animations=document.querySelector('#scent-modal').getAnimations({subtree:true});
+   await Promise.all(animations.filter(animation=>Number.isFinite(animation.effect.getComputedTiming().endTime)).map(animation=>animation.finished.catch(()=>{})));
+  });
+  return page.$$eval('.scent-card',cards=>cards.map(card=>{
+   const image=card.querySelector('img'),name=card.querySelector('.scent-name');
+   const imageBounds=image.getBoundingClientRect(),bounds=card.getBoundingClientRect();
+   return {id:card.dataset.scentId,width:bounds.width,height:bounds.height,imageWidth:imageBounds.width,imageHeight:imageBounds.height,name:name.textContent,nameHeight:name.getBoundingClientRect().height,nameLineHeight:parseFloat(getComputedStyle(name).lineHeight)};
+  }));
+ }
+ for(const width of [320,390,578,900,1442]){
+  const measurements={};
+  for(const route of ['autoduft','duftroller']){
+   const {page,state}=await pageFor(browser,origin,width);state.products=products;
+   try{
+    await page.goto(`${origin}/${route}.html`,{waitUntil:'load'});
+    await page.click('#open-selector');await page.waitForSelector('#scent-modal.is-visible');
+    const full=await measure(page,comparisonScents.length);
+    await page.type('#scent-search','Soloduft');
+    const single=await measure(page,1);
+    measurements[route]={full,single};
+    for(const [mode,cards]of Object.entries(measurements[route])){
+     for(const card of cards)assert.ok(Math.abs(card.imageWidth-card.imageHeight)<=1,`${route} ${width}px ${mode} ${card.id}: image is ${card.imageWidth} × ${card.imageHeight}, expected square`);
+    }
+    assert.ok(single[0].nameHeight>single[0].nameLineHeight*2,`${route} ${width}px: long-name fixture must exercise multiline card layout`);
+    assert.deepEqual(state.errors,[]);
+   }finally{await page.browserContext().close();}
+  }
+  for(const mode of ['full','single']){
+   const baseline=measurements.autoduft[mode],actual=measurements.duftroller[mode];
+   assert.deepEqual(actual.map(card=>card.id),baseline.map(card=>card.id));
+   for(const [index,card]of actual.entries()){
+    const reference=baseline[index];
+    for(const dimension of ['width','height','imageWidth','imageHeight'])assert.ok(Math.abs(card[dimension]-reference[dimension])<=1,`${width}px ${mode} ${card.id}: Duftroller ${dimension} ${card[dimension]} differs from Autoduft ${reference[dimension]}`);
+   }
+  }
+ }
+});

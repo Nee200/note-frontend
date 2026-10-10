@@ -60,6 +60,15 @@
         delivered.replaceChildren(dateElement(firstDay, today), document.createTextNode(' – '), dateElement(lastDay, today));
     }
 
+    function initTimeline() {
+        const timeline = document.querySelector('.roller-delivery-timeline');
+        if (!timeline) return;
+        updateTimeline();
+        const reveal = () => timeline.classList.add('delivery-timeline-visible');
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) reveal();
+        else window.requestAnimationFrame(reveal);
+    }
+
     function productImage(product) {
         const source = recommendationImages[product.id];
         if (!source) return '';
@@ -167,7 +176,7 @@
     }
 
     function init() {
-        updateTimeline();
+        initTimeline();
         initRecommendations();
         // Long-lived tabs should not continue advertising yesterday's dates.
         window.addEventListener('focus', updateTimeline);
