@@ -1,25 +1,30 @@
 'use strict';
-window.NoteImageGallery = function ({ lock, unlock, mainImage = document.getElementById('autoduft-main-image'), tapToOpen = false }) {
+window.NoteImageGallery = function ({ lock, unlock, mainImage = document.getElementById('autoduft-main-image'), tapToOpen = false, initialFilter }) {
     const thumbnails = [...document.querySelectorAll('[data-gallery-src]')];
     const lightbox = document.getElementById('image-lightbox');
     const enlargedImage = document.getElementById('image-lightbox-image');
     const openButton = document.getElementById('open-image-lightbox');
     const closeButton = document.getElementById('close-image-lightbox');
     const counters = [document.getElementById('gallery-counter'), document.getElementById('lightbox-counter')];
-    const pictures = thumbnails.map(button => ({ src: window.NoteAssets?.image(button.dataset.gallerySrc) || button.dataset.gallerySrc, alt: button.dataset.galleryAlt }));
-    if (!mainImage || !pictures.length) return;
+    const navigationButtons = [...document.querySelectorAll('[data-gallery-step], [data-lightbox-step]')];
+    const allPictures = thumbnails.map(button => ({ button, src: window.NoteAssets?.image(button.dataset.gallerySrc) || button.dataset.gallerySrc, alt: button.dataset.galleryAlt }));
+    if (!mainImage || !allPictures.length) return { setFilter() {} };
+    const displayStyles = new Map([...thumbnails, mainImage].map(element => [element, {
+        value: element.style.getPropertyValue('display'), priority: element.style.getPropertyPriority('display')
+    }]));
     const decoded = new Map();
+    let pictures = [];
     let requestedIndex = 0, displayedIndex = 0, requestVersion = 0, suppressClickUntil = 0;
 
-    function preload(index) {
-        if (!decoded.has(index)) {
+    function preload(picture) {
+        if (!decoded.has(picture.src)) {
             const image = new Image();
             image.decoding = 'async';
-            image.src = pictures[index].src;
-            const ready = image.decode().then(() => image).catch(error => { decoded.delete(index); throw error; });
-            decoded.set(index, ready);
+            image.src = picture.src;
+            const ready = image.decode().then(() => image).catch(error => { decoded.delete(picture.src); throw error; });
+            decoded.set(picture.src, ready);
         }
-        return decoded.get(index);
+        return decoded.get(picture.src);
     }
 
     function render(index) {
@@ -27,34 +32,39 @@ window.NoteImageGallery = function ({ lock, unlock, mainImage = document.getElem
         mainImage.src = picture.src;
         mainImage.alt = picture.alt;
         if (!lightbox.hidden) { enlargedImage.src = picture.src; enlargedImage.alt = picture.alt; }
-        thumbnails.forEach((button, i) => {
-            button.classList.toggle('is-active', i === index);
-            button.classList.toggle('active', i === index);
-            button.setAttribute('aria-current', String(i === index));
+        thumbnails.forEach(button => {
+            const active = button === picture.button;
+            button.classList.toggle('is-active', active);
+            button.classList.toggle('active', active);
+            button.setAttribute('aria-current', String(active));
         });
         counters.forEach(counter => { counter.textContent = `${index + 1} / ${pictures.length}`; });
         displayedIndex = index;
     }
 
     async function show(index) {
-        requestedIndex = (index + pictures.length) % pictures.length;
-        const next = requestedIndex, version = ++requestVersion;
+        if (!pictures.length || !Number.isFinite(index)) return;
+        requestedIndex = ((index % pictures.length) + pictures.length) % pictures.length;
+        const next = requestedIndex, picture = pictures[next], version = ++requestVersion;
         try {
             // Keep the current decoded image visible until its replacement is ready.
-            await preload(next);
+            await preload(picture);
             if (version === requestVersion) render(next);
         } catch {
             if (version === requestVersion) requestedIndex = displayedIndex;
         }
     }
 
-    thumbnails.forEach((button, index) => button.addEventListener('click', () => show(index)));
-    document.querySelectorAll('[data-gallery-step], [data-lightbox-step]').forEach(button => {
+    thumbnails.forEach(button => button.addEventListener('click', () => {
+        const index = pictures.findIndex(picture => picture.button === button);
+        if (index !== -1) show(index);
+    }));
+    navigationButtons.forEach(button => {
         button.addEventListener('click', () => show(requestedIndex + Number(button.dataset.galleryStep || button.dataset.lightboxStep)));
     });
 
     function open() {
-        if (!lightbox.hidden) return;
+        if (!pictures.length || !lightbox.hidden) return;
         lightbox.hidden = false;
         render(displayedIndex);
         lock('gallery');
@@ -68,6 +78,43 @@ window.NoteImageGallery = function ({ lock, unlock, mainImage = document.getElem
         lightbox.classList.remove('is-visible');
         unlock('gallery');
         openButton.focus({ preventScroll: true });
+    }
+
+    function setFilter(predicate) {
+        // Pending decodes may finish, but a previous size must never render again.
+        ++requestVersion;
+        pictures = typeof predicate === 'function' ? allPictures.filter(picture => predicate(picture.button)) : [...allPictures];
+        requestedIndex = displayedIndex = 0;
+        const visibleButtons = new Set(pictures.map(picture => picture.button));
+        for (const element of [...thumbnails, mainImage]) {
+            const visible = element === mainImage ? pictures.length > 0 : visibleButtons.has(element);
+            element.hidden = !visible;
+            if (!visible) element.style.setProperty('display', 'none', 'important');
+            else {
+                const original = displayStyles.get(element);
+                if (original.value) element.style.setProperty('display', original.value, original.priority);
+                else element.style.removeProperty('display');
+            }
+        }
+        navigationButtons.forEach(button => { button.disabled = pictures.length < 2; });
+        openButton.disabled = !pictures.length;
+        if (pictures.length) {
+            // Select immediately so an old size does not remain visible while loading.
+            render(0);
+            pictures.forEach(picture => { preload(picture).catch(() => {}); });
+        } else {
+            close();
+            mainImage.removeAttribute('src');
+            mainImage.alt = '';
+            enlargedImage.removeAttribute('src');
+            enlargedImage.alt = '';
+            thumbnails.forEach(button => {
+                button.classList.remove('is-active', 'active');
+                button.setAttribute('aria-current', 'false');
+            });
+            counters.forEach(counter => { counter.textContent = '0 / 0'; });
+        }
+        if (thumbnails.includes(document.activeElement) && document.activeElement.hidden) pictures[0]?.button.focus({ preventScroll: true });
     }
 
     openButton.addEventListener('click', open);
@@ -115,7 +162,7 @@ window.NoteImageGallery = function ({ lock, unlock, mainImage = document.getElem
         else if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
             event.preventDefault(); show(requestedIndex + (event.key === 'ArrowLeft' ? -1 : 1));
         } else if (event.key === 'Tab') {
-            const buttons = [...lightbox.querySelectorAll('button')];
+            const buttons = [...lightbox.querySelectorAll('button:not([disabled])')].filter(button => !button.hidden);
             const index = buttons.indexOf(document.activeElement);
             const next = (index + (event.shiftKey ? -1 : 1) + buttons.length) % buttons.length;
             event.preventDefault(); buttons[next].focus();
@@ -127,13 +174,14 @@ window.NoteImageGallery = function ({ lock, unlock, mainImage = document.getElem
         surface.addEventListener('dragstart', event => event.preventDefault());
         surface.addEventListener('pointerdown', event => {
             if (!event.isPrimary || event.button !== 0 || event.target.closest('button')) return;
-            gesture = { id: event.pointerId, x: event.clientX, y: event.clientY };
+            gesture = { id: event.pointerId, x: event.clientX, y: event.clientY, version: requestVersion };
             surface.setPointerCapture(event.pointerId);
         });
         surface.addEventListener('pointerup', event => {
             if (!gesture || event.pointerId !== gesture.id) return;
-            const dx = event.clientX - gesture.x, dy = event.clientY - gesture.y;
+            const dx = event.clientX - gesture.x, dy = event.clientY - gesture.y, version = gesture.version;
             gesture = null;
+            if (version !== requestVersion) return;
             if (Math.abs(dx) >= 45 && Math.abs(dx) > Math.abs(dy) * 1.3) {
                 suppressClickUntil = Date.now() + 350;
                 show(requestedIndex + (dx < 0 ? 1 : -1));
@@ -162,10 +210,9 @@ window.NoteImageGallery = function ({ lock, unlock, mainImage = document.getElem
             show(requestedIndex + (delta > 0 ? 1 : -1));
         }, { passive: false });
     }
-    render(0);
+    setFilter(initialFilter);
     mainImage.draggable = false;
     enableSwipe(mainImage);
     enableSwipe(enlargedImage);
-    // Decode optimized image URLs before switching, and share this behavior across product pages.
-    pictures.forEach((_, index) => { preload(index).catch(() => {}); });
+    return { setFilter };
 };

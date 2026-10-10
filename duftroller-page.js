@@ -5,7 +5,11 @@
     const image = size => `images_website/duftroller/note-duftroller-${size}-closed-v1.webp`;
     const button = document.getElementById('add-btn'), status = document.getElementById('roller-selection-status');
     let size = '6', scent = null, catalog = null, available = false, failed = false, pending;
-    let scrollState, toastTimer;
+    let scrollState, toastTimer, gallery;
+    let saved;
+    try { saved = JSON.parse(window.NoteStore.session.getItem('note_duftroller_selection') || 'null'); } catch {}
+    if (Object.hasOwn(VARIANTS, String(saved?.size))) size = String(saved.size);
+    let pendingScentId = typeof saved?.scentId === 'string' ? saved.scentId : '';
     const locks = new Set(), inertState = new Map();
     function lock(owner) {
         locks.add(owner);
@@ -32,17 +36,23 @@
         if(event.shiftKey && document.activeElement === first){event.preventDefault();last?.focus();}
         else if(!event.shiftKey && document.activeElement === last){event.preventDefault();first?.focus();}
     });
-    function persist() { window.NoteStore.session.setItem('note_duftroller_selection',JSON.stringify({size,scentId:scent?.id || ''})); }
+    function persist() { window.NoteStore.session.setItem('note_duftroller_selection',JSON.stringify({size,scentId:scent?.id || pendingScentId})); }
     function price() { const value = Number(catalog?.variants?.[size]?.price); return Number.isFinite(value) && value>0 ? value : VARIANTS[size].price; }
     function render() {
         const value = price();
         document.getElementById('roller-price').textContent = money(value);
         document.getElementById('roller-unit-price').textContent = `${money(value*1000/Number(size))} / l · ${size} ml`;
+        document.getElementById('roller-gallery-size').textContent = `${size} ml`;
+        const configImage = document.getElementById('roller-config-image');
+        configImage.src = window.NoteAssets.image(image(size));
+        configImage.alt = `Duftroller ${size} ml · ${VARIANTS[size].cap}`;
+        document.getElementById('roller-config-description').textContent = `${size} ml · ${VARIANTS[size].cap}`;
+        document.getElementById('konfigurator-roller').classList.toggle('has-selection', !!scent);
         document.querySelectorAll('[name="roller-size"]').forEach(input => { input.checked = input.value === size; });
         button.disabled = !available && !failed;
         button.textContent = available ? (scent ? `In den Warenkorb · ${money(value)}` : 'Duftfüllung auswählen') : failed ? 'Erneut laden' : 'Duftauswahl wird geladen …';
         status.textContent = failed ? 'Die Duftauswahl ist gerade nicht erreichbar. Bitte versuche es erneut.' : scent ? `${size} ml · ${scent.id} · ${scent.name}` : 'Wähle deine Größe und deinen Duft.';
-        if(scent){document.getElementById('selected-mini').src = scent.image;document.getElementById('selected-scent-title').textContent = `NØTE. ${scent.id}`;document.getElementById('selected-scent-description').textContent = scent.name;}
+        if(scent){document.getElementById('selected-mini').src = scent.image;document.getElementById('selected-scent-title').textContent = `NØTE. ${scent.id}`;document.getElementById('selected-scent-description').textContent = scent.name;document.getElementById('open-selector').setAttribute('aria-label',`Duftfüllung ändern: NØTE. ${scent.id}, ${scent.name}`);}
         persist();
     }
     async function loadProducts() {
@@ -52,15 +62,32 @@
             catalog = items.find(product => product.id === 'DUFTROLLER');
             available = !!catalog && Object.keys(VARIANTS).every(key => Number(catalog.variants?.[key]?.price)>0);
             if(!available) throw Error('Der Duftroller ist momentan nicht verfügbar.');
-            Object.keys(VARIANTS).forEach(key => {document.querySelector(`input[value="${key}"]+.roller-size-card b`).textContent = money(Number(catalog.variants[key].price));});
+            Object.keys(VARIANTS).forEach(key => {document.querySelectorAll(`[data-roller-price="${key}"]`).forEach(node => { node.textContent = money(Number(catalog.variants[key].price)); });});
             render();return items;
         }).catch(error => {pending = null;available = false;failed = true;render();throw error;});
         return pending;
     }
-    const picker = window.NoteScentPicker({lock,unlock,loadProducts,onSelect:selected => {scent = selected;render();}});
-    document.querySelectorAll('[name="roller-size"]').forEach(input => input.addEventListener('change',() => {
-        if(!Object.hasOwn(VARIANTS,input.value))return;size = input.value;render();
-        document.querySelector(`[data-gallery-size="${size}"][data-gallery-state="closed"]`)?.click();
+    const picker = window.NoteScentPicker({lock,unlock,loadProducts,
+        onSelect:selected => {pendingScentId = '';scent = selected;render();},
+        onLoad:() => {
+            // Validate a saved scent only after a successful load, including retries.
+            if (pendingScentId) scent = picker.select(pendingScentId) || null;
+            pendingScentId = '';
+            render();
+        }
+    });
+    function selectSize(value) {
+        if (!Object.hasOwn(VARIANTS, value)) return;
+        size = value;
+        gallery?.setFilter(thumb => thumb.dataset.gallerySize === size);
+        render();
+    }
+    document.querySelectorAll('[name="roller-size"]').forEach(input => input.addEventListener('change', () => selectSize(input.value)));
+    document.querySelectorAll('[data-select-roller]').forEach(link => link.addEventListener('click', event => {
+        event.preventDefault();
+        selectSize(link.dataset.selectRoller);
+        document.querySelector(`[name="roller-size"][value="${size}"]`).focus({preventScroll:true});
+        document.getElementById('konfigurator-roller').scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
     }));
     button.addEventListener('click',async () => {
         if(!available){button.disabled=true; await picker.load(); return;}
@@ -73,8 +100,7 @@
         window.NoteCart.write(cart);window.dispatchEvent(new CustomEvent('note:cart-updated'));
         const toast=document.getElementById('toast');toast.textContent=`${size} ml · ${scent.id} liegt im Warenkorb.`;toast.classList.add('is-visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('is-visible'),2400);
     });
-    window.NoteImageGallery({lock,unlock,mainImage:document.getElementById('roller-main-image'),tapToOpen:true});
-    new MutationObserver(() => {const selected = document.querySelector('.gallery-thumb[aria-current="true"]');const ml=selected?.dataset.gallerySize;document.getElementById('roller-gallery-note').textContent=ml?`${ml} ml · ${VARIANTS[ml].cap}${selected.dataset.galleryState==='open'?' · geöffnet':''}`:'Alle drei Größen im Überblick';}).observe(document.getElementById('roller-main-image'),{attributes:true,attributeFilter:['src']});
+    gallery = window.NoteImageGallery({lock,unlock,mainImage:document.getElementById('roller-main-image'),tapToOpen:true,initialFilter:thumb => thumb.dataset.gallerySize === size});
     document.getElementById('cookie-settings')?.addEventListener('click',event=>{event.preventDefault();window.NOTE_openCookieResetDialog?.();});
     async function loadReviews(){
         const root=document.getElementById('roller-reviews-list'),summary=document.getElementById('roller-review-summary');
@@ -85,8 +111,7 @@
             root.replaceChildren();for(const review of (data.reviews||[]).slice(0,6)){const article=document.createElement('article');article.className='roller-review';const name=document.createElement('strong');name.textContent=review.authorName;const stars=document.createElement('small');stars.textContent=` · ${review.rating} / 5${review.verifiedPurchase?' · Verifizierter Kauf':''}`;const comment=document.createElement('p');comment.textContent=review.comment;article.append(name,stars,comment);root.append(article);}
         }catch{summary.textContent='Kundenbewertungen';root.textContent='Bewertungen können gerade nicht geladen werden.';}
     }
-    let saved;try{saved=JSON.parse(window.NoteStore.session.getItem('note_duftroller_selection')||'null');}catch{}
-    if(Object.hasOwn(VARIANTS,String(saved?.size)))size=String(saved.size);
-    picker.load().then(scents=>{scent=scents.find(item=>item.id===saved?.scentId)||null;if(scent)picker.select(scent.id);if(available){render();if(Object.hasOwn(VARIANTS,String(saved?.size)))document.querySelector(`[data-gallery-size="${size}"][data-gallery-state="closed"]`)?.click();}});
+    render();
+    picker.load();
     loadReviews();
 })();

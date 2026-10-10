@@ -16,7 +16,7 @@ async function setup(t) {
 }
 async function pageFor(browser,origin,width=390) {
  const context=await browser.createBrowserContext();
- const page=await context.newPage(), state={fail:false,requests:[],errors:[]};
+ const page=await context.newPage(), state={fail:false,requests:[],errors:[],products:catalog};
  await page.setViewport({width,height:844,isMobile:width<600,hasTouch:width<600});
  await page.evaluateOnNewDocument(()=>{localStorage.setItem('cookie_consent','necessary');localStorage.setItem('nl_dismissed','1');});
  page.on('pageerror',error=>state.errors.push(error.message));
@@ -28,7 +28,7 @@ async function pageFor(browser,origin,width=390) {
    if(request.method()==='OPTIONS')return request.respond({status:204,headers});
    state.requests.push({url:url.pathname,method:request.method(),data:request.postData()});
    let body={};
-   if(url.pathname==='/api/products')body=catalog;
+   if(url.pathname==='/api/products')body=state.products;
    if(url.pathname.endsWith('/reviews'))body={reviews:[],summary:{count:0,average:0}};
    if(url.pathname==='/api/csrf-token')body={csrfToken:'synthetic-test'};
    if(url.pathname==='/create-checkout-session')body={safeMode:true};
@@ -55,15 +55,22 @@ test('Duftroller purchase flow preserves sizes, brands, prices and gallery state
  const {browser,origin}=await setup(t);
  for(const width of [390,1366]){
   const {page,state,go}=await pageFor(browser,origin,width);await go();await ready(page);
-  assert.equal(await page.$$eval('[data-gallery-src]',nodes=>nodes.length),7);
-  assert.equal(await page.evaluate(()=>document.querySelector('#roller-main-image').src===new URL(window.NoteAssets.image('images_website/duftroller/note-duftroller-trio-v1.webp'),location.href).href),true);
+  assert.equal(await page.$$eval('[data-gallery-src]:not([hidden])',nodes=>nodes.length),4);
+  assert.equal(await page.evaluate(()=>document.querySelector('#roller-main-image').src===new URL(window.NoteAssets.image('images_website/duftroller/note-duftroller-6-closed-v1.webp'),location.href).href),true);
   assert.equal(await page.$eval('#roller-price',node=>node.textContent.replace(/\s/g,'')),'12,50€');
   await selectScent(page,'armani','G1');
   for(const [size,price,unit] of [[6,'12,50','2.083,33'],[10,'16,00','1.600,00'],[14,'19,50','1.392,86']]){
    await page.click(`label.roller-size:has(input[value="${size}"])`);
    assert.match(await page.$eval('#roller-price',n=>n.textContent),new RegExp(price));
    assert.match(await page.$eval('#roller-unit-price',n=>n.textContent),new RegExp(unit));
+   assert.equal(await page.$eval('#roller-gallery-size',n=>n.textContent),`${size} ml`);
+   assert.deepEqual(await page.$$eval('[data-gallery-src]:not([hidden])',nodes=>nodes.map(n=>n.dataset.gallerySize)),Array(4).fill(String(size)));
    if(size!==6)await page.waitForFunction(s=>document.querySelector('#roller-main-image').src===new URL(window.NoteAssets.image(`images_website/duftroller/note-duftroller-${s}-closed-v1.webp`),location.href).href,{},size);
+   for(const [index,imageState] of ['open','exploded','editorial','closed'].entries()){
+    await page.click('[data-gallery-step="1"]');
+    await page.waitForFunction((s,state)=>document.querySelector('#roller-main-image').src===new URL(window.NoteAssets.image(`images_website/duftroller/note-duftroller-${s}-${state}-v1.webp`),location.href).href,{},size,imageState);
+    assert.equal(await page.$eval('#gallery-counter',n=>n.textContent),`${(index+1)%4+1} / 4`);
+   }
    await page.click('#add-btn');
    await page.waitForFunction(()=>document.querySelector('[data-cart-drawer]').getAttribute('aria-hidden')==='false');
    await page.waitForFunction(()=>document.querySelector('[data-cart-drawer]').getBoundingClientRect().right<=innerWidth+1);
@@ -81,10 +88,15 @@ test('Duftroller purchase flow preserves sizes, brands, prices and gallery state
   await page.click('#open-image-lightbox');
   await page.waitForFunction(()=>!document.querySelector('#image-lightbox').hidden);
   await page.keyboard.press('ArrowRight');
-  await page.waitForFunction(()=>document.querySelector('#lightbox-counter').textContent==='7 / 7');
+  await page.waitForFunction(()=>document.querySelector('#lightbox-counter').textContent==='2 / 4');
   await page.keyboard.press('Escape');
   assert.equal(await page.$eval('main',n=>n.inert),false);
   assert.equal(await page.evaluate(()=>document.body.style.position),'');
+  await page.click('[data-select-roller="10"]');
+  assert.equal(await page.$eval('input[name="roller-size"]:checked',n=>n.value),'10');
+  assert.equal(await page.$eval('#roller-gallery-size',n=>n.textContent),'10 ml');
+  assert.equal(await page.$eval('#selected-scent-title',n=>n.textContent),'NØTE. L1');
+  assert.equal(await page.evaluate(()=>document.activeElement.value),'10');
   await page.evaluate(()=>sessionStorage.setItem('note_duftroller_selection',JSON.stringify({size:'constructor',scentId:'G1'})));
   await page.reload({waitUntil:'load'});await ready(page);
   assert.equal(await page.$eval('input[name="roller-size"]:checked',n=>n.value),'6');
@@ -97,11 +109,20 @@ test('Duftroller purchase flow preserves sizes, brands, prices and gallery state
 
 test('Duftroller retries failed catalog loading, keeps filters accessible and fits short phone viewports', {timeout:120000},async t=>{
  const {browser,origin}=await setup(t);
- const {page,state,go}=await pageFor(browser,origin);state.fail=true;await go();
+ const {page,state,go}=await pageFor(browser,origin);state.fail=true;
+ await page.evaluateOnNewDocument(()=>sessionStorage.setItem('note_duftroller_selection',JSON.stringify({size:'10',scentId:'L1'})));
+ await go();
  await page.waitForFunction(()=>document.querySelector('#add-btn').textContent==='Erneut laden');
- await page.click('label.roller-size:has(input[value="10"])');
+ assert.equal(await page.$eval('#roller-gallery-size',n=>n.textContent),'10 ml');
+ assert.equal(await page.evaluate(()=>JSON.parse(sessionStorage.getItem('note_duftroller_selection')).scentId),'L1');
+ await page.click('label.roller-size:has(input[value="14"])');
  assert.equal(await page.$eval('#add-btn',n=>n.disabled),false);
+ state.products=catalog.map(product=>product.id==='DUFTROLLER'?{...product,variants:{6:{price:13},10:{price:17},14:{price:21}}}:product);
  state.fail=false;await page.click('#add-btn');await ready(page);
+ await page.waitForFunction(()=>document.querySelector('#selected-scent-title').textContent==='NØTE. L1');
+ assert.equal(await page.$eval('input[name="roller-size"]:checked',n=>n.value),'14');
+ assert.match(await page.$eval('#add-btn',n=>n.textContent),/21,00/);
+ assert.ok(await page.$$eval('[data-roller-price="14"]',nodes=>nodes.every(n=>n.textContent.includes('21,00'))));
  await page.click('#open-selector');
  await page.waitForSelector('#scent-modal.is-visible');
  assert.equal(await page.evaluate(()=>document.activeElement.id),'close-modal');
@@ -125,5 +146,22 @@ test('Duftroller retries failed catalog loading, keeps filters accessible and fi
   await page.keyboard.press('Escape');
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
  }
+ assert.deepEqual(state.errors,[]);
+});
+
+test('retry inside the scent dialog preserves keyboard focus and Escape dismissal', {timeout:60000},async t=>{
+ const {browser,origin}=await setup(t);
+ const {page,state,go}=await pageFor(browser,origin);state.fail=true;await go();
+ await page.waitForFunction(()=>document.querySelector('#add-btn').textContent==='Erneut laden');
+ await page.click('#open-selector');
+ await page.waitForSelector('#scent-modal .empty-state button');
+ state.fail=false;
+ await page.click('#scent-modal .empty-state button');
+ await page.waitForSelector('#scent-modal .scent-card');
+ assert.equal(await page.evaluate(()=>document.activeElement.id),'close-modal');
+ await page.keyboard.press('Escape');
+ assert.ok(await page.$eval('#scent-modal',node=>node.hidden));
+ assert.equal(await page.$eval('main',node=>node.inert),false);
+ assert.equal(await page.evaluate(()=>document.activeElement.id),'open-selector');
  assert.deepEqual(state.errors,[]);
 });

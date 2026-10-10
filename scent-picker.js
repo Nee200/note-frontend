@@ -1,5 +1,5 @@
 /* Shared scent selection dialog for configurable products. */
-window.NoteScentPicker = function ({ lock, unlock, onSelect, loadProducts }) {
+window.NoteScentPicker = function ({ lock, unlock, onSelect, onLoad, loadProducts }) {
     const modal = document.getElementById('scent-modal');
     const trigger = document.getElementById('open-selector');
     const closeButton = document.getElementById('close-modal');
@@ -48,6 +48,8 @@ window.NoteScentPicker = function ({ lock, unlock, onSelect, loadProducts }) {
     }
     async function load() {
         if (loading || loaded) return scents;
+        // A retry replaces the grid, so keep keyboard focus inside the dialog.
+        if (!modal.hidden && grid.contains(document.activeElement)) closeButton.focus({preventScroll:true});
         loading = true; failed = false; render();
         try {
             const products = await loadProducts();
@@ -56,6 +58,7 @@ window.NoteScentPicker = function ({ lock, unlock, onSelect, loadProducts }) {
                 search: [p.id, p.name, p.publicName, p.inspiredBy, p.description, p.longDescription, ...Object.values(p.notes || {})].map(normalize)
             })).sort((a,b) => a.id.localeCompare(b.id, 'de', {numeric:true}));
             loaded = true;
+            onLoad?.(scents);
         } catch { failed = true; }
         finally { loading = false; render(); }
         return scents;

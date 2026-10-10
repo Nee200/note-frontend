@@ -1,51 +1,86 @@
 {
   "date": "2026-10-10",
   "status": "Bereit zur lokalen Abnahme durch den Besitzer",
-  "previewUrl": "http://127.0.0.1:5500/duftroller.html",
+  "previewUrl": "http://127.0.0.1:5500/duftroller.html?v=autoduft-stil",
   "published": false,
   "pushPerformed": false,
   "publicationRequiresOwnerApproval": true,
   "variants": [
-    {"volumeMl": 6, "cap": "Weiß", "priceEur": 12.5},
-    {"volumeMl": 10, "cap": "Schwarz", "priceEur": 16},
-    {"volumeMl": 14, "cap": "Gold", "priceEur": 19.5}
+    {
+      "volumeMl": 6,
+      "cap": "Weiß",
+      "priceEur": 12.5
+    },
+    {
+      "volumeMl": 10,
+      "cap": "Schwarz",
+      "priceEur": 16
+    },
+    {
+      "volumeMl": 14,
+      "cap": "Gold",
+      "priceEur": 19.5
+    }
   ],
   "images": {
     "folder": "images_website/duftroller/",
-    "count": 7,
+    "count": 13,
     "dimensions": "1200 × 1200",
     "format": "WebP",
     "provenanceAndPrompts": "campaigns/duftroller/image-generation.json",
     "referenceBackup": "../tmp/duftroller/",
-    "note": "Sechs Einzelmotive offen/geschlossen und ein Trio. Die Motive beruhen auf den Referenzfotos; exakte physische Abmessungen wurden nicht mitgeliefert."
+    "note": "Sechs Einzelmotive offen/geschlossen, drei auseinandergezogene Ansichten, drei redaktionelle Alltagsmotive und ein Trio. In der Produktgalerie sind ausschließlich die vier Motive der gewählten Größe sichtbar. Das Trio bleibt als Übersicht im Bildbestand. Referenzbasierte Bilder ohne erfundene Labels oder Produktmechanik."
   },
   "independentReviews": [
     {
-      "role": "Code und Kaufablauf",
+      "role": "Code und Kaufablauf – erneutes Review",
       "scoreOutOf10": 9.5,
-      "scope": "Größen, Preise, Duftsuche, sichere Textausgabe, Fehlerbehandlung, Reload, Warenkorb und Backendvertrag",
+      "scope": "Größenfilter, Galerie einschließlich asynchroner Bildwechsel, Preise, gespeicherte Größe/Duft, API- und Dialog-Retry, Fokus/Escape, Porträtlinks und dynamische Preisangaben",
       "openConfirmedFindings": []
     },
     {
-      "role": "Bilder und Gesamtgestaltung",
+      "role": "Unabhängiger visueller Vergleich mit Autoduft und responsive Bedienung",
       "scoreOutOf10": 9.6,
-      "rubric": {"productImages": 9.5, "desktop": 9.6, "mobile": 9.6, "copy": 9.5, "brandConsistency": 9.6},
-      "scope": "Alle sieben Bilder, Produktreferenzen, Galerie, Großansicht, Konfigurator, Modal, Story und Footer bei 390, 578, 1366 und 1883 Pixeln",
+      "rubric": {
+        "designAndBrand": 9.6,
+        "responsiveReadability": 9.5,
+        "imageCoherence": 9.6,
+        "verifiedInteraction": 9.8
+      },
+      "scope": "Direkter Vergleich mit Autoduft, vollständige Seite bei 320/390/578/1366/1883px, alle zwölf Galerieansichten, Konfigurator, drei Größenporträts, Duftsuche, Warenkorb, Reload, Footer",
       "openConfirmedFindings": []
     },
     {
-      "role": "Responsive Darstellung und gemeinsame Shopfunktionen",
-      "scoreOutOf10": 9.6,
-      "rubric": {"productImages": 9.6, "desktopAndBrand": 9.6, "mobile": 9.5, "cartIntegration": 9.8, "keyboardAndCode": 9.5},
-      "scope": "Navigation, Footer, Suche, Größen, Warenkorb über mehrere Seiten, Checkout-Daten, Tastaturführung und Menü-Grenzbreiten",
-      "openConfirmedFindings": []
+      "role": "Zusätzliche Foto-Endkontrolle im Seitenkontext",
+      "scoreOutOf10": 9.5,
+      "scope": "Zwölf Motive bei 390/578/1366/1883px (48 Galerieprüfungen), 24 Galeriescreens und mobile Porträts gesichtet; Größenlabels lesbar, vollständige Flakons in 3:4-Crops, konsistente Deckel/Kugeln, keine vertauschten Bilder; 0 JS-Fehler und 0 Überläufe",
+      "openConfirmedFindings": [],
+      "evidence": "../tmp/duftroller/review-revision/"
     }
   ],
   "reviewLimit": "Interne, begründete Bewertungen des geprüften Implementierungs- und Gestaltungsumfangs. Responsive Chromium-Prüfungen ersetzen keine Tests auf physischen iPhones oder eine rechtliche Produktfreigabe.",
   "automatedChecks": {
-    "backend": {"passed": 49, "failed": 0, "commit": "f5ce1584e912621319a9ad16519b9524bc5c40f1"},
-    "frontend": {"passed": 16, "failed": 0, "skipped": 1, "skipReason": "Der digitale Widerruf bleibt auf ausdrücklichen Wunsch deaktiviert."},
-    "newTestFiles": ["test/duftroller-page.test.mjs", "test/duftroller-cart.test.mjs", "../backend/test/duftroller.integration.test.js"],
+    "backend": {
+      "passed": 49,
+      "failed": 0,
+      "commit": "f5ce1584e912621319a9ad16519b9524bc5c40f1",
+      "note": "Vorherige Produktintegration: 49/49 bestanden; in dieser rein visuellen und Frontend-Revision keine Backendänderungen."
+    },
+    "frontend": {
+      "passed": 19,
+      "failed": 0,
+      "cancelled": 0,
+      "skipped": 1,
+      "skipReason": "Der digitale Widerruf bleibt auf ausdrücklichen Wunsch deaktiviert.",
+      "command": "node --test --test-concurrency=1 frontend/test/*.test.mjs",
+      "durationSeconds": 51.6
+    },
+    "newTestFiles": [
+      "test/duftroller-page.test.mjs",
+      "test/duftroller-cart.test.mjs",
+      "../backend/test/duftroller.integration.test.js",
+      "test/image-gallery-filter.test.mjs"
+    ],
     "cases": [
       "Alle drei Preise und Grundpreise, korrekte Deckel-/Größenbilder",
       "Alle 558 Duftfüllungen in der lokalen Vorschau; Marken- und Nummernsuche sowie Herren/Frauen-Filter",
@@ -54,7 +89,11 @@
       "Server verwirft manipulierte Preise, ungültige Größen und widersprüchliche Produktdaten",
       "Katalogausfall, erneutes Laden, keine Suchtreffer, Tastatursteuerung und kurze mobile Viewports",
       "Galerie, Großansicht, Escape, Fokuswiederherstellung und Hintergrundsperre",
-      "Bestehende Autoduft- und Shopseiten funktionieren weiterhin unter der Content Security Policy"
+      "Bestehende Autoduft- und Shopseiten funktionieren weiterhin unter der Content Security Policy",
+      "Vier Bilder ausschließlich der gewählten Größe; Pfeile, Touch, Tastatur, Wheel und Lightbox bleiben im Filter; verspätete Decode-Ergebnisse anderer Größen werden verworfen",
+      "Gespeicherte Duft-ID bleibt bei initialem 503 erhalten und wird sowohl durch CTA-Retry als auch Dialog-Retry wiederhergestellt",
+      "Dialog-Retry hält Tastaturfokus im Dialog; Escape stellt Fokus, Hintergrund und Scrollen wieder her",
+      "API-Preisänderungen aktualisieren Größenoptionen, Produktkopf und Porträts; FAQ enthält keine feste Preiswiederholung"
     ],
     "testEnvironment": "Lokaler isolierter Server, synthetische Daten und abgefangene Zahlungsschnittstellen. Keine echte Bestellung oder Zahlung ausgelöst."
   },
@@ -66,12 +105,25 @@
     "Großansicht platzierte Schließen und Bildzähler auf dem Handy zu weit vom Foto entfernt",
     "Footerwelle wurde oben abgeschnitten",
     "Ein leerer Toast war am Bildschirmrand sichtbar",
-    "Fehlerzustand verlor beim Größenwechsel die Wiederholen-Schaltfläche"
+    "Fehlerzustand verlor beim Größenwechsel die Wiederholen-Schaltfläche",
+    "Formularartige Größenkarten durch den von Autoduft bekannten Produkt-&-Duft-Konfigurator mit kompakter Größenwahl ersetzt",
+    "Fremde Größenbilder aus der jeweils sichtbaren Galerie entfernt; Größe nun schwarz im Bild statt als kleine Unterzeile",
+    "Unterer Einzelabschnitt durch drei individuelle Größenporträts ersetzt; mobile Texte vergrößert und gekürzt",
+    "Initialer Fehler beim Laden konnte gespeicherte Duftwahl vor Retry löschen",
+    "Retry im Duftdialog entfernte den fokussierten Button; Fokus wird nun vorher auf das Schließen-Steuerelement gesetzt",
+    "Feste FAQ-Preise konnten von dynamischen API-Preisen abweichen",
+    "Kleine Goldtexte im Porträtbereich abgedunkelt: 5,44:1 Kontrast auf dem Seitenhintergrund"
   ],
   "beforePublication": [
     "Der Besitzer prüft und genehmigt die Seite und die Produktmotive.",
     "Rezeptur, Inhaltsstoffe/Allergene und endgültige Produktkennzeichnung des Rollers fachlich bestätigen. Aus Fotos und Preisen lässt sich das nicht bestimmen; deshalb wurden keine Konzentrations- oder Haltbarkeitsversprechen erfunden.",
     "Den versionierten Produktdatensatz backend/catalog/duftroller.json gezielt in die bestätigte Produktionsdatenbank übernehmen. backend/scripts/upsert-duftroller.js ist vorbereitet und läuft standardmäßig nur als Trockenlauf.",
     "Frontend und Backend erst nach Freigabe gemeinsam veröffentlichen."
-  ]
+  ],
+  "revision": "Autoduft-Aufbau, Galerie je Größe und redaktionelle Größenporträts",
+  "reviewEvidence": {
+    "folder": "../tmp/duftroller/final-v4/",
+    "results": "../tmp/duftroller/final-v4/results.json",
+    "screenshots": "Desktop/Mobil, Konfigurator, Größenporträts, zwölf Galerieansichten, Duftdialog, Warenkorb, Footer"
+  }
 }
