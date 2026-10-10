@@ -68,7 +68,7 @@ test('Duftroller purchase flow preserves sizes, brands, prices and gallery state
    if(size!==6)await page.waitForFunction(s=>document.querySelector('#roller-main-image').src===new URL(window.NoteAssets.image(`images_website/duftroller/note-duftroller-${s}-closed-v1.webp`),location.href).href,{},size);
    for(const [index,imageState] of ['open','exploded','editorial','closed'].entries()){
     await page.click('[data-gallery-step="1"]');
-    await page.waitForFunction((s,state)=>document.querySelector('#roller-main-image').src===new URL(window.NoteAssets.image(`images_website/duftroller/note-duftroller-${s}-${state}-v1.webp`),location.href).href,{},size,imageState);
+    await page.waitForFunction((s,state)=>document.querySelector('#roller-main-image').src===new URL(window.NoteAssets.image(`images_website/duftroller/note-duftroller-${s}-${state}-v${['open','exploded'].includes(state)?2:1}.webp`),location.href).href,{},size,imageState);
     assert.equal(await page.$eval('#gallery-counter',n=>n.textContent),`${(index+1)%4+1} / 4`);
    }
    await page.click('#add-btn');

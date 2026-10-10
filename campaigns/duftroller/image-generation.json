@@ -69,7 +69,7 @@
       "state": "open"
     }
   ],
-  "artDirection": "Warm ivory/taupe studio, broad soft architectural shadow, light straw-gold liquid, real optical glass, simple uncluttered composition, no invented brand label or decoration.",
+  "artDirection": "Clean warm-ivory packshots paired with varied editorial settings: burgundy leather for 6 ml, green natural stone and botanical daylight for 10 ml, dark walnut and warm mirror reflections for 14 ml. Light ivory exploded diagrams with four separately labeled components. No invented branding.",
   "assetTechnicalFormat": {
     "format": "webp",
     "width": 1200,
@@ -256,15 +256,184 @@
         "Use case: product-mockup. Asset: square 1:1 high-end perfume editorial photograph. First input is the REAL closed 14ml roller, second its clean studio portrait. Preserve the actual bottle exactly: broad faceted clear glass body with flat front and bevelled side facets, rounded rectangular cross section and rounded shoulders, pale straw-gold liquid, narrower metallic GOLD cylindrical cap with TWO delicate horizontal grooves at its lower third. Total closed height approx2.6 times broad body width, gold cap width0.62 body width and cap height0.9 body width. Product is compact and broad, NOT a round tubular atomizer. Cap securely closed. Remove the temporary adhesive tape from reference; no labels or patches on any glass facet.\nCreate a warm, elegant, quietly sensual still life: the bottle upright in the foreground on an understated warm cream vanity surface, bathed in rich amber late-afternoon light from the left. Behind and softly out of focus, the curved edge of a single antique bronze mirror contributes a restrained curved highlight, mostly outside the frame; no reflected extra bottle. One loose edge of champagne-colored silk lies softly across the lower-right corner and leads toward the product, never covering it. A pleasing softly blurred warm honey/taupe background with a gentle atmospheric shadow. Bottle is the clear hero, sharp glass details, about65% of image height, centered with generous breathing room. Painterly light but fully photographic: natural small imperfections in metal reflections, beautiful transparent pale-gold liquid, premium tactile still life, not plastic CGI. Strictly one bottle, no duplicate reflected bottle, no flowers, no hands, no stone pedestal, no busy props. No logo, text, watermark, sticker, band or invented decoration on the product."
       ],
       "reviewNotes": "Broad faceted gold-cap 14 ml bottle in amber light with a softly blurred bronze mirror edge and champagne silk; no duplicated reflected bottle or tape."
+    },
+    {
+      "file": "images_website/duftroller/note-duftroller-6-exploded-v2.webp",
+      "generatedSource": "C:/Users/tonys/.codex/generated_images/01a1251b-0dda-71c3-935b-4b88a97e442a/exec-96f77e86-51cf-4d44-947c-0bb83d9ba373.png",
+      "alt": "Schematischer Aufbau des 6-ml-Duftrollers: Deckel, separate Rollkugel, Roll-on-Einsatz und gefüllter Glasflakon",
+      "referenceFiles": [
+        "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/duftroller/reference-6ml-closed.jpg",
+        "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/duftroller/reference-6ml-open.jpg",
+        "C:/Webserver/OnlineShop-Prod/OnlineShop/frontend/images_website/autoduft/note-autoduft-exploded-wood-core-v2.png"
+      ],
+      "prompts": [
+        "Use case: infographic-diagram.\nAsset type: square 1:1 premium e-commerce product anatomy infographic, designed to remain legible in a 360px-wide mobile product gallery.\nInput image1: actual CLOSED roller product, strict cap and bottle silhouette reference. Image2: actual OPEN roller product, strict visible roll-on reference. Image3: car fragrance exploded illustration, layout/leader-line inspiration ONLY; do not copy its black bottle, cord, wood or wording.\nPrimary request: show the perfume roller truly taken apart into EXACTLY FOUR separate visible pieces on a single vertical axis in the left half of the square:\n1 at top: detached real cap;\n2 below cap: completely SEPARATE spherical roll-on ball, floating alone;\n3 below the ball: completely SEPARATE simple translucent hollow roll-on insert / holder with a small rim and central circular opening, floating alone;\n4 at bottom: the real clear GLASS BOTTLE filled with pale straw-gold liquid, with its bare threaded open mouth. NO ball or holder still seated in the bottle neck; those are separately floating above it.\nThere must be clear air gaps between ALL four pieces, no connected ball and insert, no duplicated ball, no extra fifth piece, no spray pump, stem, dip-tube, spring, piston or imaginary mechanism. The holder is a restrained schematic representation of the visible translucent seat, not a detailed invented hidden mechanism.\nArt direction: luminous clean warm IVORY background, almost white, soft evenly diffused light and delicate contact shadow beneath the flacon. An elegant modern instructional product infographic with photoreal clear glass and tasteful precise typography. No beige diagonal-light studio wall, no dramatic diagonal shadow, no props or pedestals. Refined calm ivory, pale gold, clear glass, black lettering.\nLayout: components aligned around x=35% of canvas, entire assembly spans y=10% to88%, fully inside frame with breathing room. Leave upper-left corner clear for an external gallery size badge. Callout labels in a tidy left-aligned column around x=58%, with fine warm-gold horizontal leader lines from the right edge of each component to just before its label; small round gold endpoint markers. Four callouts ONLY, each aligned to its own part. Product and labels never overlap.\nText, exact German wording and spelling, in clean crisp BLACK sans-serif type, medium weight, large readable letters around40px at a1200px canvas, with no overly thin strokes:\nAt cap: \"Deckel\"\nAt isolated ball: \"Rollkugel\"\nAt isolated insert: \"Roll-on-Einsatz\"\nAt bottle: \"Glasflakon\" on first line, \"mit Duftfüllung\" on second line.\nBottom centered subtle but readable footer, about26px: \"Schematische Darstellung\".\nAll text must be correctly spelled with the ü in Duftfüllung. No title, no number or ml label inside this image; size will be overlaid by the website. No logos or product labels.\nPreserve the supplied bottle's actual outer form and cap color; remove the temporary beige tape completely and replace it with transparent glass/pale liquid. No hands, car, denim or stickers. Exactly ONE depicted bottle as an exploded assembly.\nSpecific 6ml geometry: a SHORT compact cylindrical clear glass vial, liquid chamber shoulder-to-base height about1.9 body diameters. Plain glossy WHITE cap about1.45 body diameters tall, nearly same width as body. Exposed ball is a polished SILVER sphere, small enough to fit in the translucent insert and into the narrow threaded glass neck. Bare threaded glass neck is part of bottle, not an extra separated piece. Match the compact reference, never a long narrow tube."
+      ],
+      "format": {
+        "format": "webp",
+        "width": 1200,
+        "height": 1200,
+        "quality": 91,
+        "effort": 6
+      },
+      "reviewNotes": "Four separate parts and correct German callouts visually verified in the final WebP. Cap color white; cylindrical bottle and silver reflective ball. Open bottle neck is visibly empty, ball and holder separately suspended. No pump, dip tube, spring or extra piece. Clean warm ivory setting replaces the previous floating-cap beige-wall scene.",
+      "limitations": "Schematic product anatomy, not a measured technical drawing. References show assembled and opened products only; exact hidden lower insert geometry, dimensions and material specifications cannot be verified from those photos. No material claims are included in callout text."
+    },
+    {
+      "file": "images_website/duftroller/note-duftroller-10-exploded-v2.webp",
+      "generatedSource": "C:/Users/tonys/.codex/generated_images/01a1251b-0dda-71c3-935b-4b88a97e442a/exec-a79f54be-813e-4e7a-afb0-f1d3b9d08825.png",
+      "alt": "Schematischer Aufbau des 10-ml-Duftrollers: Deckel, separate Rollkugel, Roll-on-Einsatz und gefüllter Glasflakon",
+      "referenceFiles": [
+        "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/duftroller/reference-10ml-closed.jpg",
+        "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/duftroller/reference-10ml-open.jpg",
+        "C:/Webserver/OnlineShop-Prod/OnlineShop/frontend/images_website/autoduft/note-autoduft-exploded-wood-core-v2.png"
+      ],
+      "prompts": [
+        "Use case: infographic-diagram.\nAsset type: square 1:1 premium e-commerce product anatomy infographic, designed to remain legible in a 360px-wide mobile product gallery.\nInput image1: actual CLOSED roller product, strict cap and bottle silhouette reference. Image2: actual OPEN roller product, strict visible roll-on reference. Image3: car fragrance exploded illustration, layout/leader-line inspiration ONLY; do not copy its black bottle, cord, wood or wording.\nPrimary request: show the perfume roller truly taken apart into EXACTLY FOUR separate visible pieces on a single vertical axis in the left half of the square:\n1 at top: detached real cap;\n2 below cap: completely SEPARATE spherical roll-on ball, floating alone;\n3 below the ball: completely SEPARATE simple translucent hollow roll-on insert / holder with a small rim and central circular opening, floating alone;\n4 at bottom: the real clear GLASS BOTTLE filled with pale straw-gold liquid, with its bare threaded open mouth. NO ball or holder still seated in the bottle neck; those are separately floating above it.\nThere must be clear air gaps between ALL four pieces, no connected ball and insert, no duplicated ball, no extra fifth piece, no spray pump, stem, dip-tube, spring, piston or imaginary mechanism. The holder is a restrained schematic representation of the visible translucent seat, not a detailed invented hidden mechanism.\nArt direction: luminous clean warm IVORY background, almost white, soft evenly diffused light and delicate contact shadow beneath the flacon. An elegant modern instructional product infographic with photoreal clear glass and tasteful precise typography. No beige diagonal-light studio wall, no dramatic diagonal shadow, no props or pedestals. Refined calm ivory, pale gold, clear glass, black lettering.\nLayout: components aligned around x=35% of canvas, entire assembly spans y=10% to88%, fully inside frame with breathing room. Leave upper-left corner clear for an external gallery size badge. Callout labels in a tidy left-aligned column around x=58%, with fine warm-gold horizontal leader lines from the right edge of each component to just before its label; small round gold endpoint markers. Four callouts ONLY, each aligned to its own part. Product and labels never overlap.\nText, exact German wording and spelling, in clean crisp BLACK sans-serif type, medium weight, large readable letters around40px at a1200px canvas, with no overly thin strokes:\nAt cap: \"Deckel\"\nAt isolated ball: \"Rollkugel\"\nAt isolated insert: \"Roll-on-Einsatz\"\nAt bottle: \"Glasflakon\" on first line, \"mit Duftfüllung\" on second line.\nBottom centered subtle but readable footer, about26px: \"Schematische Darstellung\".\nAll text must be correctly spelled with the ü in Duftfüllung. No title, no number or ml label inside this image; size will be overlaid by the website. No logos or product labels.\nPreserve the supplied bottle's actual outer form and cap color; remove the temporary beige tape completely and replace it with transparent glass/pale liquid. No hands, car, denim or stickers. Exactly ONE depicted bottle as an exploded assembly.\nSpecific 10ml geometry: a LONG SLENDER cylindrical clear glass vial, liquid chamber shoulder-to-base height about3.0 body diameters. Plain glossy BLACK cap about1.5 body diameters tall, nearly same width as body. Exposed ball is a polished SILVER sphere, small enough to fit in the translucent insert and into the narrow threaded glass neck. Bare threaded glass neck is part of bottle, not an extra separated piece. Match the reference long narrow shape without lengthening beyond these proportions."
+      ],
+      "format": {
+        "format": "webp",
+        "width": 1200,
+        "height": 1200,
+        "quality": 91,
+        "effort": 6
+      },
+      "reviewNotes": "Four separate parts and correct German callouts visually verified in the final WebP. Cap color black; cylindrical bottle and silver reflective ball. Open bottle neck is visibly empty, ball and holder separately suspended. No pump, dip tube, spring or extra piece. Clean warm ivory setting replaces the previous floating-cap beige-wall scene.",
+      "limitations": "Schematic product anatomy, not a measured technical drawing. References show assembled and opened products only; exact hidden lower insert geometry, dimensions and material specifications cannot be verified from those photos. No material claims are included in callout text."
+    },
+    {
+      "file": "images_website/duftroller/note-duftroller-14-exploded-v2.webp",
+      "generatedSource": "C:/Users/tonys/.codex/generated_images/01a1251b-0dda-71c3-935b-4b88a97e442a/exec-328915d5-f42d-4ad8-8426-b102969699b1.png",
+      "alt": "Schematischer Aufbau des 14-ml-Duftrollers: Deckel, separate Rollkugel, Roll-on-Einsatz und gefüllter Glasflakon",
+      "referenceFiles": [
+        "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/duftroller/reference-14ml-closed.jpg",
+        "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/duftroller/reference-14ml-open.jpg",
+        "C:/Webserver/OnlineShop-Prod/OnlineShop/frontend/images_website/autoduft/note-autoduft-exploded-wood-core-v2.png",
+        "C:/Users/tonys/.codex/generated_images/01a1251b-0dda-71c3-935b-4b88a97e442a/exec-a482148a-2e94-49d5-adde-4d88bdb9be97.png"
+      ],
+      "prompts": [
+        "Use case: infographic-diagram.\nAsset type: square 1:1 premium e-commerce product anatomy infographic, designed to remain legible in a 360px-wide mobile product gallery.\nInput image1: actual CLOSED roller product, strict cap and bottle silhouette reference. Image2: actual OPEN roller product, strict visible roll-on reference. Image3: car fragrance exploded illustration, layout/leader-line inspiration ONLY; do not copy its black bottle, cord, wood or wording.\nPrimary request: show the perfume roller truly taken apart into EXACTLY FOUR separate visible pieces on a single vertical axis in the left half of the square:\n1 at top: detached real cap;\n2 below cap: completely SEPARATE spherical roll-on ball, floating alone;\n3 below the ball: completely SEPARATE simple translucent hollow roll-on insert / holder with a small rim and central circular opening, floating alone;\n4 at bottom: the real clear GLASS BOTTLE filled with pale straw-gold liquid, with its bare threaded open mouth. NO ball or holder still seated in the bottle neck; those are separately floating above it.\nThere must be clear air gaps between ALL four pieces, no connected ball and insert, no duplicated ball, no extra fifth piece, no spray pump, stem, dip-tube, spring, piston or imaginary mechanism. The holder is a restrained schematic representation of the visible translucent seat, not a detailed invented hidden mechanism.\nArt direction: luminous clean warm IVORY background, almost white, soft evenly diffused light and delicate contact shadow beneath the flacon. An elegant modern instructional product infographic with photoreal clear glass and tasteful precise typography. No beige diagonal-light studio wall, no dramatic diagonal shadow, no props or pedestals. Refined calm ivory, pale gold, clear glass, black lettering.\nLayout: components aligned around x=35% of canvas, entire assembly spans y=10% to88%, fully inside frame with breathing room. Leave upper-left corner clear for an external gallery size badge. Callout labels in a tidy left-aligned column around x=58%, with fine warm-gold horizontal leader lines from the right edge of each component to just before its label; small round gold endpoint markers. Four callouts ONLY, each aligned to its own part. Product and labels never overlap.\nText, exact German wording and spelling, in clean crisp BLACK sans-serif type, medium weight, large readable letters around40px at a1200px canvas, with no overly thin strokes:\nAt cap: \"Deckel\"\nAt isolated ball: \"Rollkugel\"\nAt isolated insert: \"Roll-on-Einsatz\"\nAt bottle: \"Glasflakon\" on first line, \"mit Duftfüllung\" on second line.\nBottom centered subtle but readable footer, about26px: \"Schematische Darstellung\".\nAll text must be correctly spelled with the ü in Duftfüllung. No title, no number or ml label inside this image; size will be overlaid by the website. No logos or product labels.\nPreserve the supplied bottle's actual outer form and cap color; remove the temporary beige tape completely and replace it with transparent glass/pale liquid. No hands, car, denim or stickers. Exactly ONE depicted bottle as an exploded assembly.\nSpecific 14ml geometry: a BROAD FACETED clear-glass flacon with broad flat front and bevelled side facets, rounded rectangular cross section. Liquid chamber shoulder-to-base height about1.55 times its broad width. GOLD cylindrical cap is narrower,0.62 times broad bottle width and0.9 times broad bottle width in height; keep its TWO delicate horizontal grooves near lower third. The separated roll-on ball is a MILKY TRANSLUCENT sphere, NOT SILVER or metallic. Keep bare glass screw neck visibly open; it is part of bottle. Match broad compact real faceted shape, do not make a round cylindrical tube.",
+        "Use case: precise-object-edit. Edit exactly the supplied perfume roller anatomy infographic. ONE correction ONLY: remove the pale rectangular opaque beige ADHESIVE TAPE REMNANTS from both left and right glass side facets of the lower bottle, around the middle height of its liquid body. They look like vertical beige rectangular patches. Replace those patches with perfectly continuous clear transparent glass and pale-gold liquid. There must be no strip, tape, patch, label or frosted rectangle anywhere on the flacon.\nPreserve EVERYTHING ELSE: exactly four separated pieces, their scale and position, gold cap with two grooves, isolated milky translucent sphere, empty separate transparent hollow insert, bare open threaded neck, original broad faceted bottle shape, liquid level, all FOUR gold leader lines and endpoint dots, light ivory background, shadows, every German label and typography EXACTLY unchanged: \"Deckel\", \"Rollkugel\", \"Roll-on-Einsatz\", \"Glasflakon\" and \"mit Duftfüllung\", footer \"Schematische Darstellung\". Do not add anything, do not alter font/spacing/callouts. Square infographic."
+      ],
+      "format": {
+        "format": "webp",
+        "width": 1200,
+        "height": 1200,
+        "quality": 91,
+        "effort": 6
+      },
+      "reviewNotes": "Four separate parts and correct German callouts visually verified in the final WebP. Cap color gold with two grooves; broad faceted bottle and translucent ball. Open bottle neck is visibly empty, ball and holder separately suspended. No pump, dip tube, spring or extra piece. Targeted second imagegen pass removed tape remnants in the glass side facets. Clean warm ivory setting replaces the previous floating-cap beige-wall scene.",
+      "limitations": "Schematic product anatomy, not a measured technical drawing. References show assembled and opened products only; exact hidden lower insert geometry, dimensions and material specifications cannot be verified from those photos. No material claims are included in callout text."
+    },
+    {
+      "file": "images_website/duftroller/note-duftroller-6-open-v2.webp",
+      "generatedSource": "C:/Users/tonys/.codex/generated_images/01a1251c-1644-7610-843f-1a057f6f3bb0/exec-47dc4a6c-9eeb-42fc-889f-4e7b061d16d7.png",
+      "alt": "Geöffneter Duftroller 6 ml",
+      "referenceFiles": [
+        "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/duftroller/reference-6ml-open.jpg",
+        "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/duftroller/reference-6ml-closed.jpg"
+      ],
+      "prompts": [
+        "Create a premium, photorealistic square ecommerce product photograph of the EXACT small opened 6 ml fragrance roll-on bottle in the two provided reference photos. The first reference defines the open bottle geometry and metal roller; the second defines its matching white cap. The references are product identity references ONLY: discard the hand, jeans, car and all original surroundings.\n\nSubject fidelity is essential: a genuinely miniature, short straight cylindrical clear glass bottle, thick transparent base, a softly rounded narrow shoulder, pale straw fragrance oil, visible clear screw threads at the neck, frosted translucent roller collar and ONE polished silver metal rollball. Match the first reference's short stout proportions precisely: total open bottle height about 2.9 times its body width, glass body from base to shoulder about 1.8 times body width. It is not a long vial, not faceted, and has no spray nozzle. No label or logo. Place its removed glossy white cylindrical screw cap beside its base, diameter approximately the bottle diameter, cap height about 1.4 times cap diameter, matching the real reference cap.\n\nArt direction: intimate evening-bag still life, distinctly dark burgundy and chocolate rather than beige studio. The open bottle stands upright on a flat deep oxblood leather surface, tactile fine grain and subtle stitching at the far edge. In the softly blurred back left, just a cropped fold of a burgundy evening bag creates context; one very small, out-of-focus warm brass clasp may appear, no other objects. The white cap stands upright to the lower right with a small natural gap. A shaped warm evening window light from the left traces the transparent glass and silver ball, with restrained dark red shadows, subtle amber oil luminosity and completely believable reflections. Background stays dark burgundy, never a beige wall, never generic stacked stones. Quiet luxury editorial product photography, not a 3D render.\n\nComposition: full bottle and cap visible with generous clear margin, bottle near center slightly left, whole opened bottle occupies roughly 63 percent of square frame height, crisp roller and glass rim, realistic small object scale relative to the leather stitching. Camera close at slightly elevated eye level, natural perspective with an 85mm macro lens look, premium restrained color grading, gentle depth of field but entire bottle readable. Text-free image, no branding, no captions, no additional bottles, no hands, no petals or ingredients, no watermark. Output a square finished photograph."
+      ],
+      "format": {
+        "width": 1200,
+        "height": 1200,
+        "format": "webp",
+        "quality": 90,
+        "resize": "Contain native square frame without cropping; visual changes only through built-in image generation"
+      },
+      "theme": "Deep burgundy leather evening-bag still life with warm directional light",
+      "reviewNotes": "Matches short cylindrical 6 ml body, silver roller in translucent collar and plain white cap. Whole product visible; no invented label or spray hardware.",
+      "sha256": "019571b948cf75a1dcfae3c2608936b99efdea6bc750d178c486f96fed88ed0b",
+      "referenceHashes": [
+        {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/duftroller/reference-6ml-open.jpg",
+          "sha256": "1b8bd5821ae2b080f747e8216dc009d723a6040709436e8eedda9ad36b7bb4bf"
+        },
+        {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/duftroller/reference-6ml-closed.jpg",
+          "sha256": "49ab4a7eb4ebd6815cd21b249dae4d18be105460cf5dca22e5844ce6f07f03cb"
+        }
+      ]
+    },
+    {
+      "file": "images_website/duftroller/note-duftroller-10-open-v2.webp",
+      "generatedSource": "C:/Users/tonys/.codex/generated_images/01a1251c-1644-7610-843f-1a057f6f3bb0/exec-2a6234a4-648f-4d4c-a773-f42de5bfc10b.png",
+      "alt": "Geöffneter Duftroller 10 ml",
+      "referenceFiles": [
+        "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/duftroller/reference-10ml-open.jpg",
+        "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/duftroller/reference-10ml-closed.jpg"
+      ],
+      "prompts": [
+        "Create a premium photorealistic square product photograph of the EXACT slender opened 10 ml fragrance roll-on in the supplied references. Reference 1 defines the open bottle and shiny metal roller. Reference 2 defines the matching black screw cap. Use these references solely for product identity, geometry and materials. Completely replace their hands, car and denim surroundings.\n\nStrictly preserve this bottle's unmistakably long slender cylindrical form: clear glass, straight vertical sides, rounded small shoulder, thick rounded glass bottom, pale straw fragrance oil, clear glass screw-threaded neck, frosted translucent narrow roller collar with ONE polished silver metal rollball. Total open bottle height should be about 4.8–5.0 times its body diameter, with the long oil-filled body about 3.4 diameters tall. This 10 ml must read noticeably much taller and slimmer than a short 6 ml vial; do not make it squat, square, faceted, or a large perfume spray. No spray tube, no label, no printed logo. Its removed cap is a plain glossy black cylinder matching the reference, approximately bottle diameter and about 1.45 diameters tall, set upright beside the lower left of the vial. The black cap remains much shorter than the open bottle.\n\nNew art direction: cool botanical daylight, modern natural material still life. Place the bottle on a single low, flat slab of deep forest-green stone with subtle irregular mineral texture and a smooth top, not stacked stones and not a pedestal in a beige studio. The stone fills the lower third and continues naturally beyond the right frame edge. The background is a dark out-of-focus forest-green window garden, softly luminous leafy shapes with quiet cool morning daylight; just one blurred leaf edge in a far corner, no decorative arrangement. Directional diffused daylight from upper left creates delicate realistic highlights on the thin glass, chrome rollball and black cap, with a subtle soft leaf shadow falling across the stone surface away from the product. Fresh, atmospheric, premium and tactile, cool greens with a restrained golden liquid accent. Not a 3D rendering, not fake glitter or a glowing fantasy bottle.\n\nComposition: square final photograph, full slender bottle and cap visible, natural correct scale, bottle at center-right and cap near its base at left. Bottle occupies about 72 percent of image height with ample clear margin above the roller, its diameter only about 14–15 percent of the image width. Eye-level close macro product photography with authentic 85mm lens perspective and softly blurred background, crisp readable entire bottle and roller. No text, no captions, no branding, no extra bottles, no hands, no beige wall, no warm walnut desk, no watermark."
+      ],
+      "format": {
+        "width": 1200,
+        "height": 1200,
+        "format": "webp",
+        "quality": 90,
+        "resize": "Contain native square frame without cropping; visual changes only through built-in image generation"
+      },
+      "theme": "Forest-green stone in cool botanical daylight",
+      "reviewNotes": "Matches distinctly slender long 10 ml cylindrical body, silver roller and gloss-black cylindrical cap. Natural green background clearly differs from beige packshots and warm editorial image.",
+      "sha256": "aa8a205795a816ae61aef219dc2e4ae4014aa72785d0004a305afb9007957b24",
+      "referenceHashes": [
+        {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/duftroller/reference-10ml-open.jpg",
+          "sha256": "5667cfefcd0d3e33eb33b1631e159455a740df4371b9598c0be5af2549da1151"
+        },
+        {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/duftroller/reference-10ml-closed.jpg",
+          "sha256": "f9fe1628be6811e8bc67dd5bad8b88ac8a93d65c437259766c7e009f2c1b2b46"
+        }
+      ]
+    },
+    {
+      "file": "images_website/duftroller/note-duftroller-14-open-v2.webp",
+      "generatedSource": "C:/Users/tonys/.codex/generated_images/01a1251c-1644-7610-843f-1a057f6f3bb0/exec-6fa380d1-d6a8-44e4-9c09-f15b63579139.png",
+      "alt": "Geöffneter Duftroller 14 ml",
+      "referenceFiles": [
+        "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/duftroller/reference-14ml-open.jpg",
+        "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/duftroller/reference-14ml-closed.jpg"
+      ],
+      "prompts": [
+        "Make a premium, photorealistic square ecommerce product photograph of the EXACT opened 14 ml fragrance roll-on bottle in the two supplied reference photos. Reference 1 is authoritative for the open bottle shape and translucent rollball. Reference 2 is authoritative for the gold screw cap. Use the photos only to identify the product; replace their hands, jeans and car completely.\n\nProduct fidelity: this is a short, broad clear-glass roll-on bottle with rounded rectangular / gently faceted body, flat broad front and subtly beveled vertical corner facets, thick transparent base, softly rounded sloping shoulders leading into a narrower clear screw-threaded neck. Pale straw-yellow fragrance oil. ONE rounded translucent milky-white rollball mounted on the top, matching reference 1; absolutely NOT a silver chrome ball. Bottle has no label and no printed logo. Keep the reference's broad proportions rather than making it a long cylinder: overall open bottle height about 2.5 to 2.7 times maximum body width, oil-filled body from base to shoulder about 1.65 to 1.8 times width. The shoulders, neck threads, bevels and glass thickness should be precise and believable.\n\nPlace the removed gold cap upright near the bottle's lower right. Cap must match reference 2: smooth reflective yellow-gold metal, straight cylinder, shallow rounded top, two fine raised circumferential ring details near the lower quarter, approximately 60 percent the bottle body width and height about 1.35 to 1.5 times its own diameter. No black or white cap. Cap physically rests on the same surface, not floating.\n\nArt direction: elegant private dressing-table scene at dusk, dark walnut wood with real close-grained texture, deep rich umber background and restrained warm mirror reflections. The bottle stands on the dark polished walnut tabletop, not on stone. At the far upper right only a slim, softly blurred aged brass mirror-frame edge and a vague warm window reflection suggest an interior; no duplicate reflected bottle, no visible room clutter. Gentle warm sidelight from the left and a neutral soft fill reveal the transparent facets, golden oil and milky translucent roller. A little amber reflection on the wood under the bottle gives quiet warmth. Moody yet legible and inviting, refined natural photography, realistic optical reflections, not a beige studio render, not a fantasy scene.\n\nSquare composition with full bottle and removed cap clearly visible, bottle slightly left of center, whole open bottle about 65 percent of square image height. Ample clear breathing room above the roller, realistic miniature scale. Camera at a slight three-quarter angle that reveals one glass side facet without distorting the broad front. Entire product tack-sharp against a gently blurred, dark warm interior. No text, no labels, no branding, no spray nozzle, no chrome roller, no hands, no extra bottles, no flowers, no ingredient props, no beige wall, no fabric mound, no watermark."
+      ],
+      "format": {
+        "width": 1200,
+        "height": 1200,
+        "format": "webp",
+        "quality": 90,
+        "resize": "Contain native square frame without cropping; visual changes only through built-in image generation"
+      },
+      "theme": "Dark walnut dressing table with warm, softly blurred mirror reflections",
+      "reviewNotes": "Matches broad faceted 14 ml body, translucent milky roller and ringed gold cap. Retouch removed reference-derived hand/label-like reflections while retaining bottle proportions and scene.",
+      "sha256": "b5ebc0a46110dfe9d70e30f0b51eab56d3ece4453b51beae14382d4d6aa7f154",
+      "referenceHashes": [
+        {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/duftroller/reference-14ml-open.jpg",
+          "sha256": "33f9e88fcb303249fcae0cf52125bb4823adefbd5c5aafb9fef8352b823804bc"
+        },
+        {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/duftroller/reference-14ml-closed.jpg",
+          "sha256": "bce223b82d5cc5e3d6267d9b7c87f4942e7f0ef6740267b98543e7f804339609"
+        }
+      ],
+      "retouch": {
+        "source": "C:/Users/tonys/.codex/generated_images/01a1251c-1644-7610-843f-1a057f6f3bb0/exec-b31158ce-a45d-4708-9dfa-b0f1e05ffd33.png",
+        "prompt": "Retouch this existing product photograph with a single careful correction. Keep the entire composition, the open 14 ml broad faceted bottle shape, dimensions, gold cap, cap ring details, milky translucent rollball, walnut table, dark warm mirror scene, lens framing and lighting direction EXACTLY unchanged. Correct only the glass-body interior and front-surface reflections: remove the broad opaque rectangular yellow horizontal band across the middle, the brown hand-shaped remnants visible behind it, and any tape/label-like or frosted panel appearance. This is a completely unlabelled clear-glass vial filled with perfectly transparent pale straw oil. Through the body we should see only softly refracted dark walnut and the natural warm background, with thin vertical glass edge highlights and a subtle continuous amber gradient, not any human hand, tape, horizontal stripe, paper rectangle, bubbles, dirt or printing. It must stay optically believable real clear glass with light oil, not opaque amber material or an empty bottle. Preserve one natural air bubble just below the shoulders if already present. All other elements stay as they are. High-quality photorealistic product retouch, square final photograph, no text or watermark."
+      }
     }
   ],
   "validation": {
     "allOutputsVisuallyInspected": true,
-    "noAddedTextOrLogos": true,
     "noHandsCarJeansOrTape": true,
     "fullProductVisible": true,
     "colorAndShapeMappingChecked": true,
-    "productionPublication": false
+    "productionPublication": false,
+    "noInventedProductLabelsOrLogos": true,
+    "textRestrictedToRequestedInfographicCallouts": true
   },
   "caveat": "Generated studio interpretations are based on the supplied photographs, not dimensionally calibrated packshots. Final owner approval remains required before publication.",
   "revisions": [
@@ -283,6 +452,47 @@
       "format": "1200 × 1200 px WebP; sharp resize/encoding only, all visual generation and edits via image_gen",
       "qualityReview": "All six final WebP files inspected visually against the actual supplied product photographs. Shape, cap color, roller material, lack of extra parts, absence of tape/text and clear product presentation checked. Corrected 10 ml body elongation and residual tape in 14 ml facets before export.",
       "productionPublication": false
+    },
+    {
+      "date": "2026-10-10",
+      "purpose": "Replace floating-cap-only Aufbau views with explicitly separated four-part annotated diagrams requested by the owner.",
+      "mode": "built-in image_gen.imagegen",
+      "addedAssets": [
+        "images_website/duftroller/note-duftroller-6-exploded-v2.webp",
+        "images_website/duftroller/note-duftroller-10-exploded-v2.webp",
+        "images_website/duftroller/note-duftroller-14-exploded-v2.webp"
+      ],
+      "labels": [
+        "Deckel",
+        "Rollkugel",
+        "Roll-on-Einsatz",
+        "Glasflakon",
+        "mit Duftfüllung",
+        "Schematische Darstellung"
+      ],
+      "qualityReview": "All three 1200 px WebP exports visually inspected for component separation, correct cap and bottle identity, German spelling including umlaut, four gold leader lines, clear black lettering, no tape, no invented product labels and no extra inner mechanisms. Exact hidden insert underside remains schematic.",
+      "productionPublication": false
     }
-  ]
+  ],
+  "openPhotoRevision": {
+    "version": 2,
+    "createdAt": "2026-10-10T12:50:38.532Z",
+    "generator": "Built-in image_gen.imagegen",
+    "generationMode": "Reference-guided generation; one separate scene per size",
+    "model": "Built-in tool default; no model identifier was returned",
+    "transparentBackground": false,
+    "export": {
+      "width": 1200,
+      "height": 1200,
+      "format": "webp",
+      "quality": 90,
+      "resize": "Contain native square frame without cropping; visual changes only through built-in image generation"
+    },
+    "purpose": "Add contrasting burgundy, green and dark walnut settings to the selected-size gallery; 10 and 14 ml also appear in the staggered size portraits.",
+    "addedAssets": [
+      "images_website/duftroller/note-duftroller-6-open-v2.webp",
+      "images_website/duftroller/note-duftroller-10-open-v2.webp",
+      "images_website/duftroller/note-duftroller-14-open-v2.webp"
+    ]
+  }
 }

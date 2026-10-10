@@ -46,7 +46,7 @@
         const configImage = document.getElementById('roller-config-image');
         configImage.src = window.NoteAssets.image(image(size));
         configImage.alt = `Duftroller ${size} ml · ${VARIANTS[size].cap}`;
-        document.getElementById('roller-config-description').textContent = `${size} ml · ${VARIANTS[size].cap}`;
+        document.getElementById('roller-config-description').textContent = `${size} ml · fertig befüllt`;
         document.getElementById('konfigurator-roller').classList.toggle('has-selection', !!scent);
         document.querySelectorAll('[name="roller-size"]').forEach(input => { input.checked = input.value === size; });
         button.disabled = !available && !failed;
