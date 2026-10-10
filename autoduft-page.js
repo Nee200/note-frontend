@@ -162,6 +162,7 @@ const API_BASE_URL = window.NoteApi.base;
             .trim();
 
         function renderScents() {
+            scentGrid.scrollTop = 0;
             scentGrid.setAttribute('aria-busy', String(scentsLoading));
             if (!scentsLoaded) {
                 resultCount.textContent = scentsLoading ? 'Düfte werden geladen …' : 'Duftauswahl';
@@ -252,15 +253,31 @@ const API_BASE_URL = window.NoteApi.base;
             }
         }
 
+        function updateScentViewport() {
+            const viewport = window.visualViewport;
+            const height = viewport?.height || window.innerHeight;
+            modal.style.setProperty('--scent-viewport-height', `${height}px`);
+            modal.style.setProperty('--scent-viewport-top', `${viewport?.offsetTop || 0}px`);
+            modal.classList.toggle('is-short-viewport', height < 520);
+        }
+
         function openModal() {
             modal.hidden = false;
             lockPageScroll();
+            updateScentViewport();
+            window.addEventListener('resize', updateScentViewport);
+            window.visualViewport?.addEventListener('resize', updateScentViewport);
+            window.visualViewport?.addEventListener('scroll', updateScentViewport);
             renderScents();
             loadScents();
             window.requestAnimationFrame(() => {
                 window.requestAnimationFrame(() => modal.classList.add('is-visible'));
             });
-            window.setTimeout(() => searchInput.focus(), 150);
+            window.setTimeout(() => {
+                if (modal.hidden || !modal.classList.contains('is-visible')) return;
+                const focusTarget = window.matchMedia('(max-width: 620px), (pointer: coarse)').matches ? closeModalButton : searchInput;
+                focusTarget.focus({ preventScroll: true });
+            }, 150);
         }
 
         let selectorOpening = false;
@@ -287,6 +304,10 @@ const API_BASE_URL = window.NoteApi.base;
 
         function closeModal() {
             modal.classList.remove('is-visible');
+            searchInput.blur();
+            window.removeEventListener('resize', updateScentViewport);
+            window.visualViewport?.removeEventListener('resize', updateScentViewport);
+            window.visualViewport?.removeEventListener('scroll', updateScentViewport);
             window.setTimeout(() => {
                 modal.hidden = true;
                 openSelector.focus({ preventScroll: true });
