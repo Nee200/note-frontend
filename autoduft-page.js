@@ -258,7 +258,6 @@ const API_BASE_URL = window.NoteApi.base;
             const height = viewport?.height || window.innerHeight;
             modal.style.setProperty('--scent-viewport-height', `${height}px`);
             modal.style.setProperty('--scent-viewport-top', `${viewport?.offsetTop || 0}px`);
-            modal.classList.toggle('is-short-viewport', height < 520);
         }
 
         function openModal() {

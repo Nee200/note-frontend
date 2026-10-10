@@ -1201,7 +1201,7 @@
 
         .modal-head {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-columns: minmax(0, 1fr) auto;
             align-items: center;
             gap: .55rem .75rem;
             padding: .65rem .75rem .5rem;
@@ -1211,20 +1211,9 @@
             flex-shrink: 0;
         }
 
-        .modal-head-art {
+        #scent-modal .modal-head h2 {
             grid-column: 1;
             grid-row: 1;
-            width: 100%;
-            height: 108px;
-            border-radius: 11px;
-            object-fit: cover;
-            object-position: center 64%;
-            box-shadow: inset 0 0 0 1px rgba(75, 54, 20, .08);
-        }
-
-        #scent-modal .modal-head h2 {
-            grid-column: 1 / -1;
-            grid-row: 2;
             margin: 0;
             font-family: var(--serif);
             font-size: 1.22rem;
@@ -1246,7 +1235,7 @@
         }
 
         #close-modal {
-            grid-column: 3;
+            grid-column: 2;
             grid-row: 1;
             justify-self: end;
             align-self: start;
@@ -1535,7 +1524,6 @@
                 border-radius: 16px;
             }
 
-            .modal-head-art { height: 88px; }
             #scent-modal .modal-head h2 { font-size: clamp(22px, 4.5vw, 28px); line-height: 1.15; }
             .search-input { height: 44px; font-size: 16px; }
             .tab { min-height: 44px; }
@@ -1567,9 +1555,6 @@
             }
         }
 
-        #scent-modal.is-short-viewport .modal-head-art { display: none; }
-        #scent-modal.is-short-viewport .modal-head h2 { grid-column: 1 / 3; grid-row: 1; }
-        #scent-modal.is-short-viewport #close-modal { margin: 0; }
 
         @media (prefers-reduced-motion: reduce) {
             *,
@@ -2276,7 +2261,6 @@
     <div class="modal" id="scent-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
         <div class="modal-dialog">
             <div class="modal-head">
-                <img class="modal-head-art" src="images_website/autoduft/note-autoduft-modal-wellness-header-v1.png" alt="">
                 <h2 id="modal-title">Duftfüllung auswählen</h2>
                 <button class="close-btn" id="close-modal" type="button" aria-label="Duftauswahl schließen">×</button>
             </div>
