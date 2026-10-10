@@ -1201,7 +1201,7 @@
 
         .modal-head {
             display: grid;
-            grid-template-columns: 1fr auto;
+            grid-template-columns: minmax(0, 1fr) auto;
             align-items: center;
             gap: .55rem .75rem;
             padding: .65rem .75rem .5rem;
@@ -1213,8 +1213,9 @@
 
         .modal-head-art {
             grid-column: 1 / -1;
+            grid-row: 1;
             width: 100%;
-            height: 108px;
+            height: 80px;
             border-radius: 11px;
             object-fit: cover;
             object-position: center 64%;
@@ -1222,6 +1223,8 @@
         }
 
         #scent-modal .modal-head h2 {
+            grid-column: 1 / -1;
+            grid-row: 2;
             margin: 0;
             font-family: var(--serif);
             font-size: 1.22rem;
@@ -1240,6 +1243,14 @@
             background: #fff;
             font-size: 1rem;
             cursor: pointer;
+        }
+
+        #close-modal {
+            grid-column: 2;
+            grid-row: 1;
+            align-self: start;
+            margin: 6px;
+            z-index: 1;
         }
 
         .search-wrap {
@@ -1523,7 +1534,7 @@
                 border-radius: 16px;
             }
 
-            .modal-head-art { height: 72px; }
+            .modal-head-art { height: 56px; }
             #scent-modal .modal-head h2 { font-size: clamp(22px, 4.5vw, 28px); line-height: 1.15; }
             .search-input { height: 44px; font-size: 16px; }
             .tab { min-height: 44px; }
@@ -1556,6 +1567,8 @@
         }
 
         #scent-modal.is-short-viewport .modal-head-art { display: none; }
+        #scent-modal.is-short-viewport .modal-head h2 { grid-column: 1; grid-row: 1; }
+        #scent-modal.is-short-viewport #close-modal { margin: 0; }
 
         @media (prefers-reduced-motion: reduce) {
             *,
@@ -2269,7 +2282,7 @@
 
             <div class="search-wrap">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7.5"></circle><path d="m16.5 16.5 4 4"></path></svg>
-                <input class="search-input" id="scent-search" type="search" placeholder="Nummer, Marke oder Duftname suchen …" aria-label="Duftfüllung nach Nummer, Marke, Duftname oder Duftnoten suchen" autocomplete="off">
+                <input class="search-input" id="scent-search" type="search" aria-label="Duftfüllung nach Nummer, Marke, Duftname oder Duftnoten suchen" autocomplete="off">
             </div>
 
             <div class="tabs" role="tablist" aria-label="Duftkategorien">
