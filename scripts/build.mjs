@@ -8,7 +8,7 @@ import { compileEvents, staticHandler } from './event-compiler.mjs';
 import { digitalWithdrawalEnabled } from '../shop-features.mjs';
 
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-export const entries = ['index', 'product', 'herrenduefte', 'frauenduefte', 'duftzwillinge', 'neuheiten', 'herbstbundle', 'autoduft', 'suche', 'account', 'admin', 'kontakt', 'ueber-uns', 'versand', 'agb', 'datenschutz', 'impressum', 'widerrufsrecht', 'widerruf', 'success', 'cancel', 'newsletter-confirmation'].filter(name => name !== 'widerruf' || digitalWithdrawalEnabled).map(name => name + '.html');
+export const entries = ['index', 'product', 'herrenduefte', 'frauenduefte', 'duftzwillinge', 'neuheiten', 'herbstbundle', 'autoduft', 'duftroller', 'suche', 'account', 'admin', 'kontakt', 'ueber-uns', 'versand', 'agb', 'datenschutz', 'impressum', 'widerrufsrecht', 'widerruf', 'success', 'cancel', 'newsletter-confirmation'].filter(name => name !== 'widerruf' || digitalWithdrawalEnabled).map(name => name + '.html');
 const dist = path.resolve(root, 'dist'), cache = path.join(root, '.build-cache');
 const hash = data => crypto.createHash('sha256').update(data).digest('hex').slice(0, 20);
 const assets = {}, compiled = new Map(), stats = { originalImageBytes: 0, optimizedImageBytes: 0, images: 0, compiledHandlers: 0 };

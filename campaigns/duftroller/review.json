@@ -1,0 +1,77 @@
+{
+  "date": "2026-10-10",
+  "status": "Bereit zur lokalen Abnahme durch den Besitzer",
+  "previewUrl": "http://127.0.0.1:5500/duftroller.html",
+  "published": false,
+  "pushPerformed": false,
+  "publicationRequiresOwnerApproval": true,
+  "variants": [
+    {"volumeMl": 6, "cap": "Weiß", "priceEur": 12.5},
+    {"volumeMl": 10, "cap": "Schwarz", "priceEur": 16},
+    {"volumeMl": 14, "cap": "Gold", "priceEur": 19.5}
+  ],
+  "images": {
+    "folder": "images_website/duftroller/",
+    "count": 7,
+    "dimensions": "1200 × 1200",
+    "format": "WebP",
+    "provenanceAndPrompts": "campaigns/duftroller/image-generation.json",
+    "referenceBackup": "../tmp/duftroller/",
+    "note": "Sechs Einzelmotive offen/geschlossen und ein Trio. Die Motive beruhen auf den Referenzfotos; exakte physische Abmessungen wurden nicht mitgeliefert."
+  },
+  "independentReviews": [
+    {
+      "role": "Code und Kaufablauf",
+      "scoreOutOf10": 9.5,
+      "scope": "Größen, Preise, Duftsuche, sichere Textausgabe, Fehlerbehandlung, Reload, Warenkorb und Backendvertrag",
+      "openConfirmedFindings": []
+    },
+    {
+      "role": "Bilder und Gesamtgestaltung",
+      "scoreOutOf10": 9.6,
+      "rubric": {"productImages": 9.5, "desktop": 9.6, "mobile": 9.6, "copy": 9.5, "brandConsistency": 9.6},
+      "scope": "Alle sieben Bilder, Produktreferenzen, Galerie, Großansicht, Konfigurator, Modal, Story und Footer bei 390, 578, 1366 und 1883 Pixeln",
+      "openConfirmedFindings": []
+    },
+    {
+      "role": "Responsive Darstellung und gemeinsame Shopfunktionen",
+      "scoreOutOf10": 9.6,
+      "rubric": {"productImages": 9.6, "desktopAndBrand": 9.6, "mobile": 9.5, "cartIntegration": 9.8, "keyboardAndCode": 9.5},
+      "scope": "Navigation, Footer, Suche, Größen, Warenkorb über mehrere Seiten, Checkout-Daten, Tastaturführung und Menü-Grenzbreiten",
+      "openConfirmedFindings": []
+    }
+  ],
+  "reviewLimit": "Interne, begründete Bewertungen des geprüften Implementierungs- und Gestaltungsumfangs. Responsive Chromium-Prüfungen ersetzen keine Tests auf physischen iPhones oder eine rechtliche Produktfreigabe.",
+  "automatedChecks": {
+    "backend": {"passed": 49, "failed": 0, "commit": "f5ce1584e912621319a9ad16519b9524bc5c40f1"},
+    "frontend": {"passed": 16, "failed": 0, "skipped": 1, "skipReason": "Der digitale Widerruf bleibt auf ausdrücklichen Wunsch deaktiviert."},
+    "newTestFiles": ["test/duftroller-page.test.mjs", "test/duftroller-cart.test.mjs", "../backend/test/duftroller.integration.test.js"],
+    "cases": [
+      "Alle drei Preise und Grundpreise, korrekte Deckel-/Größenbilder",
+      "Alle 558 Duftfüllungen in der lokalen Vorschau; Marken- und Nummernsuche sowie Herren/Frauen-Filter",
+      "Größe und Duft bleiben beim Reload erhalten; ungültige gespeicherte Größen werden verworfen",
+      "Getrennte Warenkorbpositionen, Mengenänderungen, Preisabgleich und Größen-/Duftdaten beim Checkout",
+      "Server verwirft manipulierte Preise, ungültige Größen und widersprüchliche Produktdaten",
+      "Katalogausfall, erneutes Laden, keine Suchtreffer, Tastatursteuerung und kurze mobile Viewports",
+      "Galerie, Großansicht, Escape, Fokuswiederherstellung und Hintergrundsperre",
+      "Bestehende Autoduft- und Shopseiten funktionieren weiterhin unter der Content Security Policy"
+    ],
+    "testEnvironment": "Lokaler isolierter Server, synthetische Daten und abgefangene Zahlungsschnittstellen. Keine echte Bestellung oder Zahlung ausgelöst."
+  },
+  "correctedReviewFindings": [
+    "Ungültige gespeicherte Größe konnte einen NaN-Preis erzeugen",
+    "Geschlossener Warenkorb blieb fokussierbar und warf einen sichtbaren Schatten",
+    "Warenkorb benötigte Dialogsemantik und vollständige Fokusführung",
+    "Desktopmenü konnte durch den zusätzlichen Link umbrechen",
+    "Großansicht platzierte Schließen und Bildzähler auf dem Handy zu weit vom Foto entfernt",
+    "Footerwelle wurde oben abgeschnitten",
+    "Ein leerer Toast war am Bildschirmrand sichtbar",
+    "Fehlerzustand verlor beim Größenwechsel die Wiederholen-Schaltfläche"
+  ],
+  "beforePublication": [
+    "Der Besitzer prüft und genehmigt die Seite und die Produktmotive.",
+    "Rezeptur, Inhaltsstoffe/Allergene und endgültige Produktkennzeichnung des Rollers fachlich bestätigen. Aus Fotos und Preisen lässt sich das nicht bestimmen; deshalb wurden keine Konzentrations- oder Haltbarkeitsversprechen erfunden.",
+    "Den versionierten Produktdatensatz backend/catalog/duftroller.json gezielt in die bestätigte Produktionsdatenbank übernehmen. backend/scripts/upsert-duftroller.js ist vorbereitet und läuft standardmäßig nur als Trockenlauf.",
+    "Frontend und Backend erst nach Freigabe gemeinsam veröffentlichen."
+  ]
+}
