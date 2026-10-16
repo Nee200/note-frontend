@@ -92,15 +92,6 @@ function ensurePrimaryNavigationOrder() {
                 }
                 submenu.append(link);
             });
-            let revealAnimation;
-            category.addEventListener("toggle", () => {
-                revealAnimation?.cancel();
-                if (!category.open || window.matchMedia("(prefers-reduced-motion: reduce)").matches || !window.matchMedia("(max-width: 1280px)").matches) return;
-                revealAnimation = category.animate([
-                    { height: `${trigger.getBoundingClientRect().height}px`, overflow: "hidden" },
-                    { height: `${category.getBoundingClientRect().height}px`, overflow: "hidden" }
-                ], { duration: 240, easing: "cubic-bezier(0.2, 0.7, 0.2, 1)" });
-            });
             category.addEventListener("keydown", (event) => {
                 if (event.key === "Escape" && category.open) {
                     event.preventDefault();
@@ -110,7 +101,9 @@ function ensurePrimaryNavigationOrder() {
                 }
             });
             category.addEventListener("focusout", (event) => {
-                if (!category.contains(event.relatedTarget)) category.open = false;
+                // A touch may blur the summary without focusing the link. Wait
+                // for the click in that case so the menu cannot hide its target.
+                if (event.relatedTarget && !category.contains(event.relatedTarget)) category.open = false;
             });
             document.addEventListener("click", (event) => {
                 if (!category.contains(event.target)) category.open = false;
