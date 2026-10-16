@@ -1,0 +1,775 @@
+{
+  "date": "2026-10-16",
+  "generationMode": "built-in image_gen",
+  "imageStandard": "NØTE. Neuheiten V3 natural-color",
+  "scope": "Gestalterische Gegenprüfung; keine Rechts- oder Prozentfreigabe.",
+  "products": [
+    {
+      "id": "G362",
+      "supplierId": "M1",
+      "inspiredBy": "Dolce & Gabbana The One",
+      "publicName": "The Singular One",
+      "png": "output/imagegen/catalogue-completion-2026/G362.png",
+      "webp": "images_website/new-arrivals/g362-catalogue-2026-v1.webp",
+      "pngSha256": "c4b315a760ea6c1a499efdce496729e7026ccd45bdbda714e6f53d49f4f7ed82",
+      "webpSha256": "b5072d4a09c661bb28546d1fab17b4b11b0fd6c2c4542df9917243c0dc8030d4",
+      "prompt": "Use case: product-mockup. Create a square photorealistic NØTE. catalogue image. Reference image is the exact own bottle and editorial style to preserve: clear rectangular glass with softly rounded inner reservoir, amber liquid, tall wide black embossed cylindrical cap, square textured white label with exact black text 'NØTE.' and small 'fragrances'. Keep own bottle geometry, cap and label faithful. One bottle only, centrally dominant on pale travertine. No companion, no foreign branded bottle, no other text. Three depth layers, botanical shadows, warm upper-left daylight, realistic glass caustics. NØTE. Neuheiten V3 natural-color treatment, two or three muted pastel color zones with a gently tinted circular halo, natural materials, rich yet restrained color, no neon, no monochrome beige. Theme: The Singular One, refined evening atmosphere. Muted tobacco-amber, smoky blue and soft peach background, champagne halo. Foreground only abstract folded ivory linen and uncarved natural stones, no identifiable fragrance ingredients since the exact supplier variant is unknown. Keep the label entirely legible and unobstructed. No smoke, stars, luxury logos, dramatic CGI.",
+      "referenceSources": [],
+      "referenceStatus": "note_only_user_confirmed",
+      "review": {
+        "id": "G362",
+        "supplierId": "M1",
+        "image": "C:/Webserver/OnlineShop-Prod/OnlineShop/output/imagegen/catalogue-completion-2026/G362.png",
+        "mode": "note_only_user_confirmed",
+        "verdict": "bestanden",
+        "pngExportVerdict": "gestalterisch_geprueft_exportbereit",
+        "checks": {
+          "bottle": "Ein einzelner zentraler eigener NØTE.-Flakon; breiter Rechteckkörper, dickes Klarglas und heller Inhalt stimmen visuell mit der Referenz überein.",
+          "cap": "Breiter hoher schwarzer Reliefzylinder mit ausgeprägtem oberem und unterem Abschlussrand entspricht der Referenz.",
+          "label": "Quadratisches weißes Etikett mit korrekt lesbarem NØTE. einschließlich Ø und Punkt sowie fragrances-Zeile.",
+          "scope": "Kein zweiter Original-/Begleitflakon. Neutrale Stein-/Textilszene ohne konkrete behauptete Duftzutaten.",
+          "imageQuality": "Flakon vollständig sichtbar, Etikett frei, plausible Materialien und Beleuchtung; keine wesentlichen sichtbaren Bildfehler."
+        },
+        "requiredCorrections": [],
+        "imageSha256": "c4b315a760ea6c1a499efdce496729e7026ccd45bdbda714e6f53d49f4f7ed82",
+        "webpExport": {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/frontend/images_website/new-arrivals/g362-catalogue-2026-v1.webp",
+          "sha256": "b5072d4a09c661bb28546d1fab17b4b11b0fd6c2c4542df9917243c0dc8030d4",
+          "format": "WEBP",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB",
+          "bytes": 279634,
+          "visuallyInspected": true,
+          "verdict": "bestanden",
+          "pngHashRevalidated": true
+        },
+        "buildWebp": {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/frontend/dist/assets/5ec75fdf6b810e772e73.webp",
+          "sha256": "5ec75fdf6b810e772e73d15930af3800ca56e4282eaae3cba69eaeef78630fbc",
+          "format": "WEBP",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB",
+          "bytes": 150506,
+          "asset": "assets/5ec75fdf6b810e772e73.webp",
+          "manifestSha256": "5ec75fdf6b810e772e73d15930af3800ca56e4282eaae3cba69eaeef78630fbc",
+          "manifestHashMatches": true,
+          "visuallyInspected": true,
+          "verdict": "bestanden"
+        },
+        "finalImageChecks": {
+          "sourceAndBuildViewedIndividually": true,
+          "bottleShapesAndCapsPreserved": true,
+          "noteLabelReadable": true,
+          "compositionAndIngredientsPreserved": true,
+          "unintendedCropOrStretch": false,
+          "visibleBlockingCompressionArtifacts": false,
+          "sourceBuildMeanAbsoluteRgbDifference": [
+            1.882,
+            1.685,
+            2.262
+          ],
+          "observation": "Einzelmotiv mit genau einem NØTE.-Flakon. Flakonrand, Reliefverschluss und NØTE./fragrances bleiben in Export und Build klar; neutraler Hintergrund ohne hinzugefügte Duftzutaten."
+        },
+        "finalVerdict": "webp_und_build_gestalterisch_freigegeben"
+      }
+    },
+    {
+      "id": "G363",
+      "supplierId": "M11",
+      "inspiredBy": "D&G Homme",
+      "publicName": "Gentleman's Signature",
+      "png": "output/imagegen/catalogue-completion-2026/G363.png",
+      "webp": "images_website/new-arrivals/g363-catalogue-2026-v1.webp",
+      "pngSha256": "382ad4d8b42a748bcefc882601103ede4d8ab50c0de163ca202f22fe2b4b29d7",
+      "webpSha256": "a7556f03ed0d66baf4371be9fac25d007c1c9dae57e9f689c5c417b4a05e5f19",
+      "prompt": "Use case: product-mockup. Create a square photorealistic NØTE. catalogue image. Reference image is the exact own bottle and editorial style to preserve: clear rectangular glass with softly rounded inner reservoir, amber liquid, tall wide black embossed cylindrical cap, square textured white label with exact black text 'NØTE.' and small 'fragrances'. Keep own bottle geometry, cap and label faithful. One bottle only, centrally dominant on pale travertine. No companion, no foreign branded bottle, no other text. Three depth layers, botanical shadows, warm upper-left daylight, realistic glass caustics. NØTE. Neuheiten V3 natural-color treatment, two or three muted pastel color zones with a gently tinted circular halo, natural materials, rich yet restrained color, no neon, no monochrome beige. Theme: Gentleman's Signature, crisp elegant daytime atmosphere. Muted sage, pale blue and pale terracotta background, warm ivory halo. Foreground only folded cream linen and smooth grey pebbles, no identifiable fragrance ingredients since the exact supplier variant is unknown. The bottle remains frontal and label fully legible. No extra bottles, no added lettering.",
+      "referenceSources": [],
+      "referenceStatus": "note_only_user_confirmed",
+      "review": {
+        "id": "G363",
+        "supplierId": "M11",
+        "image": "C:/Webserver/OnlineShop-Prod/OnlineShop/output/imagegen/catalogue-completion-2026/G363.png",
+        "mode": "note_only_user_confirmed",
+        "verdict": "bestanden",
+        "pngExportVerdict": "gestalterisch_geprueft_exportbereit",
+        "checks": {
+          "bottle": "Ein einzelner zentraler eigener NØTE.-Flakon; breiter Rechteckkörper, dickes Klarglas und heller Inhalt stimmen visuell mit der Referenz überein.",
+          "cap": "Breiter hoher schwarzer Reliefzylinder mit ausgeprägtem oberem und unterem Abschlussrand entspricht der Referenz.",
+          "label": "Quadratisches weißes Etikett mit korrekt lesbarem NØTE. einschließlich Ø und Punkt sowie fragrances-Zeile.",
+          "scope": "Kein zweiter Original-/Begleitflakon. Neutrale Stein-/Textilszene ohne konkrete behauptete Duftzutaten.",
+          "imageQuality": "Flakon vollständig sichtbar, Etikett frei, plausible Materialien und Beleuchtung; keine wesentlichen sichtbaren Bildfehler."
+        },
+        "requiredCorrections": [],
+        "imageSha256": "382ad4d8b42a748bcefc882601103ede4d8ab50c0de163ca202f22fe2b4b29d7",
+        "webpExport": {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/frontend/images_website/new-arrivals/g363-catalogue-2026-v1.webp",
+          "sha256": "a7556f03ed0d66baf4371be9fac25d007c1c9dae57e9f689c5c417b4a05e5f19",
+          "format": "WEBP",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB",
+          "bytes": 312204,
+          "visuallyInspected": true,
+          "verdict": "bestanden",
+          "pngHashRevalidated": true
+        },
+        "buildWebp": {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/frontend/dist/assets/7d8d6433357c93a25b26.webp",
+          "sha256": "7d8d6433357c93a25b2609b63b99cb621eeefc027bcfe8ff213ee7b5c1107d15",
+          "format": "WEBP",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB",
+          "bytes": 165028,
+          "asset": "assets/7d8d6433357c93a25b26.webp",
+          "manifestSha256": "7d8d6433357c93a25b2609b63b99cb621eeefc027bcfe8ff213ee7b5c1107d15",
+          "manifestHashMatches": true,
+          "visuallyInspected": true,
+          "verdict": "bestanden"
+        },
+        "finalImageChecks": {
+          "sourceAndBuildViewedIndividually": true,
+          "bottleShapesAndCapsPreserved": true,
+          "noteLabelReadable": true,
+          "compositionAndIngredientsPreserved": true,
+          "unintendedCropOrStretch": false,
+          "visibleBlockingCompressionArtifacts": false,
+          "sourceBuildMeanAbsoluteRgbDifference": [
+            1.986,
+            1.865,
+            2.405
+          ],
+          "observation": "Einzelmotiv mit genau einem NØTE.-Flakon. Glasboden, Kappenrelief und korrektes NØTE.-Etikett bleiben lesbar; Steine und Leinen unverändert."
+        },
+        "finalVerdict": "webp_und_build_gestalterisch_freigegeben"
+      }
+    },
+    {
+      "id": "G364",
+      "supplierId": "M16",
+      "inspiredBy": "Viktor & Rolf Spicebomb",
+      "publicName": "Spice Burst",
+      "png": "output/imagegen/catalogue-completion-2026/G364.png",
+      "webp": "images_website/new-arrivals/g364-catalogue-2026-v1.webp",
+      "pngSha256": "d9d0073a2a1a32209e09a95f7a030a1d8ddf1192c8b0cfa1809e6a6148ddade3",
+      "webpSha256": "e36d12653198cafee2e8dcce91732c798eef15ce1e9db00cb64ce9a01f9ced92",
+      "prompt": "Use case: product-mockup. Square photorealistic NØTE. fragrance catalogue image, matching the established reference1 editorial style. Preserve the own NØTE. bottle on left EXACTLY: clear rectangular bottle, amber liquid, broad tall embossed black cylinder cap, square white paper label reading 'NØTE.' and small 'fragrances'. Own bottle dominant, approx 60% of bottle group. Small companion bottle right, separate independent new design described below. Reference2 shows the source product ONLY for verifying scent color; DO NOT COPY its shape, cap, label, branding or trademarks. No foreign logos, no lettering on companion. Pale travertine platform, big tinted circular halo, botanical shadows, grouped foreground ingredients clear of labels, 3 depth layers. NØTE. Neuheiten V3 natural-color treatment, two or three distinct muted pastel background zones, 25-35% visibly colored background, soft upper-left daylight, subtle complementary bounce, realistic glass and natural textures, moderate contrasts, no neon, no CGI gloss. Theme Spice Burst. Companion: smooth broad smoke-grey glass trapezoid with sloping shoulders, low flat brushed-copper rectangular cap. No segmented body, no grenade, no ring, no black central belt. Background muted copper/grey sage/powder blue and warm ivory halo. 9 foreground elements in three groups: grapefruit half, bergamot peel, cinnamon sticks, tiny pink pepper cluster, saffron strands, small resin tears, dry tobacco leaf, vetiver roots, neutral tan leather folded strip. Elegant natural editorial composition.",
+      "referenceSources": [
+        {
+          "kind": "manufacturer",
+          "url": "https://us.viktor-rolf.com/fragrance/spicebomb-eau-de-toilette-VKR_030.html",
+          "supports": "Variante, Duftnoten, Flakondesign und Foto"
+        }
+      ],
+      "referenceStatus": "reference_verified",
+      "review": {
+        "id": "G364",
+        "supplierId": "M16",
+        "image": "C:/Webserver/OnlineShop-Prod/OnlineShop/output/imagegen/catalogue-completion-2026/G364.png",
+        "imageSha256": "d9d0073a2a1a32209e09a95f7a030a1d8ddf1192c8b0cfa1809e6a6148ddade3",
+        "referenceImage": "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/catalogue-completion-2026-10-16/bottle-references/M16-spicebomb.jpg",
+        "referenceSha256": "cf63b11445372b6c6b436b1e58e90efc02103cc47ac909316e1fc3e8fd78f55c",
+        "mode": "note_plus_independent_companion",
+        "verdict": "bestanden",
+        "pngExportVerdict": "gestalterisch_geprueft_exportbereit",
+        "checks": {
+          "noteBottle": "Breiter klarer Rechteckkoerper mit dickem Glasboden und heller Fluessigkeit; breite hohe schwarze Reliefkappe mit Abschlussraendern. Visuell treu zur eigenen NØTE.-Referenz.",
+          "label": "Weisses quadratisches Etikett, korrekt NØTE. mit Ø und Punkt sowie fragrances-Zeile; frei sichtbar und lesbar.",
+          "companionBodyDifference": "Gedrungener glatter rauchbrauner Rechteckkörper mit gerundeten Kanten statt segmentierter Granatensilhouette.",
+          "companionCapDifference": "Breiter horizontaler kupferfarbener Block auf sichtbarem Hals statt offener schwarzer Pumpe mit Sicherungsring.",
+          "distinctiveMarks": "Keine Granatensegmente, kein Sicherungsring, kein Anhänger und kein schwarzes Markenband.",
+          "ingredients": "Grapefruit, bergamotteartige grüne Zitrusfrucht, Zimt, rosa Pfeffer, Safran, Harz als Elemi, Tabakblatt, Vetiverwurzeln und Leder passen zu den belegten Noten.",
+          "imageQuality": "Beide Flakons vollstaendig sichtbar, plausible Materialwirkung und Lichtfuehrung, keine wesentlichen sichtbaren Bildfehler."
+        },
+        "requiredCorrections": [],
+        "webpExport": {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/frontend/images_website/new-arrivals/g364-catalogue-2026-v1.webp",
+          "sha256": "e36d12653198cafee2e8dcce91732c798eef15ce1e9db00cb64ce9a01f9ced92",
+          "format": "WEBP",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB",
+          "bytes": 300950,
+          "visuallyInspected": true,
+          "verdict": "bestanden",
+          "pngHashRevalidated": true
+        },
+        "buildWebp": {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/frontend/dist/assets/3c8aed58789ff09c25eb.webp",
+          "sha256": "3c8aed58789ff09c25eb9fc883d53ca9865e8c0da236212bb3ce1b26ded0c285",
+          "format": "WEBP",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB",
+          "bytes": 169608,
+          "asset": "assets/3c8aed58789ff09c25eb.webp",
+          "manifestSha256": "3c8aed58789ff09c25eb9fc883d53ca9865e8c0da236212bb3ce1b26ded0c285",
+          "manifestHashMatches": true,
+          "visuallyInspected": true,
+          "verdict": "bestanden"
+        },
+        "finalImageChecks": {
+          "sourceAndBuildViewedIndividually": true,
+          "bottleShapesAndCapsPreserved": true,
+          "noteLabelReadable": true,
+          "compositionAndIngredientsPreserved": true,
+          "unintendedCropOrStretch": false,
+          "visibleBlockingCompressionArtifacts": false,
+          "sourceBuildMeanAbsoluteRgbDifference": [
+            1.985,
+            1.697,
+            2.315
+          ],
+          "observation": "Rauchbrauner Begleitkörper mit breiter Kupferkappe bleibt klar abgegrenzt. Keine Granatensegmentierung, kein Ring oder Markenetikett. Zitrus, Gewürze und Leder im Export erhalten."
+        },
+        "finalVerdict": "webp_und_build_gestalterisch_freigegeben"
+      }
+    },
+    {
+      "id": "G365",
+      "supplierId": "M23",
+      "inspiredBy": "Calvin Klein CK One",
+      "publicName": "One Shared Moment",
+      "png": "output/imagegen/catalogue-completion-2026/G365.png",
+      "webp": "images_website/new-arrivals/g365-catalogue-2026-v1.webp",
+      "pngSha256": "8738bd88907649c055bebd9a6d77ac06e5ee9cde0574b9c292f49e5e09707f3e",
+      "webpSha256": "fd80a211d8c9e297849dfc6498fc7d26df647563f9a72fbabae82d365f6bea55",
+      "prompt": "Use case: product-mockup. Square photorealistic NØTE. fragrance catalogue image, matching the established reference1 editorial style. Preserve the own NØTE. bottle on left EXACTLY: clear rectangular bottle, amber liquid, broad tall embossed black cylinder cap, square white paper label reading 'NØTE.' and small 'fragrances'. Own bottle dominant, approx 60% of bottle group. Small companion bottle right, separate independent new design described below. Reference2 shows the source product ONLY for verifying scent color; DO NOT COPY its shape, cap, label, branding or trademarks. No foreign logos, no lettering on companion. Pale travertine platform, big tinted circular halo, botanical shadows, grouped foreground ingredients clear of labels, 3 depth layers. NØTE. Neuheiten V3 natural-color treatment, two or three distinct muted pastel background zones, 25-35% visibly colored background, soft upper-left daylight, subtle complementary bounce, realistic glass and natural textures, moderate contrasts, no neon, no CGI gloss. Theme One Shared Moment. Companion: squat frosted-glass wide octagonal body, short ivory rectangular cap, angular shoulders, unlabelled. No rounded hipflask, no tall neck, no silver screw cap, no typography. Background soft mint/aqua/pale peach with ivory halo. Foreground 9 natural elements in 3 groups: bergamot half and peel, fresh green tea leaves, soft rose petals, violet flowers, a few amber resin pieces and clean ivory textile. Clear refreshing daylight.",
+      "referenceSources": [
+        {
+          "kind": "manufacturer",
+          "url": "https://www.calvinklein.co.uk/ck-one-unisex-eau-de-toilette-50ml-9350073076mul",
+          "supports": "EDT-Variante, Duftnoten und Foto"
+        }
+      ],
+      "referenceStatus": "reference_verified",
+      "review": {
+        "id": "G365",
+        "supplierId": "M23",
+        "image": "C:/Webserver/OnlineShop-Prod/OnlineShop/output/imagegen/catalogue-completion-2026/G365.png",
+        "imageSha256": "8738bd88907649c055bebd9a6d77ac06e5ee9cde0574b9c292f49e5e09707f3e",
+        "referenceImage": "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/catalogue-completion-2026-10-16/bottle-references/M23-ck-one.jpg",
+        "referenceSha256": "4fbe0a5ae78f2cb72664255fc27e834aa0f8c66356c860998ea3f51e7cddf6b0",
+        "mode": "note_plus_independent_companion",
+        "verdict": "bestanden",
+        "pngExportVerdict": "gestalterisch_geprueft_exportbereit",
+        "checks": {
+          "noteBottle": "Breiter klarer Rechteckkoerper mit dickem Glasboden und heller Fluessigkeit; breite hohe schwarze Reliefkappe mit Abschlussraendern. Visuell treu zur eigenen NØTE.-Referenz.",
+          "label": "Weisses quadratisches Etikett, korrekt NØTE. mit Ø und Punkt sowie fragrances-Zeile; frei sichtbar und lesbar.",
+          "companionBodyDifference": "Breiter facettierter achteckiger milchiger Glaskörper statt hohem schmalem gerundetem Flachmann.",
+          "companionCapDifference": "Breiter heller horizontaler Blockverschluss statt des kleinen silbernen geriffelten Schraubdeckels.",
+          "distinctiveMarks": "Kein ck-Monogramm, keine One-Schrift und keine ursprüngliche Flachmann-/Schraubdeckelproportion.",
+          "ingredients": "Bergamotte, Teeblätter, Rosenblätter und Veilchen passen zu den Herstellerangaben. Goldene Harz-/Amberdekoration und helles Textil setzen Amber/Moschus atmosphärisch um; keine zusätzliche konkrete Duftnote erkennbar.",
+          "imageQuality": "Beide Flakons vollstaendig sichtbar, plausible Materialwirkung und Lichtfuehrung, keine wesentlichen sichtbaren Bildfehler."
+        },
+        "requiredCorrections": [],
+        "webpExport": {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/frontend/images_website/new-arrivals/g365-catalogue-2026-v1.webp",
+          "sha256": "fd80a211d8c9e297849dfc6498fc7d26df647563f9a72fbabae82d365f6bea55",
+          "format": "WEBP",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB",
+          "bytes": 281670,
+          "visuallyInspected": true,
+          "verdict": "bestanden",
+          "pngHashRevalidated": true
+        },
+        "buildWebp": {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/frontend/dist/assets/cc6aebea1695f495b651.webp",
+          "sha256": "cc6aebea1695f495b6517ec76d600704669eb3006a48749b3f30f4e04508fedd",
+          "format": "WEBP",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB",
+          "bytes": 155650,
+          "asset": "assets/cc6aebea1695f495b651.webp",
+          "manifestSha256": "cc6aebea1695f495b6517ec76d600704669eb3006a48749b3f30f4e04508fedd",
+          "manifestHashMatches": true,
+          "visuallyInspected": true,
+          "verdict": "bestanden"
+        },
+        "finalImageChecks": {
+          "sourceAndBuildViewedIndividually": true,
+          "bottleShapesAndCapsPreserved": true,
+          "noteLabelReadable": true,
+          "compositionAndIngredientsPreserved": true,
+          "unintendedCropOrStretch": false,
+          "visibleBlockingCompressionArtifacts": false,
+          "sourceBuildMeanAbsoluteRgbDifference": [
+            1.862,
+            1.643,
+            2.31
+          ],
+          "observation": "Breiter achteckiger milchiger Begleitkörper und cremefarbene Blockkappe bleiben sichtbar; keine ck-Schrift. Rosenblätter, Veilchen, Zitrus und Teeblätter unverändert."
+        },
+        "finalVerdict": "webp_und_build_gestalterisch_freigegeben"
+      }
+    },
+    {
+      "id": "G366",
+      "supplierId": "M25",
+      "inspiredBy": "Mugler A*Men",
+      "publicName": "Amber Hero",
+      "png": "output/imagegen/catalogue-completion-2026/G366.png",
+      "webp": "images_website/new-arrivals/g366-catalogue-2026-v1.webp",
+      "pngSha256": "8c8daabba65faee040cd0a4a2c539d1bb3e83fa7c3ae667c0326bd6588937d18",
+      "webpSha256": "bd66ec6946df22ea22e0792b8ee2db087cf2d500603f924f43234c90091d7b72",
+      "prompt": "Use case: product-mockup. Square photorealistic NØTE. fragrance catalogue image, matching the established reference1 editorial style. Preserve the own NØTE. bottle on left EXACTLY: clear rectangular bottle, amber liquid, broad tall embossed black cylinder cap, square white paper label reading 'NØTE.' and small 'fragrances'. Own bottle dominant, approx 60% of bottle group. Small companion bottle right, separate independent new design described below. Reference2 shows the source product ONLY for verifying scent color; DO NOT COPY its shape, cap, label, branding or trademarks. No foreign logos, no lettering on companion. Pale travertine platform, big tinted circular halo, botanical shadows, grouped foreground ingredients clear of labels, 3 depth layers. NØTE. Neuheiten V3 natural-color treatment, two or three distinct muted pastel background zones, 25-35% visibly colored background, soft upper-left daylight, subtle complementary bounce, realistic glass and natural textures, moderate contrasts, no neon, no CGI gloss. Theme Amber Hero. Companion: small deep smoky-blue translucent glass hexagonal body, visible thick faceted base, narrow neck and short brushed silver disc cap. No black rubber case, no hipflask, no star or star-shaped cutout, no integrated sprayer, no logos. Background muted midnight-blue/lavender/warm coffee tan, champagne halo. Foreground 8 natural elements in 3 groups: sprigs of lavender, roasted coffee beans, vanilla pods and one vanilla blossom, patchouli leaves. Refined evening warmth, fully readable own label.",
+      "referenceSources": [
+        {
+          "kind": "manufacturer",
+          "url": "https://www.mugler.com/fragrance/mens-fragrances/a-men/a-men-eau-de-toilette/M020101024.html",
+          "supports": "EDT-Variante, Duftnoten und aktuelles Foto"
+        }
+      ],
+      "referenceStatus": "reference_verified",
+      "review": {
+        "id": "G366",
+        "supplierId": "M25",
+        "image": "C:/Webserver/OnlineShop-Prod/OnlineShop/output/imagegen/catalogue-completion-2026/G366.png",
+        "imageSha256": "8c8daabba65faee040cd0a4a2c539d1bb3e83fa7c3ae667c0326bd6588937d18",
+        "referenceImage": "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/catalogue-completion-2026-10-16/bottle-references/M25-a-men.jpg",
+        "referenceSha256": "93b6ed16ddf7cf564e4d6fe68fe7de1fec7be368af2f1ef7a06453397e49e65c",
+        "mode": "note_plus_independent_companion",
+        "verdict": "bestanden",
+        "pngExportVerdict": "gestalterisch_geprueft_exportbereit",
+        "checks": {
+          "noteBottle": "Breiter klarer Rechteckkoerper mit dickem Glasboden und heller Fluessigkeit; breite hohe schwarze Reliefkappe mit Abschlussraendern. Visuell treu zur eigenen NØTE.-Referenz.",
+          "label": "Weisses quadratisches Etikett, korrekt NØTE. mit Ø und Punkt sowie fragrances-Zeile; frei sichtbar und lesbar.",
+          "companionBodyDifference": "Gedrungener facettierter dunkelblauer Glasflakon statt des hohen schwarzen gummierten Flachmanns.",
+          "companionCapDifference": "Separater breiter gebürsteter Metallverschluss auf sichtbarem blauem Hals statt integriertem schwarzem Sprühbereich.",
+          "distinctiveMarks": "Kein fünfzackiger blauer Stern und keine schwarze Gummihülle; keine Fremdschrift.",
+          "ingredients": "Lavendel, Kaffeebohnen, Patchouliblätter und Vanilleschoten entsprechen den belegten Noten. Helle Blüte begleitet die Vanille; daraus wird keine zusätzliche Duftnote abgeleitet.",
+          "imageQuality": "Beide Flakons vollstaendig sichtbar, plausible Materialwirkung und Lichtfuehrung, keine wesentlichen sichtbaren Bildfehler."
+        },
+        "requiredCorrections": [],
+        "webpExport": {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/frontend/images_website/new-arrivals/g366-catalogue-2026-v1.webp",
+          "sha256": "bd66ec6946df22ea22e0792b8ee2db087cf2d500603f924f43234c90091d7b72",
+          "format": "WEBP",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB",
+          "bytes": 318626,
+          "visuallyInspected": true,
+          "verdict": "bestanden",
+          "pngHashRevalidated": true
+        },
+        "buildWebp": {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/frontend/dist/assets/d3ac70b54555a168023b.webp",
+          "sha256": "d3ac70b54555a168023b8c8accb579489748c9596c43f14623943f83902b7261",
+          "format": "WEBP",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB",
+          "bytes": 184466,
+          "asset": "assets/d3ac70b54555a168023b.webp",
+          "manifestSha256": "d3ac70b54555a168023b8c8accb579489748c9596c43f14623943f83902b7261",
+          "manifestHashMatches": true,
+          "visuallyInspected": true,
+          "verdict": "bestanden"
+        },
+        "finalImageChecks": {
+          "sourceAndBuildViewedIndividually": true,
+          "bottleShapesAndCapsPreserved": true,
+          "noteLabelReadable": true,
+          "compositionAndIngredientsPreserved": true,
+          "unintendedCropOrStretch": false,
+          "visibleBlockingCompressionArtifacts": false,
+          "sourceBuildMeanAbsoluteRgbDifference": [
+            2.101,
+            1.735,
+            2.489
+          ],
+          "observation": "Facettierter blauer Begleitkörper mit separater Silberkappe bleibt ohne Stern oder Fremdschrift. Lavendel, Kaffee und Vanille in beiden WebPs erkennbar."
+        },
+        "finalVerdict": "webp_und_build_gestalterisch_freigegeben"
+      }
+    },
+    {
+      "id": "G367",
+      "supplierId": "M53",
+      "inspiredBy": "Mr. Burberry Indigo",
+      "publicName": "Indigo Gentleman",
+      "png": "output/imagegen/catalogue-completion-2026/G367.png",
+      "webp": "images_website/new-arrivals/g367-catalogue-2026-v1.webp",
+      "pngSha256": "a7cf6d23d6af5ed10c7c48b99d642f30409fb1eec5bcb0790335267c7e03f7b0",
+      "webpSha256": "8bb5d81d3c6f6c4667d5ba88158de3bb840fadb267c7ff4a17e66eecd6b1bce0",
+      "prompt": "Use case: product-mockup. Square photorealistic NØTE. fragrance catalogue image, matching the established reference1 editorial style. Preserve the own NØTE. bottle on left EXACTLY: clear rectangular bottle, amber liquid, broad tall embossed black cylinder cap, square white paper label reading 'NØTE.' and small 'fragrances'. Own bottle dominant, approx 60% of bottle group. Small companion bottle right, separate independent new design described below. Reference2 shows the source product ONLY for verifying scent color; DO NOT COPY its shape, cap, label, branding or trademarks. No foreign logos, no lettering on companion. Pale travertine platform, big tinted circular halo, botanical shadows, grouped foreground ingredients clear of labels, 3 depth layers. NØTE. Neuheiten V3 natural-color treatment, two or three distinct muted pastel background zones, 25-35% visibly colored background, soft upper-left daylight, subtle complementary bounce, realistic glass and natural textures, moderate contrasts, no neon, no CGI gloss. Theme Indigo Gentleman. Companion: low wide navy-blue oval glass body with tapered gently faceted sides, short pale matte stone rectangular cap and clearly visible narrow neck. No tall rectangular body, no oversized black cylinder cap, no ribbon or bow, no lettering. Background soft slate-blue/sage/peach with pale champagne halo. Foreground 8 elements in three groups: lemon half and curled peel, rosemary sprigs, fresh spearmint, violet leaves, soft oakmoss and amber resin. Restrained crisp blue atmosphere.",
+      "referenceSources": [
+        {
+          "kind": "manufacturer_unavailable",
+          "url": "https://us.burberry.com/mr-burberry-indigo-eau-de-toilette-30ml-p40675701",
+          "supports": "Historisch aufgefundener offizieller Produktlink; aktuell nicht lesbar, deshalb nicht als aktuelle Text- oder Bildquelle verwendet"
+        },
+        {
+          "kind": "retailer",
+          "url": "https://www.faces.ae/en/p/burberry-mr-burberry-indigo-eau-de-toilette-PM_BURBERRY_Mr_Burberry_Indigo_EDT.html",
+          "supports": "EDT-Identität, Foto und Duftbeschreibung"
+        },
+        {
+          "kind": "retailer_corroboration",
+          "url": "https://ascotcosmetics.co.za/product/mr-burberry-eau-de-toilette-spray-100ml/",
+          "supports": "Gleiche Indigo-Beschreibung und sechs zentrale Duftnoten"
+        }
+      ],
+      "referenceStatus": "reference_verified_retailer_fallback",
+      "review": {
+        "id": "G367",
+        "supplierId": "M53",
+        "image": "C:/Webserver/OnlineShop-Prod/OnlineShop/output/imagegen/catalogue-completion-2026/G367.png",
+        "imageSha256": "a7cf6d23d6af5ed10c7c48b99d642f30409fb1eec5bcb0790335267c7e03f7b0",
+        "referenceImage": "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/catalogue-completion-2026-10-16/bottle-references/M53-mr-burberry-indigo.jpg",
+        "referenceSha256": "7da129154008ffedf61a58d438c09a1a37dc6ea60f1730611e4723e011d67620",
+        "mode": "note_plus_independent_companion",
+        "verdict": "bestanden",
+        "pngExportVerdict": "gestalterisch_geprueft_exportbereit",
+        "checks": {
+          "noteBottle": "Breiter klarer Rechteckkoerper mit dickem Glasboden und heller Fluessigkeit; breite hohe schwarze Reliefkappe mit Abschlussraendern. Visuell treu zur eigenen NØTE.-Referenz.",
+          "label": "Weisses quadratisches Etikett, korrekt NØTE. mit Ø und Punkt sowie fragrances-Zeile; frei sichtbar und lesbar.",
+          "companionBodyDifference": "Breiter sehr niedriger dunkelblauer facettierter ovaler Körper statt hohem blaugrauem Rechteckflakon.",
+          "companionCapDifference": "Breiter flacher heller steinartiger Blockverschluss statt breitem dunklem glänzendem Zylinderdeckel.",
+          "distinctiveMarks": "Keine Mr.- oder Burberry-Schrift, keine Gabardineschleife und keine ursprüngliche hohe Rechteckproportion.",
+          "ingredients": "Zitrone, Rosmarin, Minze, Eichenmoos und Amberdekoration passen zur belegten Notenfamilie. Das violett-grüne Laub ist botanisch nicht eindeutig als Veilchenblatt erkennbar.",
+          "imageQuality": "Beide Flakons vollstaendig sichtbar, plausible Materialwirkung und Lichtfuehrung, keine wesentlichen sichtbaren Bildfehler."
+        },
+        "observations": [
+          "Kleiner botanischer Vorbehalt: das violett-grüne Laub wirkt stilisiert; eine genaue Pflanzenart ist visuell nicht sicher prüfbar. Keine Auswirkung auf die bestandene Flakon-/Etikettprüfung."
+        ],
+        "requiredCorrections": [],
+        "webpExport": {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/frontend/images_website/new-arrivals/g367-catalogue-2026-v1.webp",
+          "sha256": "8bb5d81d3c6f6c4667d5ba88158de3bb840fadb267c7ff4a17e66eecd6b1bce0",
+          "format": "WEBP",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB",
+          "bytes": 294786,
+          "visuallyInspected": true,
+          "verdict": "bestanden",
+          "pngHashRevalidated": true
+        },
+        "buildWebp": {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/frontend/dist/assets/b586e4f9d6df60b38eba.webp",
+          "sha256": "b586e4f9d6df60b38ebaf3d3295a7327975db5fdeafbc95d2fdfc88ed7c8787a",
+          "format": "WEBP",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB",
+          "bytes": 169278,
+          "asset": "assets/b586e4f9d6df60b38eba.webp",
+          "manifestSha256": "b586e4f9d6df60b38ebaf3d3295a7327975db5fdeafbc95d2fdfc88ed7c8787a",
+          "manifestHashMatches": true,
+          "visuallyInspected": true,
+          "verdict": "bestanden"
+        },
+        "finalImageChecks": {
+          "sourceAndBuildViewedIndividually": true,
+          "bottleShapesAndCapsPreserved": true,
+          "noteLabelReadable": true,
+          "compositionAndIngredientsPreserved": true,
+          "unintendedCropOrStretch": false,
+          "visibleBlockingCompressionArtifacts": false,
+          "sourceBuildMeanAbsoluteRgbDifference": [
+            1.955,
+            1.686,
+            2.317
+          ],
+          "observation": "Breiter niedriger blauer Begleitkörper und helle Steinkappe bleiben unverändert; keine Schleife oder Fremdschrift. Der bereits dokumentierte botanische Vorbehalt zu stilisiertem violett-grünem Laub bleibt bestehen."
+        },
+        "finalVerdict": "webp_und_build_gestalterisch_freigegeben"
+      }
+    },
+    {
+      "id": "G368",
+      "supplierId": "M58",
+      "inspiredBy": "Acqua di Parma Colonia Oud",
+      "publicName": "Colonia Oud Reverie",
+      "png": "output/imagegen/catalogue-completion-2026/G368.png",
+      "webp": "images_website/new-arrivals/g368-catalogue-2026-v1.webp",
+      "pngSha256": "2412d2a4ee62411f16adf02a925ab956c934585c6a87d7547515dbe5466f49b6",
+      "webpSha256": "7f954a47ab1b734a9fddbbac0680d171390538527087d765d7a455cd98f4b753",
+      "prompt": "Use case: product-mockup. Square photorealistic NØTE. fragrance catalogue image, matching the established reference1 editorial style. Preserve the own NØTE. bottle on left EXACTLY: clear rectangular bottle, amber liquid, broad tall embossed black cylinder cap, square white paper label reading 'NØTE.' and small 'fragrances'. Own bottle dominant, approx 60% of bottle group. Small companion bottle right, separate independent new design described below. Reference2 shows the source product ONLY for verifying scent color; DO NOT COPY its shape, cap, label, branding or trademarks. No foreign logos, no lettering on companion. Pale travertine platform, big tinted circular halo, botanical shadows, grouped foreground ingredients clear of labels, 3 depth layers. NØTE. Neuheiten V3 natural-color treatment, two or three distinct muted pastel background zones, 25-35% visibly colored background, soft upper-left daylight, subtle complementary bounce, realistic glass and natural textures, moderate contrasts, no neon, no CGI gloss. Theme Colonia Oud Reverie. Reference2 is the historical Colonia Oud family, NOT current Oud EDP; only use dark earthy color as cue. Companion: broad low smoked brown transparent glass hexagonal bottle, angular shoulders and a flat wide brushed brass rectangular cap. No tall round flask, no tall brown cylindrical cap, no cream label, no crest, no type. Background muted terracotta/olive/powder blue with warm ivory halo. Foreground 10 natural elements in three groups: bergamot half, orange wedge and peel, oud chips, amyris wood chips, coriander seeds, cedar shavings, patchouli leaves, sandalwood piece and neutral tan leather fold. Elegant citrus and dry wood scene.",
+      "referenceSources": [
+        {
+          "kind": "manufacturer_catalogue",
+          "url": "https://www.acquadiparma.com/on/demandware.static/-/Library-Sites-acquadiparmaLibrary/default/dw510f0a4c/pdf/adp-gift.pdf",
+          "pageIndex": 17,
+          "supports": "Historische Colonia-Oud-Familie, Oud/Agarwood und Eau de Cologne Concentrée; über Webtext gelesen, direkter PDF-Download nicht zugänglich"
+        },
+        {
+          "kind": "retailer",
+          "url": "https://www.spacenk.com/uk/fragrance/personal-fragrance/fragrance/colonia-oud-eau-de-cologne-concentree-MUK200010134.html",
+          "supports": "Legacy-EDCC-Bezeichnung, Foto mit Colonia-Intensa-Oud-Etikett, Oud/Amyris/Koriander/Moschus/Leder und Zitrus"
+        },
+        {
+          "kind": "retailer_corroboration",
+          "url": "https://www.nahdionline.com/en-sa/acqua-di-parma-colonia-oud-eau-de-cologne-180-ml/pdp/103178303",
+          "supports": "Bergamotte/Orange sowie Holz-, Leder-, Patchouli- und Moschusnoten der Colonia-Oud-Referenz; kein verlässlicher Beleg für Erscheinungsjahr"
+        },
+        {
+          "kind": "manufacturer_related_current_reference",
+          "url": "https://www.acquadiparma.com/en/gb/made-to-measure-selection-set/ADPADP081490-ONESIZE.html",
+          "supports": "Aktuelles Oud hat ein verwandtes Notenprofil; keine Identitäts- oder Formelgleichsetzung mit der Händlerware"
+        }
+      ],
+      "referenceStatus": "legacy_reference_verified_supplier_concentration_unconfirmed",
+      "review": {
+        "id": "G368",
+        "supplierId": "M58",
+        "image": "C:/Webserver/OnlineShop-Prod/OnlineShop/output/imagegen/catalogue-completion-2026/G368.png",
+        "imageSha256": "2412d2a4ee62411f16adf02a925ab956c934585c6a87d7547515dbe5466f49b6",
+        "referenceImage": "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/catalogue-completion-2026-10-16/bottle-references/M58-colonia-oud.jpg",
+        "referenceSha256": "82f362298d12683272f8fdd37962e938560f390c6bd304f71740452ea6d2824b",
+        "mode": "note_plus_independent_companion",
+        "verdict": "bestanden",
+        "pngExportVerdict": "gestalterisch_geprueft_exportbereit",
+        "checks": {
+          "noteBottle": "Breiter klarer Rechteckkoerper mit dickem Glasboden und heller Fluessigkeit; breite hohe schwarze Reliefkappe mit Abschlussraendern. Visuell treu zur eigenen NØTE.-Referenz.",
+          "label": "Weisses quadratisches Etikett, korrekt NØTE. mit Ø und Punkt sowie fragrances-Zeile; frei sichtbar und lesbar.",
+          "companionBodyDifference": "Gedrungener breiter dunkelbernsteinfarbener facettierter Rechteckkörper statt hohem braunem Rundflakon.",
+          "companionCapDifference": "Breiter horizontaler gebürsteter Goldblock statt hohem braunem runden Deckel.",
+          "distinctiveMarks": "Kein Acqua-di-Parma-Wappen, kein großes helles Originaletikett und keine gleiche runde Körper-/Kappensilhouette.",
+          "ingredients": "Bergamotteartige Zitrusfrucht, Orange, dunkles Oud-Holz, Koriandersamen, helle Holzstücke/-späne, Patchouliblätter und Leder passen zur recherchierten Colonia-Oud-Notenfamilie.",
+          "imageQuality": "Beide Flakons vollstaendig sichtbar, plausible Materialwirkung und Lichtfuehrung, keine wesentlichen sichtbaren Bildfehler."
+        },
+        "observations": [
+          "Die Prüfung bestätigt die gestalterische Umsetzung der recherchierten älteren Colonia-Oud-Familie; Konzentration und exakte Händlerrezeptur bleiben unbestätigt."
+        ],
+        "requiredCorrections": [],
+        "webpExport": {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/frontend/images_website/new-arrivals/g368-catalogue-2026-v1.webp",
+          "sha256": "7f954a47ab1b734a9fddbbac0680d171390538527087d765d7a455cd98f4b753",
+          "format": "WEBP",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB",
+          "bytes": 307272,
+          "visuallyInspected": true,
+          "verdict": "bestanden",
+          "pngHashRevalidated": true
+        },
+        "buildWebp": {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/frontend/dist/assets/efd4917015b85fc7cd4b.webp",
+          "sha256": "efd4917015b85fc7cd4b4dc0d999df5409433594ca59564ca32097001bd2c1eb",
+          "format": "WEBP",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB",
+          "bytes": 178906,
+          "asset": "assets/efd4917015b85fc7cd4b.webp",
+          "manifestSha256": "efd4917015b85fc7cd4b4dc0d999df5409433594ca59564ca32097001bd2c1eb",
+          "manifestHashMatches": true,
+          "visuallyInspected": true,
+          "verdict": "bestanden"
+        },
+        "finalImageChecks": {
+          "sourceAndBuildViewedIndividually": true,
+          "bottleShapesAndCapsPreserved": true,
+          "noteLabelReadable": true,
+          "compositionAndIngredientsPreserved": true,
+          "unintendedCropOrStretch": false,
+          "visibleBlockingCompressionArtifacts": false,
+          "sourceBuildMeanAbsoluteRgbDifference": [
+            2.027,
+            1.679,
+            2.314
+          ],
+          "observation": "Breiter facettierter brauner Begleitkörper mit Goldblockkappe bleibt ohne Wappen/Etikett. Zitrus, Holz, Koriander und Leder erhalten. Die nicht gesicherte Lieferantenkonzentration wird durch diese Bildprüfung nicht bestätigt."
+        },
+        "finalVerdict": "webp_und_build_gestalterisch_freigegeben"
+      }
+    },
+    {
+      "id": "G369",
+      "supplierId": "M126",
+      "inspiredBy": "Mancera Red Tobacco",
+      "publicName": "Crimson Tobacco",
+      "png": "output/imagegen/catalogue-completion-2026/G369.png",
+      "webp": "images_website/new-arrivals/g369-catalogue-2026-v1.webp",
+      "pngSha256": "55ae8dfcc128172e6680a477d1b047b9bc62d5d3ea93bf28357e1cad6f09cbe6",
+      "webpSha256": "42adbfe6672da0817ae9d5f3ebee6310a64d3bb28c292f18f2dc3e8c4a4fcf66",
+      "prompt": "Use case: product-mockup. Square photorealistic NØTE. fragrance catalogue image, matching the established reference1 editorial style. Preserve the own NØTE. bottle on left EXACTLY: clear rectangular bottle, amber liquid, broad tall embossed black cylinder cap, square white paper label reading 'NØTE.' and small 'fragrances'. Own bottle dominant, approx 60% of bottle group. Small companion bottle right, separate independent new design described below. Reference2 shows the source product ONLY for verifying scent color; DO NOT COPY its shape, cap, label, branding or trademarks. No foreign logos, no lettering on companion. Pale travertine platform, big tinted circular halo, botanical shadows, grouped foreground ingredients clear of labels, 3 depth layers. NØTE. Neuheiten V3 natural-color treatment, two or three distinct muted pastel background zones, 25-35% visibly colored background, soft upper-left daylight, subtle complementary bounce, realistic glass and natural textures, moderate contrasts, no neon, no CGI gloss. Theme Crimson Tobacco. Companion: broad low ruby-red glass trapezoid, sloping shoulders, flattened oval ivory stone cap, no cylindrical body, no tall black cap, no black-and-gold label, no gold base ring. Background muted dusty burgundy/sage/pale apricot, champagne halo. Foreground 10 elements grouped: dry tobacco leaves, cinnamon sticks, saffron threads, green apple slice, white peach wedge, tiny incense resin pieces, dark oud chips, patchouli leaves, vanilla pods, amber resin. Warm appetizing natural texture, tasteful space.",
+      "referenceSources": [
+        {
+          "kind": "manufacturer",
+          "url": "https://www.manceraparfums.com/en/oriental/67-red-tobacco.html",
+          "supports": "Normale EDP-Variante, vollständige Duftpyramide und Packshot"
+        }
+      ],
+      "referenceStatus": "reference_verified",
+      "review": {
+        "id": "G369",
+        "supplierId": "M126",
+        "image": "C:/Webserver/OnlineShop-Prod/OnlineShop/output/imagegen/catalogue-completion-2026/G369.png",
+        "imageSha256": "55ae8dfcc128172e6680a477d1b047b9bc62d5d3ea93bf28357e1cad6f09cbe6",
+        "referenceImage": "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/catalogue-completion-2026-10-16/bottle-references/M126-red-tobacco-packshot.jpg",
+        "referenceSha256": "7cfc46f5fb732562a22e582534e285864b5057d8d2cb3457ac9b98595f4e328a",
+        "mode": "note_plus_independent_companion",
+        "verdict": "bestanden",
+        "pngExportVerdict": "gestalterisch_geprueft_exportbereit",
+        "checks": {
+          "noteBottle": "Breiter klarer Rechteckkoerper mit dickem Glasboden und heller Fluessigkeit; breite hohe schwarze Reliefkappe mit Abschlussraendern. Visuell treu zur eigenen NØTE.-Referenz.",
+          "label": "Weisses quadratisches Etikett, korrekt NØTE. mit Ø und Punkt sowie fragrances-Zeile; frei sichtbar und lesbar.",
+          "companionBodyDifference": "Niedriger breiter roter facettierter Rechteckkörper statt hohem rotem Glaszylinder.",
+          "companionCapDifference": "Heller ovaler steinartig marmorierter Verschluss statt schwarzem hohem Ringzylinder.",
+          "distinctiveMarks": "Mancera-Zeichen, schwarzes langes Goldrandetikett und ursprüngliche Gold-/Schwarz-Zylinderproportion fehlen.",
+          "ingredients": "Tabakblätter, Zimt, Safran, grüner Apfel, weißer Pfirsich, Harz, dunkle Holzstücke, Vanilleschoten, Patchouli und Amberdekoration entsprechen der offiziellen Notenliste.",
+          "imageQuality": "Beide Flakons vollstaendig sichtbar, plausible Materialwirkung und Lichtfuehrung, keine wesentlichen sichtbaren Bildfehler."
+        },
+        "requiredCorrections": [],
+        "webpExport": {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/frontend/images_website/new-arrivals/g369-catalogue-2026-v1.webp",
+          "sha256": "42adbfe6672da0817ae9d5f3ebee6310a64d3bb28c292f18f2dc3e8c4a4fcf66",
+          "format": "WEBP",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB",
+          "bytes": 324244,
+          "visuallyInspected": true,
+          "verdict": "bestanden",
+          "pngHashRevalidated": true
+        },
+        "buildWebp": {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/frontend/dist/assets/91870c970263b63f7600.webp",
+          "sha256": "91870c970263b63f7600c6222ad6becfb2ebdd72a96d38ecbbbe09c6347bfb31",
+          "format": "WEBP",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB",
+          "bytes": 194814,
+          "asset": "assets/91870c970263b63f7600.webp",
+          "manifestSha256": "91870c970263b63f7600c6222ad6becfb2ebdd72a96d38ecbbbe09c6347bfb31",
+          "manifestHashMatches": true,
+          "visuallyInspected": true,
+          "verdict": "bestanden"
+        },
+        "finalImageChecks": {
+          "sourceAndBuildViewedIndividually": true,
+          "bottleShapesAndCapsPreserved": true,
+          "noteLabelReadable": true,
+          "compositionAndIngredientsPreserved": true,
+          "unintendedCropOrStretch": false,
+          "visibleBlockingCompressionArtifacts": false,
+          "sourceBuildMeanAbsoluteRgbDifference": [
+            2.158,
+            1.722,
+            2.323
+          ],
+          "observation": "Niedriger roter Begleitkörper mit ovaler heller Steinkappe bleibt klar lesbar; kein schwarzes Markenetikett oder originaler Zylinderverschluss. Tabak, Obst, Gewürze und Holz erhalten."
+        },
+        "finalVerdict": "webp_und_build_gestalterisch_freigegeben"
+      }
+    },
+    {
+      "id": "G370",
+      "supplierId": "M168",
+      "inspiredBy": "Montale Honey Aoud",
+      "publicName": "Honeywood",
+      "png": "output/imagegen/catalogue-completion-2026/G370.png",
+      "webp": "images_website/new-arrivals/g370-catalogue-2026-v1.webp",
+      "pngSha256": "b4bcaabc9cc35a4c1d2756217917b32699bf072b8e0000091d650cb07e1e53c2",
+      "webpSha256": "78a286fca7314d469519175bd96e3803a9a4f6f9d3fd88093f11b2038ba38a65",
+      "prompt": "Use case: product-mockup. Square photorealistic NØTE. fragrance catalogue image, matching the established reference1 editorial style. Preserve the own NØTE. bottle on left EXACTLY: clear rectangular bottle, amber liquid, broad tall embossed black cylinder cap, square white paper label reading 'NØTE.' and small 'fragrances'. Own bottle dominant, approx 60% of bottle group. Small companion bottle right, separate independent new design described below. Reference2 shows the source product ONLY for verifying scent color; DO NOT COPY its shape, cap, label, branding or trademarks. No foreign logos, no lettering on companion. Pale travertine platform, big tinted circular halo, botanical shadows, grouped foreground ingredients clear of labels, 3 depth layers. NØTE. Neuheiten V3 natural-color treatment, two or three distinct muted pastel background zones, 25-35% visibly colored background, soft upper-left daylight, subtle complementary bounce, realistic glass and natural textures, moderate contrasts, no neon, no CGI gloss. Theme Honeywood. Companion: wide squat honey-amber transparent faceted glass bottle, gently tapered angular sides, thick glass base and opaque low dark-walnut rectangular cap. No metal cylinder, no exposed atomizer, no ring, no chain, no hanging tag, no lettering. Background muted ochre/olive/pale mauve with golden-ivory halo. Foreground 9 elements grouped: honeycomb with subtle honey sheen, cinnamon sticks, patchouli leaves, dark oud chips, amber resin, vanilla pods and one pale vanilla blossom, natural tan leather folded accent. Photoreal natural light.",
+      "referenceSources": [
+        {
+          "kind": "manufacturer",
+          "url": "https://www.montaleparfums.com/en/gourmand/203-honey-aoud.html",
+          "supports": "Duftidentität, Duftpyramide und Packshot"
+        }
+      ],
+      "referenceStatus": "reference_verified",
+      "review": {
+        "id": "G370",
+        "supplierId": "M168",
+        "image": "C:/Webserver/OnlineShop-Prod/OnlineShop/output/imagegen/catalogue-completion-2026/G370.png",
+        "imageSha256": "b4bcaabc9cc35a4c1d2756217917b32699bf072b8e0000091d650cb07e1e53c2",
+        "referenceImage": "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/catalogue-completion-2026-10-16/bottle-references/M168-honey-aoud.jpg",
+        "referenceSha256": "33b18babce26653292041e01e9f0483fb9202cb79e5dce0a7b1db40993d5cb7c",
+        "mode": "note_plus_independent_companion",
+        "verdict": "bestanden",
+        "pngExportVerdict": "gestalterisch_geprueft_exportbereit",
+        "checks": {
+          "noteBottle": "Breiter klarer Rechteckkoerper mit dickem Glasboden und heller Fluessigkeit; breite hohe schwarze Reliefkappe mit Abschlussraendern. Visuell treu zur eigenen NØTE.-Referenz.",
+          "label": "Weisses quadratisches Etikett, korrekt NØTE. mit Ø und Punkt sowie fragrances-Zeile; frei sichtbar und lesbar.",
+          "companionBodyDifference": "Breiter niedriger facettierter goldamberfarbener Glasflakon statt hohem orangegoldenem Metallzylinder.",
+          "companionCapDifference": "Breiter horizontaler Holzblockverschluss statt freiliegender goldener Pumpe mit Sicherungsbügel.",
+          "distinctiveMarks": "Kein Montale-Monogramm, kein Sternquadrat, kein Bügel, kein Anhänger und keine Fremdschrift.",
+          "ingredients": "Honigwabe, Zimt, dunkles Oud-Holz, Patchouliblätter, Vanilleschoten, Leder und Amberdekoration passen zu den belegten Noten. Die helle Blüte wird nur als Vanillebegleitung beurteilt, nicht als weitere belegte Blütennote.",
+          "imageQuality": "Beide Flakons vollstaendig sichtbar, plausible Materialwirkung und Lichtfuehrung, keine wesentlichen sichtbaren Bildfehler."
+        },
+        "requiredCorrections": [],
+        "webpExport": {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/frontend/images_website/new-arrivals/g370-catalogue-2026-v1.webp",
+          "sha256": "78a286fca7314d469519175bd96e3803a9a4f6f9d3fd88093f11b2038ba38a65",
+          "format": "WEBP",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB",
+          "bytes": 309016,
+          "visuallyInspected": true,
+          "verdict": "bestanden",
+          "pngHashRevalidated": true
+        },
+        "buildWebp": {
+          "path": "C:/Webserver/OnlineShop-Prod/OnlineShop/frontend/dist/assets/6f218187ca0afffb6778.webp",
+          "sha256": "6f218187ca0afffb6778ababe0fafd1b9079076b453a774bf37f6cab0b54b22a",
+          "format": "WEBP",
+          "width": 1254,
+          "height": 1254,
+          "mode": "RGB",
+          "bytes": 181982,
+          "asset": "assets/6f218187ca0afffb6778.webp",
+          "manifestSha256": "6f218187ca0afffb6778ababe0fafd1b9079076b453a774bf37f6cab0b54b22a",
+          "manifestHashMatches": true,
+          "visuallyInspected": true,
+          "verdict": "bestanden"
+        },
+        "finalImageChecks": {
+          "sourceAndBuildViewedIndividually": true,
+          "bottleShapesAndCapsPreserved": true,
+          "noteLabelReadable": true,
+          "compositionAndIngredientsPreserved": true,
+          "unintendedCropOrStretch": false,
+          "visibleBlockingCompressionArtifacts": false,
+          "sourceBuildMeanAbsoluteRgbDifference": [
+            2.051,
+            1.717,
+            2.361
+          ],
+          "observation": "Goldener facettierter Glasbegleiter mit Holzblockkappe bleibt ohne Metallzylinder, Sicherungsstange oder Markenanhänger. Honigwabe, Zimt, Holz und Vanille erhalten."
+        },
+        "finalVerdict": "webp_und_build_gestalterisch_freigegeben"
+      }
+    }
+  ],
+  "finalExportDecision": {
+    "status": "alle_neun_webps_und_build_webps_gestalterisch_freigegeben",
+    "ids": [
+      "G362",
+      "G363",
+      "G364",
+      "G365",
+      "G366",
+      "G367",
+      "G368",
+      "G369",
+      "G370"
+    ],
+    "sourceWebpCount": 9,
+    "buildWebpCount": 9,
+    "sourceAndBuildResolution": [
+      1254,
+      1254
+    ],
+    "allBuildHashesMatchManifest": true,
+    "manifestPath": "C:/Webserver/OnlineShop-Prod/OnlineShop/tmp/catalogue-completion-2026-10-16/built-images.json",
+    "manifestSha256": "bfe868d0054b033f9d573330e5d34313993f23f4412e12adf253eba1ebbe2a7d",
+    "method": "Individual visual inspection of all 18 local WebP files; full image decoding, dimensions and SHA-256 checked. Approved PNG hashes revalidated.",
+    "limitations": "Review covers the supplied local build assets. No independent browser or network verification of delivery. Existing botanical and supplier-variant observations remain applicable. No legal or percentage clearance.",
+    "requiredCorrections": []
+  }
+}

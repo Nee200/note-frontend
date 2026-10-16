@@ -129,126 +129,51 @@ function renderProductIdMappingResult(payload, errorText) {
     resultEl.innerHTML = buildProductIdMappingResultHtml(payload, errorText);
 }
 
+function mappingStatusHtml(payload) {
+    const color = payload.confirmed === true ? '#166547' : '#855900';
+    return `<strong style="color:${color};">${escapeHtml(payload.statusLabel || 'Noch nicht abgeglichen')}</strong>`;
+}
+
 function buildProductIdMappingResultHtml(payload, errorText) {
-    if (errorText) {
-        return `<div style="border:1px solid #f1d2d2;border-radius:8px;background:#fdecea;padding:0.65rem 0.75rem;color:#b03a2e;font-size:0.86rem;">${escapeHtml(errorText)}</div>`;
-    }
-
-    if (!payload) {
-        return '';
-    }
-
-    const warnings = Array.isArray(payload.warnings) ? payload.warnings : [];
-    const warningHtml = warnings.length
-        ? `<div style="margin-top:0.55rem;">
-            ${warnings.map((warning) => `<div style="border:1px solid #f6e3b2;border-radius:8px;background:#fff8e8;padding:0.5rem 0.65rem;color:#9a6a00;font-size:0.82rem;margin-bottom:0.35rem;">${escapeHtml(warning)}</div>`).join('')}
-          </div>`
-        : '';
-
-    const product = payload.product || null;
-    const supplierIdValue = payload.supplierId || '-';
-    const supplierBadgeSingle = supplierIdValue !== '-'
-        ? `<span style="display:inline-flex;align-items:center;justify-content:center;min-width:74px;padding:0.2rem 0.55rem;border-radius:999px;background:transparent;color:#b8860b;font-weight:900;letter-spacing:0.04em;border:1px solid #d9b348;">${escapeHtml(supplierIdValue)}</span>`
-        : '<span style="color:#6b7280;font-weight:700;">-</span>';
-    const productHtml = product
-        ? `<div style="margin-top:0.55rem;border-top:1px solid #ececec;padding-top:0.55rem;">
-            <div style="font-size:0.79rem;color:#777;text-transform:uppercase;letter-spacing:0.08em;">Produkt</div>
-            <div style="font-size:0.9rem;color:#2d3436;font-weight:600;">${escapeHtml(product.id)} - ${escapeHtml(product.name || '')}</div>
-            <div style="font-size:0.83rem;color:#555;margin-top:0.15rem;">Inspired by: ${escapeHtml(product.inspiredBy || '-')}</div>
-          </div>`
-        : '';
-
-    return `
-        <div style="border:1px solid #dde7ff;border-radius:10px;background:#f7faff;padding:0.75rem 0.8rem;">
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0.55rem;">
-                <div style="border:1px solid #e5ecff;border-radius:8px;background:#fff;padding:0.55rem 0.6rem;">
-                    <div style="font-size:0.76rem;color:#777;text-transform:uppercase;letter-spacing:0.08em;">Eingabe</div>
-                    <div style="font-size:0.93rem;color:#111;font-weight:700;">${escapeHtml(payload.query || '-')}</div>
-                </div>
-                <div style="border:1px solid #e5ecff;border-radius:8px;background:#fff;padding:0.55rem 0.6rem;">
-                    <div style="font-size:0.76rem;color:#777;text-transform:uppercase;letter-spacing:0.08em;">Interne ID</div>
-                    <div style="font-size:0.93rem;color:#111;font-weight:700;">${escapeHtml(payload.internalId || '-')}</div>
-                </div>
-                <div style="border:1px solid #e5ecff;border-radius:8px;background:#fff;padding:0.55rem 0.6rem;">
-                    <div style="font-size:0.76rem;color:#777;text-transform:uppercase;letter-spacing:0.08em;">Listen-ID (Anhang)</div>
-                    <div style="font-size:0.93rem;color:#111;font-weight:700;">${supplierBadgeSingle}</div>
-                </div>
-            </div>
-            ${productHtml}
-            ${warningHtml}
+    if (errorText) return `<div role="alert" style="color:#b03a2e;">${escapeHtml(errorText)}</div>`;
+    if (!payload) return '';
+    const product = payload.product;
+    const warnings = (payload.warnings || []).map(text => `<p style="margin:0.5rem 0;color:#855900;">${escapeHtml(text)}</p>`).join('');
+    const candidates = !product && payload.candidates?.length ? `<p>Mögliche / frühere Shop-Einträge: ${payload.candidates.map(item => escapeHtml(item.id + ' – ' + item.inspiredBy)).join('; ')}</p>` : '';
+    const source = payload.supplierReference;
+    return `<div style="border:1px solid #d9e3de;border-radius:10px;background:#f7faf8;padding:1rem;">
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin-bottom:0.8rem;">
+            <span>Eingabe <strong>${escapeHtml(payload.query)}</strong></span>
+            <span>Shop <strong style="font-size:1.2rem;">${escapeHtml(payload.internalId || '–')}</strong></span>
+            <span>↔ Händler <strong style="font-size:1.2rem;">${escapeHtml(payload.supplierId || '–')}</strong></span>
         </div>
-    `;
+        ${mappingStatusHtml(payload)} <span style="color:#666;font-size:0.8rem;"> · Liste ${escapeHtml(payload.version || '–')}</span>
+        ${product ? `<p style="margin:0.6rem 0 0.2rem;"><strong>${escapeHtml(product.name || product.id)}</strong><br>Originalreferenz im Shop: ${escapeHtml(product.inspiredBy || '–')}</p>` : ''}
+        ${source ? `<p style="margin:0.2rem 0;">Händlerzeile: ${escapeHtml(source.inspiredBy || '(leer)')} · Seite ${escapeHtml(String(source.page || '–'))}</p>` : ''}
+        ${candidates}${warnings}
+    </div>`;
 }
 
 function renderBatchProductIdMappingResults(results) {
     const resultEl = document.getElementById('id-mapping-result');
     if (!resultEl) return;
-    if (!Array.isArray(results) || !results.length) {
-        resultEl.innerHTML = '';
-        return;
-    }
-    const okCount = results.filter(entry => !entry.error && entry.payload && entry.payload.supplierId).length;
-    const failCount = results.length - okCount;
-
-    const rowsHtml = results.map((entry) => {
-        const payload = entry.payload || {};
-        const product = payload.product || {};
-        const supplierId = payload.supplierId || '-';
-        const confidence = Number(payload.confidence || 0);
-        const confidenceLabel = confidence > 0
-            ? `${Math.round(confidence * 100)}%`
-            : '-';
-        const statusColor = entry.error
-            ? '#b03a2e'
-            : (supplierId === '-' ? '#9a6a00' : '#0f8f75');
-        const statusText = entry.error
-            ? 'Fehler'
-            : (supplierId === '-' ? 'Ohne Match' : 'OK');
-        const supplierBadge = supplierId !== '-'
-            ? `<span style="display:inline-flex;align-items:center;justify-content:center;min-width:62px;padding:0.18rem 0.5rem;border-radius:999px;background:transparent;color:#b8860b;font-weight:900;letter-spacing:0.04em;border:1px solid #d9b348;">${escapeHtml(supplierId)}</span>`
-            : `<span style="display:inline-flex;align-items:center;justify-content:center;min-width:62px;padding:0.18rem 0.5rem;border-radius:999px;background:#f3f4f6;color:#6b7280;font-weight:700;">-</span>`;
-        const warningText = Array.isArray(payload.warnings) && payload.warnings.length
-            ? payload.warnings.join(' | ')
-            : '';
-
+    if (!Array.isArray(results) || !results.length) { resultEl.innerHTML = ''; return; }
+    const okCount = results.filter(entry => !entry.error && entry.payload?.confirmed === true).length;
+    const rows = results.map(entry => {
+        const p = entry.payload || {}, product = p.product || {};
         return `<tr>
-            <td style="padding:0.55rem 0.5rem;border-bottom:1px solid #ececec;font-weight:700;">${escapeHtml(entry.query || '-')}</td>
-            <td style="padding:0.55rem 0.5rem;border-bottom:1px solid #ececec;">${escapeHtml(payload.internalId || '-')}</td>
-            <td style="padding:0.55rem 0.5rem;border-bottom:1px solid #ececec;">${supplierBadge}</td>
-            <td style="padding:0.55rem 0.5rem;border-bottom:1px solid #ececec;">${escapeHtml(product.name || '-')}</td>
-            <td style="padding:0.55rem 0.5rem;border-bottom:1px solid #ececec;">${escapeHtml(product.inspiredBy || '-')}</td>
-            <td style="padding:0.55rem 0.5rem;border-bottom:1px solid #ececec;">${escapeHtml(confidenceLabel)}</td>
-            <td style="padding:0.55rem 0.5rem;border-bottom:1px solid #ececec;color:${statusColor};font-weight:700;">${statusText}</td>
-            <td style="padding:0.55rem 0.5rem;border-bottom:1px solid #ececec;color:#666;">${escapeHtml(entry.error || warningText || '-')}</td>
+            <td>${escapeHtml(entry.query || '–')}</td><td>${escapeHtml(p.internalId || '–')}</td><td>${escapeHtml(p.supplierId || '–')}</td>
+            <td>${escapeHtml(product.name || '–')}<br><small>${escapeHtml(product.inspiredBy || '')}</small></td>
+            <td>${escapeHtml(p.supplierReference?.inspiredBy || '–')}</td>
+            <td>${entry.error ? 'Fehler' : mappingStatusHtml(p)}</td>
+            <td>${escapeHtml(entry.error || (p.warnings || []).join(' ') || '–')}</td>
         </tr>`;
     }).join('');
-
-    resultEl.innerHTML = `
-        <div style="border:1px solid #dde7ff;border-radius:10px;background:#f7faff;padding:0.75rem 0.8rem;">
-            <div style="display:flex;gap:0.45rem;flex-wrap:wrap;margin-bottom:0.6rem;">
-                <span style="display:inline-flex;align-items:center;background:#fff;border:1px solid #dfe6e9;border-radius:999px;padding:0.2rem 0.6rem;font-size:0.78rem;color:#2d3436;">Anfragen: ${results.length}</span>
-                <span style="display:inline-flex;align-items:center;background:#e8f8f5;border:1px solid #cfeee7;border-radius:999px;padding:0.2rem 0.6rem;font-size:0.78rem;color:#0f8f75;">OK: ${okCount}</span>
-                <span style="display:inline-flex;align-items:center;background:#fff6e6;border:1px solid #f6e3b2;border-radius:999px;padding:0.2rem 0.6rem;font-size:0.78rem;color:#9a6a00;">Offen/Fehler: ${failCount}</span>
-            </div>
-            <div style="overflow:auto;border:1px solid #e5ecff;border-radius:8px;background:#fff;">
-                <table style="width:100%;min-width:980px;border-collapse:collapse;font-size:0.83rem;">
-                    <thead>
-                        <tr style="background:#f8fafc;color:#666;text-transform:uppercase;letter-spacing:0.06em;font-size:0.72rem;">
-                            <th style="text-align:left;padding:0.5rem;border-bottom:1px solid #e8eef8;">Eingabe</th>
-                            <th style="text-align:left;padding:0.5rem;border-bottom:1px solid #e8eef8;">Interne ID</th>
-                            <th style="text-align:left;padding:0.5rem;border-bottom:1px solid #e8eef8;">Listen-ID</th>
-                            <th style="text-align:left;padding:0.5rem;border-bottom:1px solid #e8eef8;">Produkt</th>
-                            <th style="text-align:left;padding:0.5rem;border-bottom:1px solid #e8eef8;">Inspired By</th>
-                            <th style="text-align:left;padding:0.5rem;border-bottom:1px solid #e8eef8;">Treffer</th>
-                            <th style="text-align:left;padding:0.5rem;border-bottom:1px solid #e8eef8;">Status</th>
-                            <th style="text-align:left;padding:0.5rem;border-bottom:1px solid #e8eef8;">Hinweis</th>
-                        </tr>
-                    </thead>
-                    <tbody>${rowsHtml}</tbody>
-                </table>
-            </div>
-        </div>
-    `;
+    resultEl.innerHTML = `<div><p>${results.length} Anfragen · <strong>${okCount} abgeglichen</strong> · ${results.length-okCount} mit Hinweis / offen</p>
+        <div style="overflow:auto;"><table class="id-mapping-table" style="width:100%;min-width:900px;border-collapse:collapse;font-size:0.85rem;">
+            <thead><tr><th>Eingabe</th><th>Shop G/L</th><th>Händler M/W</th><th>Shop / Originalreferenz</th><th>Händlerbezeichnung</th><th>Status</th><th>Hinweis</th></tr></thead>
+            <tbody>${rows}</tbody>
+        </table></div></div>`;
 }
 
 async function lookupProductIdMapping() {
@@ -325,16 +250,14 @@ function initProductIdMappingTool() {
 function renderSupplierCatalogList(listEl, items) {
     if (!listEl) return;
     const rows = Array.isArray(items) ? items : [];
-    if (!rows.length) {
-        listEl.innerHTML = '<div style="font-size:0.83rem;color:#888;">Keine Eintraege geladen.</div>';
-        return;
-    }
-    listEl.innerHTML = rows.map((item) => {
-        return `<div style="display:grid;grid-template-columns:72px 1fr;gap:0.6rem;padding:0.35rem 0;border-bottom:1px solid #f1f1f1;">
-            <div style="font-weight:700;color:#1f2937;">${escapeHtml(item.supplierId || '-')}</div>
-            <div style="color:#374151;">${escapeHtml(item.inspiredBy || '-')}</div>
-        </div>`;
-    }).join('');
+    if (!rows.length) { listEl.innerHTML = '<p>Keine Einträge geladen.</p>'; return; }
+    listEl.innerHTML = rows.map(item => `<div data-supplier-id="${escapeHtml(item.supplierId)}" style="display:grid;grid-template-columns:62px 1fr;gap:0.6rem;padding:0.55rem 0;border-bottom:1px solid #e9eeeb;">
+        <strong>${escapeHtml(item.supplierId)}</strong>
+        <div>${escapeHtml(item.inspiredBy || '(leere Händlerzeile)')}<br>
+            <span>Shop: <strong>${escapeHtml(item.internalId || '–')}</strong> · ${mappingStatusHtml(item)}</span>
+            ${(item.warnings || []).length ? `<div style="color:#855900;font-size:0.78rem;margin-top:0.2rem;">${escapeHtml(item.warnings.join(' '))}</div>` : ''}
+        </div>
+    </div>`).join('');
 }
 
 async function loadSupplierCatalogLists() {
@@ -362,6 +285,8 @@ async function loadSupplierCatalogLists() {
         const men = Array.isArray(data.men) ? data.men : [];
         const women = Array.isArray(data.women) ? data.women : [];
 
+        const versionEl = document.getElementById('supplier-catalog-version');
+        if (versionEl) versionEl.textContent = `Händlerliste ${data.version || '–'} · Abgleich ${data.checkedAt || '–'}`;
         menCountEl.textContent = `(${men.length})`;
         womenCountEl.textContent = `(${women.length})`;
         renderSupplierCatalogList(menListEl, men);

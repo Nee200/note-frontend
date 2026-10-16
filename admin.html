@@ -680,6 +680,7 @@
             }
         }
     </style>
+<style>.id-mapping-table th,.id-mapping-table td {padding:0.6rem;text-align:left;border-bottom:1px solid #dfe6e2;vertical-align:top}.id-mapping-table th {background:#f1f5f2}</style>
 </head>
 
 <body>
@@ -1222,19 +1223,20 @@
             <div id="tab-idmapping" style="display:none;">
                 <div class="header">
                     <h2>ID-Umrechner</h2>
-                    <span style="font-size:0.82rem;color:#888;">Interne IDs (G/L) mit Listen-IDs (M/W) vergleichen</span>
+                    <span style="font-size:0.82rem;color:#888;">Shop G/L ↔ Händler M/W · Zuordnung nach Originalduft</span>
                 </div>
                 <div class="card" id="id-mapping-card" style="margin-bottom:1.2rem;">
                     <div style="margin-top:0.1rem;display:flex;gap:0.55rem;flex-wrap:wrap;">
-                        <input id="id-mapping-input" type="text" placeholder="z.B. G122 oder mehrere: G11, G25, G225"
+                        <input id="id-mapping-input" type="text" placeholder="z.B. G1, M155, M1, W4"
                             style="flex:1;min-width:220px;padding:0.62rem 0.7rem;border:1px solid #ccc;border-radius:6px;font-size:0.9rem;text-transform:uppercase;">
                         <button class="btn" style="width:auto;padding:0.6rem 1rem;" onclick="lookupProductIdMapping()">
                             <i class="fas fa-search"></i> ID suchen
                         </button>
                     </div>
-                    <div id="id-mapping-result" style="margin-top:0.8rem;"></div>
+                    <p style="font-size:0.83rem;color:#666;">Gleiche Zahlen bedeuten nicht denselben Duft. Einzelne oder mehrere IDs mit Komma eingeben. Offene Varianten und leere Händlerzeilen werden gesondert angezeigt.</p>
+                    <div id="id-mapping-result" style="margin-top:0.8rem;" aria-live="polite"></div>
                     <div style="margin-top:1rem;border-top:1px solid #ececec;padding-top:0.9rem;">
-                        <div style="font-size:0.8rem;color:#777;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.55rem;">Referenzliste</div>
+                        <div style="font-size:0.8rem;color:#777;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.55rem;" id="supplier-catalog-version">Händlerliste 10.26</div>
                         <details id="supplier-men-details" style="margin-bottom:0.55rem;">
                             <summary style="cursor:pointer;font-weight:600;color:#2d3436;">Herrenliste (M...) <span id="supplier-men-count" style="font-weight:400;color:#666;"></span></summary>
                             <div id="supplier-men-list" style="margin-top:0.5rem;max-height:260px;overflow:auto;border:1px solid #e6e6e6;border-radius:8px;padding:0.6rem;background:#fff;"></div>
