@@ -412,25 +412,19 @@ function scrollToSearchResultsIfNeeded(query) {
     const productGridEl = document.getElementById('product-grid');
     if (!productGridEl) return;
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const navbar = document.querySelector('.navbar');
     const topBanner = document.querySelector('.top-banner');
     const offset = (navbar ? navbar.getBoundingClientRect().height : 0)
         + (topBanner ? topBanner.getBoundingClientRect().height : 0)
         + 110;
 
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            const targetTop = Math.max(
-                productGridEl.getBoundingClientRect().top + window.pageYOffset - offset,
-                0
-            );
-            window.scrollTo({
-                top: targetTop,
-                behavior: prefersReducedMotion ? 'auto' : 'smooth'
-            });
-        });
-    });
+    // Position newly loaded results immediately. A delayed smooth scroll can
+    // move the header between pointer-down and click onto a different link.
+    const targetTop = Math.max(
+        productGridEl.getBoundingClientRect().top + window.pageYOffset - offset,
+        0
+    );
+    window.scrollTo({ top: targetTop, behavior: 'instant' });
 }
 
 async function init() {
