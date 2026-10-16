@@ -239,7 +239,7 @@
             existingItem.name = selection.size === 50
                 ? "NØTE. Herbstbundle · 3 Düfte + Gratis-Geschenk"
                 : "NØTE. Herbstbundle · 3 Düfte";
-            existingItem.image = "images_website/herbstbundle/note-autumn-trio-v2.webp";
+            existingItem.image = "images_website/herbstbundle/note-autumn-trio-v3.webp";
             if (selection.size === 50) {
                 existingItem.includesFreeGift = true;
                 existingItem.freeGiftName = "Gratis-Geschenk";
@@ -256,7 +256,7 @@
                 originalPrice: selection.originalDisplayPrice,
                 size: selection.size,
                 quantity: 1,
-                image: "images_website/herbstbundle/note-autumn-trio-v2.webp",
+                image: "images_website/herbstbundle/note-autumn-trio-v3.webp",
                 bundleSelections: selectedIds,
                 bundleNames: selectedProducts.map((product) => `${product.code} ${product.displayName}`),
                 includesFreeGift: selection.size === 50,

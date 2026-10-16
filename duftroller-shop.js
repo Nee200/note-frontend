@@ -175,9 +175,47 @@
         load();
     }
 
+    function initScrollReveal() {
+        const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        if (motion.matches || !('IntersectionObserver' in window) || !Element.prototype.animate) return;
+
+        // Animate on entry only; content stays visible if JavaScript or motion is unavailable.
+        const animations = new Set();
+        const observer = new IntersectionObserver(entries => {
+            for (const entry of entries) {
+                if (!entry.isIntersecting) continue;
+                observer.unobserve(entry.target);
+                if (motion.matches || entry.target.contains(document.activeElement)) continue;
+                const animation = entry.target.animate([
+                    { opacity: 0, transform: 'translateY(11.5px)' },
+                    { opacity: 1, transform: 'translateY(0)' }
+                ], { duration: 518, easing: 'cubic-bezier(.2,.7,.2,1)' });
+                animations.add(animation);
+                animation.finished.then(() => animations.delete(animation), () => animations.delete(animation));
+            }
+        }, { rootMargin: '0px 0px 24px 0px', threshold: 0 });
+
+        document.querySelectorAll([
+            '.roller-format-comparison', '.roller-collection-heading', '.roller-portrait',
+            '.roller-reviews', '.roller-recommendations', '.roller-shared-comparison > .comparison-title',
+            '.roller-shared-comparison > .comparison-table-wrapper', '.roller-shared-comparison .stat-card',
+            '.roller-shared-faq'
+        ].join(',')).forEach(element => {
+            // Leave the first view and restored scroll positions immediately readable.
+            if (element.getBoundingClientRect().top >= window.innerHeight) observer.observe(element);
+        });
+        motion.addEventListener('change', () => {
+            if (!motion.matches) return;
+            observer.disconnect();
+            animations.forEach(animation => animation.cancel());
+            animations.clear();
+        });
+    }
+
     function init() {
         initTimeline();
         initRecommendations();
+        initScrollReveal();
         // Long-lived tabs should not continue advertising yesterday's dates.
         window.addEventListener('focus', updateTimeline);
         document.addEventListener('visibilitychange', () => { if (!document.hidden) updateTimeline(); });

@@ -51,7 +51,7 @@
 .roller-collection{margin:80px 0 0;padding:58px 0 0;border-top:1px solid #e4dccf}
 .roller-collection-heading{text-align:center;margin-bottom:58px}
 .roller-collection h2{font:500 clamp(32px,3.6vw,48px)/1.15 var(--serif);margin:0 0 18px;letter-spacing:-.02em}
-.roller-collection h2 em{font-weight:500;color:#796135}
+.roller-heading-accent{font-style:normal;font-weight:500;color:#796135}
 .roller-collection-heading>p{font:400 14px/1.8 var(--sans);color:#6b645b;margin:0}
 .roller-portraits{display:grid;grid-template-columns:minmax(0,1fr);gap:80px}
 .roller-portrait{width:min(100%,1060px);min-width:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.92fr);align-items:center;gap:clamp(32px,6vw,92px)}
@@ -66,8 +66,6 @@
 .roller-portrait-copy>p:not(.roller-format){font:400 15px/1.9 var(--sans);color:#625c54;margin:0 0 30px;max-width:32em}
 .roller-portrait-footer{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:center}
 .roller-portrait-price{color:#4b3e2c;font:500 22px/1.2 var(--serif);white-space:nowrap}
-.roller-portrait-footer>a{display:inline-flex;justify-content:center;align-items:center;min-height:44px;padding:8px 0;border-bottom:1px solid #a89678;color:#27231d;font:600 11px/1.5 var(--sans);letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:color .18s,border-color .18s}
-.roller-portrait-footer>a:hover{color:#796135;border-color:#27231d}
 .roller-reviews{max-width:820px;margin:64px auto 0;padding-top:34px;border-top:1px solid #e4dccf}
 .roller-reviews h2{font:500 clamp(25px,3vw,34px)/1.2 var(--serif);margin:10px 0 20px}
 .roller-reviews p{font-size:13px;line-height:1.6;color:#6b645b}
@@ -87,16 +85,14 @@
 .duftroller-page .empty-state button{display:block;min-height:44px;margin:12px auto 0;padding:8px 18px;border:1px solid #8e7849;border-radius:5px;background:#fff;color:#3d3527;cursor:pointer}
 @media(min-width:1281px) and (max-width:1600px){
  .duftroller-page .site-header{gap:24px;padding-inline:32px}
- .duftroller-page .main-nav{gap:20px}
- .duftroller-page .main-nav a{font-size:12px;letter-spacing:.08em}
  .duftroller-page .header-actions{gap:16px}
 }
 @media(max-width:900px){
  .duftroller-page .roller-page{padding-top:18px}
  .roller-breadcrumb{max-width:620px;margin:0 auto 18px}
- .duftroller-page .product-layout{gap:26px}
- .duftroller-page .product-info{max-width:620px}
- .duftroller-page .gallery{width:100%;max-width:620px;margin:0 auto}
+ .duftroller-page .product-layout{gap:26px;grid-template-columns:minmax(0,1fr)}
+ .duftroller-page .product-info{max-width:620px;min-width:0}
+ .duftroller-page .gallery{width:100%;max-width:620px;min-width:0;margin:0 auto}
  .duftroller-page .product-left>.accordions{width:100%;max-width:620px}
  .roller-collection{margin-top:52px;padding-top:34px}
  .roller-portraits{gap:60px}
@@ -108,9 +104,9 @@
 @media(max-width:620px){
  .duftroller-page .pre-footer-band{min-height:180px}
  .duftroller-page .page{width:calc(100% - 32px)}
- .duftroller-page .gallery-stage{gap:10px}
- .duftroller-page .gallery-thumbnails{display:flex;justify-content:center;gap:9px;padding:3px 1px}
- .duftroller-page .gallery-thumb{flex:0 0 56px;height:56px}
+ .duftroller-page .gallery-stage{gap:10px;grid-template-columns:minmax(0,1fr)}
+ .duftroller-page .gallery-thumbnails{display:grid;grid-template-columns:repeat(5,minmax(0,56px));justify-content:center;gap:9px;padding:3px 1px;min-width:0}
+ .duftroller-page .gallery-thumb{min-width:0;width:100%;height:auto}
  .duftroller-page .gallery-thumb img{width:100%;height:100%;object-fit:cover}
  .roller-gallery-size{left:12px;top:12px;min-width:50px;min-height:30px;padding:5px 8px;font-size:18px}
  .duftroller-page:has(.gallery-thumb.is-active[data-gallery-state="exploded"]) .gallery-control{top:59%}
@@ -142,10 +138,9 @@
  .roller-portrait-copy>p:not(.roller-format){font-size:14px;line-height:1.75;margin-bottom:22px}
  .roller-portrait-footer{gap:13px 19px}
  .roller-portrait-price{font-size:21px}
- .roller-portrait-footer>a{font-size:10px}
  .roller-reviews{margin-top:42px;padding-top:28px}
 }
 @media(max-width:360px){
  .roller-gallery-size{left:10px;top:10px;min-width:47px;min-height:28px;padding:5px 7px;font-size:17px}
 }
-@media(prefers-reduced-motion:reduce){.roller-size-card,.roller-portrait-footer>a{transition:none}}
+@media(prefers-reduced-motion:reduce){.roller-size-card{transition:none}}

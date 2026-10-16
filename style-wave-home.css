@@ -3700,17 +3700,19 @@ footer a[href="suche.html"] {
     }
 }
 
-/* Keep the new Autoduft launch visible in the primary navigation. */
-#main-navigation > a[href="autoduft.html"] {
+/* Mark Duftroller as the new addition inside the fragrance menu. */
+#main-navigation .nav-fragrances-panel a[href="duftroller.html"] {
     position: relative;
+    padding-right: 52px;
 }
 
-#main-navigation > a[href="autoduft.html"]::before {
+#main-navigation .nav-fragrances-panel a[href="duftroller.html"]::before,
+#main-navigation .nav-fragrances > summary::before {
     content: "NEW";
     position: absolute;
     z-index: 2;
-    top: -7px;
-    left: 50%;
+    top: 50%;
+    right: 12px;
     padding: 3px 5px 2px;
     border: 1px solid rgba(255, 255, 255, 0.34);
     border-radius: 999px;
@@ -3723,15 +3725,119 @@ footer a[href="suche.html"] {
     line-height: 1;
     letter-spacing: 0.08em;
     pointer-events: none;
-    transform: translate(-50%, -50%);
+    transform: translateY(-50%);
 }
 
-@media (max-width: 900px) {
-    #main-navigation > a[href="autoduft.html"]::before {
+/* Shared fragrance disclosure: compact desktop dropdown, inline mobile category. */
+@media (min-width: 1281px) {
+    .site-header .main-nav {
+        justify-content: center;
+        flex-wrap: nowrap;
+        gap: 32px;
+        padding-left: 0;
+    }
+}
+.nav-fragrances { position: relative; }
+.nav-fragrances > summary {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 0;
+    color: #4f4840;
+    font: 600 0.85rem/1.1 Arial, sans-serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    list-style: none;
+    cursor: pointer;
+}
+#main-navigation .nav-fragrances > summary::before {
+    top: -7px;
+    left: calc(50% - 11px);
+    right: auto;
+    transform: translateX(-50%);
+}
+.footer-tone-header .nav-fragrances > summary { color: #f6f3ee; }
+.nav-fragrances > summary::-webkit-details-marker { display: none; }
+.nav-fragrances-chevron {
+    flex: 0 0 14px;
+    opacity: 0.85;
+    transition: transform 240ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.nav-fragrances[open] .nav-fragrances-chevron { transform: rotate(180deg); }
+.nav-fragrances[open] > .nav-fragrances-panel {
+    animation: fragrance-menu-reveal 240ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@keyframes fragrance-menu-reveal {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .nav-fragrances-chevron { transition: none; }
+    .nav-fragrances[open] > .nav-fragrances-panel { animation: none; }
+}
+.nav-fragrances > summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 5px; }
+.nav-fragrances-panel {
+    position: absolute;
+    z-index: 30;
+    top: calc(100% + 16px);
+    left: -22px;
+    width: 220px;
+    padding: 10px;
+    border: 1px solid rgba(200, 164, 61, 0.3);
+    border-radius: 8px;
+    background: #1b1b19;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+}
+.site-header .nav-fragrances-panel a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 12px;
+    border: 0;
+    border-radius: 4px;
+    color: #f6f3ee;
+    font: 500 14px/1.4 Arial, sans-serif;
+    letter-spacing: 0.02em;
+    text-align: left;
+    text-transform: none;
+}
+.site-header .nav-fragrances-panel a::after { display: none; }
+.site-header .nav-fragrances-panel a:hover,
+.site-header .nav-fragrances-panel a:focus-visible { background: rgba(200, 164, 61, 0.13); color: #e7ce88; }
+.site-header .nav-fragrances-panel a[aria-current="page"] { color: #e7ce88; }
+@media (max-width: 1280px) {
+    #main-navigation .nav-fragrances > summary::before {
         top: 50%;
-        right: 10px;
         left: auto;
+        right: 38px;
         transform: translateY(-50%);
+    }
+    .site-header .main-nav { grid-template-columns: 1fr; align-items: stretch; }
+    .site-header .main-nav.is-open { max-height: calc(100dvh - 150px); overflow-y: auto; }
+    .site-header .main-nav > a,
+    .site-header .nav-fragrances > summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 44px;
+        padding: 12px 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        color: #f6f3ee;
+        font-size: 12.5px;
+        font-weight: 600;
+        text-align: left;
+    }
+    .nav-fragrances-panel {
+        position: static;
+        width: auto;
+        margin: 4px 0 8px 10px;
+        padding: 0 0 0 10px;
+        border: 0;
+        border-left: 1px solid rgba(200, 164, 61, 0.45);
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
     }
 }
 /* Shared withdrawal entry, also on pages without the legacy stylesheet. */

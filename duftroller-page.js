@@ -2,13 +2,12 @@
     'use strict';
     const VARIANTS = Object.freeze({6:{price:12.50,cap:'Weißer Deckel'},10:{price:16,cap:'Schwarzer Deckel'},14:{price:19.50,cap:'Goldfarbener Deckel'}});
     const money = value => new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR'}).format(value);
-    const image = size => `images_website/duftroller/note-duftroller-${size}-closed-v1.webp`;
+    const image = size => `images_website/duftroller/note-duftroller-${size}-closed-v3.webp`;
     const button = document.getElementById('add-btn'), status = document.getElementById('roller-selection-status');
-    let size = '6', scent = null, catalog = null, available = false, failed = false, pending;
+    let size = '10', scent = null, catalog = null, available = false, failed = false, pending;
     let scrollState, toastTimer, gallery;
     let saved;
     try { saved = JSON.parse(window.NoteStore.session.getItem('note_duftroller_selection') || 'null'); } catch {}
-    if (Object.hasOwn(VARIANTS, String(saved?.size))) size = String(saved.size);
     let pendingScentId = typeof saved?.scentId === 'string' ? saved.scentId : '';
     const locks = new Set(), inertState = new Map();
     function lock(owner) {
@@ -84,6 +83,7 @@
         render();
     }
     document.querySelectorAll('[name="roller-size"]').forEach(input => input.addEventListener('change', () => selectSize(input.value)));
+    window.addEventListener('pageshow', event => { if (event.persisted) selectSize('10'); });
     document.querySelectorAll('[data-select-roller]').forEach(link => link.addEventListener('click', event => {
         event.preventDefault();
         selectSize(link.dataset.selectRoller);

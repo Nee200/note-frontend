@@ -53,23 +53,32 @@ async function selectScent(page,query,id){
 
 test('Duftroller purchase flow preserves sizes, brands, prices and gallery state on desktop and phone', {timeout:120000},async t=>{
  const {browser,origin}=await setup(t);
- for(const width of [390,1366]){
+ for(const width of [320,390,1366]){
   const {page,state,go}=await pageFor(browser,origin,width);await go();await ready(page);
-  assert.equal(await page.$$eval('[data-gallery-src]:not([hidden])',nodes=>nodes.length),4);
-  assert.equal(await page.evaluate(()=>document.querySelector('#roller-main-image').src===new URL(window.NoteAssets.image('images_website/duftroller/note-duftroller-6-closed-v1.webp'),location.href).href),true);
-  assert.equal(await page.$eval('#roller-price',node=>node.textContent.replace(/\s/g,'')),'12,50€');
+  const layout=await page.evaluate(()=>({
+   width:innerWidth,
+   boxes:Array.from(document.querySelectorAll('.gallery,.product-visual,.product-info,.roller-configurator,.gallery-thumb:not([hidden]),.roller-shared-comparison,.stat-card'),node=>{const box=node.getBoundingClientRect();return {name:node.className,left:box.left,right:box.right,width:box.width};})
+  }));
+  for(const box of layout.boxes){
+   assert.ok(box.left>=-1&&box.right<=layout.width+1,`${width}px: ${box.name} clipped at ${box.left}..${box.right}`);
+   if(box.name.includes('gallery-thumb'))assert.ok(box.width>=44,`${width}px: gallery thumbnail too small (${box.width})`);
+  }
+  assert.equal(await page.$$eval('[data-gallery-src]:not([hidden])',nodes=>nodes.length),5);
+  assert.equal(await page.evaluate(()=>document.querySelector('#roller-main-image').src===new URL(window.NoteAssets.image('images_website/duftroller/note-duftroller-10-closed-v3.webp'),location.href).href),true);
+  assert.equal(await page.$eval('input[name="roller-size"]:checked',n=>n.value),'10');
+  assert.equal(await page.$eval('#roller-price',node=>node.textContent.replace(/\s/g,'')),'16,00€');
   await selectScent(page,'armani','G1');
   for(const [size,price,unit] of [[6,'12,50','2.083,33'],[10,'16,00','1.600,00'],[14,'19,50','1.392,86']]){
    await page.click(`label.roller-size:has(input[value="${size}"])`);
    assert.match(await page.$eval('#roller-price',n=>n.textContent),new RegExp(price));
    assert.match(await page.$eval('#roller-unit-price',n=>n.textContent),new RegExp(unit));
    assert.equal(await page.$eval('#roller-gallery-size',n=>n.textContent),`${size} ml`);
-   assert.deepEqual(await page.$$eval('[data-gallery-src]:not([hidden])',nodes=>nodes.map(n=>n.dataset.gallerySize)),Array(4).fill(String(size)));
-   if(size!==6)await page.waitForFunction(s=>document.querySelector('#roller-main-image').src===new URL(window.NoteAssets.image(`images_website/duftroller/note-duftroller-${s}-closed-v1.webp`),location.href).href,{},size);
-   for(const [index,imageState] of ['open','exploded','editorial','closed'].entries()){
+   assert.deepEqual(await page.$$eval('[data-gallery-src]:not([hidden])',nodes=>nodes.map(n=>n.dataset.gallerySize)),Array(5).fill(String(size)));
+   await page.waitForFunction(s=>document.querySelector('#roller-main-image').src===new URL(window.NoteAssets.image(`images_website/duftroller/note-duftroller-${s}-closed-v3.webp`),location.href).href,{},size);
+   for(const [index,imageState] of ['open','exploded','editorial','hand','closed'].entries()){
     await page.click('[data-gallery-step="1"]');
-    await page.waitForFunction((s,state)=>document.querySelector('#roller-main-image').src===new URL(window.NoteAssets.image(`images_website/duftroller/note-duftroller-${s}-${state}-v${['open','exploded'].includes(state)?2:1}.webp`),location.href).href,{},size,imageState);
-    assert.equal(await page.$eval('#gallery-counter',n=>n.textContent),`${(index+1)%4+1} / 4`);
+    await page.waitForFunction((s,state)=>{const thumb=document.querySelector(`[data-gallery-size="${s}"][data-gallery-state="${state}"]`);return thumb.getAttribute('aria-current')==='true'&&document.querySelector('#roller-main-image').src===new URL(window.NoteAssets.image(thumb.dataset.gallerySrc),location.href).href;}, {},size,imageState);
+    assert.equal(await page.$eval('#gallery-counter',n=>n.textContent),`${(index+1)%5+1} / 5`);
    }
    await page.click('#add-btn');
    await page.waitForFunction(()=>document.querySelector('[data-cart-drawer]').getAttribute('aria-hidden')==='false');
@@ -80,7 +89,7 @@ test('Duftroller purchase flow preserves sizes, brands, prices and gallery state
   const cart=await page.evaluate(()=>window.NoteCart.read());
   assert.deepEqual(cart.map(({id,price,quantity})=>({id,price,quantity})),[6,10,14].map((size,i)=>({id:`DUFTROLLER-${size}-G1`,price:[12.5,16,19.5][i],quantity:1})));
   await page.reload({waitUntil:'load'});await ready(page);
-  assert.equal(await page.$eval('input[name="roller-size"]:checked',n=>n.value),'14');
+  assert.equal(await page.$eval('input[name="roller-size"]:checked',n=>n.value),'10');
   assert.equal(await page.$eval('#selected-scent-title',n=>n.textContent),'NØTE. G1');
   await selectScent(page,'chanel','L1');
   assert.equal(await page.$eval('#selected-scent-description',n=>n.textContent),'Rosé <Duft>');
@@ -88,7 +97,7 @@ test('Duftroller purchase flow preserves sizes, brands, prices and gallery state
   await page.click('#open-image-lightbox');
   await page.waitForFunction(()=>!document.querySelector('#image-lightbox').hidden);
   await page.keyboard.press('ArrowRight');
-  await page.waitForFunction(()=>document.querySelector('#lightbox-counter').textContent==='2 / 4');
+  await page.waitForFunction(()=>document.querySelector('#lightbox-counter').textContent==='2 / 5');
   await page.keyboard.press('Escape');
   assert.equal(await page.$eval('main',n=>n.inert),false);
   assert.equal(await page.evaluate(()=>document.body.style.position),'');
@@ -99,8 +108,11 @@ test('Duftroller purchase flow preserves sizes, brands, prices and gallery state
   assert.equal(await page.evaluate(()=>document.activeElement.value),'10');
   await page.evaluate(()=>sessionStorage.setItem('note_duftroller_selection',JSON.stringify({size:'constructor',scentId:'G1'})));
   await page.reload({waitUntil:'load'});await ready(page);
-  assert.equal(await page.$eval('input[name="roller-size"]:checked',n=>n.value),'6');
-  assert.equal(await page.$eval('#roller-price',n=>n.textContent.replace(/\s/g,'')),'12,50€');
+  assert.equal(await page.$eval('input[name="roller-size"]:checked',n=>n.value),'10');
+  assert.equal(await page.$eval('#roller-price',n=>n.textContent.replace(/\s/g,'')),'16,00€');
+  await page.click('label.roller-size:has(input[value="6"])');
+  await page.evaluate(()=>window.dispatchEvent(new PageTransitionEvent('pageshow',{persisted:true})));
+  assert.equal(await page.$eval('input[name="roller-size"]:checked',n=>n.value),'10');
   assert.deepEqual(state.errors,[]);
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   await page.close();

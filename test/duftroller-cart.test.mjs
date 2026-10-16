@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import puppeteer from 'puppeteer';
 import { preview } from '../scripts/preview.mjs';
 
-const rollerImage = size => `images_website/duftroller/note-duftroller-${size}-closed-v1.webp`;
+const rollerImage = size => `images_website/duftroller/note-duftroller-${size}-closed-v3.webp`;
 const roller = {
     id: 'DUFTROLLER', name: 'Duftroller', publicName: 'Duftroller', category: 'duftroller',
     description: 'Dein Lieblingsduft zum Aufrollen.', images: [rollerImage(6)],

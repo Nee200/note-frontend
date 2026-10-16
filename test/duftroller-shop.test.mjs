@@ -28,9 +28,10 @@ async function fixture(t) {
     const document = parse(await fs.readFile(new URL('../duftroller.html', import.meta.url), 'utf8'));
     const timeline = findByClass(document, 'roller-delivery-timeline');
     const tail = findByClass(document, 'roller-shop-tail');
-    assert.ok(timeline && tail, 'Timeline and shop tail must be integrated into duftroller.html');
+    const comparison = findByClass(document, 'roller-format-comparison');
+    assert.ok(timeline && tail && comparison, 'Timeline, comparison and shop tail must be integrated into duftroller.html');
     const html = `<!doctype html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>${styles}</style></head>
-      <body class="autoduft-page duftroller-page"><main class="page roller-page"><div class="trust-badges autoduft-trust-badges roller-trust" style="max-width:480px;margin:auto">${serializeOuter(timeline)}</div>${serializeOuter(tail)}</main><script src="/shop.js"></script></body></html>`;
+      <body class="autoduft-page duftroller-page"><main class="page roller-page"><div class="trust-badges autoduft-trust-badges roller-trust" style="max-width:480px;margin:auto">${serializeOuter(timeline)}</div>${serializeOuter(comparison)}${serializeOuter(tail)}</main><script src="/shop.js"></script></body></html>`;
     const server = http.createServer((request, response) => {
         if (request.url === '/shop.js') { response.setHeader('Content-Type', 'text/javascript; charset=utf-8'); return response.end(source); }
         const image = productImages.get(request.url.replace(/^\/(?:assets|images_website\/bestsellers)\//, ''));
@@ -193,7 +194,7 @@ test('catalog retry retains keyboard focus and the complete shop tail fits phone
     }
     assert.ok(await page.$('.roller-format-table caption'), 'Format comparison keeps an accessible table caption');
     assert.equal(await page.$$eval('.roller-format-table th[scope="col"]', nodes => nodes.length), 2);
-    assert.equal(await page.$$eval('.roller-format-table th[scope="row"]', nodes => nodes.length), 3);
+    assert.equal(await page.$$eval('.roller-format-table th[scope="row"]', nodes => nodes.length), 4);
     await page.setViewport({ width: 390, height: 844 });
     const session = await page.createCDPSession();
     const { nodes } = await session.send('Accessibility.getFullAXTree');
@@ -201,6 +202,6 @@ test('catalog retry retains keyboard focus and the complete shop tail fits phone
     assert.equal(nodes.filter(node => node.role?.value === 'table' && node.name?.value === 'Duftroller und Parfum-Spray im Vergleich').length, 1,
         'Mobile grid styling must preserve the table in the accessibility tree');
     assert.equal(nodes.filter(node => node.role?.value === 'columnheader').length, 2);
-    assert.equal(nodes.filter(node => node.role?.value === 'rowheader').length, 3);
+    assert.equal(nodes.filter(node => node.role?.value === 'rowheader').length, 4);
     assert.deepEqual(errors, []);
 });

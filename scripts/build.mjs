@@ -6,12 +6,14 @@ import sharp from 'sharp';
 import { parse, parseFragment, serialize } from 'parse5';
 import { compileEvents, staticHandler } from './event-compiler.mjs';
 import { digitalWithdrawalEnabled } from '../shop-features.mjs';
+import { isDeferredPerfumeImage } from './image-release-policy.mjs';
 
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const entries = ['index', 'product', 'herrenduefte', 'frauenduefte', 'duftzwillinge', 'neuheiten', 'herbstbundle', 'autoduft', 'duftroller', 'suche', 'account', 'admin', 'kontakt', 'ueber-uns', 'versand', 'agb', 'datenschutz', 'impressum', 'widerrufsrecht', 'widerruf', 'success', 'cancel', 'newsletter-confirmation'].filter(name => name !== 'widerruf' || digitalWithdrawalEnabled).map(name => name + '.html');
 const dist = path.resolve(root, 'dist'), cache = path.join(root, '.build-cache');
 const hash = data => crypto.createHash('sha256').update(data).digest('hex').slice(0, 20);
 const assets = {}, compiled = new Map(), stats = { originalImageBytes: 0, optimizedImageBytes: 0, images: 0, compiledHandlers: 0 };
+const deferredImages = [];
 const write = async (name, data) => { const target = path.resolve(dist, name); if (!target.startsWith(dist + path.sep)) throw Error('Output außerhalb dist'); await fs.mkdir(path.dirname(target), { recursive: true }); await fs.writeFile(target, data); };
 async function emit(data, extension) { const name = 'assets/' + hash(data) + extension; await write(name, data); return name; }
 async function walk(dir) { const found = []; for (const entry of await fs.readdir(dir, { withFileTypes: true })) { const name = path.join(dir, entry.name); if (entry.isDirectory()) found.push(...await walk(name)); else found.push(name); } return found; }
@@ -27,7 +29,12 @@ function replaceAssets(text) {
 async function imageAssets() {
     await fs.mkdir(cache, { recursive: true });
     const top = (await fs.readdir(root)).filter(name => /\.(?:png|webp|ico|svg)$/i.test(name) && !/test|preview/i.test(name)).map(name => path.join(root, name));
-    const images = [...await walk(path.join(root, 'images_website')), ...await walk(path.join(root, 'images_parfume')), ...top].filter(name => /\.(?:png|jpe?g|webp|avif|svg|ico)$/i.test(name));
+    const images = [...await walk(path.join(root, 'images_website')), ...await walk(path.join(root, 'images_parfume')), ...top].filter(name => {
+        if (!/\.(?:png|jpe?g|webp|avif|svg|ico)$/i.test(name)) return false;
+        const relative = path.relative(root, name).replaceAll(path.sep, '/');
+        if (isDeferredPerfumeImage(relative)) { deferredImages.push(relative); return false; }
+        return true;
+    });
     // Limit native image processors; builds must also fit smaller CI runners.
     for (let i = 0; i < images.length; i += 4) await Promise.all(images.slice(i, i + 4).map(async name => {
         const original = await fs.readFile(name), relative = path.relative(root, name).replaceAll(path.sep, '/');
@@ -124,7 +131,7 @@ export async function build() {
     await write('asset-manifest.json', JSON.stringify(assets));
     for (const name of ['robots.txt', 'sitemap.xml', 'unique_names.json', 'favicon.ico']) await write(name, await fs.readFile(path.join(root, name)));
     await write('_headers', await fs.readFile(path.join(root, '_headers')));
-    await write('build-report.json', JSON.stringify({ entries, ...stats }, null, 2));
-    console.log(JSON.stringify({ entries: entries.length, ...stats }, null, 2));
+    await write('build-report.json', JSON.stringify({ entries, ...stats, deferredImages }, null, 2));
+    console.log(JSON.stringify({ entries: entries.length, ...stats, deferredImages: deferredImages.length }, null, 2));
 }
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) await build();
