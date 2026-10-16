@@ -1,0 +1,359 @@
+{
+  "date": "2026-10-16",
+  "mode": "built-in image_gen",
+  "excluded": [
+    "M351 Mery Perfume Orange Cream"
+  ],
+  "note": "Elf Motive: zehn eigenständig abgewandelte Begleitflakons (v3), Ajmal nur NØTE. (v2). Unabhängige gestalterische Gegenprüfung, keine rechtliche oder prozentuale Freigabe. Orange Cream auf Nutzerwunsch ausgeschlossen.",
+  "images": [
+    {
+      "id": "L217",
+      "supplierId": "W217",
+      "inspiredBy": "Kayali Sparkling Lychee 39",
+      "publicName": "Sparkling Lychee Dream",
+      "image": "images_website/new-arrivals/l217-october-2026-v3.webp",
+      "original": "output/imagegen/october-2026-final/L217.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: precise-object-edit. Edit the provided image. KEEP the LEFT NØTE bottle, its cap, proportions, exact NØTE. label, lighting, camera, halo, backdrop, plinth and foreground ingredients unchanged. Replace ONLY the smaller bottle on the RIGHT with the original fictional generic bottle design specified below. This must be an independently shaped companion bottle, not a faithful replica of any existing branded perfume. Keep the fragrance color mood and similar occupied area, but visibly change both the bottle silhouette and cap construction. Absolutely no writing, letters, numerals, logos, medusa faces, crowns, pendants, emblems, Greek figures, or Greek key patterns on the right bottle. Do not add a third bottle. Realistic elegant material, glass/metal reflections and contact shadow. Preserve square composition and 1254x1254. Specific replacement: A soft coral-pink translucent flattened OVAL flask with curved shoulders and rounded base, no octagonal chamfers or inner border frame. A low rounded RECTANGULAR matte champagne-metal cap on a slim rose-gold neck. No faceted crystal or diamond stopper. Smooth blank pink glass with elegant believable reflections.",
+      "referenceUrl": "https://kayali.com/en-ae/products/eden-sparkling-lychee-39",
+      "originalVariantConfirmed": true,
+      "review": {
+        "id": "L217",
+        "original": "Kayali Eden Sparkling Lychee 39",
+        "verdict": "bestanden",
+        "checks": {
+          "bodyDifference": "Ovaler, glatt gerundeter rosafarbener Körper statt des hohen kantigen Körpers mit abgeschrägten Ecken.",
+          "capDifference": "Breiter horizontaler goldener Verschluss mit gerundeten Ecken statt des klaren facettierten Diamantverschlusses.",
+          "distinctiveMarks": "Keine Kayali-Schrift, kein ursprünglicher Frontrahmen; Rosafarbe und Fruchtszene bleiben erhalten.",
+          "noteBottle": "Visuell unverändert: breiter klarer Rechteckkörper mit dickem Boden, breiter hoher schwarzer Reliefverschluss, quadratisches weißes NØTE.-Etikett samt fragrances-Zeile.",
+          "imageQuality": "Flakonkonturen, Materialien, Licht und Einbindung in die Szene wirken stimmig; keine wesentlichen sichtbaren Bildfehler."
+        },
+        "requiredCorrections": [],
+        "imageSha256": "672f54a5e944eb4e0fb145bd46396c55576029b23c868384219b3dd12b13168d",
+        "referenceSha256": "8cdf28e8d9fddcf503b798899478f1ccd8619bcf83d18548ec643db09aa97119",
+        "finalImagePath": "images_website/new-arrivals/l217-october-2026-v3.webp",
+        "originalDraftId": "L217",
+        "pngExportVerdict": "gestalterisch_geprueft_exportbereit"
+      },
+      "webpSha256": "4e025ca19663bf3fbede5ee6fa88422977d9a911e1a48b794d47b2c9a18a3f90",
+      "design": "Eigenständiger Begleitflakon; visuell abgewandelte Körperform und Verschluss, ohne prägende Markensymbole. Keine Rechts-/Prozentfreigabe."
+    },
+    {
+      "id": "G361",
+      "supplierId": "M362",
+      "inspiredBy": "Le Labo Another 13",
+      "publicName": "Another Skin 13",
+      "image": "images_website/new-arrivals/g361-october-2026-v3.webp",
+      "original": "output/imagegen/october-2026-final/G361.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: precise-object-edit. Edit the provided image. KEEP the LEFT NØTE bottle, its cap, proportions, exact NØTE. label, lighting, camera, halo, backdrop, plinth and foreground ingredients unchanged. Replace ONLY the smaller bottle on the RIGHT with the original fictional generic bottle design specified below. This must be an independently shaped companion bottle, not a faithful replica of any existing branded perfume. Keep the fragrance color mood and similar occupied area, but visibly change both the bottle silhouette and cap construction. Absolutely no writing, letters, numerals, logos, medusa faces, crowns, pendants, emblems, Greek figures, or Greek key patterns on the right bottle. Do not add a third bottle. Realistic elegant material, glass/metal reflections and contact shadow. Preserve square composition and 1254x1254. Specific replacement: A clear flat OVAL flask with softly rounded sloping shoulders, wider and shorter body than the current laboratory cylinder. Use a SHORT CUBOID brushed-pewter cap with softly rounded corners on a visible clear neck. No paper wraparound band or paper label anywhere; instead a very narrow subtle frosted-glass vertical strip integrated on one side of the front, no text. Colorless liquid, clean minimal soft-musk mood.",
+      "referenceUrl": "https://www.lelabofragrances.com/another-13-463.html?size=50ml",
+      "originalVariantConfirmed": true,
+      "review": {
+        "id": "G361",
+        "original": "Le Labo Another 13",
+        "verdict": "bestanden",
+        "checks": {
+          "bodyDifference": "Breiter gedrungener ovaler Körper mit dickem Glasboden statt des hohen zylindrischen Apothekerflakons.",
+          "capDifference": "Breiter dunkelmetallischer Block mit gerundeten Ecken statt des schmalen runden Zylinderverschlusses.",
+          "distinctiveMarks": "Schmaler seitlich versetzter vertikaler Papierstreifen statt des breiten umlaufenden Labor-Etiketts; keine Fremdschrift.",
+          "noteBottle": "Visuell unverändert: breiter klarer Rechteckkörper mit dickem Boden, breiter hoher schwarzer Reliefverschluss, quadratisches weißes NØTE.-Etikett samt fragrances-Zeile.",
+          "imageQuality": "Flakonkonturen, Materialien, Licht und Einbindung in die Szene wirken stimmig; keine wesentlichen sichtbaren Bildfehler."
+        },
+        "requiredCorrections": [],
+        "imageSha256": "15c905a45b9effc5c30c940d2da5a38c3a5334aa3c3bf40dccba7449aa66da18",
+        "referenceSha256": "3629fb752bad9f0b09e31b921484b31b7746714511359dc650f6a7214715fcde",
+        "finalImagePath": "images_website/new-arrivals/g361-october-2026-v3.webp",
+        "originalDraftId": "G362",
+        "pngExportVerdict": "gestalterisch_geprueft_exportbereit"
+      },
+      "webpSha256": "6858fe0c9d9fc34af98064259f4a4da3faec272cf8648e7b4f4fa1baa3cce060",
+      "design": "Eigenständiger Begleitflakon; visuell abgewandelte Körperform und Verschluss, ohne prägende Markensymbole. Keine Rechts-/Prozentfreigabe."
+    },
+    {
+      "id": "L216",
+      "supplierId": "W216",
+      "inspiredBy": "Amouage Guidance 46",
+      "publicName": "Guiding Aura 46",
+      "image": "images_website/new-arrivals/l216-october-2026-v3.webp",
+      "original": "output/imagegen/october-2026-final/L216.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: precise-object-edit. Edit the provided image. KEEP the LEFT NØTE bottle, its cap, proportions, exact NØTE. label, lighting, camera, halo, backdrop, plinth and foreground ingredients unchanged. Replace ONLY the smaller bottle on the RIGHT with the original fictional generic bottle design specified below. This must be an independently shaped companion bottle, not a faithful replica of any existing branded perfume. Keep the fragrance color mood and similar occupied area, but visibly change both the bottle silhouette and cap construction. Absolutely no writing, letters, numerals, logos, medusa faces, crowns, pendants, emblems, Greek figures, or Greek key patterns on the right bottle. Do not add a third bottle. Realistic elegant material, glass/metal reflections and contact shadow. Preserve square composition and 1254x1254. Specific replacement: A tall softly tapered TRAPEZOID rose-to-rust translucent glass bottle with narrow rounded base and noticeably sloping shoulders. Smooth undecorated front, no emblem. A wide low satin TAUPE RECTANGULAR cap with rounded corners on a slim warm-metal neck. No dome, no ribbing, no gold finial. Keep the warm blush/red fragrance palette.",
+      "referenceUrl": "https://amouage.com/en-uk/products/new-guidance-46",
+      "originalVariantConfirmed": true,
+      "review": {
+        "id": "L216",
+        "original": "Amouage Guidance 46",
+        "verdict": "bestanden",
+        "checks": {
+          "bodyDifference": "Nach unten schmaler werdender Trapezkörper statt der rundlichen annähernd quadratischen Originalform.",
+          "capDifference": "Breiter horizontaler taupefarbener Block statt der gerippten Kuppel samt kleinem goldenen Abschluss.",
+          "distinctiveMarks": "Kein Amouage-Wappen, keine Kuppelrippen; der rosé-rote Farbverlauf bleibt erhalten.",
+          "noteBottle": "Visuell unverändert: breiter klarer Rechteckkörper mit dickem Boden, breiter hoher schwarzer Reliefverschluss, quadratisches weißes NØTE.-Etikett samt fragrances-Zeile.",
+          "imageQuality": "Flakonkonturen, Materialien, Licht und Einbindung in die Szene wirken stimmig; keine wesentlichen sichtbaren Bildfehler."
+        },
+        "requiredCorrections": [],
+        "imageSha256": "84d5fe99c7089015ec37bea87d815d70ece1d70d0cc00ed547de115bf33f3aa4",
+        "referenceSha256": "cd8da980a69de2a73922b5570ae0cf6cb9c9e47283708502ac4051c41eff2922",
+        "finalImagePath": "images_website/new-arrivals/l216-october-2026-v3.webp",
+        "originalDraftId": "L216",
+        "pngExportVerdict": "gestalterisch_geprueft_exportbereit"
+      },
+      "webpSha256": "fab331fdf0504df1628ed286a1891c34dba9f55c3177782417e975d130730bde",
+      "design": "Eigenständiger Begleitflakon; visuell abgewandelte Körperform und Verschluss, ohne prägende Markensymbole. Keine Rechts-/Prozentfreigabe."
+    },
+    {
+      "id": "G355",
+      "supplierId": "M355",
+      "inspiredBy": "Hersh Lahab",
+      "publicName": "Lahab Afterglow",
+      "image": "images_website/new-arrivals/g355-october-2026-v3.webp",
+      "original": "output/imagegen/october-2026-final/G355.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: precise-object-edit. Edit the provided image. KEEP the LEFT NØTE bottle, its cap, proportions, exact NØTE. label, lighting, camera, halo, backdrop, plinth and foreground ingredients unchanged. Replace ONLY the smaller bottle on the RIGHT with the original fictional generic bottle design specified below. This must be an independently shaped companion bottle, not a faithful replica of any existing branded perfume. Keep the fragrance color mood and similar occupied area, but visibly change both the bottle silhouette and cap construction. Absolutely no writing, letters, numerals, logos, medusa faces, crowns, pendants, emblems, Greek figures, or Greek key patterns on the right bottle. Do not add a third bottle. Realistic elegant material, glass/metal reflections and contact shadow. Preserve square composition and 1254x1254. Specific replacement: A broad, low rounded-square GOLD-toned glass flacon with softly convex front and smoothly arched shoulders, noticeably wider and less tall than the current narrow gold bottle. Plain uninterrupted body, no faceted rectangular frame. A short solid brushed-bronze rounded RECTANGULAR cap on a short visible neck, no crown, no protruding spikes, no cords or pendant.",
+      "referenceUrl": "https://alezz-oud.com/en/-/p2082548628",
+      "originalVariantConfirmed": true,
+      "review": {
+        "id": "G355",
+        "original": "Al Ezz Oud Hersh Lahab",
+        "verdict": "bestanden",
+        "checks": {
+          "bodyDifference": "Gedrungener breiter goldener Körper mit stark gerundeten Ecken und Schultern statt der hohen abgeschrägten Rechteckform.",
+          "capDifference": "Breiter horizontaler glatter goldener Verschluss statt der offenen hohen Zackenkrone auf Seilrelief.",
+          "distinctiveMarks": "Krone, Halsornament, Schnüre und Seilrelief fehlen; Goldfarbe bleibt erhalten.",
+          "noteBottle": "Visuell unverändert: breiter klarer Rechteckkörper mit dickem Boden, breiter hoher schwarzer Reliefverschluss, quadratisches weißes NØTE.-Etikett samt fragrances-Zeile.",
+          "imageQuality": "Flakonkonturen, Materialien, Licht und Einbindung in die Szene wirken stimmig; keine wesentlichen sichtbaren Bildfehler."
+        },
+        "requiredCorrections": [],
+        "imageSha256": "4f9911935d59cdcb44a4da1070105800f487abd0954f1c2517215dd6a0adfb04",
+        "referenceSha256": "ec124532f011beae44354f759953d8e634302e7231d420b982bc2d044f308066",
+        "finalImagePath": "images_website/new-arrivals/g355-october-2026-v3.webp",
+        "originalDraftId": "G356",
+        "pngExportVerdict": "gestalterisch_geprueft_exportbereit"
+      },
+      "webpSha256": "9638f9c17c33ad89aefd27de9341be2805ecf8a80cfc5296f12b5cc09e2c024d",
+      "design": "Eigenständiger Begleitflakon; visuell abgewandelte Körperform und Verschluss, ohne prägende Markensymbole. Keine Rechts-/Prozentfreigabe."
+    },
+    {
+      "id": "G356",
+      "supplierId": "M356",
+      "inspiredBy": "Hersh Mehwar",
+      "publicName": "Mehwar Orbit",
+      "image": "images_website/new-arrivals/g356-october-2026-v3.webp",
+      "original": "output/imagegen/october-2026-final/G356.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: precise-object-edit. Edit the provided image. KEEP the LEFT NØTE bottle, its cap, proportions, exact NØTE. label, lighting, camera, halo, backdrop, plinth and foreground ingredients unchanged. Replace ONLY the smaller bottle on the RIGHT with the original fictional generic bottle design specified below. This must be an independently shaped companion bottle, not a faithful replica of any existing branded perfume. Keep the fragrance color mood and similar occupied area, but visibly change both the bottle silhouette and cap construction. Absolutely no writing, letters, numerals, logos, medusa faces, crowns, pendants, emblems, Greek figures, or Greek key patterns on the right bottle. Do not add a third bottle. Realistic elegant material, glass/metal reflections and contact shadow. Preserve square composition and 1254x1254. Specific replacement: A flattened OVAL SILVER flacon, broad curved elliptical body, smoothly tapering rounded shoulders, no rectangular bevels or angular frame. Short wide satin pewter RECTANGULAR cap with gently domed top; clearly separate short silver neck. No crown, no spikes, no cords or pendant.",
+      "referenceUrl": "https://alezz-oud.com/en/%D8%B9%D8%B7%D8%B1-%D9%87%D9%8A%D8%B1%D8%B4-%D9%85%D8%AD%D9%88%D8%B1-100-%D9%85%D9%84/p359133523",
+      "originalVariantConfirmed": true,
+      "review": {
+        "id": "G356",
+        "original": "Al Ezz Oud Hersh Mehwar",
+        "verdict": "bestanden",
+        "checks": {
+          "bodyDifference": "Ovaler silberner Flaschenkörper mit flachem Boden und gerundeten Schultern statt des hohen abgeschrägten Chromrechtecks.",
+          "capDifference": "Breiter horizontaler glatter silberner Verschluss statt der offenen Krone auf strukturiertem Sockel.",
+          "distinctiveMarks": "Krone, Halsornament, Schnüre und Seilrelief fehlen; Silber-/Chromwirkung bleibt erhalten.",
+          "noteBottle": "Visuell unverändert: breiter klarer Rechteckkörper mit dickem Boden, breiter hoher schwarzer Reliefverschluss, quadratisches weißes NØTE.-Etikett samt fragrances-Zeile.",
+          "imageQuality": "Flakonkonturen, Materialien, Licht und Einbindung in die Szene wirken stimmig; keine wesentlichen sichtbaren Bildfehler."
+        },
+        "requiredCorrections": [],
+        "imageSha256": "1bd620272a64719fe66b8c6d2dacc626a77e771fd66a746725f631d4024673fd",
+        "referenceSha256": "86ffae50de6ecb9bb185ff35d133ac716c34e6458166a7816b06c94284e68c8d",
+        "finalImagePath": "images_website/new-arrivals/g356-october-2026-v3.webp",
+        "originalDraftId": "G357",
+        "pngExportVerdict": "gestalterisch_geprueft_exportbereit"
+      },
+      "webpSha256": "df778ada34a27b31d69633ffee01b98cec895b8e7b3d49a6e9db856c813da5d6",
+      "design": "Eigenständiger Begleitflakon; visuell abgewandelte Körperform und Verschluss, ohne prägende Markensymbole. Keine Rechts-/Prozentfreigabe."
+    },
+    {
+      "id": "G358",
+      "supplierId": "M358",
+      "inspiredBy": "Essential Parfums Bois Impérial",
+      "publicName": "Imperial Woods",
+      "image": "images_website/new-arrivals/g358-october-2026-v3.webp",
+      "original": "output/imagegen/october-2026-final/G358.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: precise-object-edit. Edit the provided image. KEEP the LEFT NØTE bottle, its cap, proportions, exact NØTE. label, lighting, camera, halo, backdrop, plinth and foreground ingredients unchanged. Replace ONLY the smaller bottle on the RIGHT with the original fictional generic bottle design specified below. This must be an independently shaped companion bottle, not a faithful replica of any existing branded perfume. Keep the fragrance color mood and similar occupied area, but visibly change both the bottle silhouette and cap construction. Absolutely no writing, letters, numerals, logos, medusa faces, crowns, pendants, emblems, Greek figures, or Greek key patterns on the right bottle. Do not add a third bottle. Realistic elegant material, glass/metal reflections and contact shadow. Preserve square composition and 1254x1254. Specific replacement: A clear PALE GREENISH glass TRAPEZOID bottle, broad shoulders tapering visibly to a narrower base, smooth surface without any paper label or framed panel. A short matte charcoal HEXAGONAL cap, flatter and wider than the previous black cylinder, on a slim exposed neck. Keep pale yellow liquid, a light woody aesthetic, no text.",
+      "referenceUrl": "https://www.essentialparfums.com/en/products/bois-imperial-eau-de-parfum-refillable-spray-100-ml",
+      "originalVariantConfirmed": true,
+      "review": {
+        "id": "G358",
+        "original": "Essential Parfums Bois Impérial Eau de Parfum",
+        "verdict": "bestanden",
+        "checks": {
+          "bodyDifference": "Nach unten schmaler werdender trapezförmiger Glaskörper mit breiten Schultern statt des hohen geraden Rechteckkörpers.",
+          "capDifference": "Breiter kantiger mehrseitiger schwarzer Verschluss statt des schmaleren glatten Zylinders.",
+          "distinctiveMarks": "Das große weiße Frontetikett und sämtliche Fremdschrift fehlen. Klarglas und blassgelber Inhalt bleiben erhalten.",
+          "noteBottle": "Visuell unverändert: breiter klarer Rechteckkörper mit dickem Boden, breiter hoher schwarzer Reliefverschluss, quadratisches weißes NØTE.-Etikett samt fragrances-Zeile.",
+          "imageQuality": "Flakonkonturen, Materialien, Licht und Einbindung in die Szene wirken stimmig; keine wesentlichen sichtbaren Bildfehler."
+        },
+        "requiredCorrections": [],
+        "imageSha256": "5b9fbc5c44e32a7901832bf71527c5c90de9e0f2d10cfc5ad8543940f52c73b3",
+        "referenceSha256": "131d2f600230105a481e88d741ce3d7e1f102bf4709e033f793004c62ab3d4ce",
+        "finalImagePath": "images_website/new-arrivals/g358-october-2026-v3.webp",
+        "originalDraftId": "G359",
+        "pngExportVerdict": "gestalterisch_geprueft_exportbereit"
+      },
+      "webpSha256": "596088ce809a7200f208b1284b158f340c223897895b4a14a93e748702e882e9",
+      "design": "Eigenständiger Begleitflakon; visuell abgewandelte Körperform und Verschluss, ohne prägende Markensymbole. Keine Rechts-/Prozentfreigabe."
+    },
+    {
+      "id": "L219",
+      "supplierId": "W219",
+      "inspiredBy": "Le Labo Another 13",
+      "publicName": "Another Skin 13",
+      "image": "images_website/new-arrivals/l219-october-2026-v3.webp",
+      "original": "output/imagegen/october-2026-final/L219.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: precise-object-edit. Edit the provided image. KEEP the LEFT NØTE bottle, its cap, proportions, exact NØTE. label, lighting, camera, halo, backdrop, plinth and foreground ingredients unchanged. Replace ONLY the smaller bottle on the RIGHT with the original fictional generic bottle design specified below. This must be an independently shaped companion bottle, not a faithful replica of any existing branded perfume. Keep the fragrance color mood and similar occupied area, but visibly change both the bottle silhouette and cap construction. Absolutely no writing, letters, numerals, logos, medusa faces, crowns, pendants, emblems, Greek figures, or Greek key patterns on the right bottle. Do not add a third bottle. Realistic elegant material, glass/metal reflections and contact shadow. Preserve square composition and 1254x1254. Specific replacement: A clear flat OVAL flask with softly rounded sloping shoulders, wider and shorter body than the current laboratory cylinder. Use a SHORT CUBOID brushed-pewter cap with softly rounded corners on a visible clear neck. No paper wraparound band or paper label anywhere; instead a very narrow subtle frosted-glass vertical strip integrated on one side of the front, no text. Colorless liquid, clean minimal soft-musk mood.",
+      "referenceUrl": "https://www.lelabofragrances.com/another-13-463.html?size=50ml",
+      "originalVariantConfirmed": true,
+      "review": {
+        "id": "L219",
+        "original": "Le Labo Another 13",
+        "verdict": "bestanden",
+        "checks": {
+          "bodyDifference": "Gedrungener ovaler Glaskörper mit stark gerundeten Schultern und dickem Boden statt des hohen Apothekerzylinders.",
+          "capDifference": "Breiter abgerundeter rechteckiger Metallblock statt des schmalen runden Metallzylinders.",
+          "distinctiveMarks": "Schmaler vertikaler, seitlich versetzter Papierstreifen statt des breiten umlaufenden Labor-Etiketts. Keine Fremdschrift; nahezu farbloser Inhalt bleibt erhalten.",
+          "noteBottle": "Visuell unverändert: breiter klarer Rechteckkörper mit dickem Boden, breiter hoher schwarzer Reliefverschluss, quadratisches weißes NØTE.-Etikett samt fragrances-Zeile.",
+          "imageQuality": "Flakonkonturen, Materialien, Licht und Einbindung in die Szene wirken stimmig; keine wesentlichen sichtbaren Bildfehler."
+        },
+        "requiredCorrections": [],
+        "imageSha256": "b4f7ae670d6722bdbed7b57c7b4eea96f5e1d61d1ba32d2d968792bca6f20d45",
+        "referenceSha256": "3629fb752bad9f0b09e31b921484b31b7746714511359dc650f6a7214715fcde",
+        "finalImagePath": "images_website/new-arrivals/l219-october-2026-v3.webp",
+        "originalDraftId": "L219",
+        "pngExportVerdict": "gestalterisch_geprueft_exportbereit"
+      },
+      "webpSha256": "815cb74865cf90e85fdfdbdc05aa7275ffe4edf2ecad4bfeab85ea989ee96361",
+      "design": "Eigenständiger Begleitflakon; visuell abgewandelte Körperform und Verschluss, ohne prägende Markensymbole. Keine Rechts-/Prozentfreigabe."
+    },
+    {
+      "id": "G357",
+      "supplierId": "M357",
+      "inspiredBy": "Versace Eros Flame",
+      "publicName": "Ember of Desire",
+      "image": "images_website/new-arrivals/g357-october-2026-v3.webp",
+      "original": "output/imagegen/october-2026-final/G357.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: precise-object-edit. Edit the provided image. KEEP the LEFT NØTE bottle, its cap, proportions, exact NØTE. label, lighting, camera, halo, backdrop, plinth and foreground ingredients unchanged. Replace ONLY the smaller bottle on the RIGHT with the original fictional generic bottle design specified below. This must be an independently shaped companion bottle, not a faithful replica of any existing branded perfume. Keep the fragrance color mood and similar occupied area, but visibly change both the bottle silhouette and cap construction. Absolutely no writing, letters, numerals, logos, medusa faces, crowns, pendants, emblems, Greek figures, or Greek key patterns on the right bottle. Do not add a third bottle. Realistic elegant material, glass/metal reflections and contact shadow. Preserve square composition and 1254x1254. Specific replacement: A tall ruby-red translucent OVAL bottle with smooth curved sides, flat front and softly sloping shoulders, not a square. Completely smooth undecorated glass, no Medusa relief and no Greek-key patterns. A low, wide brushed-champagne metal DISC cap on a short clearly visible glass neck. Do not introduce any face or symbol.",
+      "referenceUrl": "https://www.versace.com/us/en/men/accessories/fragrances-body-care/eros-flame/SET_Fragrances_ErosFlame.html",
+      "originalVariantConfirmed": true,
+      "review": {
+        "id": "G357",
+        "original": "Versace Eros Flame",
+        "verdict": "bestanden",
+        "checks": {
+          "bodyDifference": "Glatter ovaler roter Körper mit gerundeten Schultern statt der quadratischen reliefierten Form.",
+          "capDifference": "Breiter flacher gebürsteter Goldverschluss statt des schmalen höheren Goldzylinders mit Reliefoberseite.",
+          "distinctiveMarks": "Medusa, Greca-/Mäanderrelief und Schrift fehlen vollständig. Rote Glasfarbe und Duftszene bleiben erhalten.",
+          "noteBottle": "Visuell unverändert: breiter klarer Rechteckkörper mit dickem Boden, breiter hoher schwarzer Reliefverschluss, quadratisches weißes NØTE.-Etikett samt fragrances-Zeile.",
+          "imageQuality": "Flakonkonturen, Materialien, Licht und Einbindung in die Szene wirken stimmig; keine wesentlichen sichtbaren Bildfehler."
+        },
+        "requiredCorrections": [],
+        "imageSha256": "fc519a43d4ba45e8ea2b23c79e6326f617e0d6ee0b25178bab5e9ac45841e30b",
+        "referenceSha256": "252b80413e54b906d25a175997f31a173e6e674c2e1a71b7343eefbc61a6556f",
+        "finalImagePath": "images_website/new-arrivals/g357-october-2026-v3.webp",
+        "originalDraftId": "G358",
+        "pngExportVerdict": "gestalterisch_geprueft_exportbereit"
+      },
+      "webpSha256": "47a37ee69f157254b800a0540caa8384df019f4e48a814c5f140a7bede49d36e",
+      "design": "Eigenständiger Begleitflakon; visuell abgewandelte Körperform und Verschluss, ohne prägende Markensymbole. Keine Rechts-/Prozentfreigabe."
+    },
+    {
+      "id": "G359",
+      "supplierId": "M360",
+      "inspiredBy": "Paco Rabanne One Million Black",
+      "publicName": "Midnight Million",
+      "image": "images_website/new-arrivals/g359-october-2026-v3.webp",
+      "original": "output/imagegen/october-2026-final/G359.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: precise-object-edit. Edit the provided image. KEEP the LEFT NØTE bottle, its cap, proportions, exact NØTE. label, lighting, camera, halo, backdrop, plinth and foreground ingredients unchanged. Replace ONLY the smaller bottle on the RIGHT with the original fictional generic bottle design specified below. This must be an independently shaped companion bottle, not a faithful replica of any existing branded perfume. Keep the fragrance color mood and similar occupied area, but visibly change both the bottle silhouette and cap construction. Absolutely no writing, letters, numerals, logos, medusa faces, crowns, pendants, emblems, Greek figures, or Greek key patterns on the right bottle. Do not add a third bottle. Realistic elegant material, glass/metal reflections and contact shadow. Preserve square composition and 1254x1254. Specific replacement: A broad satin CHARCOAL flattened OVAL perfume flask, substantially wider and lower than a bar, with curved shoulders and a short visible neck. A separate small brushed warm-bronze HEXAGONAL cap. Absolutely no number 1, gold applique, ingot design, front spray opening, plaques or writing. Keep the dark warm evening aesthetic with subtle bronze highlights only.",
+      "referenceUrl": "https://www.rabanne.com/ww/en/fragrance/p/1-million-black--000000000065246128",
+      "originalVariantConfirmed": true,
+      "review": {
+        "id": "G359",
+        "original": "Rabanne 1 Million Black",
+        "verdict": "bestanden",
+        "checks": {
+          "bodyDifference": "Breiter flacher ovaler mattschwarzer Körper statt des hohen schlanken schwarzen Barrens.",
+          "capDifference": "Neu sichtbarer kurzer Hals und separater facettierter bronzegoldener Verschluss statt der integrierten Sprühöffnung ohne Außenkappe.",
+          "distinctiveMarks": "Reliefziffer 1, Million-Plakette, Rabanne-Schrift und frontale Sprühöffnung fehlen. Dunkle Farbwelt mit goldenen Akzenten bleibt erhalten.",
+          "noteBottle": "Visuell unverändert: breiter klarer Rechteckkörper mit dickem Boden, breiter hoher schwarzer Reliefverschluss, quadratisches weißes NØTE.-Etikett samt fragrances-Zeile.",
+          "imageQuality": "Flakonkonturen, Materialien, Licht und Einbindung in die Szene wirken stimmig; keine wesentlichen sichtbaren Bildfehler."
+        },
+        "requiredCorrections": [],
+        "imageSha256": "6b64a36db3b33ab9248d2fd0aee49c6c270016d536ae2afb9b6c96441f7fa821",
+        "referenceSha256": "50b3f686a63254b3f98a78a70c3ec297daaf576e12d035572897b500107baf60",
+        "finalImagePath": "images_website/new-arrivals/g359-october-2026-v3.webp",
+        "originalDraftId": "G360",
+        "pngExportVerdict": "gestalterisch_geprueft_exportbereit"
+      },
+      "webpSha256": "94f00d5e28120b5cd92dd6dcd58292e8ac8a887bb3003f2d0e8b0e164a90ba9b",
+      "design": "Eigenständiger Begleitflakon; visuell abgewandelte Körperform und Verschluss, ohne prägende Markensymbole. Keine Rechts-/Prozentfreigabe."
+    },
+    {
+      "id": "G360",
+      "supplierId": "M361",
+      "inspiredBy": "Tiziana Terenzi Kirke Overdose",
+      "publicName": "Circe Intense",
+      "image": "images_website/new-arrivals/g360-october-2026-v3.webp",
+      "original": "output/imagegen/october-2026-final/G360.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: precise-object-edit. Edit the provided image. KEEP the LEFT NØTE bottle, its cap, proportions, exact NØTE. label, lighting, camera, halo, backdrop, plinth and foreground ingredients unchanged. Replace ONLY the smaller bottle on the RIGHT with the original fictional generic bottle design specified below. This must be an independently shaped companion bottle, not a faithful replica of any existing branded perfume. Keep the fragrance color mood and similar occupied area, but visibly change both the bottle silhouette and cap construction. Absolutely no writing, letters, numerals, logos, medusa faces, crowns, pendants, emblems, Greek figures, or Greek key patterns on the right bottle. Do not add a third bottle. Realistic elegant material, glass/metal reflections and contact shadow. Preserve square composition and 1254x1254. Specific replacement: A small warm AMBER-GLASS bottle shaped as a faceted softly rounded hexagonal body, visibly taller than wide and gently tapered at the shoulders, with a short exposed amber neck. A narrow vertical matte-black rounded RECTANGULAR cap, not a broad flat cylinder. Transparent honey-amber glass, no opaque gold cylinder, no human figures, Greek ornaments, bands, emblems, chains or text.",
+      "referenceUrl": "https://www.harrods.com/en-ba/p/tiziana-terenzi-kirke-overdose-eau-de-parfum-100ml-000000000007807444",
+      "originalVariantConfirmed": true,
+      "review": {
+        "id": "G360",
+        "original": "Tiziana Terenzi Kirkè Overdose",
+        "verdict": "bestanden",
+        "checks": {
+          "bodyDifference": "Hoher facettierter bernsteinfarbener transparenter Glaskörper statt des gedrungenen goldenen Metallzylinders.",
+          "capDifference": "Schmaler hoher dunkler Block mit gerundeten Kanten statt der nahezu körperbreiten flachen schwarzen Zylinderkappe.",
+          "distinctiveMarks": "Griechische Figuren, Mäanderband, florale Reliefbänder und Schrift fehlen vollständig. Goldwarme Farbwirkung und Fruchtszene bleiben erhalten.",
+          "noteBottle": "Visuell unverändert: breiter klarer Rechteckkörper mit dickem Boden, breiter hoher schwarzer Reliefverschluss, quadratisches weißes NØTE.-Etikett samt fragrances-Zeile.",
+          "imageQuality": "Flakonkonturen, Materialien, Licht und Einbindung in die Szene wirken stimmig; keine wesentlichen sichtbaren Bildfehler."
+        },
+        "requiredCorrections": [],
+        "imageSha256": "485471ecfb7d9686f7b71ae85d86b30113057c36586ab44b6a866ef389da326c",
+        "referenceSha256": "cc6475a485c641c52888f23d01f46c966b43c3fced0b3099db819462c14130fc",
+        "finalImagePath": "images_website/new-arrivals/g360-october-2026-v3.webp",
+        "originalDraftId": "G361",
+        "pngExportVerdict": "gestalterisch_geprueft_exportbereit"
+      },
+      "webpSha256": "7cb7e2f11f6a3918a9890daa03d162d41c0f2f445df1394dfdb875873b3e9bd1",
+      "design": "Eigenständiger Begleitflakon; visuell abgewandelte Körperform und Verschluss, ohne prägende Markensymbole. Keine Rechts-/Prozentfreigabe."
+    },
+    {
+      "id": "L218",
+      "supplierId": "W218",
+      "inspiredBy": "Ajmal Silk Musk",
+      "publicName": "Silken Musk",
+      "image": "images_website/new-arrivals/l218-october-2026-v2.webp",
+      "original": "output/imagegen/october-2026-final/L218.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: product-mockup. Create a square photorealistic NØTE. shop perfume image. Input image is the authoritative bottle identity reference. Copy ONLY the LEFT NØTE bottle faithfully: wide clear rectangular thick glass, champagne liquid, broad tall black cylindrical relief cap with wide top and bottom rims, square white label, exact 'NØTE.' in black serif and small 'fragrances' with fine horizontal side lines. Move this one bottle to the center on a pale travertine plinth. EXACTLY ONE BOTTLE, no original/reference perfume bottle and no invented secondary bottle. Background a large luminous circular halo on textured plaster, two soft pastel zones of pale lavender and sage with warm ivory-gold light. Warm upper-left daylight, realistic glass reflections, moderate natural color. Foreground a flowing ivory silk fabric, a few delicate white lily-of-the-valley flowers and a small warm amber resin accent suggesting a soft floral musk. Keep label and complete bottle unobstructed. Premium natural photography, 1254x1254, no foreign logo, no additional text, no watermark, no CGI shine.",
+      "referenceUrl": null,
+      "originalVariantConfirmed": false,
+      "review": {
+        "version": "v2",
+        "scopeOverride": "Nutzer hat fuer Ajmal ausdruecklich ausschliesslich den eigenen NØTE.-Flakon gewaehlt. Originalvariante bleibt ungeprueft und wird nicht dargestellt.",
+        "checks": {
+          "silhouette": "Passend: genau ein zentraler breiter NØTE.-Rechteckflakon, vollstaendig sichtbar.",
+          "capAndColor": "Passend: hoher breiter schwarzer Reliefzylinder mit breiten Abschlussraendern, klares dickes Glas und heller Inhalt.",
+          "distinctiveDetails": "Weisses quadratisches Etikett mit korrektem NØTE.-Schriftzug und fragrances. Keine erfundene zweite Originalflasche.",
+          "noteBottle": "NØTE.-Flakon entspricht der etablierten Referenz. Zentrale Platzierung ist ausdruecklich fuer dieses Einzelmotiv vorgesehen."
+        },
+        "draftId": "L218",
+        "verdict": "bestanden",
+        "requiredCorrections": [],
+        "imageSha256": "68eb24ce11fc9809c67d4f430bd72eaa523735a92b56af8521a77540ba4aa1b1",
+        "referenceSha256": "7e29815a7d05dab63bd7cfac306d503125c5a2abdd877fc77086f7724643292a",
+        "finalId": "L218"
+      },
+      "webpSha256": "a8b52b654292abb095ca4e95e0120a3d1f99371dfc20249c66f16632d3c95341"
+    }
+  ]
+}

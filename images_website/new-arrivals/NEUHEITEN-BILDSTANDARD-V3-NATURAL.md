@@ -23,7 +23,13 @@ Die Neuheiten bleiben farbig, reichhaltig und duftspezifisch, wirken aber wie na
 - holzig/orientalisch: gedämpfter Bernstein, Safran, Mahagoni oder Burgund mit Vanillecreme und natürlichem Olivgrün
 - abendlich: entsättigtes Nachtblau oder Pflaume mit warmem Amberlicht; Schatten bleiben durchzeichnet
 
-## Unveränderliche Bildmerkmale
+## Verbindliche Flakon-Gegenprüfung (Nutzerwunsch vom 16.10.2026)
+
+Vor jeder Veröffentlichung muss das generierte Bild unabhängig gegen eine verifizierte Aufnahme des tatsächlichen Originaldufts und gegen den etablierten NØTE.-Flakon geprüft werden. Hersteller-Packshots bevorzugen. Die konkrete Duftvariante muss stimmen; ähnlich benannte Varianten sind kein Ersatz. Der NØTE.-Flakon bleibt formgetreu. Der kleinere Begleitflakon erhält dagegen eine eigenständige Körperform, andere Proportionen und einen anders gestalteten Verschluss. Duftfarben und Bildstimmung dürfen als Bezug erhalten bleiben. Fremdschrift, Logos und prägende Markensymbole wie Medusenkopf, Kronen, Reliefziffern oder charakteristische Figurenfriese entfallen.
+
+Referenzquelle, Bilddatei, konkrete Unterschiede, Prüfergebnis und Hash der freigegebenen Datei dokumentieren. Die Gegenprüfung kontrolliert die tatsächlich umgesetzten gestalterischen Unterschiede, den unveränderten eigenen Flakon und die Bildqualität. Sie ist keine rechtliche Freigabe: Es gibt keinen pauschalen Schutz durch eine Veränderung um 20 bis 30 Prozent; beim Designschutz ist der Gesamteindruck maßgeblich (§ 38 DesignG). Abweichungen von dieser Bildvorgabe korrigieren und erneut prüfen. Ist die Variante ungeklärt, Rückfrage stellen. Für Ajmal Silk Musk hat der Nutzer vorerst ein Motiv ausschließlich mit dem NØTE.-Flakon gewählt. Orange Cream ist von der Oktober-Aufnahme ausgeschlossen.
+
+## Bildaufbau
 
 - quadratisches RGB-Bild, final 1254 × 1254 Pixel
 - NØTE.-Flakon links, frontal und visuell dominant
