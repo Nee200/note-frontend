@@ -708,6 +708,17 @@ const PRODUCT_DETAIL_INFOGRAPHIC_IMAGE = 'images_website/product-details/note-pr
 // Keep the latest supplier release at the front of the Neuheiten page while
 // preserving the established order for all earlier new arrivals.
 const NEW_ARRIVAL_PRIORITY_IDS = Object.freeze([
+    'G355',
+    'G356',
+    'G357',
+    'G358',
+    'G359',
+    'G360',
+    'G361',
+    'L216',
+    'L217',
+    'L218',
+    'L219',
     'G349',
     'G350',
     'G351',
