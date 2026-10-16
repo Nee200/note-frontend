@@ -70,14 +70,21 @@ test('Duftroller cart variants survive shared pages, correct their prices/images
             }
             assert.ok(await page.$eval('[data-cart-drawer]', element => element.inert && getComputedStyle(element).visibility === 'hidden'), file + ' closed cart must be inert and visually hidden');
             // Wait for the header button to stop moving before the real pointer click.
-            await page.locator('[data-cart-open]').click();
             try {
+                await page.locator('[data-cart-open]').click();
                 await page.waitForFunction(() => document.querySelector('[data-cart-drawer]').getBoundingClientRect().right <= innerWidth + 1);
             } catch (error) {
                 const state = await page.$eval('[data-cart-drawer]', element => ({
                     open: element.classList.contains('is-open'), inert: element.inert,
                     right: element.getBoundingClientRect().right, viewport: innerWidth,
-                    focus: document.activeElement?.outerHTML.slice(0, 300)
+                    focus: document.activeElement?.outerHTML.slice(0, 300),
+                    button: (() => {
+                        const button = document.querySelector('[data-cart-open]');
+                        const rect = button.getBoundingClientRect(), css = getComputedStyle(button);
+                        return { x: rect.x, y: rect.y, width: rect.width, height: rect.height,
+                            display: css.display, visibility: css.visibility, inert: button.closest('[inert]')?.tagName,
+                            scrollY, hit: document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2)?.outerHTML.slice(0, 500) };
+                    })()
                 }));
                 throw new Error(`${file}: cart did not open: ${JSON.stringify({ state, errors })}`, { cause: error });
             }
