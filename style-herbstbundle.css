@@ -1,0 +1,105 @@
+/* Seasonal skin: reuse the existing bundle layout, controls and prices. */
+.summer-builder-page.autumn-bundle-page{position:relative}
+.autumn-leaves{position:absolute;inset:0;z-index:60;overflow:hidden;pointer-events:none;contain:strict}
+.autumn-leaves[hidden],.autumn-leaves-toggle[hidden]{display:none}
+.autumn-leaf{position:absolute;top:-48px;left:var(--leaf-left);width:var(--leaf-size);opacity:.3;animation:autumn-leaf-fall var(--leaf-duration) var(--leaf-delay) linear infinite}
+.autumn-leaf svg{display:block;width:100%;height:auto;animation:autumn-leaf-sway var(--leaf-sway) var(--leaf-delay) ease-in-out infinite alternate}
+.autumn-leaves.is-paused .autumn-leaf,.autumn-leaves.is-paused svg{animation-play-state:paused}
+.autumn-leaves-toggle{position:fixed;bottom:16px;left:16px;z-index:61;padding:9px 13px;border:1px solid #d2b69c;border-radius:20px;background:#faf4ec;color:#693a26;font:500 11px/1.3 Inter,Arial,sans-serif;cursor:pointer}
+.autumn-leaves-toggle:focus-visible{outline:2px solid #9c4e2d;outline-offset:3px}
+@keyframes autumn-leaf-fall{from{transform:translate3d(-12px,-48px,0)}to{transform:translate3d(30px,calc(var(--leaf-distance,100vh) + 96px),0)}}
+@keyframes autumn-leaf-sway{from{transform:translateX(-15px) rotate(-30deg) rotateY(0deg)}to{transform:translateX(15px) rotate(40deg) rotateY(65deg)}}
+@media(max-width:767px){.autumn-leaf:nth-child(n+9){display:none}.autumn-leaves-toggle{bottom:12px;left:12px}}
+@media(prefers-reduced-motion:reduce){.autumn-leaves,.autumn-leaves-toggle{display:none}.autumn-leaf,.autumn-leaf svg{animation:none}}
+.autumn-bundle-page{
+    --summer-ink:#231711;--summer-night:#321b14;--summer-teal:#9c4e2d;
+    --summer-gold:#bd783d;--summer-gold-soft:#e3b886;--summer-sand:#ead7c2;
+    --summer-ivory:#faf4ec;--summer-line:rgba(85,46,28,.18)
+}
+.autumn-bundle-page .summer-inline-bundle{margin-bottom:clamp(48px,5vw,80px)}
+.autumn-bundle-page .summer-inline-visual{background:#321b14}
+.autumn-bundle-page .summer-inline-kicker{color:#f0c49a}
+.autumn-bundle-page .summer-inline-copy h2 em{color:#f0c49a}
+.autumn-bundle-page .summer-inline-prices{border-color:rgba(239,193,146,.3)}
+.autumn-bundle-page .summer-glass-cta{
+    min-width:0;min-height:48px;padding:15px 22px;gap:24px;
+    justify-content:center;border:1px solid #f2dfc4;border-radius:4px;
+    color:#321b14;background:#f2dfc4;box-shadow:none;
+    backdrop-filter:none;-webkit-backdrop-filter:none;
+    font:800 11px/1.2 Inter,Arial,sans-serif;letter-spacing:.1em
+}
+.autumn-bundle-page .summer-glass-cta:hover,.autumn-bundle-page .summer-glass-cta:focus-visible{color:#321b14;background:#fff1de;border-color:#fff1de}
+.autumn-bundle-page .summer-glass-cta i{display:inline-block;width:auto;height:auto;border:0;border-radius:0;background:transparent}
+.autumn-bundle-page .summer-builder-shell{
+    box-sizing:border-box;
+    width:min(1460px,calc(100% - 64px));
+    margin:36px auto 64px;
+    padding:clamp(32px,3.2vw,64px);
+    grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
+    gap:clamp(32px,4vw,64px);
+    border:0;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none
+}
+.autumn-bundle-page .summer-builder-media,.autumn-bundle-page .summer-builder-panel{min-width:0}
+.autumn-bundle-page .summer-action-steps-heading h2{margin:0;color:#8d472b;font:800 15px/1.4 Inter,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+@media(min-width:641px){
+    .autumn-bundle-page .summer-size-choice-options{box-sizing:border-box;padding-right:110px}
+    .autumn-bundle-page .summer-size-choice-options::before{left:calc((100% - 110px)/2)}
+    .autumn-bundle-page .summer-size-gift-badge>span{display:grid;gap:4px;font-size:10px;letter-spacing:.08em}
+}
+@media(max-width:640px){
+    .autumn-bundle-page .summer-size-gift-badge{right:0}
+}
+.autumn-bundle-page .summer-builder-media-badge{background:rgba(67,34,23,.92);color:#ffead3;border-color:rgba(246,210,164,.6)}
+.autumn-bundle-page .summer-builder-media-frame{height:auto;min-height:0}
+.autumn-bundle-page .summer-builder-media-frame img{height:auto;min-height:0;object-fit:contain}
+.autumn-bundle-page .summer-builder-eyebrow{color:#8d472b}
+.autumn-bundle-page .summer-builder-panel h1{color:#2f1b13}
+.autumn-bundle-page .summer-size-choice-options button.is-active{border-color:#ad6138;background:#f6e7d8}
+.autumn-bundle-page .summer-saving-display{color:#8d472b}
+.autumn-bundle-page .summer-builder-submit{background:#773c29;color:#fff6ed;border-color:#773c29}
+.autumn-bundle-page .summer-builder-submit:hover:not(:disabled){background:#5d2d1e}
+.autumn-bundle-page .summer-builder-submit:focus-visible{outline:3px solid #bd783d;outline-offset:4px}
+.autumn-bundle-page .summer-inline-gift{
+    box-sizing:border-box;width:min(100%,480px);height:auto;
+    margin:18px auto 24px;padding:12px;
+    grid-template-columns:112px minmax(0,1fr);gap:16px;align-items:center;
+    border:0;border-radius:0;background:transparent
+}
+.autumn-bundle-page .summer-inline-gift-visual{aspect-ratio:1;min-height:0;border:0;border-radius:6px;box-shadow:none}
+.autumn-bundle-page .summer-inline-gift-visual>span{display:none}
+.autumn-bundle-page .summer-inline-gift-copy{padding:0}
+.autumn-bundle-page .summer-inline-gift-copy>small{font-size:8px;line-height:1.4;letter-spacing:.08em}
+.autumn-bundle-page .summer-inline-gift-copy h2{margin:5px 0 0;font-size:clamp(18px,1.4vw,22px);line-height:1.2}
+.autumn-bundle-page .summer-inline-gift-copy>p{margin:6px 0 0;font-size:12px;line-height:1.5}
+@media(max-width:640px){
+    .autumn-bundle-page .summer-inline-gift{grid-template-columns:80px minmax(0,1fr);gap:12px}
+    .autumn-bundle-page .summer-inline-gift-copy>p{font-size:11.5px}
+}
+.autumn-bundle-page .summer-drawer-head{background:#f7ecdf}
+.autumn-bundle-page .summer-drawer-product.is-selected,.autumn-bundle-page .summer-drawer-product:hover{border-color:#a45935}
+.autumn-bundle-page .pre-footer-band{min-height:220px;margin-top:0;background:transparent}
+.autumn-bundle-page .wave-layer{inset:0;height:100%;background-image:url("images_website/herbstbundle/footer-waves.svg");background-size:100% 100%}
+@media(max-width:620px){.autumn-bundle-page .pre-footer-band{min-height:180px}}
+@media(max-width:1000px){
+    .autumn-bundle-page .summer-builder-shell{width:min(720px,calc(100% - 32px));grid-template-columns:minmax(0,1fr);gap:32px}
+    .autumn-bundle-page .summer-builder-media{position:relative;top:auto}
+}
+@media(max-width:767px){
+    .autumn-bundle-page .summer-builder-shell{margin:24px auto 48px;padding:20px;gap:28px}
+    .autumn-bundle-page .summer-inline-visual{min-height:0}
+    .autumn-bundle-page .summer-inline-visual>img{position:relative;display:block;height:clamp(170px,40vw,300px);object-fit:cover;object-position:center 75%}
+    .autumn-bundle-page .summer-inline-visual::after{background:none}
+    .autumn-bundle-page .summer-inline-copy{position:relative;top:auto;right:auto;bottom:auto;left:auto;width:auto;max-width:none;padding:20px 18px 22px;transform:none}
+    .autumn-bundle-page .summer-inline-kicker{margin-bottom:10px;font-size:8px}
+    .autumn-bundle-page .summer-inline-copy h2{font-size:clamp(30px,6vw,38px);line-height:1.02}
+    .autumn-bundle-page .summer-inline-copy>p:not(.summer-inline-kicker){max-width:380px;margin-top:12px;font-size:12px;line-height:1.5}
+    .autumn-bundle-page .summer-inline-prices{margin-top:14px;gap:6px}
+    .autumn-bundle-page .summer-inline-price{grid-template-columns:62px auto auto;gap:10px}
+    .autumn-bundle-page .summer-inline-price span{white-space:nowrap}
+    .autumn-bundle-page .summer-inline-price strong{font-size:25px}
+    .autumn-bundle-page .summer-inline-price--compact strong{font-size:23px}
+    .autumn-bundle-page .summer-glass-cta{min-height:44px;margin-top:16px;padding:12px 18px;font-size:10px;gap:20px}
+}

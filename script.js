@@ -201,6 +201,20 @@ function sanitizeProductUrlId(value) {
     return encodeURIComponent(String(value || ''));
 }
 
+function getProductPageHref(productId) {
+    const id = String(productId || '');
+    if (id === 'AUTODUFT') return 'autoduft.html';
+    if (id === 'DUFTROLLER') return 'duftroller.html';
+    return `product.html?id=${sanitizeProductUrlId(id)}`;
+}
+
+function getProductDefaultVariant(product, preferredSizes = [30, 50, 100]) {
+    const variants = product?.variants || {};
+    return preferredSizes.map(size => variants[size]).find(variant => variant && Number.isFinite(Number(variant.price)))
+        || Object.values(variants).find(variant => variant && Number.isFinite(Number(variant.price)))
+        || null;
+}
+
 function sanitizeClassFragment(value) {
     return String(value || '').replace(/[^a-zA-Z0-9_-]/g, '');
 }
@@ -269,7 +283,7 @@ function syncCartPricesFromCatalog() {
 
     cart.forEach((item) => {
         if (Array.isArray(item.bundleSelections)) return;
-        const productId = String(item.productId || String(item.id || '').replace(/-\d+$/, ''));
+        const productId = resolveCartProductId(item);
         const size = String(item.size || '').replace(/[^0-9]/g, '');
         const variant = productsById.get(productId)?.variants?.[size];
         if (!variant) return;
@@ -398,25 +412,19 @@ function scrollToSearchResultsIfNeeded(query) {
     const productGridEl = document.getElementById('product-grid');
     if (!productGridEl) return;
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const navbar = document.querySelector('.navbar');
     const topBanner = document.querySelector('.top-banner');
     const offset = (navbar ? navbar.getBoundingClientRect().height : 0)
         + (topBanner ? topBanner.getBoundingClientRect().height : 0)
         + 110;
 
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            const targetTop = Math.max(
-                productGridEl.getBoundingClientRect().top + window.pageYOffset - offset,
-                0
-            );
-            window.scrollTo({
-                top: targetTop,
-                behavior: prefersReducedMotion ? 'auto' : 'smooth'
-            });
-        });
-    });
+    // Position newly loaded results immediately. A delayed smooth scroll can
+    // move the header between pointer-down and click onto a different link.
+    const targetTop = Math.max(
+        productGridEl.getBoundingClientRect().top + window.pageYOffset - offset,
+        0
+    );
+    window.scrollTo({ top: targetTop, behavior: 'instant' });
 }
 
 async function init() {
@@ -583,10 +591,10 @@ function initFAQ() {
 function getProductCardHTML(product, options = {}) {
     const imageLoading = options.imageLoading || 'lazy';
     const imageFetchPriority = options.imageFetchPriority || 'auto';
-    const defaultVariant = product.variants[30];
-    const price = defaultVariant.price;
-    const originalPrice = defaultVariant.originalPrice;
-    const safeProductUrlId = sanitizeProductUrlId(product.id);
+    const defaultVariant = getProductDefaultVariant(product);
+    const price = Number(defaultVariant?.price || 0);
+    const originalPrice = Number(defaultVariant?.originalPrice || 0);
+    const safeProductHref = getProductPageHref(product.id);
     const safeProductClassId = sanitizeClassFragment(product.id);
     const safeImage = safeImageSrc((product.images && product.images.length > 0) ? product.images[0] : 'logo.webp');
     const safeProductName = escapeHtml(product.name || '');
@@ -601,7 +609,7 @@ function getProductCardHTML(product, options = {}) {
         : '';
 
     return `
-        <a class="product-card shop-product-card${isCuratedBestseller(product) ? ' is-bestseller' : ''}${hasComparisonImage ? ' has-comparison-image' : ''}${hasEditorialImage ? ' has-editorial-image' : ''}" href="product.html?id=${safeProductUrlId}" aria-label="N&Oslash;TE. ${safeProductCode} ansehen">
+        <a class="product-card shop-product-card${isCuratedBestseller(product) ? ' is-bestseller' : ''}${hasComparisonImage ? ' has-comparison-image' : ''}${hasEditorialImage ? ' has-editorial-image' : ''}" href="${safeProductHref}" aria-label="N&Oslash;TE. ${safeProductCode} ansehen">
             ${isCuratedBestseller(product) ? '<span class="product-badge-bestseller">Bestseller</span>' : ''}
             <span class="product-code">N&Oslash;TE. ${safeProductCode}</span>
             <div class="product-stage">
@@ -797,7 +805,7 @@ function getFilteredAndSortedProducts(category) {
         const value = sortSelect.value;
         const getPrice = (product) => {
             if (!product.variants) return 0;
-            const variant = product.variants[50] || product.variants[30] || product.variants[100];
+            const variant = getProductDefaultVariant(product, [50, 30, 100]);
             return variant ? variant.price : 0;
         };
 
@@ -1567,6 +1575,10 @@ function initReviewForm() {
 
 // Detailansicht rendern (für product.html)
 function renderProductDetail(id) {
+    if (id === 'AUTODUFT' || id === 'DUFTROLLER') {
+        window.location.replace(getProductPageHref(id));
+        return;
+    }
     const product = products.find(p => p.id === id);
     if (!product) {
         document.querySelector('.detail-container').innerHTML = '<p>Produkt nicht gefunden.</p>';
@@ -1811,6 +1823,8 @@ function resolveCartProductId(item) {
     if (item && item.productId) return String(item.productId);
 
     if (item && item.id) {
+        if (/^DUFTROLLER-(6|10|14)-[GL]\d+$/.test(String(item.id))) return 'DUFTROLLER';
+        if (/^AUTODUFT-[GL]\d+$/.test(String(item.id))) return 'AUTODUFT';
         const fromId = String(item.id).replace(/-\d+$/, '');
         if (fromId) return fromId;
     }
@@ -1827,11 +1841,7 @@ function resolveCartProductId(item) {
 function openCartItemProduct(productId) {
     const id = String(productId || '').trim();
     if (!id) return;
-    if (id === 'AUTODUFT') {
-        window.location.href = 'autoduft.html';
-        return;
-    }
-    window.location.href = `product.html?id=${encodeURIComponent(id)}`;
+    window.location.href = getProductPageHref(id);
 }
 
 // Warenkorb UI aktualisieren
@@ -1883,7 +1893,8 @@ function updateCartUI() {
                 : `<div class="item-price">${totalPrice.toFixed(2)} €</div>`;
 
             const cleanName = escapeHtml(String(item.name || '').replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, ''));
-            const publicName = product ? getPublicProductName(product) : '';
+            const isRoller = item.productType === 'duftroller' || productTargetId === 'DUFTROLLER';
+            const publicName = product && !isRoller ? getPublicProductName(product) : '';
             const inspiredText = publicName
                 ? `<br><span style="font-family: 'Playfair Display', serif; font-size: 1.3em; color: #1a1a1a; font-weight: normal; font-style: normal;">${escapeHtml(publicName)}</span>`
                 : '';
@@ -1895,7 +1906,9 @@ function updateCartUI() {
                 </button>
                 <div class="cart-item-info">
                     <div class="cart-item-title" style="line-height: 1.3;">${cleanName}${inspiredText}</div>
-                    <div class="cart-item-variant">${item.productType === 'autoduft'
+                    <div class="cart-item-variant">${isRoller
+                        ? `${escapeHtml(item.size || '')} ml · ${escapeHtml(item.scentId || '')} · ${escapeHtml(item.scentName || 'Gewählte Duftfüllung')}`
+                        : item.productType === 'autoduft'
                         ? `${escapeHtml(item.scentId || '')} Duftnote · ${escapeHtml(item.scentName || 'Gewählte Duftfüllung')}`
                         : `${escapeHtml(item.size)}ml`}</div>
                     <div class="quantity-control">
@@ -2478,16 +2491,16 @@ async function performSearch() {
     }
 
     resultsContainer.innerHTML = filteredProducts.slice(0, 6).map(product => {
-        const defaultVariant = product.variants[30] || product.variants[50];
+        const defaultVariant = getProductDefaultVariant(product);
         const price = defaultVariant ? defaultVariant.price : 0;
-        const safeProductUrlId = sanitizeProductUrlId(product.id);
+        const safeProductHref = getProductPageHref(product.id);
         const safeImage = safeImageSrc((product.images && product.images.length > 0) ? product.images[0] : 'logo.webp');
         const safeName = escapeHtml(product.name || '');
         const safeCode = escapeHtml(String(product.name || '').replace(/\s*\(\d+ml\)/, '').replace(/^No\.\s*/i, ''));
         const safeTitle = escapeHtml(getPublicProductName(product)) || safeName;
 
         return `
-        <div class="product-card" onclick="window.location.href='product.html?id=${safeProductUrlId}'" style="cursor: pointer;">
+        <div class="product-card" onclick="window.location.href='${safeProductHref}'" style="cursor: pointer;">
             <div class="product-image-wrapper">
                 <img src="${safeImage}" 
                      alt="${safeName}" 

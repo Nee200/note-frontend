@@ -1,0 +1,73 @@
+{
+  "season": "Sommer 2026",
+  "savedAt": "2026-10-05T10:33:01.790505+00:00",
+  "sourceCommit": "22dacf3fd95e4b3fe88a5f990516e075a0518a46",
+  "files": [
+    {
+      "path": "index.html",
+      "sha256": "6e8378f09e401a25b003237df1d3c020b33c07769aac18e4f35131457bba21c5"
+    },
+    {
+      "path": "sommerbundle.html",
+      "sha256": "326ae38eb4fefcb347a7a3743134497f0c07e0ad4b1795b6c26363244f4606ba"
+    },
+    {
+      "path": "sommerbundle.js",
+      "sha256": "ea2b92cbd0e949311b02d69a2a16cc0d3e8eef7463b54e5154978a1aaabd2b80"
+    },
+    {
+      "path": "style-sommerbundle.css",
+      "sha256": "b9800eeec0efa53f83772a7fc5f1a3459e631208b99c21cfb63bce98162c6419"
+    },
+    {
+      "path": "style-wave-home.js",
+      "sha256": "c1fd0257ed5566270613ebe7dba4376010f456b4c47dc03afca4ba9dab7d7720"
+    },
+    {
+      "path": "style-wave-home.css",
+      "sha256": "12afde8dbe95b4f5fe069668bf197388866fb1256a20751f7f6ad7f43f1e708c"
+    },
+    {
+      "path": "images_website/sommerbundle/note-bottle-outline-note-antique-gold-transparent-v4.png",
+      "sha256": "00224ca0545b015232e38d1ba85bfcc5ab949b2cb788e2846bfb2055335efab7"
+    },
+    {
+      "path": "images_website/sommerbundle/note-summerbundle-coastal-two-bottles-v6.webp",
+      "sha256": "3115585fa46ead8c23f72edc52bf12a1730f55643d5798bd39746bd0828ab3c3"
+    },
+    {
+      "path": "images_website/sommerbundle/note-summerbundle-color-v4.webp",
+      "sha256": "cd07d475d6b439cdd943879397494f15a695c88809ae09d1d497339210efeaf1"
+    },
+    {
+      "path": "images_website/sommerbundle/summer-size-30-collage-v1.webp",
+      "sha256": "7569c25bcfbac19e2430f169ef350daf3b59607226f2d4fd0623ec0c5fc29d8f"
+    },
+    {
+      "path": "images_website/sommerbundle/summer-size-50-collage-v1.webp",
+      "sha256": "1638221b16645cacfb730874401910c56e64ac3f670a19d558afc78b25dd6400"
+    },
+    {
+      "path": "images_website/sommerbundle/summer-step-01-bold-transparent-v6.png",
+      "sha256": "cd95fabeb8a819db6670e1db02101242acd03b223bbec220ca202b1118c109b2"
+    },
+    {
+      "path": "images_website/sommerbundle/summer-step-02-bold-transparent-v6.png",
+      "sha256": "37951cce4c736eaea6b157050de13f1690e367b4269fa0aec36e0b3cd81fdae5"
+    },
+    {
+      "path": "images_website/sommerbundle/summer-step-03-bold-transparent-v6.png",
+      "sha256": "1fa7a5bb47a2e3aadc1697da27412f156f3283a326cbf67f191f5cdeb7d94889"
+    },
+    {
+      "path": "images_website/sommerbundle/wrapped-gift-50ml-v1.webp",
+      "sha256": "289ff4c438d9219658bd7f0557bc34c50d1d64b82571b2b3ea57b3c39c9c43b4"
+    }
+  ],
+  "restoration": [
+    "Das Sommerbundle, seine Bilder, Texte und Farben sind vollständig gesichert.",
+    "Zum nächsten Sommer nur die saisonalen Bundle-Abschnitte und Farben zurückübernehmen, nicht die kompletten gemeinsamen Shop-Dateien überschreiben.",
+    "Die Archivdateien sind nicht Bestandteil des öffentlichen Builds. Aktuelle Konto-, Datenschutz- und Sicherheitsänderungen beibehalten.",
+    "Preise und Geschenkregeln vor einer neuen Saison fachlich prüfen. Jahreszahl aktualisieren."
+  ]
+}

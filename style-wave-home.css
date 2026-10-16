@@ -62,8 +62,8 @@ a {
     isolation: isolate;
     color: #fff;
     background:
-        radial-gradient(circle at 88% 20%, rgba(228, 200, 143, 0.4), transparent 24%),
-        linear-gradient(108deg, #15120f 0%, #3a2b1d 55%, #ad8040 100%);
+        radial-gradient(circle at 88% 20%, rgba(220, 145, 79, 0.4), transparent 24%),
+        linear-gradient(108deg, #21130f 0%, #573020 55%, #b47543 100%);
     font-family: Arial, sans-serif;
     line-height: 1;
     text-decoration: none;
@@ -522,7 +522,8 @@ body.has-summer-global-bar .search-panel {
     background: #fff;
     box-shadow: -18px 0 60px rgba(0, 0, 0, 0.18);
     transform: translateX(100%);
-    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    visibility: hidden;
+    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s 0.32s;
 }
 
 html.cart-drawer-open {
@@ -531,6 +532,8 @@ html.cart-drawer-open {
 
 .cart-drawer.is-open {
     transform: translateX(0);
+    visibility: visible;
+    transition-delay: 0s;
 }
 
 .cart-drawer-header {
@@ -3621,17 +3624,95 @@ footer a[href="suche.html"] {
     }
 }
 
-/* Keep the new Autoduft launch visible in the primary navigation. */
-#main-navigation > a[href="autoduft.html"] {
-    position: relative;
+/* Keep the complete primary navigation on one row at desktop widths. */
+@media (min-width: 1281px) and (max-width: 1440px) {
+    .site-header {
+        gap: 20px;
+        padding-inline: 32px;
+    }
+
+    .main-nav,
+    .header-actions {
+        gap: 16px;
+    }
 }
 
-#main-navigation > a[href="autoduft.html"]::before {
+/* Eight shop links need the compact navigation before tablet width. */
+@media (min-width: 981px) and (max-width: 1280px) {
+    .site-header {
+        grid-template-columns: auto auto;
+        justify-content: space-between;
+        justify-items: stretch;
+        gap: 16px;
+        min-height: 76px;
+        padding: 14px 34px;
+    }
+
+    .header-actions {
+        justify-content: flex-end;
+    }
+
+    .main-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0;
+        max-height: 0;
+        padding: 0 34px;
+        overflow: hidden;
+        background: rgba(16, 16, 16, 0.98);
+        border-bottom: 1px solid rgba(200, 164, 61, 0.34);
+        box-shadow: 0 22px 38px rgba(0, 0, 0, 0.18);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-8px);
+        transition: max-height 0.32s ease, padding 0.32s ease, opacity 0.2s ease,
+            transform 0.32s ease, visibility 0s linear 0.32s;
+    }
+
+    .main-nav.is-open {
+        max-height: 340px;
+        padding-top: 14px;
+        padding-bottom: 16px;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+        transition-delay: 0s;
+    }
+
+    .main-nav a {
+        padding: 12px 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        text-align: center;
+    }
+
+    .main-nav a::after {
+        display: none;
+    }
+
+    .icon-button.mobile-menu-toggle {
+        display: grid;
+    }
+}
+
+/* Mark Duftroller as the new addition inside the fragrance menu. */
+#main-navigation .nav-fragrances-panel a[href="duftroller.html"] {
+    position: relative;
+    padding-right: 52px;
+}
+
+#main-navigation .nav-fragrances-panel a[href="duftroller.html"]::before,
+#main-navigation .nav-fragrances > summary::before {
     content: "NEW";
     position: absolute;
     z-index: 2;
-    top: -7px;
-    left: 50%;
+    top: 50%;
+    right: 12px;
     padding: 3px 5px 2px;
     border: 1px solid rgba(255, 255, 255, 0.34);
     border-radius: 999px;
@@ -3644,14 +3725,121 @@ footer a[href="suche.html"] {
     line-height: 1;
     letter-spacing: 0.08em;
     pointer-events: none;
-    transform: translate(-50%, -50%);
+    transform: translateY(-50%);
 }
 
-@media (max-width: 900px) {
-    #main-navigation > a[href="autoduft.html"]::before {
-        top: 50%;
-        right: 10px;
-        left: auto;
-        transform: translateY(-50%);
+/* Shared fragrance disclosure: compact desktop dropdown, inline mobile category. */
+@media (min-width: 1281px) {
+    .site-header .main-nav {
+        justify-content: center;
+        flex-wrap: nowrap;
+        gap: 32px;
+        padding-left: 0;
     }
 }
+.nav-fragrances { position: relative; }
+.nav-fragrances > summary {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 0;
+    color: #4f4840;
+    font: 600 0.85rem/1.1 Arial, sans-serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    list-style: none;
+    cursor: pointer;
+}
+#main-navigation .nav-fragrances > summary::before {
+    top: -7px;
+    left: calc(50% - 11px);
+    right: auto;
+    transform: translateX(-50%);
+}
+.footer-tone-header .nav-fragrances > summary { color: #f6f3ee; }
+.nav-fragrances > summary::-webkit-details-marker { display: none; }
+.nav-fragrances-chevron {
+    flex: 0 0 14px;
+    opacity: 0.85;
+    transition: transform 240ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.nav-fragrances[open] .nav-fragrances-chevron { transform: rotate(180deg); }
+.nav-fragrances[open] > .nav-fragrances-panel {
+    animation: fragrance-menu-reveal 240ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@keyframes fragrance-menu-reveal {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .nav-fragrances-chevron { transition: none; }
+    .nav-fragrances[open] > .nav-fragrances-panel { animation: none; }
+}
+.nav-fragrances > summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 5px; }
+.nav-fragrances-panel {
+    position: absolute;
+    z-index: 30;
+    top: calc(100% + 16px);
+    left: -22px;
+    width: 220px;
+    padding: 10px;
+    border: 1px solid rgba(200, 164, 61, 0.3);
+    border-radius: 8px;
+    background: #1b1b19;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+}
+.site-header .nav-fragrances-panel a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 12px;
+    border: 0;
+    border-radius: 4px;
+    color: #f6f3ee;
+    font: 500 14px/1.4 Arial, sans-serif;
+    letter-spacing: 0.02em;
+    text-align: left;
+    text-transform: none;
+}
+.site-header .nav-fragrances-panel a::after { display: none; }
+.site-header .nav-fragrances-panel a:hover,
+.site-header .nav-fragrances-panel a:focus-visible { background: rgba(200, 164, 61, 0.13); color: #e7ce88; }
+.site-header .nav-fragrances-panel a[aria-current="page"] { color: #e7ce88; }
+@media (max-width: 1280px) {
+    #main-navigation .nav-fragrances > summary::before {
+        top: 50%;
+        left: auto;
+        right: 38px;
+        transform: translateY(-50%);
+    }
+    .site-header .main-nav { grid-template-columns: 1fr; align-items: stretch; }
+    .site-header .main-nav.is-open { max-height: calc(100dvh - 150px); overflow-y: auto; }
+    .site-header .main-nav > a,
+    .site-header .nav-fragrances > summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 44px;
+        padding: 12px 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        color: #f6f3ee;
+        font-size: 12.5px;
+        font-weight: 600;
+        text-align: left;
+    }
+    .nav-fragrances-panel {
+        position: static;
+        width: auto;
+        margin: 4px 0 8px 10px;
+        padding: 0 0 0 10px;
+        border: 0;
+        border-left: 1px solid rgba(200, 164, 61, 0.45);
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+}
+/* Shared withdrawal entry, also on pages without the legacy stylesheet. */
+.footer .withdrawal-link,.withdrawal-policy-link{display:inline-block;border:1px solid currentColor;border-radius:4px;padding:9px 13px;margin-bottom:12px;color:inherit;text-transform:none;font-size:14px;font-weight:600;line-height:1.4;text-decoration:none}
+.footer .withdrawal-link:focus-visible,.withdrawal-policy-link:focus-visible{outline:3px solid #d4af37;outline-offset:3px}

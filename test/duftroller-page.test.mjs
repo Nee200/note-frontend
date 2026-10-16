@@ -1,0 +1,233 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import puppeteer from 'puppeteer';
+import { preview } from '../scripts/preview.mjs';
+
+const catalog = [
+ {id:'DUFTROLLER',category:'duftroller',name:'Duftroller',images:['images_website/duftroller/note-duftroller-trio-v1.webp'],variants:{6:{price:12.5},10:{price:16},14:{price:19.5}}},
+ {id:'G1',category:'men',publicName:'Beyond Bergamot',name:'G1',inspiredBy:'Armani Acqua',description:'Frisch',images:['logo.webp'],variants:{30:{price:34.99},50:{price:44.99}}},
+ {id:'L1',category:'women',publicName:'Rosé <Duft>',name:'L1',inspiredBy:'Chanel',description:'Blumig',images:['logo.webp'],variants:{30:{price:34.99},50:{price:44.99}}}
+];
+async function setup(t) {
+ const server=await preview(0), origin=`http://127.0.0.1:${server.address().port}`;
+ const browser=await puppeteer.launch({headless:true,...(process.platform==='win32'?{executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe'}:{}),args:process.platform==='linux'?['--no-sandbox']:[]});
+ t.after(async()=>{await browser.close();await new Promise(resolve=>server.close(resolve));});
+ return {browser,origin};
+}
+async function pageFor(browser,origin,width=390) {
+ const context=await browser.createBrowserContext();
+ const page=await context.newPage(), state={fail:false,requests:[],errors:[],products:catalog};
+ await page.setViewport({width,height:844,isMobile:width<600,hasTouch:width<600});
+ await page.evaluateOnNewDocument(()=>{localStorage.setItem('cookie_consent','necessary');localStorage.setItem('nl_dismissed','1');});
+ page.on('pageerror',error=>state.errors.push(error.message));
+ await page.setRequestInterception(true);
+ page.on('request',request=>{
+  const url=new URL(request.url());
+  if(url.pathname.startsWith('/api/')||url.pathname.startsWith('/create-')){
+   const headers={'Access-Control-Allow-Origin':origin,'Access-Control-Allow-Credentials':'true','Access-Control-Allow-Methods':'GET, POST, OPTIONS','Access-Control-Allow-Headers':'content-type, x-csrf-token, idempotency-key'};
+   if(request.method()==='OPTIONS')return request.respond({status:204,headers});
+   state.requests.push({url:url.pathname,method:request.method(),data:request.postData()});
+   let body={};
+   if(url.pathname==='/api/products')body=state.products;
+   if(url.pathname.endsWith('/reviews'))body={reviews:[],summary:{count:0,average:0}};
+   if(url.pathname==='/api/csrf-token')body={csrfToken:'synthetic-test'};
+   if(url.pathname==='/create-checkout-session')body={safeMode:true};
+   if(url.pathname.includes('newsletter'))body={message:'Bitte bestätige deine Anmeldung.'};
+   return request.respond({status:state.fail&&url.pathname==='/api/products'?503:200,headers,contentType:'application/json',body:JSON.stringify(body)});
+  }
+  if(!['localhost','127.0.0.1'].includes(url.hostname))return request.abort();
+  return request.continue();
+ });
+ return {page,state,go:()=>page.goto(origin+'/duftroller.html',{waitUntil:'load'})};
+}
+async function ready(page){await page.waitForFunction(()=>!document.querySelector('#add-btn').disabled && !document.querySelector('#add-btn').textContent.includes('laden'));}
+async function selectScent(page,query,id){
+ await page.click('#open-selector');
+ await page.waitForSelector('#scent-modal.is-visible');
+ await page.type('#scent-search',query);
+ await page.waitForSelector(`[data-scent-id="${id}"]`);
+ assert.equal(await page.$$eval('.scent-card',nodes=>nodes.length),1);
+ await page.click(`[data-scent-id="${id}"]`);
+ await page.waitForFunction(()=>document.querySelector('#scent-modal').hidden);
+}
+
+test('Duftroller purchase flow preserves sizes, brands, prices and gallery state on desktop and phone', {timeout:120000},async t=>{
+ const {browser,origin}=await setup(t);
+ for(const width of [320,390,1366]){
+  const {page,state,go}=await pageFor(browser,origin,width);await go();await ready(page);
+  const layout=await page.evaluate(()=>({
+   width:innerWidth,
+   boxes:Array.from(document.querySelectorAll('.gallery,.product-visual,.product-info,.roller-configurator,.gallery-thumb:not([hidden]),.roller-shared-comparison,.stat-card'),node=>{const box=node.getBoundingClientRect();return {name:node.className,left:box.left,right:box.right,width:box.width};})
+  }));
+  for(const box of layout.boxes){
+   assert.ok(box.left>=-1&&box.right<=layout.width+1,`${width}px: ${box.name} clipped at ${box.left}..${box.right}`);
+   if(box.name.includes('gallery-thumb'))assert.ok(box.width>=44,`${width}px: gallery thumbnail too small (${box.width})`);
+  }
+  assert.equal(await page.$$eval('[data-gallery-src]:not([hidden])',nodes=>nodes.length),5);
+  assert.equal(await page.evaluate(()=>document.querySelector('#roller-main-image').src===new URL(window.NoteAssets.image('images_website/duftroller/note-duftroller-10-closed-v3.webp'),location.href).href),true);
+  assert.equal(await page.$eval('input[name="roller-size"]:checked',n=>n.value),'10');
+  assert.equal(await page.$eval('#roller-price',node=>node.textContent.replace(/\s/g,'')),'16,00€');
+  await selectScent(page,'armani','G1');
+  for(const [size,price,unit] of [[6,'12,50','2.083,33'],[10,'16,00','1.600,00'],[14,'19,50','1.392,86']]){
+   await page.click(`label.roller-size:has(input[value="${size}"])`);
+   assert.match(await page.$eval('#roller-price',n=>n.textContent),new RegExp(price));
+   assert.match(await page.$eval('#roller-unit-price',n=>n.textContent),new RegExp(unit));
+   assert.equal(await page.$eval('#roller-gallery-size',n=>n.textContent),`${size} ml`);
+   assert.deepEqual(await page.$$eval('[data-gallery-src]:not([hidden])',nodes=>nodes.map(n=>n.dataset.gallerySize)),Array(5).fill(String(size)));
+   await page.waitForFunction(s=>document.querySelector('#roller-main-image').src===new URL(window.NoteAssets.image(`images_website/duftroller/note-duftroller-${s}-closed-v3.webp`),location.href).href,{},size);
+   for(const [index,imageState] of ['open','exploded','editorial','hand','closed'].entries()){
+    await page.click('[data-gallery-step="1"]');
+    await page.waitForFunction((s,state)=>{const thumb=document.querySelector(`[data-gallery-size="${s}"][data-gallery-state="${state}"]`);return thumb.getAttribute('aria-current')==='true'&&document.querySelector('#roller-main-image').src===new URL(window.NoteAssets.image(thumb.dataset.gallerySrc),location.href).href;}, {},size,imageState);
+    assert.equal(await page.$eval('#gallery-counter',n=>n.textContent),`${(index+1)%5+1} / 5`);
+   }
+   await page.click('#add-btn');
+   await page.waitForFunction(()=>document.querySelector('[data-cart-drawer]').getAttribute('aria-hidden')==='false');
+   await page.waitForFunction(()=>document.querySelector('[data-cart-drawer]').getBoundingClientRect().right<=innerWidth+1);
+   await page.click('[data-cart-close]');
+   await page.waitForFunction(()=>document.querySelector('[data-cart-drawer]').getAttribute('aria-hidden')==='true');
+  }
+  const cart=await page.evaluate(()=>window.NoteCart.read());
+  assert.deepEqual(cart.map(({id,price,quantity})=>({id,price,quantity})),[6,10,14].map((size,i)=>({id:`DUFTROLLER-${size}-G1`,price:[12.5,16,19.5][i],quantity:1})));
+  await page.reload({waitUntil:'load'});await ready(page);
+  assert.equal(await page.$eval('input[name="roller-size"]:checked',n=>n.value),'10');
+  assert.equal(await page.$eval('#selected-scent-title',n=>n.textContent),'NØTE. G1');
+  await selectScent(page,'chanel','L1');
+  assert.equal(await page.$eval('#selected-scent-description',n=>n.textContent),'Rosé <Duft>');
+  assert.equal(await page.$eval('#selected-scent-description',n=>n.children.length),0);
+  await page.click('#open-image-lightbox');
+  await page.waitForFunction(()=>!document.querySelector('#image-lightbox').hidden);
+  await page.keyboard.press('ArrowRight');
+  await page.waitForFunction(()=>document.querySelector('#lightbox-counter').textContent==='2 / 5');
+  await page.keyboard.press('Escape');
+  assert.equal(await page.$eval('main',n=>n.inert),false);
+  assert.equal(await page.evaluate(()=>document.body.style.position),'');
+  await page.click('[data-select-roller="10"]');
+  assert.equal(await page.$eval('input[name="roller-size"]:checked',n=>n.value),'10');
+  assert.equal(await page.$eval('#roller-gallery-size',n=>n.textContent),'10 ml');
+  assert.equal(await page.$eval('#selected-scent-title',n=>n.textContent),'NØTE. L1');
+  assert.equal(await page.evaluate(()=>document.activeElement.value),'10');
+  await page.evaluate(()=>sessionStorage.setItem('note_duftroller_selection',JSON.stringify({size:'constructor',scentId:'G1'})));
+  await page.reload({waitUntil:'load'});await ready(page);
+  assert.equal(await page.$eval('input[name="roller-size"]:checked',n=>n.value),'10');
+  assert.equal(await page.$eval('#roller-price',n=>n.textContent.replace(/\s/g,'')),'16,00€');
+  await page.click('label.roller-size:has(input[value="6"])');
+  await page.evaluate(()=>window.dispatchEvent(new PageTransitionEvent('pageshow',{persisted:true})));
+  assert.equal(await page.$eval('input[name="roller-size"]:checked',n=>n.value),'10');
+  assert.deepEqual(state.errors,[]);
+  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+  await page.close();
+ }
+});
+
+test('Duftroller retries failed catalog loading, keeps filters accessible and fits short phone viewports', {timeout:120000},async t=>{
+ const {browser,origin}=await setup(t);
+ const {page,state,go}=await pageFor(browser,origin);state.fail=true;
+ await page.evaluateOnNewDocument(()=>sessionStorage.setItem('note_duftroller_selection',JSON.stringify({size:'10',scentId:'L1'})));
+ await go();
+ await page.waitForFunction(()=>document.querySelector('#add-btn').textContent==='Erneut laden');
+ assert.equal(await page.$eval('#roller-gallery-size',n=>n.textContent),'10 ml');
+ assert.equal(await page.evaluate(()=>JSON.parse(sessionStorage.getItem('note_duftroller_selection')).scentId),'L1');
+ await page.click('label.roller-size:has(input[value="14"])');
+ assert.equal(await page.$eval('#add-btn',n=>n.disabled),false);
+ state.products=catalog.map(product=>product.id==='DUFTROLLER'?{...product,variants:{6:{price:13},10:{price:17},14:{price:21}}}:product);
+ state.fail=false;await page.click('#add-btn');await ready(page);
+ await page.waitForFunction(()=>document.querySelector('#selected-scent-title').textContent==='NØTE. L1');
+ assert.equal(await page.$eval('input[name="roller-size"]:checked',n=>n.value),'14');
+ assert.match(await page.$eval('#add-btn',n=>n.textContent),/21,00/);
+ assert.ok(await page.$$eval('[data-roller-price="14"]',nodes=>nodes.every(n=>n.textContent.includes('21,00'))));
+ await page.click('#open-selector');
+ await page.waitForSelector('#scent-modal.is-visible');
+ assert.equal(await page.evaluate(()=>document.activeElement.id),'close-modal');
+ await page.keyboard.down('Shift');await page.keyboard.press('Tab');await page.keyboard.up('Shift');
+ assert.ok(await page.evaluate(()=>document.querySelector('#scent-modal').contains(document.activeElement)));
+ await page.focus('#scent-tab-all');await page.keyboard.press('End');
+ assert.equal(await page.$eval('#scent-tab-women',n=>n.getAttribute('aria-selected')),'true');
+ assert.equal(await page.$eval('#scent-grid',n=>n.getAttribute('aria-labelledby')),'scent-tab-women');
+ assert.equal(await page.$$eval('.scent-card',nodes=>nodes.length),1);
+ await page.type('#scent-search','no matching fragrance');
+ await page.waitForSelector('.empty-state');
+ assert.match(await page.$eval('#result-count',n=>n.textContent),/0 Düfte/);
+ assert.ok(await page.$eval('.modal-dialog',n=>n.getBoundingClientRect().height)<500);
+ await page.keyboard.press('Escape');
+ assert.equal(await page.evaluate(()=>document.activeElement.id),'open-selector');
+ for(const [width,height] of [[320,568],[390,430],[578,1244],[844,390],[1024,768],[1883,1244]]){
+  await page.setViewport({width,height,isMobile:width<600,hasTouch:width<600});
+  await page.click('#open-selector');await page.waitForSelector('#scent-modal.is-visible');
+  const bounds=await page.$eval('.modal-dialog',n=>{const r=n.getBoundingClientRect();return {top:r.top,bottom:r.bottom,left:r.left,right:r.right}});
+  assert.ok(bounds.top>=0 && bounds.bottom<=height+1 && bounds.left>=0 && bounds.right<=width+1,`${width}x${height}: ${JSON.stringify(bounds)}`);
+  await page.keyboard.press('Escape');
+  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+ }
+ assert.deepEqual(state.errors,[]);
+});
+
+test('retry inside the scent dialog preserves keyboard focus and Escape dismissal', {timeout:60000},async t=>{
+ const {browser,origin}=await setup(t);
+ const {page,state,go}=await pageFor(browser,origin);state.fail=true;await go();
+ await page.waitForFunction(()=>document.querySelector('#add-btn').textContent==='Erneut laden');
+ await page.click('#open-selector');
+ await page.waitForSelector('#scent-modal .empty-state button');
+ state.fail=false;
+ await page.click('#scent-modal .empty-state button');
+ await page.waitForSelector('#scent-modal .scent-card');
+ assert.equal(await page.evaluate(()=>document.activeElement.id),'close-modal');
+ await page.keyboard.press('Escape');
+ assert.ok(await page.$eval('#scent-modal',node=>node.hidden));
+ assert.equal(await page.$eval('main',node=>node.inert),false);
+ assert.equal(await page.evaluate(()=>document.activeElement.id),'open-selector');
+ assert.deepEqual(state.errors,[]);
+});
+
+test('Duftroller scent cards keep Autoduft square images and card proportions across viewport sizes', {timeout:120000},async t=>{
+ const {browser,origin}=await setup(t);
+ const comparisonScents=Array.from({length:24},(_,index)=>({
+  id:`${index%2?'L':'G'}${index+1}`,category:index%2?'women':'men',name:`Duft ${index+1}`,
+  publicName:index===0?'Soloduft – Schwarzer Tee im goldenen Abendlicht, begleitet von weißen Blüten, warmer Vanille und einer sanften Note von Sandelholz':index%5===0?'Weiße Blüten nach einem langen Sommerregen':`Duft am Morgen ${index+1}`,
+  description:'Frische Bergamotte, weiche Blüten und warme Holznoten für deinen Tag.',
+  inspiredBy:index%2?'Chanel':'Armani',images:['logo.webp'],variants:{30:{price:34.99},50:{price:44.99}}
+ }));
+ const products=[catalog[0],{id:'AUTODUFT',category:'autoduft',name:'Autoduft',images:['logo.webp'],variants:{default:{price:19.99}}},...comparisonScents];
+ async function measure(page,expectedCount){
+  await page.waitForFunction(count=>document.querySelectorAll('.scent-card').length===count,{},expectedCount);
+  await page.waitForFunction(()=>document.querySelector('.scent-card img').naturalWidth>0);
+  await page.evaluate(async()=>{
+   await document.fonts.ready;
+   await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+   // Measure the finished rendered cards, not their temporary reveal scale/offset.
+   const animations=document.querySelector('#scent-modal').getAnimations({subtree:true});
+   await Promise.all(animations.filter(animation=>Number.isFinite(animation.effect.getComputedTiming().endTime)).map(animation=>animation.finished.catch(()=>{})));
+  });
+  return page.$$eval('.scent-card',cards=>cards.map(card=>{
+   const image=card.querySelector('img'),name=card.querySelector('.scent-name');
+   const imageBounds=image.getBoundingClientRect(),bounds=card.getBoundingClientRect();
+   return {id:card.dataset.scentId,width:bounds.width,height:bounds.height,imageWidth:imageBounds.width,imageHeight:imageBounds.height,name:name.textContent,nameHeight:name.getBoundingClientRect().height,nameLineHeight:parseFloat(getComputedStyle(name).lineHeight)};
+  }));
+ }
+ for(const width of [320,390,578,900,1442]){
+  const measurements={};
+  for(const route of ['autoduft','duftroller']){
+   const {page,state}=await pageFor(browser,origin,width);state.products=products;
+   try{
+    await page.goto(`${origin}/${route}.html`,{waitUntil:'load'});
+    await page.click('#open-selector');await page.waitForSelector('#scent-modal.is-visible');
+    const full=await measure(page,comparisonScents.length);
+    await page.type('#scent-search','Soloduft');
+    const single=await measure(page,1);
+    measurements[route]={full,single};
+    for(const [mode,cards]of Object.entries(measurements[route])){
+     for(const card of cards)assert.ok(Math.abs(card.imageWidth-card.imageHeight)<=1,`${route} ${width}px ${mode} ${card.id}: image is ${card.imageWidth} × ${card.imageHeight}, expected square`);
+    }
+    assert.ok(single[0].nameHeight>single[0].nameLineHeight*2,`${route} ${width}px: long-name fixture must exercise multiline card layout`);
+    assert.deepEqual(state.errors,[]);
+   }finally{await page.browserContext().close();}
+  }
+  for(const mode of ['full','single']){
+   const baseline=measurements.autoduft[mode],actual=measurements.duftroller[mode];
+   assert.deepEqual(actual.map(card=>card.id),baseline.map(card=>card.id));
+   for(const [index,card]of actual.entries()){
+    const reference=baseline[index];
+    for(const dimension of ['width','height','imageWidth','imageHeight'])assert.ok(Math.abs(card[dimension]-reference[dimension])<=1,`${width}px ${mode} ${card.id}: Duftroller ${dimension} ${card[dimension]} differs from Autoduft ${reference[dimension]}`);
+   }
+  }
+ }
+});

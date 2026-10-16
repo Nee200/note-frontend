@@ -2,7 +2,10 @@ document.querySelectorAll(".faq-question").forEach((button) => {
     button.addEventListener("click", () => {
         const item = button.closest(".faq-item");
         if (!item) return;
-        item.classList.toggle("active");
+        const expanded = item.classList.toggle("active");
+        button.setAttribute("aria-expanded", String(expanded));
+        const answerId = button.getAttribute("aria-controls");
+        if (answerId) document.getElementById(answerId)?.toggleAttribute("hidden", !expanded);
     });
 });
 
@@ -38,9 +41,9 @@ const searchSuggestions = document.querySelector("[data-search-suggestions]");
 function mountSummerBundleNotice() {
     if (document.querySelector('[data-summer-global-bar]')) return;
     const bar = document.createElement('a');
-    bar.className = 'summer-global-countdown-bar'; bar.href = 'sommerbundle.html';
+    bar.className = 'summer-global-countdown-bar'; bar.href = 'herbstbundle.html';
     bar.setAttribute('data-summer-global-bar', '');
-    bar.innerHTML = '<span class="summer-global-copy"><small>Deine persönliche Auswahl</small><strong>Drei Düfte im Sommerbundle</strong></span><span class="summer-global-cta">Bundle entdecken →</span>';
+    bar.innerHTML = '<span class="summer-global-copy"><small>Deine persönliche Auswahl</small><strong>Drei Düfte im Herbstbundle</strong></span><span class="summer-global-cta">Bundle entdecken →</span>';
     document.body.prepend(bar); document.body.classList.add('has-summer-global-bar');
 }
 mountSummerBundleNotice();
@@ -63,12 +66,90 @@ function ensurePrimaryNavigationOrder() {
         } else {
             navigation.prepend(newArrivalsLink);
         }
+
+        if (!navigation.querySelector(".nav-fragrances")) {
+            const category = document.createElement("details");
+            category.className = "nav-fragrances";
+            const trigger = document.createElement("summary");
+            trigger.textContent = "Düfte";
+            trigger.insertAdjacentHTML("beforeend", '<svg class="nav-fragrances-chevron" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>');
+            const submenu = document.createElement("div");
+            submenu.className = "nav-fragrances-panel";
+            category.append(trigger, submenu);
+            const bestsellerLink = links.find((link) => /^Bestseller$/i.test(link.textContent.trim()));
+            (bestsellerLink || newArrivalsLink).after(category);
+            [
+                ["frauenduefte", "Frauendüfte"],
+                ["herrenduefte", "Herrendüfte"],
+                ["autoduft", "Autoduft"],
+                ["duftroller", "Duftroller"]
+            ].forEach(([slug, label]) => {
+                const link = links.find((item) => new RegExp(`(?:^|/)${slug}(?:\\.html)?(?:[?#]|$)`, "i").test(item.getAttribute("href") || "")) || document.createElement("a");
+                link.href = `${slug}.html`;
+                link.textContent = label;
+                if (new RegExp(`/${slug}(?:\\.html)?/?$`, "i").test(window.location.pathname)) {
+                    link.setAttribute("aria-current", "page");
+                }
+                submenu.append(link);
+            });
+            let revealAnimation;
+            category.addEventListener("toggle", () => {
+                revealAnimation?.cancel();
+                if (!category.open || window.matchMedia("(prefers-reduced-motion: reduce)").matches || !window.matchMedia("(max-width: 1280px)").matches) return;
+                revealAnimation = category.animate([
+                    { height: `${trigger.getBoundingClientRect().height}px`, overflow: "hidden" },
+                    { height: `${category.getBoundingClientRect().height}px`, overflow: "hidden" }
+                ], { duration: 240, easing: "cubic-bezier(0.2, 0.7, 0.2, 1)" });
+            });
+            category.addEventListener("keydown", (event) => {
+                if (event.key === "Escape" && category.open) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    category.open = false;
+                    trigger.focus();
+                }
+            });
+            category.addEventListener("focusout", (event) => {
+                if (!category.contains(event.relatedTarget)) category.open = false;
+            });
+            document.addEventListener("click", (event) => {
+                if (!category.contains(event.target)) category.open = false;
+            });
+        }
+    });
+
+    document.querySelectorAll(".footer-col").forEach((column) => {
+        if (!/^SHOP$/i.test(String(column.querySelector("h4")?.textContent || "").trim())) return;
+        const existingLinks = Array.from(column.querySelectorAll("a"));
+        const shopLinks = [
+            ["neuheiten.html", "NEUHEITEN"],
+            ["index.html#bestseller", "BESTSELLER"],
+            ["frauenduefte.html", "FRAUENDÜFTE"],
+            ["herrenduefte.html", "HERRENDÜFTE"],
+            ["autoduft.html", "AUTODUFT"],
+            ["duftroller.html", "DUFTROLLER"]
+        ].map(([href, label]) => {
+            const link = existingLinks.find(item => item.textContent.trim().toUpperCase() === label) || document.createElement("a");
+            link.href = href;
+            link.textContent = label;
+            return link;
+        });
+        existingLinks.forEach(link => link.remove());
+        column.append(...shopLinks);
     });
 }
 
 ensurePrimaryNavigationOrder();
 
 let drawerDeliveryMethod = "shipping";
+let cartRenderVersion = 0;
+let cartReturnFocus = null;
+const cartBackgroundInertState = new Map();
+if (cartDrawer) {
+    cartDrawer.inert = true;
+    cartDrawer.setAttribute("role", "dialog");
+    cartDrawer.setAttribute("tabindex", "-1");
+}
 let storefrontProducts = [];
 let storefrontProductsPromise = null;
 const BESTSELLER_CART_IMAGE_BY_ID = Object.freeze({
@@ -149,6 +230,30 @@ function writeCart(items) {
 
 function formatPrice(value) {
     return new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(Number(value) || 0);
+}
+
+function storefrontProductHref(productId) {
+    const id = String(productId || "");
+    if (id === "AUTODUFT") return "autoduft.html";
+    if (id === "DUFTROLLER") return "duftroller.html";
+    return `product.html?id=${encodeURIComponent(id)}`;
+}
+
+function storefrontCartProductId(item) {
+    if (item.productId) return String(item.productId);
+    const id = String(item.id || "");
+    if (/^DUFTROLLER-(6|10|14)-[GL]\d+$/.test(id)) return "DUFTROLLER";
+    if (/^AUTODUFT-[GL]\d+$/.test(id)) return "AUTODUFT";
+    return id.replace(/-\d+$/, "");
+}
+
+function storefrontRollerImage(size) {
+    const images = {
+        6: "images_website/duftroller/note-duftroller-6-closed-v3.webp",
+        10: "images_website/duftroller/note-duftroller-10-closed-v3.webp",
+        14: "images_website/duftroller/note-duftroller-14-closed-v3.webp"
+    };
+    return images[String(size || "").replace(/[^0-9]/g, "")];
 }
 
 async function loadStorefrontProducts() {
@@ -233,7 +338,7 @@ async function renderCartUpsell(items) {
         const variant = suggestion.variants?.[30] || suggestion.variants?.[50] || Object.values(suggestion.variants || {})[0];
         cartUpsell.innerHTML = `
             <span>Dazu passt</span>
-            <a href="product.html?id=${encodeURIComponent(String(suggestion.id || ""))}">
+            <a href="${storefrontProductHref(suggestion.id)}">
                 <img src="${image}" alt="${escapeHtml(suggestion.name || "Duft entdecken")}">
                 <strong>${escapeHtml(suggestion.name || "Duft entdecken")}</strong>
                 <small>${variant ? `ab ${formatPrice(variant.price)}` : "Ansehen"}</small>
@@ -243,19 +348,24 @@ async function renderCartUpsell(items) {
     }
 }
 
-async function syncCartProductImages(items) {
+async function syncCartProductImages(items, renderVersion) {
     if (!cartItemsRoot || !items.length) return;
 
     try {
         const products = await loadStorefrontProducts();
+        // A late catalogue response must not restore an older quantity or a
+        // removed item while another cart render is already in progress.
+        if (renderVersion !== cartRenderVersion) return;
         const productsById = new Map(products.map((product) => [String(product?.id || ""), product]));
         let cartChanged = false;
 
         items.forEach((item) => {
             if (Array.isArray(item.bundleSelections)) return;
-            const productId = String(item.productId || String(item.id || "").replace(/-\d+$/, ""));
+            const productId = storefrontCartProductId(item);
             const product = productsById.get(productId);
-            const primaryImage = product?.images?.[0];
+            const primaryImage = productId === "DUFTROLLER"
+                ? storefrontRollerImage(item.size) || item.image
+                : product?.images?.[0];
             const firstImage = /^images_website\/new-arrivals\/[gl]\d+-notes-v3-natural-v\d+\.webp$/i.test(primaryImage || '')
                 ? primaryImage : BESTSELLER_CART_IMAGE_BY_ID[productId] || primaryImage;
             if (firstImage && item.image !== firstImage) {
@@ -285,14 +395,18 @@ async function syncCartProductImages(items) {
             if (item?.image && image) image.src = item.image;
         });
 
-        if (cartChanged) window.NoteStore.local.setItem("cart", JSON.stringify(items));
+        if (cartChanged) {
+            window.NoteStore.local.setItem("cart", JSON.stringify(items));
+            renderCart(false);
+        }
     } catch (error) {
         // Das gespeicherte Warenkorbbild bleibt als Offline-Fallback erhalten.
     }
 }
 
-function renderCart() {
+function renderCart(syncCatalog = true) {
     if (!cartItemsRoot) return;
+    const renderVersion = ++cartRenderVersion;
     const items = readCart();
     const itemCount = items.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
     const totals = getDrawerTotals(items);
@@ -350,21 +464,22 @@ function renderCart() {
 
     cartItemsRoot.innerHTML = items.map((item) => {
         const cartId = escapeHtml(item.cartId || "");
-        const productId = escapeHtml(item.productId || String(item.id || "").replace(/-\d+$/, ""));
+        const productId = storefrontCartProductId(item);
         const isBundle = Array.isArray(item.bundleSelections) && item.bundleSelections.length === 3;
         const isAutoduft = item.productType === "autoduft" || productId === "AUTODUFT";
-        const productHref = isAutoduft
-            ? "autoduft.html"
-            : isBundle
-            ? "sommerbundle.html"
-            : `product.html?id=${encodeURIComponent(productId)}`;
+        const isRoller = item.productType === "duftroller" || productId === "DUFTROLLER";
+        const productHref = isBundle
+            ? "herbstbundle.html"
+            : storefrontProductHref(productId);
         const name = escapeHtml(String(item.name || "NØTE. fragrance").replace(/\s*\(\d+ml\)\s*$/i, ""));
         const image = safeImageSource(item.image);
         const quantity = Math.max(1, Number(item.quantity) || 1);
         const linePrice = Number(item.price || 0) * quantity;
         const originalLinePrice = Number(item.originalPrice || 0) * quantity;
         const hasSaving = originalLinePrice > linePrice;
-        const itemDetail = isAutoduft
+        const itemDetail = isRoller
+            ? `${escapeHtml(item.size || "")} ml · ${escapeHtml(item.scentId || "")} · ${escapeHtml(item.scentName || "Gewählte Duftfüllung")}`
+            : isAutoduft
             ? `${escapeHtml(item.scentId || "")} Duftnote · ${escapeHtml(item.scentName || "Gewählte Duftfüllung")}`
             : isBundle
             ? `3 × ${escapeHtml(item.size || "50")} ml · ${formatPrice(item.price)} pro Bundle`
@@ -391,7 +506,7 @@ function renderCart() {
                 </div>
             </article>`;
     }).join("");
-    syncCartProductImages(items);
+    if (syncCatalog) syncCartProductImages(items, renderVersion);
     renderCartUpsell(items);
 }
 
@@ -565,6 +680,7 @@ async function submitWaveNewsletter(event) {
 function setMobileMenu(open) {
     if (!mainNav || !mobileMenuButton) return;
     mainNav.classList.toggle("is-open", open);
+    if (!open) mainNav.querySelectorAll(".nav-fragrances").forEach((category) => { category.open = false; });
     mobileMenuButton.setAttribute("aria-expanded", String(open));
     mobileMenuButton.setAttribute("aria-label", open ? "Menü schließen" : "Menü öffnen");
 }
@@ -636,7 +752,7 @@ async function renderSearchSuggestions() {
             const variant = product.variants?.[30] || product.variants?.[50] || Object.values(product.variants || {})[0];
             const publicName = String(product.publicName || product.name || "NØTE. Duft").trim();
             return `
-                <a class="search-suggestion" href="product.html?id=${encodeURIComponent(String(product.id || ""))}">
+                <a class="search-suggestion" href="${storefrontProductHref(product.id)}">
                     <img src="${safeImageSource(product.images?.[0])}" alt="${escapeHtml(publicName)}">
                     <span><strong>${escapeHtml(publicName)}</strong><small>${variant ? `ab ${formatPrice(variant.price)}` : "Details ansehen"}</small></span>
                 </a>`;
@@ -663,21 +779,53 @@ function positionSearchPanel() {
 
 function openCartDrawer() {
     if (!cartDrawer || !drawerBackdrop) return;
+    const wasOpen = cartDrawer.classList.contains("is-open");
+    if (!wasOpen) cartReturnFocus = document.activeElement;
     closeMobileMenu();
+    closeSearchPanel();
+    cartDrawer.inert = false;
     cartDrawer.classList.add("is-open");
     drawerBackdrop.classList.add("is-open");
     cartDrawer.setAttribute("aria-hidden", "false");
+    cartDrawer.setAttribute("aria-modal", "true");
     document.documentElement.classList.add("cart-drawer-open");
     renderCart();
+    if (!wasOpen) {
+        (cartDrawer.querySelector("[data-cart-close]") || cartDrawer).focus({ preventScroll: true });
+        Array.from(document.body.children).forEach((element) => {
+            if (element === cartDrawer || element === drawerBackdrop || element.contains(cartDrawer) || element.contains(drawerBackdrop) || ["SCRIPT", "STYLE"].includes(element.tagName)) return;
+            cartBackgroundInertState.set(element, element.inert);
+            element.inert = true;
+        });
+    }
 }
 
 function closeCartDrawer() {
-    if (!cartDrawer || !drawerBackdrop) return;
+    if (!cartDrawer || !drawerBackdrop || !cartDrawer.classList.contains("is-open")) return;
     cartDrawer.classList.remove("is-open");
     drawerBackdrop.classList.remove("is-open");
-    cartDrawer.setAttribute("aria-hidden", "true");
+    cartDrawer.removeAttribute("aria-modal");
     document.documentElement.classList.remove("cart-drawer-open");
+    cartBackgroundInertState.forEach((inert, element) => { element.inert = inert; });
+    cartBackgroundInertState.clear();
+    if (cartReturnFocus?.isConnected && !cartReturnFocus.closest("[inert]")) cartReturnFocus.focus({ preventScroll: true });
+    cartReturnFocus = null;
+    cartDrawer.inert = true;
+    cartDrawer.setAttribute("aria-hidden", "true");
 }
+
+cartDrawer?.addEventListener("keydown", (event) => {
+    if (event.key !== "Tab" || !cartDrawer.classList.contains("is-open")) return;
+    const focusable = Array.from(cartDrawer.querySelectorAll('a[href], button, input, select, textarea, [tabindex]'))
+        .filter(element => !element.disabled && element.tabIndex >= 0 && element.getClientRects().length > 0 && getComputedStyle(element).visibility !== "hidden");
+    const first = focusable[0], last = focusable.at(-1);
+    if (!first) { event.preventDefault(); cartDrawer.focus(); return; }
+    if (event.shiftKey && (document.activeElement === first || document.activeElement === cartDrawer)) {
+        event.preventDefault(); last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault(); first.focus();
+    }
+});
 
 searchOpenButton?.addEventListener("click", () => {
     if (searchPanel?.classList.contains("is-open")) {
@@ -738,7 +886,7 @@ document.addEventListener("pointerdown", (event) => {
 
 window.addEventListener("resize", () => {
     if (searchPanel?.classList.contains("is-open")) positionSearchPanel();
-    if (window.innerWidth > 980) closeMobileMenu();
+    if (window.innerWidth > 1280) closeMobileMenu();
 });
 
 window.addEventListener("scroll", () => {
