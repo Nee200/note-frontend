@@ -69,8 +69,18 @@ test('Duftroller cart variants survive shared pages, correct their prices/images
                 assert.match(await page.$eval('#product-grid .shop-product-card[href="duftroller.html"]', element => element.textContent), /12,50/);
             }
             assert.ok(await page.$eval('[data-cart-drawer]', element => element.inert && getComputedStyle(element).visibility === 'hidden'), file + ' closed cart must be inert and visually hidden');
-            await page.click('[data-cart-open]');
-            await page.waitForFunction(() => document.querySelector('[data-cart-drawer]').getBoundingClientRect().right <= innerWidth + 1);
+            // Wait for the header button to stop moving before the real pointer click.
+            await page.locator('[data-cart-open]').click();
+            try {
+                await page.waitForFunction(() => document.querySelector('[data-cart-drawer]').getBoundingClientRect().right <= innerWidth + 1);
+            } catch (error) {
+                const state = await page.$eval('[data-cart-drawer]', element => ({
+                    open: element.classList.contains('is-open'), inert: element.inert,
+                    right: element.getBoundingClientRect().right, viewport: innerWidth,
+                    focus: document.activeElement?.outerHTML.slice(0, 300)
+                }));
+                throw new Error(`${file}: cart did not open: ${JSON.stringify({ state, errors })}`, { cause: error });
+            }
             assert.ok(await page.$eval('[data-cart-drawer]', element => !element.inert && element.getAttribute('role') === 'dialog' && element.getAttribute('aria-modal') === 'true'));
             assert.ok(await page.evaluate(() => document.activeElement.matches('[data-cart-close]') && document.querySelector('.site-header').inert), file + ' open cart must focus its close button and disable the background');
             await page.keyboard.down('Shift'); await page.keyboard.press('Tab'); await page.keyboard.up('Shift');
