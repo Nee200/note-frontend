@@ -8,6 +8,7 @@
     <title>NØTE - Admin Dashboard</title>
     <link rel="stylesheet" href="admin-access.css">
     <link rel="stylesheet" href="admin-withdrawals.css">
+    <link rel="stylesheet" href="admin-security.css">
     <link rel="stylesheet" data-consent-href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" data-consent-category="optional">
     <link rel="stylesheet" data-consent-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" data-consent-category="optional">
     <!-- Inline styles for admin to keep it independent and clean -->
@@ -1188,18 +1189,19 @@
                         <div>
                             <div style="font-size:0.82rem;color:#777;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.25rem;">Check-Rhythmus</div>
                             <div style="font-size:0.92rem;color:#2d3436;line-height:1.55;">
-                                Backend-Smoke alle 5 Minuten per GitHub Health Monitor. Interne Runtime-Checks alle 5 Minuten im Backend. Dependency/CVE-Scan alle 24 Stunden oder manuell.
+                                Erreichbarkeit alle 5 Minuten. Betriebsdaten alle 30 Sekunden. Paket-, Versions- und CVE-Abgleich im Backend alle 24 Stunden und nach Backend-Deployments, zusätzlich manuell möglich.
                             </div>
                             <div style="font-size:0.8rem;color:#777;margin-top:0.35rem;">
-                                Empfehlung: Uptime/Health alle 5 Minuten, Security Runtime alle 5-10 Minuten, Dependency Scan taeglich und nach jedem Dependency-Update.
+                                GitHub-Meldungen und Anbieter-Konfiguration werden separat über den Wartungszugang abgeglichen. Jede Quelle zeigt ihren eigenen Stand; nach 36 Stunden gilt ein Ergebnis als veraltet. Anbieter-interne Serverpatches bleiben in deren Verantwortung.
                             </div>
                         </div>
                         <button class="btn" id="run-all-checks-btn" style="width:auto;padding:0.65rem 1rem;font-size:0.9rem;background:#0f8f75;" onclick="runAllMonitoringChecks()">
-                            <i class="fas fa-play"></i> Alle Checks jetzt ausführen
+                            <i class="fas fa-play"></i> Serverprüfung starten
                         </button>
                     </div>
                     <div id="manual-check-status" style="font-size:0.82rem;color:#666;margin-top:0.75rem;"></div>
                 </div>
+                <div class="card" id="security-overview" aria-live="polite">Sicherheitsdaten werden geladen...</div>
                 <div class="card" id="security-health-card" style="margin-bottom:1.2rem;">
                     <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;">
                         <div>
@@ -1207,8 +1209,8 @@
                             <div id="security-health-score" style="font-size:2rem;font-weight:700;line-height:1.1;">Unbekannt</div>
                             <div id="security-health-meta" style="font-size:0.85rem;color:#666;">Noch keine Daten</div>
                         </div>
-                        <button class="btn" style="width:auto;padding:0.55rem 1rem;font-size:0.9rem;background:#2d3436;" onclick="loadSecurityStatus(true)">
-                            <i class="fas fa-shield-alt"></i> Status + CVEs aktualisieren
+                        <button class="btn" style="width:auto;padding:0.55rem 1rem;font-size:0.9rem;background:#2d3436;" onclick="loadSecurityStatus()">
+                            <i class="fas fa-shield-alt"></i> Ergebnisse neu laden
                         </button>
                     </div>
                     <div id="security-health-list" style="margin-top:0.9rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.55rem;">
@@ -1576,7 +1578,8 @@
 
     <script src="admin-access.js"></script>
     <script src="admin-withdrawals.js"></script>
-    <script src="admin.js?v=20260826-invoices-v2"></script>
+    <script src="admin-security.js"></script>
+    <script src="admin.js?v=20261021-security"></script>
 
     <script src="cookie-consent.js"></script>
 <script src="admin-actions.js"></script>

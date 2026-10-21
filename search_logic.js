@@ -50,9 +50,9 @@ function performSearch() {
     const safeImageSrc = (value) => {
         const raw = String(value || '').trim();
         if (!raw) return 'logo.webp';
-        const lowered = raw.toLowerCase();
-        if (lowered.startsWith('javascript:') || lowered.startsWith('data:')) return 'logo.webp';
-        return escapeHtml(raw);
+        try {
+            return ['https:', 'http:'].includes(new URL(raw, window.location.href).protocol) ? escapeHtml(raw) : 'logo.webp';
+        } catch { return 'logo.webp'; }
     };
 
     resultsContainer.innerHTML = filteredProducts.map(product => {

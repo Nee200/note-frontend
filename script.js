@@ -222,11 +222,9 @@ function sanitizeClassFragment(value) {
 function safeImageSrc(value) {
     const raw = String(value || '').trim();
     if (!raw) return 'logo.webp';
-    const lowered = raw.toLowerCase();
-    if (lowered.startsWith('javascript:') || lowered.startsWith('data:')) {
-        return 'logo.webp';
-    }
-    return escapeHtml(raw);
+    try {
+        return ['https:', 'http:'].includes(new URL(raw, window.location.href).protocol) ? escapeHtml(raw) : 'logo.webp';
+    } catch { return 'logo.webp'; }
 }
 
 function normalizeSearchText(value) {
@@ -2564,22 +2562,29 @@ function initIntroText() {
             // If we are not already in "expanded" state, truncate
             if (!introTextElement.classList.contains('expanded')) {
                 // Ensure we don't re-truncate if already truncated (check for link)
-                if (!introTextElement.innerHTML.includes('expandIntroText')) {
+                if (!introTextElement.querySelector('.read-more-link')) {
                     const visibleText = originalIntroText.substring(0, splitIndex);
-                    introTextElement.innerHTML = `${visibleText} <span class="read-more-link" onclick="window.expandIntroText(event)" style="color: #d4af37; cursor: pointer; text-decoration: underline; font-weight: 500;">Mehr lesen...</span>`;
+                    introTextElement.textContent = visibleText + ' ';
+                    const more = document.createElement('button');
+                    more.type = 'button';
+                    more.className = 'read-more-link';
+                    more.textContent = 'Mehr lesen...';
+                    more.style.cssText = 'color:#d4af37;cursor:pointer;text-decoration:underline;font-weight:500;border:0;background:none;font:inherit;padding:0';
+                    more.addEventListener('click', expandIntroText);
+                    introTextElement.append(more);
                 }
             }
         }
     } else {
         // Desktop: Restore full text
         // We check if it differs to avoid unnecessary DOM updates
-        if (introTextElement.innerHTML !== originalIntroText && !introTextElement.querySelector('.read-more-link')) {
+        if (introTextElement.textContent !== originalIntroText && !introTextElement.querySelector('.read-more-link')) {
             // If it was expanded or truncated, restore original
-            introTextElement.innerHTML = originalIntroText;
+            introTextElement.textContent = originalIntroText;
             introTextElement.classList.remove('expanded');
         } else if (introTextElement.querySelector('.read-more-link')) {
             // If it was truncated (from mobile state), restore original
-            introTextElement.innerHTML = originalIntroText;
+            introTextElement.textContent = originalIntroText;
         }
     }
 }
@@ -2593,7 +2598,7 @@ function expandIntroText(event) {
     const introTextElement = document.getElementById('collection-intro-text');
     if (introTextElement) {
         // Simply set the text to original, effectively expanding it
-        introTextElement.innerHTML = originalIntroText;
+        introTextElement.textContent = originalIntroText;
         introTextElement.classList.add('expanded');
     }
 }

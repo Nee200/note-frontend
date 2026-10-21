@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 import { parse, parseFragment, serialize } from 'parse5';
@@ -129,6 +130,11 @@ export async function build() {
         await write(entry, serialize(document));
     }
     await write('asset-manifest.json', JSON.stringify(assets));
+    let commit = process.env.WORKERS_CI_COMMIT_SHA || process.env.GITHUB_SHA || '';
+    if (!commit) {
+        try { commit = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8', windowsHide: true }).trim(); } catch { /* The monitor will report an unknown revision. */ }
+    }
+    await write('security-build-info.json', JSON.stringify({ schemaVersion: 1, commit: /^[a-f0-9]{40}$/.test(commit) ? commit : null, lockSha256: crypto.createHash('sha256').update(await fs.readFile(path.join(root, 'package-lock.json'))).digest('hex'), nodeVersion: process.versions.node, builtAt: new Date().toISOString() }));
     for (const name of ['robots.txt', 'sitemap.xml', 'unique_names.json', 'favicon.ico']) await write(name, await fs.readFile(path.join(root, name)));
     await write('_headers', await fs.readFile(path.join(root, '_headers')));
     await write('build-report.json', JSON.stringify({ entries, ...stats, deferredImages }, null, 2));

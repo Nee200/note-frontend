@@ -1,0 +1,18 @@
+#security-overview { margin-bottom: 1.2rem; overflow-wrap: anywhere; }
+#security-overview h3 { margin: 0 0 .6rem; }
+.security-summary { font-weight: 600; }
+.security-muted { color: #626a73; font-size: .83rem; line-height: 1.5; }
+.security-warning { color: #805400; font-size: .88rem; line-height: 1.5; }
+.security-source-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: .8rem; align-items: start; }
+.security-source { border: 1px solid #cdd5dd; border-left: 4px solid #9a6b18; border-radius: 7px; padding: .85rem; background: #fff; min-width: 0; font-size: .88rem; }
+.security-source[data-status=checked] { border-left-color: #18745b; }
+.security-source[data-status=finding], .security-source[data-status=error] { border-left-color: #b33b35; }
+.security-source summary { cursor: pointer; min-height: 44px; }
+.security-source-title { font-weight: 600; }
+.security-badge { display: block; margin: .4rem 0 0 1rem; font-size: .77rem; color: #525a64; }
+.security-source p { margin: .65rem 0; line-height: 1.5; }
+.security-target { font-family: monospace; font-size: .75rem; color: #525a64; }
+.security-source ul { padding-left: 1.15rem; }
+.security-source li { margin-bottom: .75rem; }
+.security-source a { color: #075f93; text-decoration: underline; }
+.security-findings li { border-top: 1px solid #e2e7ec; padding-top: .6rem; }
