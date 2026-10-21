@@ -9,7 +9,7 @@ test('scheduled readiness uses one uncached read-only request without credential
         calls++;
         assert.equal(url, 'https://note-backend-5gy0.onrender.com/ready');
         assert.equal(options.method, 'GET');
-        assert.equal(options.redirect, 'error');
+        assert.equal(options.redirect, 'manual');
         assert.equal(options.cache, 'no-store');
         assert.deepEqual(Object.keys(options.headers).sort(), ['Accept', 'Cache-Control', 'User-Agent']);
         assert.equal(options.body, undefined);

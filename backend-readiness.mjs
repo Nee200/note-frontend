@@ -7,7 +7,8 @@ export async function checkBackendReadiness(fetchImpl = fetch) {
     try {
         response = await fetchImpl(READY_URL, {
             method: 'GET',
-            redirect: 'error',
+            // Workers supports manual/follow; reject redirects via the status check below.
+            redirect: 'manual',
             cache: 'no-store',
             headers: { Accept: 'application/json', 'Cache-Control': 'no-cache', 'User-Agent': 'Note-Readiness-Monitor/1.0' },
             signal: AbortSignal.timeout(90_000)
