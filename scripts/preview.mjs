@@ -6,8 +6,8 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../dist
 const mime = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.ico': 'image/x-icon', '.woff2': 'font/woff2', '.woff': 'font/woff', '.txt': 'text/plain', '.xml': 'application/xml', '.mp4': 'video/mp4', '.webm': 'video/webm' };
 export async function preview(port = 5500) {
     const config = await fs.readFile(path.join(root, '_headers'), 'utf8');
-    const headers = {};
-    for (const line of config.split(/\r?\n/)) { if (line.startsWith('/assets/')) break; const match = line.match(/^\s{2}([^:]+):\s*(.+)$/); if (match) headers[match[1]] = match[2]; }
+    const headers = Object.create(null);
+    for (const line of config.split(/\r?\n/)) { if (line.startsWith('/assets/')) break; const match = line.match(/^\s{2}([^:]+):\s*(.+)$/); if (match && !['__proto__', 'prototype', 'constructor'].includes(match[1])) headers[match[1]] = match[2]; }
     headers['Content-Security-Policy'] = headers['Content-Security-Policy'].replace('; upgrade-insecure-requests', '').replace("connect-src 'self'", "connect-src 'self' http://127.0.0.1:4242 http://localhost:4242");
     const manifest = JSON.parse(await fs.readFile(path.join(root, 'asset-manifest.json'), 'utf8'));
     const server = http.createServer(async (request, response) => {

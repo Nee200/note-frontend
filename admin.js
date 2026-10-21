@@ -28,14 +28,13 @@ function escapeHtml(value) {
 function safeImageSrc(value) {
     const raw = String(value || '').trim();
     if (!raw) return 'logo.png';
-    const lowered = raw.toLowerCase();
-    if (lowered.startsWith('javascript:') || lowered.startsWith('data:')) {
-        return 'logo.png';
-    }
-    return escapeHtml(raw);
+    try {
+        return ['https:', 'http:'].includes(new URL(raw, window.location.href).protocol) ? escapeHtml(raw) : 'logo.png';
+    } catch { return 'logo.png'; }
 }
 
 function renderSecurityStatus(payload) {
+    window.NoteSecurity.render(payload?.security);
     const score = document.getElementById('security-health-score');
     const meta = document.getElementById('security-health-meta');
     if (!score || !meta) return;
@@ -43,12 +42,12 @@ function renderSecurityStatus(payload) {
     score.style.color = payload && payload.passed === payload.total ? '#0f8f75' : '#a66a00';
     meta.textContent = payload ? payload.scope + ' Stand: ' + new Date(payload.updatedAt).toLocaleString('de-DE') : 'Betriebsdaten konnten nicht abgerufen werden.';
     document.getElementById('security-health-list').innerHTML = (payload?.checks || []).map(check => '<div class="card"><strong>' + escapeHtml(check.label) + '</strong><p>' + escapeHtml(check.detail) + '</p><b>' + (check.ok ? 'OK' : 'Prüfung nötig') + '</b></div>').join('');
-    document.getElementById('security-scanner-status').textContent = 'Dependency- und Browserprüfungen laufen in CI. Ein aktueller CI-Nachweis wird hier nicht behauptet.';
+    document.getElementById('security-scanner-status').textContent = 'Betriebszustand und Sicherheitsbefunde sind getrennte Kontrollen. Ein unauffälliger Betrieb bestätigt keine Sicherheitsfreigabe.';
     document.getElementById('security-monitor-alerts').textContent = '';
     document.getElementById('security-monitor-history').textContent = '';
 }
 
-async function loadSecurityStatus(forceDependencyScan) {
+async function loadSecurityStatus() {
     const listEl = document.getElementById('security-health-list');
     const scannerEl = document.getElementById('security-scanner-status');
     const alertsEl = document.getElementById('security-monitor-alerts');
@@ -61,17 +60,17 @@ async function loadSecurityStatus(forceDependencyScan) {
     if (historyEl) historyEl.innerHTML = '';
 
     try {
-        const force = forceDependencyScan === true;
-        const url = force ? '/api/admin/security-status?refresh=1' : '/api/admin/security-status';
-        const res = await adminFetch(url, { credentials: 'include' });
+        const res = await adminFetch('/api/admin/security-status', { credentials: 'include', cache: 'no-store' });
         if (!res.ok) {
             renderSecurityStatus(null);
-            return;
+            return false;
         }
         const data = await res.json();
         renderSecurityStatus(data);
+        return true;
     } catch (err) {
         renderSecurityStatus(null);
+        return false;
     }
 }
 
@@ -82,23 +81,28 @@ async function runAllMonitoringChecks() {
 
     if (btn) {
         btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Checks laufen...';
+        btn.textContent = 'Prüfung wird angefordert...';
     }
     if (statusEl) {
-        statusEl.textContent = 'Aktualisiere die Betriebsdaten aus der Datenbank.';
+        statusEl.textContent = 'Fordere den Serverabgleich an. Externe GitHub- und Anbieter-Prüfungen behalten ihren eigenen Stand.';
         statusEl.style.color = '#666';
     }
 
     try {
-        await loadSecurityStatus(true);
+        const response = await adminFetch('/api/admin/security-scan', { method: 'POST', credentials: 'include' });
+        if (!response.ok) {
+            if (response.status === 429) throw new Error('Prüfung läuft bereits oder wurde vor weniger als 15 Minuten angefordert.');
+            if (response.status === 409) throw new Error('Externe Prüfungen sind in dieser Testumgebung deaktiviert.');
+            throw new Error('Die Serverprüfung konnte nicht angefordert werden. Anmeldung und Verbindung prüfen.');
+        }
+        const loaded = await loadSecurityStatus();
         if (statusEl) {
-            const now = new Date().toLocaleString('de-DE');
-            statusEl.textContent = `Betriebsdaten aktualisiert: ${now}.`;
-            statusEl.style.color = '#0f8f75';
+            statusEl.textContent = loaded ? 'Serverprüfung vorgemerkt. Start innerhalb einer Minute; die Ergebnisse aktualisieren sich nach Abschluss.' : 'Serverprüfung vorgemerkt; die Statusansicht konnte noch nicht neu geladen werden.';
+            statusEl.style.color = '#805400';
         }
     } catch (error) {
         if (statusEl) {
-            statusEl.textContent = 'Manueller Check konnte nicht abgeschlossen werden. Bitte Backend-Logs pruefen.';
+            statusEl.textContent = error.message || 'Serverprüfung fehlgeschlagen.';
             statusEl.style.color = '#c0392b';
         }
     } finally {
