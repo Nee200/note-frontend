@@ -4,6 +4,7 @@
   "main": "worker.mjs",
   "compatibility_date": "2026-09-02",
   "workers_dev": true,
+  "triggers": { "crons": ["*/12 * * * *"] },
   "routes": [
     {
       "pattern": "note-fragrances.de/*",

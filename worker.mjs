@@ -1,7 +1,18 @@
 import { digitalWithdrawalEnabled } from './shop-features.mjs';
+import { checkBackendReadiness } from './backend-readiness.mjs';
 const isApi = path => path.startsWith('/api/') || ['/create-checkout-session', '/create-pickup-order'].includes(path);
 let manifest;
 export default {
+    async scheduled(controller) {
+        const started = Date.now();
+        try {
+            await checkBackendReadiness();
+            console.log(JSON.stringify({ event: 'backend-readiness', ok: true, scheduledTime: controller.scheduledTime, durationMs: Date.now() - started }));
+        } catch (error) {
+            console.error(JSON.stringify({ event: 'backend-readiness', ok: false, scheduledTime: controller.scheduledTime, durationMs: Date.now() - started, reason: error.message }));
+            throw error;
+        }
+    },
     async fetch(request, env) {
         const url = new URL(request.url);
         if (/^\/sommerbundle(?:\.html)?\/?$/.test(url.pathname)) return new Response(null, { status: 302, headers: { Location: url.origin + '/herbstbundle.html' + url.search, 'Cache-Control': 'no-store' } });
