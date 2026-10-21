@@ -7,6 +7,7 @@ dist/
 .build-cache/
 .wrangler-dry-run/
 .wrangler/
+.cloudflare-node/
 .DS_Store
 *.log
 

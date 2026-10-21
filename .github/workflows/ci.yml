@@ -18,6 +18,7 @@ jobs:
           node-version: 24.22.1
           cache: npm
       - run: npm ci
+      - run: bash scripts/cloudflare-deploy.sh verify
       - run: npm audit --audit-level=moderate
       - run: npm run build
       - run: npm test
