@@ -52,6 +52,21 @@
         });
         const params = new URLSearchParams(location.hash.slice(1));
         if (params.has('verify')) message(status, 'Melde dich mit dem zugehörigen Konto an und bestätige danach deine E-Mail-Adresse.');
+        const registrationToken = params.get('register');
+        if (registrationToken) {
+            const form = document.createElement('form'); form.className = 'account-security-panel'; form.id = 'registration-confirm-form';
+            form.innerHTML = '<h2>Konto einrichten</h2><p>Lege dein Passwort fest, um deine E-Mail-Adresse zu bestätigen und dein Konto anzulegen.</p><label for="registration-password">Passwort (mindestens 12 Zeichen)</label><input id="registration-password" type="password" minlength="12" maxlength="72" autocomplete="new-password" required><button type="submit" class="btn-auth">Konto erstellen</button><p role="status"></p>';
+            document.getElementById('loading-state')?.parentElement.prepend(form);
+            form.addEventListener('submit', async event => {
+                event.preventDefault(); const button = form.querySelector('button'); button.disabled = true;
+                try {
+                    const response = await api('/api/register/confirm', { token: registrationToken, password: form.querySelector('input').value });
+                    const result = await response.json(); if (!response.ok) throw new Error(result.error || 'Das Konto konnte nicht angelegt werden.');
+                    history.replaceState(null, '', location.pathname + location.search);
+                    if (typeof redirectAfterAuth !== 'function' || !redirectAfterAuth()) location.reload();
+                } catch (error) { message(form.querySelector('[role="status"]'), error.message); button.disabled = false; }
+            });
+        }
         const token = params.get('reset');
         if (token) {
             const form = document.createElement('form'); form.className = 'account-security-panel';
