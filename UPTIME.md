@@ -4,6 +4,8 @@ Der produktive Cloudflare-Worker ruft den öffentlichen Render-Endpunkt `/ready`
 
 Die Anfrage umgeht den Cache, folgt keinen Weiterleitungen und läuft nach 90 Sekunden aus. Nur HTTP 200 mit JSON `status: ready` gilt als Erfolg. Fehler lassen den Cron-Aufruf fehlschlagen und erscheinen als `backend-readiness` in Cloudflare. Bestellungen, Kundenkonten, Zahlungen und E-Mails werden nicht angesprochen. Der Render-Endpunkt prüft Datenbank und Produktkatalog.
 
+Die Anfrage verwendet `redirect: manual` und lehnt alle Statuscodes außer 200 ab. Cloudflare Workers unterstützt `redirect: error` nicht. `npm test` prüft den produktiven Scheduled-Handler auch in der workerd-Laufzeit mit isolierten Antworten für Erfolg, Weiterleitung, Nichterreichbarkeit und ungültiges JSON; dabei werden keine echten externen Anfragen gesendet.
+
 Cloudflare-Cron-Änderungen werden bei `wrangler deploy` übernommen; `wrangler versions upload` lädt nur eine Vorschau hoch. Nach Veröffentlichung den aktiven Trigger und mindestens einen echten Lauf in Cloudflare prüfen. Trigger können bis zu 15 Minuten zur Verteilung benötigen. Zeitplanänderungen im Repository pflegen, damit eine spätere Veröffentlichung sie beibehält.
 
 Der bestehende GitHub-Uptime-Workflow bleibt eine zusätzliche Verfügbarkeitsprüfung. GitHub-Zeitpläne können verspätet ausgeführt werden und sind kein verlässlicher Taktgeber für das Wachhalten des Servers.
