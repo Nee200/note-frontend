@@ -432,7 +432,7 @@
                     <p class="reg-modal-sub">Erstelle ein kostenloses Konto und verwalte deine Bestellungen.</p>
                     <form id="register-form">
                         <div class="error-message" id="register-error"></div>
-                        <div class="success-message" id="register-success"></div>
+                        <div class="success-message" id="register-success" role="status"></div>
                         <div class="form-group">
                             <label for="register-name">Name</label>
                             <input type="text" id="register-name">
@@ -441,12 +441,8 @@
                             <label for="register-email">E-Mail Adresse *</label>
                             <input type="email" id="register-email" required>
                         </div>
-                        <div class="form-group">
-                            <label for="register-password">Passwort *</label>
-                            <input type="password" id="register-password" required minlength="12" maxlength="72">
-                            <small style="color: #666;">Mindestens 12 Zeichen</small>
-                        </div>
-                        <button type="submit" class="btn-auth">REGISTRIEREN</button>
+                        <p>Du erhältst einen E-Mail-Link. Darüber legst du dein Passwort fest und richtest dein Konto ein.</p>
+                        <button type="submit" class="btn-auth">LINK ANFORDERN</button>
                     </form>
                 </div>
             </div>

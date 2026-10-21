@@ -18,15 +18,15 @@ function getSafeReturnUrl() {
     const returnTo = params.get('returnTo');
     if (!returnTo) return null;
 
-    if (/^https?:\/\//i.test(returnTo) || returnTo.startsWith('//')) {
+    try {
+        const target = new URL(returnTo, window.location.href);
+        if (!['http:', 'https:'].includes(target.protocol) || target.origin !== window.location.origin || target.username || target.password) return null;
+        // Keep the validated absolute URL: a pathname starting with // would
+        // otherwise be interpreted as a different host during navigation.
+        return target.href;
+    } catch {
         return null;
     }
-
-    if (!/^[a-zA-Z0-9._~!$&'()*+,;=:@/?%-]+$/.test(returnTo)) {
-        return null;
-    }
-
-    return returnTo;
 }
 
 function redirectAfterAuth() {
@@ -87,18 +87,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const name = document.getElementById('register-name').value.trim();
             const email = document.getElementById('register-email').value.trim();
-            const password = document.getElementById('register-password').value;
             const errorDiv = document.getElementById('register-error');
             const successDiv = document.getElementById('register-success');
+            const submitButton = registerForm.querySelector('button[type="submit"]');
 
             errorDiv.style.display = 'none';
             successDiv.style.display = 'none';
+            submitButton.disabled = true;
 
             try {
                 const response = await accountFetch('/api/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, email, password })
+                    body: JSON.stringify({ name, email })
                 });
                 const data = await response.json();
 
@@ -107,19 +108,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     errorDiv.style.display = 'block';
                     return;
                 }
-                setStoredAuthToken(data && data.authToken ? data.authToken : '');
-
-                successDiv.textContent = 'Konto erstellt. Bitte bestätige deine E-Mail-Adresse über den Link in deiner E-Mail.';
+                successDiv.textContent = data.message || 'Prüfe dein E-Mail-Postfach für die nächsten Schritte.';
                 successDiv.style.display = 'block';
                 registerForm.reset();
-                closeRegisterModal();
-                if (!redirectAfterAuth()) {
-                    window.location.reload();
-                }
             } catch (error) {
                 console.error('Register error:', error);
                 errorDiv.textContent = 'Ein Fehler ist aufgetreten.';
                 errorDiv.style.display = 'block';
+            } finally {
+                submitButton.disabled = false;
             }
         });
     }
