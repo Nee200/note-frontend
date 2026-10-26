@@ -53,7 +53,8 @@ test('admin security panel separates unknowns, stale findings and updates; escap
         await page.waitForSelector('#dashboard', { visible: true }); await page.click('[data-tab="monitoring"]');
         await page.waitForSelector('.security-source summary', { visible: true });
         assert.match(await page.$eval('#security-overview', el => el.textContent), /1 Meldungen · 1 verfügbare Updates · 3 Quellen/);
-        await page.click('[data-key="github"] summary');
+        // Initial status requests can replace this card while it is being clicked.
+        await page.locator('[data-key="github"] summary').click();
         assert.equal(await page.$eval('[data-key="github"]', el => el.querySelectorAll('img,script').length), 0);
         assert.equal(await page.$eval('[data-key="github"]', el => el.querySelectorAll('a').length), 1);
         assert.equal(await page.evaluate(() => window.__xss), undefined);
