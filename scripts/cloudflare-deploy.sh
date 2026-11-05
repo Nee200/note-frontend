@@ -21,6 +21,10 @@ tar -xJf "$archive" --strip-components=1 -C "$node_dir"
 export PATH="$node_dir/bin:$PATH"
 export NODE_VERSION="$version"
 [[ "$(node --version)" == "v$version" ]] || { echo 'Unexpected Node runtime.' >&2; exit 1; }
+npm_version='11.21.2'
+[[ "$(tr -d '\r\n' < .npm-version)" == "$npm_version" ]] || { echo 'Update the npm bootstrap pin alongside .npm-version.' >&2; exit 1; }
+npm install --global --prefix "$node_dir" "npm@$npm_version" --ignore-scripts --no-audit --no-fund
+[[ "$(npm --version)" == "$npm_version" ]] || { echo 'Unexpected npm version.' >&2; exit 1; }
 printf 'Verified build runtime: %s; npm %s\n' "$(node --version)" "$(npm --version)"
 if [[ "$mode" == 'verify' ]]; then exit 0; fi
 export PUPPETEER_SKIP_DOWNLOAD=true
