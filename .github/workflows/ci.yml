@@ -24,6 +24,7 @@ jobs:
           npm install --global npm@11.21.2
           npm --version
           test "$(npm --version)" = "$(tr -d '\r\n' < .npm-version)"
+          node scripts/patch-npm-glob.cjs
       - run: npm ci
       - run: bash scripts/cloudflare-deploy.sh verify
       - run: npm audit --include=dev

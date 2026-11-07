@@ -20,10 +20,10 @@
     "@fontsource/inter": "5.3.0",
     "@fontsource/playfair-display": "5.3.0",
     "@fortawesome/fontawesome-free": "7.3.1",
-    "miniflare": "5.20261101.0-beta",
+    "miniflare": "5.20261104.0-beta",
     "parse5": "8.0.1",
     "puppeteer": "25.15.0",
     "sharp": "0.35.5",
-    "wrangler": "4.156.1"
+    "wrangler": "4.158.0"
   }
 }
