@@ -12,7 +12,7 @@
     "smoke": "node scripts/smoke-frontend.js"
   },
   "devDependencies": {
-    "@babel/generator": "8.0.6",
+    "@babel/generator": "8.1.0",
     "@babel/parser": "8.0.7",
     "@babel/traverse": "8.0.7",
     "@babel/types": "8.0.6",
