@@ -6,8 +6,8 @@ set -euo pipefail
 case "${1:-}" in deploy|preview|verify) mode="$1" ;; *) echo 'Usage: cloudflare-deploy.sh deploy|preview|verify' >&2; exit 2 ;; esac
 task_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 cd -- "$task_root"
-version='24.22.1'
-checksum='6c172a9ab6718f7b801fb5a7bd486af2ee5e32758086a04b84fcce2aa77095e6'
+version='24.22.3'
+checksum='4f2b175a6d53a5c617a80dba2676238a0688cef28c6da4eba35c7d844e66fcfb'
 [[ "$(tr -d '\r\n' < .node-version)" == "$version" ]] || { echo 'Update the verified Node archive pin alongside .node-version.' >&2; exit 1; }
 [[ "$(uname -s)" == 'Linux' && "$(uname -m)" == 'x86_64' ]] || { echo 'This bootstrap is for Linux x64 build runners only.' >&2; exit 1; }
 node_dir="$task_root/.cloudflare-node"

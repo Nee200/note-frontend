@@ -8,7 +8,7 @@ const fixture=JSON.parse(await readFile(new URL('./fixtures/id-mapping-2026-10.j
 
 test('admin converter shows real counterparts, nine additions and unresolved rows on desktop/mobile', {timeout:60000}, async()=>{
  const site=await preview(0);
- const browser=await puppeteer.launch({headless:true,...(process.platform==='win32'?{executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe'}:{}),args:process.platform==='linux'?['--no-sandbox']:[]});
+ const browser=await puppeteer.launch({headless:true,args:process.platform==='linux'?['--no-sandbox']:[]});
  try {
   const page=await browser.newPage(),errors=[],writes=[];
   await page.setViewport({width:1440,height:1050});

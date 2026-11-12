@@ -16,7 +16,7 @@ test('published build proof binds the lockfile and actual build runtime', async 
 
 test('admin security panel separates unknowns, stale findings and updates; escapes source data and handles queue failures on mobile', { timeout: 60000 }, async () => {
     const site = await preview(0);
-    const browser = await puppeteer.launch({ headless: true, ...(process.platform === 'win32' ? { executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe' } : {}), args: process.platform === 'linux' ? ['--no-sandbox'] : [] });
+    const browser = await puppeteer.launch({ headless: true, args: process.platform === 'linux' ? ['--no-sandbox'] : [] });
     try {
         const page = await browser.newPage(), errors = [], writes = [];
         await page.setViewport({ width: 1440, height: 1050 });

@@ -35,9 +35,7 @@ test('public pages provide a withdrawal link; mobile two-step form, retry, recei
     const server = await preview(0); let browser;
     const requests = [], errors = [], statusWrites = [];
     const record = { _id: '0123456789abcdef01234567', reference: 'WR-SYNTHETIC', receivedAt: '2026-10-05T12:00:00.000Z', name: '<script>Synthetic</script>', email: 'synthetic@example.test', contract: 'Bestellung am 1. Oktober: G1', scope: 'partial', items: '1 × G1, 50 ml', declaration: 'Hiermit widerrufe ich den angegebenen Vertrag hinsichtlich der unten genannten Artikel.', status: 'received', mailStatus: { customer: 'manual_review', operator: 'accepted' } };
-    try {
-        const chrome = process.env.PUPPETEER_EXECUTABLE_PATH || (process.platform === 'win32' ? 'C:/Program Files/Google/Chrome/Application/chrome.exe' : undefined);
-        browser = await puppeteer.launch({ headless: true, ...(chrome ? { executablePath: chrome } : {}), args: process.platform === 'linux' ? ['--no-sandbox'] : [] });
+    try {        browser = await puppeteer.launch({ headless: true, args: process.platform === 'linux' ? ['--no-sandbox'] : [] });
         const page = await browser.newPage(); await page.setViewport({ width: 390, height: 844 });
         await page.evaluateOnNewDocument(() => { localStorage.setItem('cookie_consent', 'necessary'); });
         page.on('pageerror', error => errors.push(error.message));

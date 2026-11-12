@@ -10,7 +10,7 @@ const pictures = ['6', '10', '14'].flatMap(size => ['closed', 'open', 'exploded'
 })));
 
 async function fixture(t, delayed = false) {
-    const browser = await puppeteer.launch({ headless: true, ...(process.platform === 'win32' ? { executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe' } : {}), args: process.platform === 'linux' ? ['--no-sandbox'] : [] });
+    const browser = await puppeteer.launch({ headless: true, args: process.platform === 'linux' ? ['--no-sandbox'] : [] });
     t.after(() => browser.close());
     const page = await browser.newPage(), errors = [];
     await page.setViewport({ width: 390, height: 844, isMobile: true, hasTouch: true });

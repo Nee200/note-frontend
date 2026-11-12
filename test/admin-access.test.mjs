@@ -5,7 +5,7 @@ import { preview } from '../scripts/preview.mjs';
 
 test('admin enrollment UI keeps the dashboard locked, resumes MFA and exposes invitation controls only after login', { timeout: 60000 }, async () => {
     const site = await preview(0);
-    const browser = await puppeteer.launch({ headless: true, ...(process.platform === 'win32' ? { executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe' } : {}), args: process.platform === 'linux' ? ['--no-sandbox'] : [] });
+    const browser = await puppeteer.launch({ headless: true, args: process.platform === 'linux' ? ['--no-sandbox'] : [] });
     try {
         const page = await browser.newPage(), errors = [], writes = [];
         let step = null, loggedIn = false;

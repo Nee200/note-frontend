@@ -33,7 +33,7 @@ async function swipe(page, imageSelector, direction) {
 
 test('Autoduft uses the shared cart and supports decoded gallery navigation on touch and desktop', { timeout: 120000 }, async () => {
     const server = await preview(0);
-    const browser = await puppeteer.launch({ headless: true, ...(process.platform === 'win32' ? { executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe' } : {}), args: process.platform === 'linux' ? ['--no-sandbox'] : [] });
+    const browser = await puppeteer.launch({ headless: true, args: process.platform === 'linux' ? ['--no-sandbox'] : [] });
     try {
         for (const mobile of [true, false]) {
             const page = await browser.newPage(), errors = [], badImages = [];
@@ -157,7 +157,7 @@ test('G1–G20 and L1–L20 have WebP assets and the catalog image wins on produ
         assert.equal(bytes.toString('ascii', 8, 12), 'WEBP');
     }
     const server = await preview(0);
-    const browser = await puppeteer.launch({ headless: true, ...(process.platform === 'win32' ? { executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe' } : {}), args: process.platform === 'linux' ? ['--no-sandbox'] : [] });
+    const browser = await puppeteer.launch({ headless: true, args: process.platform === 'linux' ? ['--no-sandbox'] : [] });
     try {
         for (const id of ['G1', 'L12']) {
             const image = `images_website/new-arrivals/${id.toLowerCase()}-notes-v3-natural-v1.webp`;

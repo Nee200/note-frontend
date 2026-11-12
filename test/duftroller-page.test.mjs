@@ -10,7 +10,7 @@ const catalog = [
 ];
 async function setup(t) {
  const server=await preview(0), origin=`http://127.0.0.1:${server.address().port}`;
- const browser=await puppeteer.launch({headless:true,...(process.platform==='win32'?{executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe'}:{}),args:process.platform==='linux'?['--no-sandbox']:[]});
+ const browser=await puppeteer.launch({headless:true,args:process.platform==='linux'?['--no-sandbox']:[]});
  t.after(async()=>{await browser.close();await new Promise(resolve=>server.close(resolve));});
  return {browser,origin};
 }

@@ -23,7 +23,7 @@ async function swipe(page, selector) {
 
 test('Perfume layout preserves purchases and supports enlarged touch, keyboard, wheel and backdrop navigation', { timeout: 90000 }, async () => {
     const server = await preview(0);
-    const browser = await puppeteer.launch({ headless: true, ...(process.platform === 'win32' ? { executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe' } : {}), args: process.platform === 'linux' ? ['--no-sandbox'] : [] });
+    const browser = await puppeteer.launch({ headless: true, args: process.platform === 'linux' ? ['--no-sandbox'] : [] });
     try {
         for (const mobile of [true, false]) {
             const page = await browser.newPage(), errors = [];
@@ -111,7 +111,7 @@ test('Perfume layout preserves purchases and supports enlarged touch, keyboard, 
 
 test('Review pagination is absent on an empty or single page and navigates multiple pages', { timeout: 60000 }, async () => {
     const server = await preview(0);
-    const browser = await puppeteer.launch({ headless: true, ...(process.platform === 'win32' ? { executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe' } : {}), args: process.platform === 'linux' ? ['--no-sandbox'] : [] });
+    const browser = await puppeteer.launch({ headless: true, args: process.platform === 'linux' ? ['--no-sandbox'] : [] });
     try {
         const page = await browser.newPage();
         let mode = 'empty';

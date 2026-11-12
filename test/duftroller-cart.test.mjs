@@ -26,7 +26,6 @@ test('Duftroller cart variants survive shared pages, correct their prices/images
     const server = await preview(0);
     const origin = `http://127.0.0.1:${server.address().port}`;
     const browser = await puppeteer.launch({ headless: true,
-        ...(process.platform === 'win32' ? { executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe' } : {}),
         args: process.platform === 'linux' ? ['--no-sandbox'] : [] });
     try {
         for (const [file, width] of [['index.html', 1366], ['autoduft.html', 390], ['product.html?id=G1', 1366], ['suche.html?q=Duftroller', 390]]) {
