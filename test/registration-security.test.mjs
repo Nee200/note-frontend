@@ -6,7 +6,6 @@ import { preview } from '../scripts/preview.mjs';
 async function fixture(t, confirmStatus = 201) {
     const site = await preview(0);
     const browser = await puppeteer.launch({ headless: true,
-        ...(process.platform === 'win32' ? { executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe' } : {}),
         args: process.platform === 'linux' ? ['--no-sandbox'] : []
     });
     t.after(async () => { await browser.close(); await new Promise(resolve => site.close(resolve)); });

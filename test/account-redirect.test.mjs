@@ -114,7 +114,6 @@ async function browserFixture(t) {
     const origin = `http://127.0.0.1:${server.address().port}`;
     browser = await puppeteer.launch({
         headless: true,
-        ...(process.platform === 'win32' ? { executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe' } : {}),
         args: process.platform === 'linux' ? ['--no-sandbox'] : []
     });
     const page = await browser.newPage();

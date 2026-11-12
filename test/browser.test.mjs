@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import puppeteer from 'puppeteer';
+import browserConfiguration from '../.puppeteerrc.cjs';
 import { preview } from '../scripts/preview.mjs';
 import { entries, root } from '../scripts/build.mjs';
 const products = ['G1', 'G2', 'L1'].map((id, i) => ({ id, name: 'NØTE. ' + id, publicName: 'Synthetic Fragrance', category: i === 2 ? 'women' : 'men', inspiredBy: 'Synthetic', description: 'Ein synthetisches Testprodukt.', longDescription: 'Beschreibung für einen isolierten Browsertest.', notes: { head: 'Zitrone', heart: 'Lavendel', base: 'Holz' }, bestseller: true, newArrival: true, images: ['images_parfume/parfume_mann.png'], variants: { 30: { price: 29.99 }, 50: { price: 44.99 } }, reviewSummary: { average: 0, count: 0 } }));
@@ -10,9 +11,9 @@ const products = ['G1', 'G2', 'L1'].map((id, i) => ({ id, name: 'NØTE. ' + id, 
 test('all published pages load under CSP; malformed carts, mobile layouts and real click handlers work', { timeout: 180000 }, async () => {
     const server = await preview(0); let browser;
     const results = [], failures = [], external = [];
-    try {
-        const chrome = process.env.PUPPETEER_EXECUTABLE_PATH || (process.platform === 'win32' ? 'C:/Program Files/Google/Chrome/Application/chrome.exe' : undefined);
-        browser = await puppeteer.launch({ headless: true, ...(chrome ? { executablePath: chrome } : {}), args: process.platform === 'linux' ? ['--no-sandbox'] : [] });
+    try {        browser = await puppeteer.launch({ headless: true, args: process.platform === 'linux' ? ['--no-sandbox'] : [] });
+        const browserVersion = await browser.version();
+        assert.equal(browserVersion, 'Chrome/' + browserConfiguration.chrome.version, 'Use the configured security-patched test browser');
         for (const file of entries) {
             let adminLoggedIn = false;
             const order = { _id: '0123456789abcdef01234567', orderNumber: '#TEST-1', date: new Date().toISOString(), email: 'synthetic@example.test', name: 'Synthetic Customer', amount: 2999, currency: 'eur', paymentStatus: 'unpaid', status: 'neu', address: { line1: 'Selbstabholung', country: 'DE' }, items: [{ description: 'Testduft', quantity: 1, lineTotalCents: 2999 }] };
@@ -82,7 +83,7 @@ test('all published pages load under CSP; malformed carts, mobile layouts and re
             if (['index.html', 'product.html', 'admin.html', 'autoduft.html'].includes(file)) { await fs.mkdir(path.join(root, '.build-cache/qa'), { recursive: true }); await page.screenshot({ path: path.join(root, '.build-cache/qa', file.replace('.html', '.png')), fullPage: false }); }
             await page.close();
         }
-        await fs.writeFile(path.join(root, '.build-cache/browser-results.json'), JSON.stringify({ results, failures, external }, null, 2));
+        await fs.writeFile(path.join(root, '.build-cache/browser-results.json'), JSON.stringify({ browserVersion, executablePath: await puppeteer.executablePath(), results, failures, external }, null, 2));
         assert.deepEqual(failures, [], JSON.stringify(failures, null, 2));
         assert.deepEqual(external, [], 'No external resources before consent: ' + JSON.stringify(external));
     } finally { if (browser) await browser.close(); await new Promise(resolve => server.close(resolve)); }

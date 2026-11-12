@@ -11,7 +11,6 @@ async function fixture(t) {
     const server = await preview(0);
     const origin = `http://127.0.0.1:${server.address().port}`;
     const browser = await puppeteer.launch({ headless: true,
-        ...(process.platform === 'win32' ? { executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || 'C:/Program Files/Google/Chrome/Application/chrome.exe' } : {}),
         args: process.platform === 'linux' ? ['--no-sandbox'] : [] });
     t.after(async () => { await browser.close(); await new Promise(resolve => server.close(resolve)); });
     const page = await browser.newPage();

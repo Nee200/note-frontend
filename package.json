@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "engines": {
-    "node": ">=24.22.1 <25"
+    "node": ">=24.22.3 <25"
   },
   "scripts": {
     "build": "node scripts/build.mjs",
@@ -20,10 +20,10 @@
     "@fontsource/inter": "5.3.0",
     "@fontsource/playfair-display": "5.3.0",
     "@fortawesome/fontawesome-free": "7.3.1",
-    "miniflare": "5.20261109.0-beta",
+    "miniflare": "5.20261110.0-beta",
     "parse5": "8.1.1",
-    "puppeteer": "25.15.0",
+    "puppeteer": "25.17.0",
     "sharp": "0.35.5",
-    "wrangler": "4.159.0"
+    "wrangler": "4.160.0"
   }
 }

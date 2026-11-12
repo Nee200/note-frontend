@@ -4,7 +4,7 @@ Stand: 21. Oktober 2026. Quelle: `https://github.com/Nee200/note-frontend.git`. 
 
 ## Reproduzierbarer Build
 
-Node.js 24.22.1 oder eine neuere 24.x-Version verwenden:
+Node.js 24.22.3 oder eine neuere 24.x-Version verwenden:
 
 ```powershell
 npm ci
@@ -44,7 +44,7 @@ Nur Dateien unter `/assets/*` mit Inhaltsprüfsummen erhalten ein Jahr `immutabl
 
 Der Testlauf öffnet alle 21 Seiten unter der echten CSP. Er prüft Ressourcen-/JavaScriptfehler, externe Ressourcen vor Consent, ausgewählte mobile Layouts, beschädigte Warenkörbe, Registrierung und echte Admin-Interaktionen. Providerantworten sind dabei synthetisch. Zusätzlich werden Event-Compiler, Proxy-Vertrauensgrenze und Ausschluss interner Dateien getestet.
 
-Browser-Ergebnisse: `.build-cache/browser-results.json`, Screenshots: `.build-cache/qa`. Unter Windows Standard-Chrome oder `PUPPETEER_EXECUTABLE_PATH` verwenden. In CI wird der Puppeteer-Browser genutzt. Der GitHub-Workflow veröffentlicht nur QA-Artefakte, kein Deployment.
+Browser-Ergebnisse: `.build-cache/browser-results.json`, Screenshots: `.build-cache/qa`. Windows und CI verwenden denselben Chrome-for-Testing-Patchstand aus `.puppeteerrc.cjs` (157.0.8103.78, Sicherheitsrelease vom 11.11.2026). Puppeteer lädt diesen Browser bei der Installation; nach einer Installation mit `PUPPETEER_SKIP_DOWNLOAD=true` den Download für Tests mit `node node_modules/puppeteer/install.mjs` nachholen, ohne diese Umgebungsvariable. Der Browserlauf prüft und protokolliert die tatsächlich gestartete Version. Ein expliziter `PUPPETEER_EXECUTABLE_PATH` muss ebenfalls diesen geprüften Patchstand verwenden. Bei neuen Chrome-Sicherheitsupdates Konfiguration und Tests gemeinsam aktualisieren. Cloudflare-Builds laden weiterhin keinen Testbrowser. Der GitHub-Workflow veröffentlicht nur QA-Artefakte, kein Deployment.
 
 ## Produktivwechsel
 
@@ -56,7 +56,7 @@ Cloudflare Workers Builds verwendet folgende **Build-Einstellungen** (nicht Work
 - Deploy command: `bash scripts/cloudflare-deploy.sh deploy`.
 - Non-production branch deploy command: `bash scripts/cloudflare-deploy.sh preview`.
 
-Das Skript lädt Node **24.22.1** direkt von `nodejs.org`, prüft die fest hinterlegte SHA-256-Prüfsumme und startet erst danach `npm ci` und den versionierten Wrangler. Somit laufen Paketinstallation, Shop-Build und Deployment auf der aktuellen Sicherheitsversion. Die Hosting-Installation dieser neuen Node-Version brach am 21.10.2026 vor dem Build ab; dieser Bootstrap umgeht den fehlerhaften Installer. `verify` prüft denselben Download und die tatsächliche Laufzeit in GitHub CI ohne Veröffentlichung. Bei einem Node-Update müssen `.node-version`, Skriptversion und offizielle Linux-x64-Prüfsumme gemeinsam aktualisiert werden.
+Das Skript lädt Node **24.22.3** direkt von `nodejs.org`, prüft die fest hinterlegte SHA-256-Prüfsumme und startet erst danach `npm ci` und den versionierten Wrangler. Somit laufen Paketinstallation, Shop-Build und Deployment auf der aktuellen Sicherheitsversion. Die Hosting-Installation dieser neuen Node-Version brach am 21.10.2026 vor dem Build ab; dieser Bootstrap umgeht den fehlerhaften Installer. `verify` prüft denselben Download und die tatsächliche Laufzeit in GitHub CI ohne Veröffentlichung. Bei einem Node-Update müssen `.node-version`, Skriptversion und offizielle Linux-x64-Prüfsumme gemeinsam aktualisiert werden.
 
 Die konfigurierte Domainzuordnung für `note-fragrances.de` und `www.note-fragrances.de` vor dem tatsächlichen Wechsel im Dashboard kontrollieren. Der Secret-Wert gehört nicht in `wrangler.jsonc`, Git oder den Browser-Build.
 
